@@ -31,15 +31,14 @@ public class ProductFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		// 상품등록
-		if(command.equals("/productRegist.bo")){
+		if(command.equals("/productRegist.bo")){ // 상품 등록함
 			try {
 				action = new productRegistAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-		} else if(command.equals("/productRegistForm.bo")) {
+		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
 			try {
 				action = new productRegistFormAction();
 				forward = action.execute(request, response);

@@ -9,8 +9,12 @@ public class productRegistAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
-		return null;
+		
+		ActionForward forward = null;
+		
+		
+		
+		return forward;
 	}
 
 }
