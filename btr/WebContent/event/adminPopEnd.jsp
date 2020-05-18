@@ -1,6 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="dao.EventDAO"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,12 +11,16 @@
 </head>
 <body>
 <%
-//Timestamp t = new Timestamp(System.currentTimeMillis()/1000/60/60/24*day);
-Timestamp t = new Timestamp(System.currentTimeMillis());
+
+SimpleDateFormat sdf = new SimpleDateFormat();
+
+Date d = new Date();
+
+String date = sdf.format(d);
 
 EventDAO edao = new EventDAO();
 
-edao.setDate(t, 1);
+edao.setDate(date, 1);
 
 %>
 </body>

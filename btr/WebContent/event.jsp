@@ -46,7 +46,7 @@
     <%
     EventDAO edao = new EventDAO();
     
-    Timestamp date = edao.getDate(1);
+    String date = edao.getDate(1);
     %>
     <header id="header">
         <div class="top-bar">
