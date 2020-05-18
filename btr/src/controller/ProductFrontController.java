@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.productListAction;
 import action.productRegistAction;
 import action.productRegistFormAction;
 import vo.ActionForward;
@@ -45,8 +46,15 @@ public class ProductFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-		}	
+		} else if(command.equals("/productList.bo")) {
+			System.out.println("pl.bo");
+			try {
+				action=new productListAction();
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 					
 		// 포워딩
 		if(forward != null) {
