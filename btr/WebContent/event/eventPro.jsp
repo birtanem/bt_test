@@ -35,7 +35,7 @@ int num = 0;
 
 if(rs.next()) {
 	
-	sql = "select * from event_box where eb_rank = 0 order by rand() limit 1";
+	sql = "select * from event_box where eb_pull = 0 order by rand() limit 1";
 	pstmt = con.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	if(rs.next()) {
@@ -45,7 +45,7 @@ if(rs.next()) {
 	
 	if(num == 3 || num == 6 || num == 9) {
 		
-		sql = "update event_box set eb_rank = 1 where eb_pull = ?";
+		sql = "update event_box set eb_pull = 1 where eb_num = ?";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, num);
 		pstmt.executeUpdate();

@@ -4,7 +4,7 @@
 		$('#btn').click(function() {
 			
 				$.ajax({
-					url: 'event/lotto.jsp',
+					url: 'event/eventPro.jsp',
 					dataType: 'html',
 					type: 'get',
 					success: function(rdata) {

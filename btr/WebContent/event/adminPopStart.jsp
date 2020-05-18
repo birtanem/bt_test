@@ -13,22 +13,21 @@
 <body>
 <%
 String day = request.getParameter("day");
-day = day + " 00:00:00";
 
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-sdf.parse(day);
+// sdf.parse(day);
 // Timestamp t = new Timestamp(System.currentTimeMillis()/1000/60/60/24*day);
 // Timestamp t2 = new Timestamp(System.currentTimeMillis());
 
-Calendar cal = sdf.getCalendar();
+// Calendar cal = sdf.getCalendar();
 
 // cal.setTimeInMillis(t.getTime());
 // cal.add(Calendar.SECOND, day);
-Timestamp t = new Timestamp(cal.getTime().getTime());
+// Timestamp t = new Timestamp(cal.getTime().getTime());
 EventDAO edao = new EventDAO();
 
-edao.setDate(t, 1);
+edao.setEndDate(day, 1);
 
 %>
 </body>
