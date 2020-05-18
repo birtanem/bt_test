@@ -18,12 +18,12 @@
 // 종료버튼 눌렀을때 메서드
 Class.forName("com.mysql.jdbc.Driver");
 // 2단계 디비연결
-String dbUrl="jdbc:mysql://localhost:3306/jspdb1";
+String dbUrl="jdbc:mysql://localhost:3306/project";
 String dbUser="root";
 String dbPass="1234";
 Connection con=DriverManager.getConnection(dbUrl, dbUser, dbPass);
 // 3단계 sql 
-String sql="select * from lotto where lotto_rank > 0 and lotto_check = 0";
+String sql="select * from event_box where eb_rank > 0 and eb_pull = 0";
 PreparedStatement pstmt=con.prepareStatement(sql);
 // 4단계 rs <= 실행결과저장
 ResultSet rs=pstmt.executeQuery();
@@ -35,17 +35,17 @@ int num = 0;
 
 if(rs.next()) {
 	
-	sql = "select * from lotto where lotto_check = 0 order by rand() limit 1";
+	sql = "select * from event_box where eb_rank = 0 order by rand() limit 1";
 	pstmt = con.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	if(rs.next()) {
-		num = rs.getInt("lotto_num");
+		num = rs.getInt("eb_num");
 	}
 	
 	
 	if(num == 3 || num == 6 || num == 9) {
 		
-		sql = "update lotto set lotto_check = 1 where lotto_num = ?";
+		sql = "update event_box set eb_rank = 1 where eb_pull = ?";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, num);
 		pstmt.executeUpdate();
@@ -53,7 +53,7 @@ if(rs.next()) {
 		
 	}else{
 				
-		sql = "update lotto set lotto_check = 1 where lotto_num = ?";
+		sql = "update event_box set eb_pull = 1 where eb_num = ?";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, num);
 		pstmt.executeUpdate();
@@ -63,7 +63,7 @@ if(rs.next()) {
 	
 }else{
 	
-	sql = "update lotto set lotto_check = 0";
+	sql = "update event_box set eb_pull = 0";
 	pstmt=con.prepareStatement(sql);
 	pstmt.executeUpdate();
 	out.println("종료!");
