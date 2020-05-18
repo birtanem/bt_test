@@ -22,22 +22,22 @@ public class EventDAO {
 		return con;
 	}
 	
-	public Timestamp getDate(int idx) { 
+	public Date getDate(int idx) { 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Timestamp date = null;
+		Date date = null;
 		try {
 			
 			con = getConnection();
-			String sql = "SELECT * FROM event WHERE idx = ?";
+			String sql = "SELECT * FROM event WHERE e_num = ?";
 			pstmt  = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				
-				date = rs.getTimestamp("date");
+				date = rs.getDate("date");
 			}
 			
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class EventDAO {
 		
 		return date;
 	}
-	public void setDate(Timestamp date, int idx) { 
+	public void setDate(Date date, int idx) { 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -66,7 +66,7 @@ public class EventDAO {
 			con = getConnection();
 			String sql = "UPDATE event SET date = ? WHERE idx = ?";
 			pstmt  = con.prepareStatement(sql);
-			pstmt.setTimestamp(1, date);
+			pstmt.setDate(1, date);
 			pstmt.setInt(2, idx);
 			pstmt.executeUpdate();
 			

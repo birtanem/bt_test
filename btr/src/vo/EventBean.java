@@ -1,24 +1,35 @@
 package vo;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class EventBean {
 	
-	private int idx;
-	private Timestamp date;
+	private int num;
+	private Date s_date;
+	private Date d_date;
 	
-	public int getIdx() {
-		return idx;
+	public int getNum() {
+		return num;
 	}
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setNum(int num) {
+		this.num = num;
 	}
-	public Timestamp getDate() {
-		return date;
+	public Date getS_date() {
+		return s_date;
 	}
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setS_date(Date s_date) {
+		this.s_date = s_date;
 	}
+	public Date getD_date() {
+		return d_date;
+	}
+	public void setD_date(Date d_date) {
+		this.d_date = d_date;
+	}
+	
+	
+	
+	
 	
 	
 }
