@@ -1,8 +1,8 @@
-package event;
+package vo;
 
 import java.sql.Timestamp;
 
-public class EventDTO {
+public class EventBean {
 	
 	private int idx;
 	private Timestamp date;

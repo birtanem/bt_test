@@ -1,4 +1,4 @@
-package event;
+package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
