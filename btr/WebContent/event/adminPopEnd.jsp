@@ -1,4 +1,4 @@
-<%@page import="event.EventDAO"%>
+<%@page import="dao.EventDAO"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
