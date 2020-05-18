@@ -1,6 +1,6 @@
 package vo;
 
-public class Product {
+public class ProductBean {
 	
 	private int p_num;
 	private String p_name;
