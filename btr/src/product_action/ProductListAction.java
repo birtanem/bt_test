@@ -1,11 +1,12 @@
-package action;
+package product_action;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.ProductListService;
+import action.Action;
+import product_svc.ProductListService;
 import vo.ActionForward;
 import vo.ProductBean;
 

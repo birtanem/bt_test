@@ -1,10 +1,11 @@
-package action;
+package event_action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import svc.EventListService;
+import action.Action;
+import event_svc.EventListService;
 import vo.ActionForward;
 import vo.EventBean;
 import vo.EventWinBean;

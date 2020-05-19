@@ -1,4 +1,4 @@
-package svc;
+package product_svc;
 
 import vo.ProductBean;
 import static db.JdbcUtil.*;

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.EventListAction;
+import event_action.EventListAction;
 import vo.ActionForward;
 
 @WebServlet("*.ev") // 서블릿 주소 중 XXX.bo 주소에 대한 요청을 전달받음

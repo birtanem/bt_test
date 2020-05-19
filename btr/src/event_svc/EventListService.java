@@ -1,4 +1,4 @@
-package svc;
+package event_svc;
 
 import java.sql.Connection;
 

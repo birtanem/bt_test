@@ -1,4 +1,4 @@
-package action;
+package product_action;
 
 import java.io.PrintWriter;
 
@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import svc.ProductRegistProService;
+import action.Action;
+import product_svc.ProductRegistProService;
 import vo.ActionForward;
 import vo.ProductBean;
 

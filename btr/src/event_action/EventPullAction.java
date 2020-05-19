@@ -1,8 +1,9 @@
-package action;
+package event_action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import vo.ActionForward;
 
 public class EventPullAction implements Action {

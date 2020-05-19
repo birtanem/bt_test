@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.ProductListAction;
-import action.ProductRegistProAction;
+import product_action.ProductListAction;
+import product_action.ProductRegistProAction;
 import vo.ActionForward;
 
 /**

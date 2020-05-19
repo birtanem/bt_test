@@ -1,4 +1,4 @@
-package svc;
+package product_svc;
 
 import java.sql.Connection;
 import java.util.ArrayList;
