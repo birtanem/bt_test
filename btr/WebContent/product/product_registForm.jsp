@@ -15,7 +15,7 @@ table {
 
 <h2 style="text-align: center;">상품 등록</h2> 
 
-<form action="productRegist.bo" method="post" name="fr"
+<form action="productRegistPro.bo" method="post" name="fr"
 enctype="multipart/form-data">
 
 <table border="1">

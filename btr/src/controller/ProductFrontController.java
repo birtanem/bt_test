@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.ProductListAction;
-import action.ProductRegistAction;
-import action.ProductRegistFormAction;
+import action.ProductRegistProAction;
 import vo.ActionForward;
 
 /**
@@ -32,20 +31,20 @@ public class ProductFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/productRegist.bo")){ // 상품 등록함
+		if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
+				// 등록 페이지는 비즈니스 로직이 필요 없다 => JSP 페이지로 바로 연결 수행
+				// dispatcher 방식으로 설정(기본값 생략)
+				forward = new ActionForward();
+				forward.setPath("/product/product_registForm.jsp");
+		} else if(command.equals("/productRegistPro.bo")){ // 상품 등록함
 			try {
-				action = new ProductRegistAction();
+				System.out.println("상품 등록 프론트 컨트롤러");
+				action = new ProductRegistProAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
-			try {
-				action = new ProductRegistFormAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
 		} else if(command.equals("/productList.bo")) {
 			System.out.println("pl.bo");
 			try {
@@ -80,11 +79,11 @@ public class ProductFrontController extends HttpServlet {
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doProcess(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doProcess(request, response);
 	}
 
 	
