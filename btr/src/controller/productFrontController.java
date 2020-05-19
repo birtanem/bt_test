@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.productListAction;
-import action.productRegistAction;
-import action.productRegistFormAction;
+import action.ProductListAction;
+import action.ProductRegistAction;
+import action.ProductRegistFormAction;
 import vo.ActionForward;
 
 /**
  * Servlet implementation class ProductFrontController
  */
 @WebServlet("*.bo")
-public class ProductFrontController extends HttpServlet {
+public class productFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// POST 방식 한글 처리
@@ -34,14 +34,14 @@ public class ProductFrontController extends HttpServlet {
 		
 		if(command.equals("/productRegist.bo")){ // 상품 등록함
 			try {
-				action = new productRegistAction();
+				action = new ProductRegistAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
 		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
 			try {
-				action = new productRegistFormAction();
+				action = new ProductRegistFormAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -49,7 +49,7 @@ public class ProductFrontController extends HttpServlet {
 		} else if(command.equals("/productList.bo")) {
 			System.out.println("pl.bo");
 			try {
-				action=new productListAction();
+				action=new ProductListAction();
 				forward=action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();

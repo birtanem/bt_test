@@ -8,7 +8,7 @@ import dao.ProductDAO;
 import static db.JdbcUtil.*;
 import vo.ProductBean;
 
-public class productListService {
+public class ProductListService {
 	public static ArrayList<ProductBean> getProductList(){
 		ArrayList<ProductBean> productList=null;
 		Connection con=getConnection();

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import vo.ActionForward;
 
-public class productRegistFormAction implements Action {
+public class ProductRegistFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
