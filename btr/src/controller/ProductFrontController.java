@@ -19,7 +19,7 @@ import vo.ActionForward;
  * Servlet implementation class ProductFrontController
  */
 @WebServlet("*.bo")
-public class productFrontController extends HttpServlet {
+public class ProductFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// POST 방식 한글 처리
