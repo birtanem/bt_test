@@ -49,7 +49,7 @@ function start() {
 		return false;
 	}
 	
-	$.ajax("adminPopStart.jsp", {
+	$.ajax("adminPopStart.ev", {
 		data: {day: date},
 		success: function() {
 			

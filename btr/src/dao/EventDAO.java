@@ -42,7 +42,7 @@ public class EventDAO {
 		String date = null;
 		try {
 			
-			String sql = "SELECT e_edate FROM event WHERE e_num = ?";
+			String sql = "SELECT * FROM event WHERE e_num = ?";
 			pstmt  = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -125,5 +125,26 @@ public class EventDAO {
 			System.out.println("EventDAO - selectArticle() 실패! : "+e.getMessage());
 		}	
 		return article;
+	}
+
+	public Date selectDate() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Date date = null;
+		
+		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event);";
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				date = rs.getDate("e_edate");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - selectDate() 실패! : "+e.getMessage());
+		}
+		
+		return date;
 	}
 }
