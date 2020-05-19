@@ -26,11 +26,12 @@ public class ProductFrontController extends HttpServlet {
 		
 		// 서블릿 주소 가져오기
 		String command = request.getServletPath();
-		
+		System.out.println("서블릿 확인:"+command);
 		// 각 요청을 공통적으로 처리하기 위해 필요한 변수 선언
 		Action action = null;
 		ActionForward forward = null;
 		
+
 		if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
 				// 등록 페이지는 비즈니스 로직이 필요 없다 => JSP 페이지로 바로 연결 수행
 				// dispatcher 방식으로 설정(기본값 생략)
@@ -40,15 +41,21 @@ public class ProductFrontController extends HttpServlet {
 			try {
 				System.out.println("상품 등록 프론트 컨트롤러");
 				action = new ProductRegistProAction();
+
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			
-		} else if(command.equals("/productList.bo")) {
-			System.out.println("pl.bo");
+		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
 			try {
-				action=new ProductListAction();
+				action = new ProductRegistProAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/productList.bo")) {
+			action=new ProductListAction();
+			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -72,8 +79,8 @@ public class ProductFrontController extends HttpServlet {
 		}
 	}	
 			
-		
-		}
+		}	
+	
 		
 
 	
