@@ -63,6 +63,6 @@ int ListCount=(int)request.getAttribute("ListCount");
 </ul>
 
 </section>
-
+ <script src="js/product_modal.js"></script>
 </body>
 </html>
