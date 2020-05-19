@@ -1,9 +1,16 @@
+<%@page import="vo.EventWinBean"%>
 <%@page import="dao.EventDAO"%>
 <%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%
+//     EventDAO edao = EventDAO.getInstance();
+    
+//     String date = edao.getDate(1);
+    
+    EventWinBean eventWinBean = (EventWinBean)request.getAttribute("article");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,11 +50,7 @@
 <!--/head-->
 
 <body>
-    <%
-    EventDAO edao = new EventDAO();
-    
-    String date = edao.getDate(1);
-    %>
+
     <header id="header">
         <div class="top-bar">
             <div class="container">
@@ -133,7 +136,7 @@
 		</ul><br>
     
     	<div class="event">
-    	<input type="hidden" id="hid" value="<%=date%>">
+<%--     	<input type="hidden" id="hid" value="<%=date%>"> --%>
 			<p>나의 포인트  <em><i id="myCoupon">9999999</i>점</em></p>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return eventPop()">당첨내역</a>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return adminPop()">관리자</a>
@@ -150,6 +153,8 @@
 		<p class="p2">남은횟수: ... </p>
 		<p class="p3">develop by EDJ ver1.0</p>
 		
+
+<c:set var="eventWinBean" value="<%=eventWinBean %>"/>
 				<div class="couponArea" id="cpArea">
 				<h3>이벤트 포인트 획득 방법</h3>
 				<div class="cpStatus ">
@@ -157,32 +162,32 @@
 						<li class="attend  emth1">
 							<a onclick="GetEventCoupon(1,'F')" class="">
 								<i class="ico"></i>
-								<strong>출석 체크 응모권</strong>
-								<p>1일 <em>1</em>장</p>
-								<span>응모권 받기</span>
+								<strong>포인트 30000</strong>
+								<p>${eventWinBean.ew_30000}</p>
+								<span>교환</span>
 							</a>
 						</li>
 						<li class="review  emth5">
 							<a onclick="GetEventCoupon(5,'F')" class="">
 								<i class="ico"></i>
-								<strong>여행지 리뷰 응모권</strong>
-								<p>1일 <em>2</em>장</p>
-								<span>응모권 받기</span>
+								<strong>포인트 50000</strong>
+								<p>${eventWinBean.ew_50000}</p>
+								<span>교환</span>
 							</a>
 						</li>
 						<li class="ad  emth8">
 							 <a onclick="GetEventCoupon(8,'F')" class="">
 								<i class="ico"></i>
-								<strong>광고 확인 응모권</strong>
-								<p>1일 <em>1</em>장</p>
-								<span>응모권 받기</span>
+								<strong>포인트 100000</strong>
+								<p>${eventWinBean.ew_100000}</p>
+								<span>교환</span>
 							</a>
 						</li>
 					</ul>
 				</div>
 
 			</div>
-			
+
 					<div class="warning">
 				<h3>이벤트 응모 시 유의사항</h3>
 				<ul class="first">

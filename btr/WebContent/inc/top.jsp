@@ -60,7 +60,7 @@
                             </ul>
                         </li>
                         <li><a href="blog.html">Blog</a></li>
-                        <li><a href="contact-us.jsp">Contact</a></li>
+                        <li><a href="event.ev">이벤트</a></li>
                     </ul>
                 </div>
             </div>

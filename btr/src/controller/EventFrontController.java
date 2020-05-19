@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.EventListAction;
 import vo.ActionForward;
 
 @WebServlet("*.ev") // 서블릿 주소 중 XXX.bo 주소에 대한 요청을 전달받음
@@ -24,13 +25,17 @@ public class EventFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		// if문을 사용하여 서블릿 주소 판별 및 각 요청 처리를 위한 작업 요청
+		
 		if(command.equals("/event.ev")) {
-			// 글쓰기 페이지 요청은 비즈니스 로직이 없는 View 페이지(JSP)로 바로 연결 수행
-			// => ActionForward 객체를 생성하여 Dispatcher 방식으로 jsp 페이지로 바로 포워딩
-			// => ActionForward 객체의 포워딩 방식을 별도로 설정하지 않음(주소 변경 X)
-			forward = new ActionForward();
-//			forward.setRedirect(false); // 포워딩 방식을 Dispatcher 방식으로 설정(기본값 생략 가능)
-			forward.setPath("/main.jsp"); // 이동할 View 페이지 경로 지정
+			
+			action = new EventListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		} else if(command.equals("/BoardWriteForm.bo")) {
 			// 글쓰기 페이지 요청은 비즈니스 로직이 없는 View 페이지(JSP)로 바로 연결 수행
 			// => ActionForward 객체를 생성하여 Dispatcher 방식으로 jsp 페이지로 바로 포워딩

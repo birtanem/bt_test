@@ -27,7 +27,7 @@ String day = request.getParameter("day");
 // Timestamp t = new Timestamp(cal.getTime().getTime());
 EventDAO edao = new EventDAO();
 
-edao.setEndDate(day, 1);
+edao.setEndDate(1);
 
 %>
 </body>
