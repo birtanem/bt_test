@@ -27,29 +27,28 @@ public class ProductFrontController extends HttpServlet {
 		
 		// 서블릿 주소 가져오기
 		String command = request.getServletPath();
-		
+		System.out.println("서블릿 확인:"+command);
 		// 각 요청을 공통적으로 처리하기 위해 필요한 변수 선언
 		Action action = null;
 		ActionForward forward = null;
 		
 		if(command.equals("/productRegist.bo")){ // 상품 등록함
+			action = new ProductRegistAction();
 			try {
-				action = new ProductRegistAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
 		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
+			action = new ProductRegistFormAction();
 			try {
-				action = new ProductRegistFormAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if(command.equals("/productList.bo")) {
-			System.out.println("pl.bo");
+			action=new ProductListAction();
 			try {
-				action=new ProductListAction();
 				forward=action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -80,11 +79,11 @@ public class ProductFrontController extends HttpServlet {
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doProcess(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doProcess(request, response);
 	}
 
 	

@@ -17,9 +17,11 @@ public class ProductListAction implements Action {
 		System.out.println("productListAction");
 		ArrayList<ProductBean> productList=ProductListService.getProductList();
 		
-		for(ProductBean bean:productList) {
-			System.out.println("번호:"+bean.getP_num());
-		}
+		ProductListService productListService=new ProductListService();
+		int ListCount=productListService.getListCount();
+		request.setAttribute("productList", productList);
+		request.setAttribute("ListCount", ListCount);
+		
 		
 		forward=new ActionForward();
 		forward.setPath("/product/product_list.jsp");

@@ -21,10 +21,8 @@ public class ProductDAO {
 	public void setConnection(Connection con) {
 		this.con=con;
 	}
-	
-	
 	public ArrayList<ProductBean> getList(){
-		ArrayList<ProductBean> productBeanList=null;
+		ArrayList<ProductBean> productList=new ArrayList<ProductBean>();
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -32,9 +30,9 @@ public class ProductDAO {
 		
 		try {
 			con=getConnection();
-			String sql="select * from product order by num";
+			String sql="select * from product order by p_num";
 			pstmt=con.prepareStatement(sql);
-			
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				ProductBean productBean=new ProductBean();
 				productBean.setP_num(rs.getInt(1));
@@ -43,7 +41,7 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBeanList.add(productBean);
+				productList.add(productBean);
 			}
 		} catch (SQLException e) {
 			System.out.println("ProductDAO getList실패"+e.getMessage());
@@ -51,7 +49,27 @@ public class ProductDAO {
 			close(rs);
 			close(pstmt);
 		}
-		return productBeanList;
+		return productList;
+	}
+	public int selectListCount() {
+		int listCount=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			String sql="select count(p_num) from product";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				listCount=rs.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("ProductDAO - selectListCount 실패"+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listCount;
 	}
 	
 	
