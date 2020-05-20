@@ -24,6 +24,15 @@ enctype="multipart/form-data">
 	 	<td><input type="text" name="p_name" id="p_name"></td>
 	</tr>
 	<tr>
+		<td>카테고리</td>
+		<td><select name="p_category">
+		<option value="아쿠아리움">아쿠아리움</option>
+		<option value="전시">전시</option>
+		<option value="요트">요트</option>
+		<option value="체험">체험</option>
+		</select></td>
+	</tr>
+	<tr>
 		<td>가격</td>
 		<td><input type="text" name="p_price" id="p_price"></td>
 	</tr>
@@ -39,7 +48,7 @@ enctype="multipart/form-data">
 		<td colspan="2" align="center">
 			<input type="submit" value="상품등록">
 			<input type="reset" value="다시작성">
-			<input type="button" value="상품목록" onclick="location.hrer='productList.do'">
+			<input type="button" value="상품목록" onclick="location.href='productList.bo'">
 		</td>
 	</tr>
 

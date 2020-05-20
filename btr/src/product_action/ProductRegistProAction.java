@@ -26,7 +26,7 @@ public class ProductRegistProAction implements Action {
 		ServletContext context = request.getServletContext();
 		
 		// 가상 폴더 위치
-		String saveFolder = "/productUpload";
+		String saveFolder = "product/productUpload";
 		
 		// 실제 업로드 폴더 위치
 		String realFolder = context.getRealPath(saveFolder);
@@ -49,6 +49,7 @@ public class ProductRegistProAction implements Action {
 		productBean.setP_content(multi.getParameter("p_content"));
 		productBean.setP_image(multi.getParameter("p_image"));
 		productBean.setP_price(Integer.parseInt(multi.getParameter("p_price")));
+		productBean.setP_category(multi.getParameter("p_category"));
 		
 		// 업로드할 파일명 전달
 		productBean.setP_image(

@@ -43,7 +43,7 @@ public class ProductDAO {
 			}
 			
 			// 게시글 등록
-			sql = "INSERT INTO product VALUES(?,?,?,?,?,?)";
+			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, productBean.getP_name());
@@ -51,6 +51,7 @@ public class ProductDAO {
 			pstmt.setString(4, productBean.getP_image());
 			pstmt.setInt(5, productBean.getP_price());
 			pstmt.setInt(6, productBean.getP_amount());
+			pstmt.setString(7, productBean.getP_category());
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -86,6 +87,7 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
+				productBean.setP_category(rs.getString(7));
 				productList.add(productBean);
 			}
 		} catch (SQLException e) {
