@@ -33,7 +33,6 @@ if(article != null && listCount >0){
 	        <tr>
                 <td>번호</td>
                 <td>제목</td>
-                <td>작성자</td>
                 <td>날짜</td>
                 <td>조회수</td>
             </tr>
@@ -43,7 +42,6 @@ if(article != null && listCount >0){
 	for(int i = 0; i < article.size();i++){ %>
 	<tr>
         <td><%= article.get(i).getNum() %></td>
-        <td><%= article.get(i).getId() %></td>
         <td><%= article.get(i).getSubject() %></td>
         <td><%= article.get(i).getReadcount() %></td>
         <td><%= article.get(i).getDate() %></td>
