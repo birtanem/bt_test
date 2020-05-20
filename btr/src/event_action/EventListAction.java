@@ -19,6 +19,7 @@ public class EventListAction implements Action {
 		ActionForward forward = null;
 		
 		// EventListService 클래스 인스턴스 생성
+		EventListService eventListService = new EventListService();
 		
 		HttpSession session = request.getSession();
 		
@@ -27,17 +28,13 @@ public class EventListAction implements Action {
 		if(session != null) {
 			
 			String id = (String)session.getAttribute("id");
-			
-			EventListService eventListService = new EventListService();
-			
+					
 			EventWinBean article = eventListService.getArticle(id);
 			
 			request.setAttribute("article", article);
 			
-			System.out.println("1");
-			
 		}
-
+		
 		
 		forward = new ActionForward();
 		

@@ -6,13 +6,14 @@
 	padding: 30px;
 	padding-left: 200px;
 	margin: 0 auto;
-	width: 1000px;
+	width: 800px;
 	text-align: center;
 }
 .event p {
 	font-size: 16pt;
 	float: left;
-	margin-right: 30px;
+	margin-left: -100px;
+	margin-right: 100px;
 	text-align: center;
 }
 #myCoupon {
@@ -44,10 +45,11 @@
 	width: 400px;
 	height: 300px;
 	padding: 0;
-	margin: 0 auto;
+	margin: 380px auto;
+	margin-bottom: 80px;
 }
 #btn {
-	margin-top: 50px;
+
 	margin-bottom: 20px;
 	font-size: 20pt;
     padding: 10px;
@@ -106,7 +108,7 @@
 	
 	border: 1px solid;
 	margin: 0 auto;
-	width: 1000px;
+	width: 800px;
 	text-align: center;
 }
 .cpStatus {

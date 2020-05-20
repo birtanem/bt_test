@@ -1,6 +1,7 @@
 package event_svc;
 
 import java.sql.Connection;
+import java.util.Date;
 
 import static db.JdbcUtil.*;
 import dao.EventDAO;
@@ -12,6 +13,7 @@ public class EventListService {
 
 		System.out.println("EventListService");
 		EventWinBean article = null;
+		Date date = null;
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
 		// 공통작업-1. DB 작업에 필요한 Connection 객체 가져오기
@@ -26,9 +28,13 @@ public class EventListService {
 	
 		article = eventDAO.selectArticle(memeber_id);
 		
+		date = eventDAO.selectDate();
+		
+		article.setEw_date(date);
+		
 		// article 객체가 null 이 아닐 때 조회수 증가
-		if(article != null) {
-			
+		
+		if(article != null && date != null) {
 			commit(con);
 		}else {
 			rollback(con);

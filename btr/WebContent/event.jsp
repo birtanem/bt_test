@@ -4,13 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-//     EventDAO edao = EventDAO.getInstance();
-    
-//     String date = edao.getDate(1);
-    
-    EventWinBean eventWinBean = (EventWinBean)request.getAttribute("article");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +44,14 @@
 <!--/head-->
 
 <body>
+<%
+//     EventDAO edao = EventDAO.getInstance();
+    
+//     String date = edao.getDate(1);
 
+    
+    EventWinBean eventWinBean = (EventWinBean)request.getAttribute("article");
+%>
     <header id="header">
         <div class="top-bar">
             <div class="container">
@@ -134,27 +135,25 @@
 		<li class="li">Minute</li>
 		<li class="li">Second</li>
 		</ul><br>
-    
+<c:set var="eventWinBean" value="<%=eventWinBean %>"/>
     	<div class="event">
-<%--     	<input type="hidden" id="hid" value="<%=date%>"> --%>
+    	<input type="hidden" id="hid" value="${eventWinBean.ew_date}">
 			<p>나의 포인트  <em><i id="myCoupon">9999999</i>점</em></p>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return eventPop()">당첨내역</a>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return adminPop()">관리자</a>
 		</div>
+		
 		<p class="description">* 매일 하루 <b>한번</b> 씩 최대 <b>5번</b> 뽑기 가능하며, 1회당 <b>100포인트</b>가 차감됩니다.</p>
-				
+		<div style="border: 1px solid; width: 800px; height: 850px;margin: auto; background-image: url('images/event8.png'); background-size: contain;">
 		<h2 id="sample02"></h2>
 		
 		<p class="p1"><img src="images/box.png" id="img"></p>
 		<div id="eventBox">
 		<input type="button" value="지금 뽑기" id="btn" width="100" height="100"><br>
 		</div>
-		
-		<p class="p2">남은횟수: ... </p>
-		<p class="p3">develop by EDJ ver1.0</p>
-		
+		</div>	
 
-<c:set var="eventWinBean" value="<%=eventWinBean %>"/>
+
 				<div class="couponArea" id="cpArea">
 				<h3>이벤트 포인트 획득 방법</h3>
 				<div class="cpStatus ">

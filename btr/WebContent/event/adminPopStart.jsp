@@ -1,3 +1,4 @@
+
 <%@page import="dao.EventDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
@@ -25,7 +26,7 @@ String day = request.getParameter("day");
 // cal.setTimeInMillis(t.getTime());
 // cal.add(Calendar.SECOND, day);
 // Timestamp t = new Timestamp(cal.getTime().getTime());
-EventDAO edao = new EventDAO();
+EventDAO edao = EventDAO.getInstance();
 
 edao.setEndDate(1);
 
