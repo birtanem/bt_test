@@ -141,7 +141,7 @@ int endPage=pageInfo.getEndPage();
 					<%
 					
 					for(int i = 0; i < article.size();i++){ %>
-					<tr>
+					<tr onclick="location.href='Review_Content.re'">
 				        <td class="num"><%= article.get(i).getNum() %></td>
 				        <td class="subject" style="text-align: center;"><%= article.get(i).getSubject() %></td>
 				        <td class="readcount"><%= article.get(i).getReadcount() %></td>
@@ -165,8 +165,16 @@ int endPage=pageInfo.getEndPage();
                         </form>
                     </div>
                     <!--/.search-->
+ 
+                    <!--글 쓰기-->
+                    <div>
                     
-					 <!--카테고리-->
+                    <input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
+                    
+                    </div>
+                    <!--글 쓰기-->
+                    
+					<!--카테고리-->
                     <div class="widget archieve">
                         <h3>Kategories</h3>
                         <div class="row">
