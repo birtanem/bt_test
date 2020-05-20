@@ -3,9 +3,11 @@ package event_svc;
 import java.sql.Connection;
 import java.util.Date;
 
+import event_dao.EventDAO;
+import event_vo.EventWinBean;
+
 import static db.JdbcUtil.*;
-import dao.EventDAO;
-import vo.EventWinBean;
+
 
 public class EventPageService {
 	

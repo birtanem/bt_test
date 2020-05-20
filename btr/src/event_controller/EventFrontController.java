@@ -1,4 +1,4 @@
-package controller;
+package event_controller;
 
 import java.io.IOException;
 

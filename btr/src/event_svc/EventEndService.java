@@ -3,7 +3,9 @@ package event_svc;
 import static db.JdbcUtil.*;
 import java.sql.Connection;
 
-import dao.EventDAO;
+import event_dao.EventDAO;
+
+
 
 public class EventEndService {
 	

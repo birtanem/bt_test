@@ -11,8 +11,7 @@ import action.Action;
 import event_svc.EventPageService;
 import event_svc.EventStartService;
 import vo.ActionForward;
-import vo.EventBean;
-import vo.EventWinBean;
+
 
 public class EventStartAction implements Action {
 
@@ -23,15 +22,15 @@ public class EventStartAction implements Action {
 		ActionForward forward = null;
 		
 		String date = request.getParameter("date");
-		
-		
-		
+	
 		// EventListService 클래스 인스턴스 생성
 		EventStartService eventStartService = new EventStartService();
 		
 		HttpSession session = request.getSession();
 		
 		session.setAttribute("id", "imumdae");
+		
+	
 		
 		if(session != null) {
 			
@@ -45,16 +44,15 @@ public class EventStartAction implements Action {
 				PrintWriter out = response.getWriter();
 				// 3. PrintWriter 객체의 println() 메서드를 호출하여
 				//    웹에서 수행할 작업(자바스크립트 출력 등)을 기술
-				out.println("<script>"); // 자바스크립트 시작 태그
-				out.println("alert('실패')"); // 다이얼로그 메세지 출력
-				out.println("</script>"); // 자바스크립트 끝 태그
+				out.print("0"); // 자바스크립트 시작 태그	
 				
 			}else {
+				
 				
 //				forward = new ActionForward();
 //				
 //				forward.setPath("/event.jsp");
-//					
+//				
 //			
 				
 			}

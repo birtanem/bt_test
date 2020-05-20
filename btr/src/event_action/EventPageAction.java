@@ -6,9 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import event_svc.EventPageService;
+import event_vo.EventWinBean;
 import vo.ActionForward;
-import vo.EventBean;
-import vo.EventWinBean;
+
 
 public class EventPageAction implements Action {
 

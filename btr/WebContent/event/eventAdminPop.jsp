@@ -51,30 +51,39 @@ function start() {
 	
 	$.ajax("eventStart.ev", {
 		data: {date: date},
+		success: function(rdata) {
+
+			if(rdata == "0") {				
+				alert("이벤트를 종료해주세요!");
+				return false;
+			}
+				
+				var downloadTimer = setInterval(function(){
+					
+					  document.getElementById("countdown").innerHTML = "시작까지 "+timeleft+" 초 남았습니다!";
+					  timeleft -= 1;
+					  
+					  if(timeleft <= -1){
+					    clearInterval(downloadTimer);
+					    document.getElementById("countdown").innerHTML = "START!"
+					    opener.location.reload();
+						setInterval(function () {
+							close();
+						},1000)		
+					  }
+					}, 1000);
+				
+		
+		}
 	});
 	
-	var downloadTimer = setInterval(function(){
-		
-	  document.getElementById("countdown").innerHTML = "시작까지 "+timeleft+" 초 남았습니다!";
-	  timeleft -= 1;
-	  
-	  if(timeleft <= -1){
-	    clearInterval(downloadTimer);
-	    document.getElementById("countdown").innerHTML = "START!"
-	    opener.location.reload();
-		setInterval(function () {
-			close();
-		},1000)		
-	  }
-	}, 1000);
+
 }
 function end() {
 	
-	$.ajax("eventEnd.ev", {
-		success: function() {
-			
-		}
-	});
+	$.ajax("eventEnd.ev");
+	
+	
 	setInterval(function() {
 		opener.location.reload();
 		close();

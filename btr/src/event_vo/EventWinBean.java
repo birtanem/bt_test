@@ -1,4 +1,4 @@
-package vo;
+package event_vo;
 
 import java.util.Date;
 

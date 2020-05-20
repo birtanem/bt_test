@@ -48,15 +48,28 @@ $(document).ready(function() {
 		$('#img').css('-webkit-animation','').css('animation','');
 	});
 	
+
 	
-	function abc(){
+});
+
+
+	$(document).ready(function() {
 		
 		var addDate = document.getElementById("hid").value;
 		
-	
-		
 		var ts = new Date(addDate);
-		alert("dd")
+		var newYear = true;
+		
+    	if((new Date()) > ts){
+
+    		$.ajax("eventCheck.ev", {
+    			success: function(rdata) {
+    				alert("성공")
+    			}
+    		});
+    		
+    		newYear = false;
+    	}
     	
     	$('#countdown').empty();
     	
@@ -65,11 +78,5 @@ $(document).ready(function() {
     		callback	: function(days, hours, minutes, seconds){
     		
     		}
-    	});
-    };
-
-    abc();
-	
-    
-	
+    });
 });

@@ -1,4 +1,4 @@
-package dao;
+package event_dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,7 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import vo.EventWinBean;
+import event_vo.EventWinBean;
 
 import static db.JdbcUtil.*;
 
@@ -35,48 +35,52 @@ public class EventDAO {
 	public void setConnection(Connection con) {
 		this.con = con;
 	}
-	
-	public String getDate(int num) { 
+
+	public int checkDate() {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String date = null;
+		int checkDate = 1;
+		
+		String sql = "SELECT e_num FROM event WHERE e_edate > now()";
 		try {
-			
-			String sql = "SELECT * FROM event WHERE e_num = ?";
-			pstmt  = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				
-				date = rs.getString("e_edate");
-				System.out.println(date);
+				checkDate = 0;
 			}
 			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) { 
 			e.printStackTrace();
+			System.out.println("EventDAO - checkDate() 실패! : "+ e.getMessage());
 		}finally {
 			close(rs);
 			close(pstmt);
 		}
-		
-		return date;
+		return checkDate;
 	}
 	public int setStartDate(String date) { 
 		PreparedStatement pstmt = null;
 		int setDateCount = 0;
-		try {
-			String sql = "INSERT INTO event VALUES(null, now(), ?)";
-			pstmt  = con.prepareStatement(sql);
-			pstmt.setString(1, date);
-			setDateCount = pstmt.executeUpdate();
+		System.out.println(date);
+		int checkDate = checkDate();
+		
+		if(checkDate == 1) {
 			
-		} catch (Exception e) {
+			try {
+				String sql = "INSERT INTO event VALUES(null, now(), ?)";
+				pstmt  = con.prepareStatement(sql);
+				pstmt.setString(1, date);
+				setDateCount = pstmt.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("EventDAO - setStartDate() 실패! : "+e.getMessage());
+			}finally {
+				close(pstmt);
+			}
 			
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
 		}
 		return setDateCount;
 	}
@@ -91,8 +95,8 @@ public class EventDAO {
 			setDate = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
-			
 			e.printStackTrace();
+			System.out.println("EventDAO - setEndDate() 실패! : "+e.getMessage());
 		}finally {
 			close(pstmt);
 		}
@@ -131,7 +135,7 @@ public class EventDAO {
 		ResultSet rs = null;
 		Date date = null;
 		
-		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event)";
+		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event) ";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
