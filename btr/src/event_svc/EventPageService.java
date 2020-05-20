@@ -7,11 +7,11 @@ import static db.JdbcUtil.*;
 import dao.EventDAO;
 import vo.EventWinBean;
 
-public class EventListService {
+public class EventPageService {
 	
 	public EventWinBean getArticle(String memeber_id) {
 
-		System.out.println("EventListService");
+		System.out.println("EventPageService");
 		EventWinBean article = null;
 		Date date = null;
 		

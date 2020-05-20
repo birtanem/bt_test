@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$('#btn').click(function() {
 		
 			$.ajax({
-				url: 'event/eventPro.jsp',
+				url: 'eventPull.ev',
 				dataType: 'html',
 				type: 'get',
 				success: function(rdata) {
@@ -53,19 +53,23 @@ $(document).ready(function() {
 		
 		var addDate = document.getElementById("hid").value;
 		
+	
+		
 		var ts = new Date(addDate);
-
+		alert("dd")
     	
     	$('#countdown').empty();
     	
     	$('#countdown').countdown({
     		timestamp	: ts,
     		callback	: function(days, hours, minutes, seconds){
+    		
     		}
     	});
     };
-    
+
     abc();
 	
+    
 	
 });

@@ -45,8 +45,8 @@
 	width: 400px;
 	height: 300px;
 	padding: 0;
-	margin: 380px auto;
-	margin-bottom: 80px;
+	margin: 230px auto;
+	margin-bottom: 50px;
 }
 #btn {
 
@@ -59,7 +59,9 @@
     text-align: center;
 }
 #eventBox {
+
 	text-align: center;
+	margin-bottom: 50px;
    
 }
  #btn:hover { 
@@ -69,15 +71,15 @@
 	box-shadow: 5px 5px red;
  }	 
 .img {
-	width: 400px;
-	height: 300px;
+	width: 300px;
+	height: 250px;
 	text-align: center;	 
 	-webkit-animation: swing-in-bottom-bck 8s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 	        animation: swing-in-bottom-bck 8s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 
 }
 #img {
-	margin-top: 50px;
+	
 	width: 250px;
 	height: 250px;
 	text-align: center;	
@@ -125,6 +127,7 @@
 	padding: 0;
 }
 .cpStatus li{
+
 	float: left;
 	border: 1px solid;
 	width: 266px;

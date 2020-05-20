@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
@@ -49,11 +49,8 @@ function start() {
 		return false;
 	}
 	
-	$.ajax("adminPopStart.ev", {
-		data: {day: date},
-		success: function() {
-			
-		}
+	$.ajax("eventStart.ev", {
+		data: {date: date},
 	});
 	
 	var downloadTimer = setInterval(function(){
@@ -70,16 +67,10 @@ function start() {
 		},1000)		
 	  }
 	}, 1000);
-	
-
-	
-		
-	
- 	
 }
 function end() {
 	
-	$.ajax("adminPopEnd.jsp", {
+	$.ajax("eventEnd.ev", {
 		success: function() {
 			
 		}

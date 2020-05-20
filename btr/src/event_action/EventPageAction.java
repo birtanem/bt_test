@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import event_svc.EventListService;
+import event_svc.EventPageService;
 import vo.ActionForward;
 import vo.EventBean;
 import vo.EventWinBean;
 
-public class EventListAction implements Action {
+public class EventPageAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -19,7 +19,7 @@ public class EventListAction implements Action {
 		ActionForward forward = null;
 		
 		// EventListService 클래스 인스턴스 생성
-		EventListService eventListService = new EventListService();
+		EventPageService eventPageService = new EventPageService();
 		
 		HttpSession session = request.getSession();
 		
@@ -29,7 +29,7 @@ public class EventListAction implements Action {
 			
 			String id = (String)session.getAttribute("id");
 					
-			EventWinBean article = eventListService.getArticle(id);
+			EventWinBean article = eventPageService.getArticle(id);
 			
 			request.setAttribute("article", article);
 			

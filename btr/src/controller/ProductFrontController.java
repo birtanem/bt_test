@@ -23,7 +23,7 @@ public class ProductFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// POST 방식 한글 처리
 		request.setCharacterEncoding("UTF-8");
-		
+		System.out.println("dd");
 		// 서블릿 주소 가져오기
 		String command = request.getServletPath();
 		System.out.println("서블릿 확인:"+command);

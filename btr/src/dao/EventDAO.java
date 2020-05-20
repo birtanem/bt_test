@@ -63,15 +63,14 @@ public class EventDAO {
 		
 		return date;
 	}
-	public void setDate(String date, int num) { 
+	public int setStartDate(String date) { 
 		PreparedStatement pstmt = null;
-			
+		int setDateCount = 0;
 		try {
-			String sql = "UPDATE event SET e_sdate = now(), e_edate = ? WHERE e_num = ?";
+			String sql = "INSERT INTO event VALUES(null, now(), ?)";
 			pstmt  = con.prepareStatement(sql);
 			pstmt.setString(1, date);
-			pstmt.setInt(2, num);
-			pstmt.executeUpdate();
+			setDateCount = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			
@@ -79,18 +78,17 @@ public class EventDAO {
 		}finally {
 			close(pstmt);
 		}
-		
+		return setDateCount;
 	}
-	public void setEndDate(int num) { 
+	public int setEndDate() { 
 
 		PreparedStatement pstmt = null;
-				
+		int setDate = 0;
 		try {
 
-			String sql = "UPDATE event SET e_edate = now() WHERE e_num = ?";
+			String sql = "UPDATE event SET e_edate = now() WHERE e_num = (SELECT MAX(e_num) FROM (SELECT e_num FROM event) as a)";
 			pstmt  = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.executeUpdate();
+			setDate = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			
@@ -99,6 +97,7 @@ public class EventDAO {
 			close(pstmt);
 		}
 		
+		return setDate;
 	}
 	public EventWinBean selectArticle(String member_id) {
 		
@@ -132,7 +131,7 @@ public class EventDAO {
 		ResultSet rs = null;
 		Date date = null;
 		
-		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event);";
+		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event)";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
