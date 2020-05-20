@@ -38,8 +38,8 @@ public class ReviewListAction implements Action {
 			System.out.println(reviewBean.getNum());
 			
 		}
-		int maxPage = (int) ((double)listCount+0.95);
-		int startPage = ((int)((double)page/10+0.9)-1)*10+1;
+		int maxPage = (int)((double)listCount/limit+0.95);
+		int startPage = (((int)((double)page/10+0.9))-1)*10+1;
 		int endPage = startPage+10-1;
 		
 		if (endPage > maxPage) {
