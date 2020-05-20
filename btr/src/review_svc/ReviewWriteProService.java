@@ -7,6 +7,7 @@ import static db.JdbcUtil.*;
 import java.sql.*;
 
 import dao.*;
+import review_vo.*;
 
 public class ReviewWriteProService {
 

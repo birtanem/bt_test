@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 import dao.*;
+import review_vo.*;
 import vo.*;
 
 public class ReviewListService {

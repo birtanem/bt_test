@@ -53,7 +53,19 @@ public class ReviewFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/Review_Content.re")) {
+			
+			action = new ReviewContentAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
+		
+		
 		
 		if (forward != null) {
 			

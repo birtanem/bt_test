@@ -141,7 +141,7 @@ int endPage=pageInfo.getEndPage();
 					<%
 					
 					for(int i = 0; i < article.size();i++){ %>
-					<tr onclick="location.href='Review_Content.re'">
+					<tr onclick="location.href='Review_Content.re?&num=<%=article.get(i).getNum()%>&page=<%=nowPage%>'">
 				        <td class="num"><%= article.get(i).getNum() %></td>
 				        <td class="subject" style="text-align: center;"><%= article.get(i).getSubject() %></td>
 				        <td class="readcount"><%= article.get(i).getReadcount() %></td>
