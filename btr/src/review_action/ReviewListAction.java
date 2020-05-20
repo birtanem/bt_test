@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 
 import action.*;
 import review_svc.*;
+import review_vo.*;
 import vo.*;
 
 public class ReviewListAction implements Action {

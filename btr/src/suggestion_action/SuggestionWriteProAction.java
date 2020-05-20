@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import action.*;
+import review_vo.*;
 import suggestion_svc.*;
 import vo.*;
 

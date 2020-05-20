@@ -3,6 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
+import review_vo.*;
 import vo.*;
 
 import static db.JdbcUtil.*;
@@ -110,7 +111,7 @@ public class ReviewDAO {
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
 		try {
-			String sql = "select * from review";
+			String sql = "select * from review order by num desc";
 			
 			pstmt = con.prepareStatement(sql);
 
@@ -138,6 +139,70 @@ public class ReviewDAO {
 			close(pstmt);
 		}
 		return articleList;
+	}
+
+	public ReviewBean selectArticle(int num) {
+
+		ReviewBean article = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			String sql = "select * from review where num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				
+				article = new ReviewBean();
+				
+				article.setNum(rs.getInt("num"));
+				article.setSubject(rs.getString("subject"));
+				article.setContent(rs.getString("content"));
+				article.setReadcount(rs.getInt("readcount"));
+				article.setLikecount(rs.getInt("likecount"));
+				article.setDate(rs.getDate("date"));
+			}
+		
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - selectArticle() 실패! : " + e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return article;
+	}
+
+	public int updateCount(int num) {
+
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update review set readcount = readcount+1 where num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - updateCount() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
 	}
 	
 }
