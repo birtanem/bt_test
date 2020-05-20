@@ -8,7 +8,14 @@ public class ProductBean {
 	private String p_image;
 	private int p_price;
 	private int p_amount;
+	private String p_category;
 	
+	public String getP_category() {
+		return p_category;
+	}
+	public void setP_category(String p_category) {
+		this.p_category = p_category;
+	}
 	public int getP_num() {
 		return p_num;
 	}

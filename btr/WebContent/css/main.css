@@ -71,6 +71,10 @@ hr {
     margin-top: 10px;
 }
 
+.product-list, .portfolio-item{
+	list-style: none;
+}
+
 .btn-primary:hover,
 .btn-primary:focus {
     background: #EC5538;
@@ -206,7 +210,7 @@ body>section {
 }
 
 .social {
-    text-align: right;
+    text-align: left;
 }
 
 .social-share {
