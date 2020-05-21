@@ -39,7 +39,7 @@
 		<h1>Admin Page</h1>
 	</div>
 	<section>
-		<div>
+		<div class="container">
 		<ul>
 		<li><a href="#">회원목록</a></li>
 		<li><a href="adminProduct.ad">상품관리</a></li>

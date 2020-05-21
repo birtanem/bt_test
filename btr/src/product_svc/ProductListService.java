@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.ProductDAO;
+import product_vo.ProductBean;
 
 import static db.JdbcUtil.*;
-import vo.ProductBean;
 
 public class ProductListService {
 	public static ArrayList<ProductBean> getProductList(){

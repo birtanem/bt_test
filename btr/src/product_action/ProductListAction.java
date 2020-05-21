@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import product_svc.ProductListService;
+import product_vo.ProductBean;
 import vo.ActionForward;
-import vo.ProductBean;
 
 public class ProductListAction implements Action {
 

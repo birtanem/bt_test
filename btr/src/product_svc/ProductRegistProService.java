@@ -1,11 +1,11 @@
 package product_svc;
 
-import vo.ProductBean;
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
 import dao.ProductDAO;
+import product_vo.ProductBean;
 
 public class ProductRegistProService {
 

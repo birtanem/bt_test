@@ -1,4 +1,4 @@
-package vo;
+package product_vo;
 
 public class ProductBean {
 	

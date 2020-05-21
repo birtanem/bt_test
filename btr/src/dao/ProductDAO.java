@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import product_vo.ProductBean;
+
 import static db.JdbcUtil.*;
-import vo.ProductBean;
 
 public class ProductDAO {
 	private static ProductDAO instance;

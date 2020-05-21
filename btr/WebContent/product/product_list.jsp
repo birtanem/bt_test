@@ -1,4 +1,4 @@
-<%@page import="vo.ProductBean"%>
+<%@page import="product_vo.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -68,7 +68,7 @@
 		<!--/#portfolio-filter-->
 
 
-		<!-- 			<section id="portfolio"> -->
+		<!--<section id="portfolio"> -->
 		<div class="container">
 			<input type="button" class="btn btn-default active" value="관리자:상품등록"
 				onclick="location.href='productRegistForm.bo'" />

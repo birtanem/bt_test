@@ -11,8 +11,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
 import product_svc.ProductRegistProService;
+import product_vo.ProductBean;
 import vo.ActionForward;
-import vo.ProductBean;
 
 public class ProductRegistProAction implements Action {
 
