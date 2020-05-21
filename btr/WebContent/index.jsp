@@ -340,7 +340,14 @@
 <!--             </ol> -->
             <div class="carousel-inner">
   				<div class="item active" style="background-color: #f4b200">
+<div class="weather">
 
+	<h2>시간별 날씨</h2>
+	<div class="time"></div>
+	<h2>요일별 날씨</h2>
+	<div class="day"></div>
+
+</div>	
   				<svg xmlns="http://www.w3.org/2000/svg" id="Busan" enable-background="new -5.5 4.5 600 450" 
 viewBox="-30 -50 700 550" x="" y="" width="" height="" 
 xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" 
