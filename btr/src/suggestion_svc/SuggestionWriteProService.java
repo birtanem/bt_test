@@ -7,21 +7,19 @@ import static db.JdbcUtil.*;
 import java.sql.*;
 
 import dao.*;
-import review_vo.*;
+import suggestion_vo.*;
 
 public class SuggestionWriteProService {
 
-	public boolean registArticle(ReviewBean reviewBean) {
-		
+	public boolean registSuggestion(SuggestionBean suggestionBean) {
 		boolean isWriteSucces = false;
-		
 		Connection con = getConnection();
 		
-		ReviewDAO reviewDAO = ReviewDAO.getInstance();
+		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
 		
-		reviewDAO.setConnection(con);
+		suggestionDAO.setConnection(con);
 		
-		int insertCount = reviewDAO.insertArticle(reviewBean);
+		int insertCount = suggestionDAO.insertSuggestion(suggestionBean);
 		
 		if (insertCount > 0) {
 			commit(con);

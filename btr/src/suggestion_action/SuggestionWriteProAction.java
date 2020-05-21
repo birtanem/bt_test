@@ -6,8 +6,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import action.*;
-import review_vo.*;
 import suggestion_svc.*;
+import suggestion_vo.*;
 import vo.*;
 
 public class SuggestionWriteProAction implements Action{
@@ -18,37 +18,33 @@ public class SuggestionWriteProAction implements Action{
 		ActionForward forward = null;
 		System.out.println("SuggestionWriteProAction");
 		
-		ReviewBean reviewBean = new ReviewBean(); //수정필요22222222222222
+		SuggestionBean suggestionBean = new SuggestionBean(); //수정필요22222222222222
 		
-		reviewBean.setSubject(request.getParameter("subject"));//수정필요22222222222222
-		reviewBean.setContent(request.getParameter("content"));//수정필요22222222222222
-		
+		suggestionBean.setId(request.getParameter("id"));
+		suggestionBean.setEmail(request.getParameter("email"));
+		suggestionBean.setSubject(request.getParameter("subject"));
+		suggestionBean.setContent(request.getParameter("content"));
 		SuggestionWriteProService suggestionWriteProService = new SuggestionWriteProService();
 		
-		boolean isWriteSucces = suggestionWriteProService.registArticle(reviewBean);//수정필요22222222222222
+		boolean isWriteSucces = suggestionWriteProService.registSuggestion(suggestionBean);//수정필요22222222222222
 		
 		if (!isWriteSucces) {
 			
 			response.setContentType("text/html:charset=UTF-8");
-			
 			PrintWriter out = response.getWriter();
 			
 			out.println("<script>"); 
-			out.println("alert('글 등록 실패!')");
+			out.println("alert('건의사항 등록 실패!')");
 			out.println("history.back()"); 
 			out.println("</script>"); 
 			
 		}else {
-			System.out.println("글 등록 성공");
+			System.out.println("건의사항 등록 성공");
 
 			forward = new ActionForward();
-			
 			forward.setRedirect(true);
-			
-			forward.setPath("Suggestion_WriteForm.re.re");
+			forward.setPath("Suggestion_WriteForm.su");
 		}
-		
 		return forward;
 	}
-
 }
