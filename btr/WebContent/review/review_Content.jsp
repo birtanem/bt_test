@@ -1,5 +1,5 @@
 
-<%@page import="review_vo.ReviewBean"%>
+<%@page import="review.vo.ReviewBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

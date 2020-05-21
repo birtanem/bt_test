@@ -2,7 +2,8 @@ package cart.svc;
 
 import cart.dao.CartDAO;
 import cart.vo.CartBean;
-import static db.JdbcUtil.*;
+
+import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
 

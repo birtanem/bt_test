@@ -1,4 +1,5 @@
-package cart.controller;
+package common.controller;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -8,59 +9,81 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cart.action.ProductCartAddAction;
 import common.action.Action;
 import common.vo.ActionForward;
+import product.action.ProductListAction;
+import product.action.ProductRegistProAction;
 
-
+/**
+ * Servlet implementation class ProductFrontController
+ */
 @WebServlet("*.bo")
-public class CartFrontController extends HttpServlet {
+public class ProductFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// POST 방식 한글 처리
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("프론트 컨트롤러 도입부");
-		
+		System.out.println("dd");
 		// 서블릿 주소 가져오기
 		String command = request.getServletPath();
-		System.out.println("서블릿 확인 : "+ command);
-		
+		System.out.println("서블릿 확인:"+command);
 		// 각 요청을 공통적으로 처리하기 위해 필요한 변수 선언
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/ProductCartAdd.bo")) { // 장바구니 추가 서블릿
-			// ProductCartAdd 클래스 인스턴스 생성 => Action 타입으로 업캐스팅
-			action = new ProductCartAddAction();
+
+		if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
+				// 등록 페이지는 비즈니스 로직이 필요 없다 => JSP 페이지로 바로 연결 수행
+				// dispatcher 방식으로 설정(기본값 생략)
+				forward = new ActionForward();
+				forward.setPath("/product/product_registForm.jsp");
+		} else if(command.equals("/productRegistPro.bo")){ // 상품 등록함
 			try {
+				System.out.println("상품 등록 프론트 컨트롤러");
+				action = new ProductRegistProAction();
+
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
+			try {
+				action = new ProductRegistProAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} 
-				
+		} else if(command.equals("/productList.bo")) {
+			action=new ProductListAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 					
 		// 포워딩
 		if(forward != null) {
-		// ActionForward 객체 내의 포워딩 방식 (Dispatcher or Redirect) 판별
+		// ActionForward 객체 내의 포워딩 방식(Dispatcher or Redirect) 판별
 		if(forward.isRedirect()) { // Redirect 방식
-			// Redirect 방식으로 포워딩 (주소표시줄 변경 O, request 객체가 공유되지 않음)
+			// Redirect 방식으로 포워딩(주소표시줄 변경 O, request 객체가 공유되지 않음)
 			// => response 객체의 sendRedirect() 메서드를 호출하여 포워딩 할 페이지 전달
 			response.sendRedirect(forward.getPath());
 		} else { // Dispatcher 방식
 			// Dispatcher 방식으로 포워딩(주소표시줄 변경 X, request 객체가 공유됨)
 			// => request 객체의 getRequestDispatcher() 메서드를 호출하여 포워딩 할 페이지 전달
-			// => RequestDispatcher 객체가 리턴됨
+			//    => RequestDispatcher 객체가 리턴됨
 		    RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 			// => RequestDispatcher 객체의 forward() 메서드를 호출하여 request, response 객체 전달
 			dispatcher.forward(request, response);
-	}
-		}	
-			
+		}
 	}	
+			
+		}	
 	
 		
 
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);

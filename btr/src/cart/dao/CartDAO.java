@@ -1,12 +1,13 @@
 package cart.dao;
 
+import static common.db.JdbcUtil.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import cart.vo.CartBean;
-import static db.JdbcUtil.*;
 
 public class CartDAO {
 	
