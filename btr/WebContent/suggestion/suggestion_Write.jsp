@@ -120,7 +120,7 @@
             
 				<h3 style="text-align: center;"><건의사항></h3>
 					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
-						<form action="suggestion_email.jsp" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
+						<form action="Suggestion_WritePro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
 							<table border="1" style="width: 610px; position: relative;">
 <%-- 								<tr><td>아이디</td><td><input type="text" name="id" value="<%=id%>" readonly></td> --%>
 <%-- 								<td>이메일</td><td><input type="text" name="email" value="<%=email%>" readonly></td></tr> --%>

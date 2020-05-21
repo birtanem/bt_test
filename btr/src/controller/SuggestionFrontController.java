@@ -29,7 +29,7 @@ public class SuggestionFrontController extends HttpServlet {
 			forward = new ActionForward();
 			
 			forward.setPath("/suggestion/suggestion_Write.jsp");
-			
+//-----------------------------------------------------------------------------------------------------------------			
 		}else if(command.equals("/Suggestion_WritePro.su")) {
 			
 			action = new SuggestionWriteProAction(); //ddddddddd
