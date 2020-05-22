@@ -9,25 +9,6 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<script type="text/javascript">
-function checkValue(){
-	var form = document.contentinfo;
-	
-	if(!form.subject.value){
-		alert("제목을 입력하세요.");
-		return false;
-	}
-	
-	if(!form.content.value){
-		alert("내용을 입력하세요.");
-		return false;
-	}
-	
-	
-}
-</script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -117,7 +98,7 @@ function checkValue(){
                                 <li><a href="404.html">404</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="Suggestion_WriteForm.su">건의사항</a></li> 
+                        <li class="active"><a href="blog.jsp">Blog</a></li> 
                         <li><a href="contact-us.html">Contact</a></li>                        
                     </ul>
                 </div>
@@ -140,18 +121,13 @@ function checkValue(){
 					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
 						<form action="Suggestion_WritePro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
 							<table border="1" style="width: 610px; position: relative;">
-<%-- 								<tr><td>아이디</td><td><input type="text" name="id" value="<%=id%>" readonly></td> --%>
-<%-- 								<td>이메일</td><td><input type="text" name="email" value="<%=email%>" readonly></td></tr> --%>
-								<tr><td>아이디</td><td><input type="text" name="id" value="<%=id%>" readonly></td>
-								<td>이메일</td><td><input type="text" name="email" value="<%=email%>" readonly></td></tr>
-								<tr><td>제목</td><td colspan="3"><input type="text" name="subject" id="subject" style="width: 540px; margin: 1px;"></td></tr>
-								<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
-								<tr><td colspan="4" style="height: 300px"><textarea name="content" id="content" rows="10" cols="20" style="margin: 5px; width: 575px; height: 270px;"></textarea></td></tr>
+								<tr><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th style="width: 150px;">답변여부</th></tr>
+								<tr><td>OO을 건의합니다(제목)</td><td>2020-05-22(날짜)</td><td id="td1">미완료(답변여부)</td></tr>
 							</table>
 							<div style="width: 600px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="내 건의사항" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
-								<input type="reset" value="취소" style="float: right; background-color: gray; color: white;">
-								<input type="submit" value="건의하기" style="float: right; margin-right: 5px; background-color: gray; color: white;">
+								<input type="button" value="건의하러가기" style="float: left; background-color: gray; color: white;" onclick="location.href='suggestion_p2.jsp'">
+								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;">
+								<input type="button" value="건의하러가기" style="float: right; margin-right: 5px; background-color: gray; color: white;">
 							</div>
 						</form>
 					</article>
