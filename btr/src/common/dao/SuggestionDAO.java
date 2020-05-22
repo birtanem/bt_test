@@ -1,12 +1,11 @@
 package common.dao;
 
-import static common.db.JdbcUtil.*;
-
 import java.sql.*;
 import java.util.*;
 
-import common.vo.*;
 import suggestion.vo.*;
+
+import static common.db.JdbcUtil.*;
 
 public class SuggestionDAO {
 
@@ -35,16 +34,26 @@ public class SuggestionDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		int num = 0;
+		String check="미확인";
+		
 		try {
 			
-			String sql = "insert into suggestion(member_id,member_email,suggestion_subject,suggestion_content,suggestion_date,suggestion_check) values(?,?,?,?,?,?)";
+			String sql = "select max(sg_num) from suggestion";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, suggestionBean.getId());
-			pstmt.setString(2, suggestionBean.getEmail());
-			pstmt.setString(3, suggestionBean.getSubject());
-			pstmt.setString(4, suggestionBean.getContent());
-			pstmt.setDate(5, suggestionBean.getDate());
-			pstmt.setString(6, suggestionBean.getCheck());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				num = rs.getInt(1)+1;
+			}
+			
+			sql = "insert into suggestion values(?,?,?,?,now(),?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, suggestionBean.getId());
+			pstmt.setString(3, suggestionBean.getContent());
+			pstmt.setString(4, suggestionBean.getEmail());
+			pstmt.setString(5, check);
+			pstmt.setString(6, suggestionBean.getSubject());
 			
 			insertCount = pstmt.executeUpdate();
 			
