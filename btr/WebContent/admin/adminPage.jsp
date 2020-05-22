@@ -45,6 +45,7 @@
 		<li><a href="adminProduct.ad">상품관리</a></li>
 		<li><a href="#">여행지관리</a></li>
 		<li><a href="#">문의게시판</a></li>
+		<li><a href="adminEvent.ad">이벤트관리</a></li>
 		</ul>
 		</div>
 	</section>

@@ -7,12 +7,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import event.vo.EventBean;
 import event.vo.EventWinBean;
 
 public class EventDAO {
@@ -139,10 +141,10 @@ public class EventDAO {
 		return article;
 	}
 
-	public Date selectDate() {
+	public Timestamp selectDate() {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Date date = null;
+		Timestamp date = null;
 		
 		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event) ";
 		try {
@@ -150,12 +152,14 @@ public class EventDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				date = rs.getDate("e_edate");
+				date = rs.getTimestamp("e_edate");
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - selectDate() 실패! : "+e.getMessage());
 		}
+	
 		
 		return date;
 	}
@@ -210,7 +214,7 @@ public class EventDAO {
 		return checkPull;
 	}
 
-	public ArrayList<EventWinBean> getArticle() {
+	public ArrayList<EventWinBean> getWinArticle() {
 		
 	
 		PreparedStatement pstmt = null;
@@ -224,7 +228,7 @@ public class EventDAO {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				
 				EventWinBean article = new EventWinBean();
 				article.setMember_id(rs.getString("member_id"));
@@ -232,6 +236,36 @@ public class EventDAO {
 				article.setEw_100000(rs.getInt("ew_100000"));
 				article.setEw_50000(rs.getInt("ew_50000"));
 				article.setEw_30000(rs.getInt("ew_30000"));
+				articleList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return articleList;
+	}
+	
+	public ArrayList<EventBean> getArticle() {
+		
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		ArrayList<EventBean> articleList = new ArrayList<EventBean>();
+		
+		try {
+			String sql = "SELECT * FROM event";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				EventBean article = new EventBean();
+				article.setE_num(rs.getInt("e_num"));
+				article.setE_sdate(rs.getDate("e_sdate"));
+				article.setE_edate(rs.getDate("e_edate"));
 				articleList.add(article);
 			}
 		} catch (SQLException e) {

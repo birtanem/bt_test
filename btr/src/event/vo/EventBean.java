@@ -4,28 +4,32 @@ import java.util.Date;
 
 public class EventBean {
 	
-	private int num;
-	private Date s_date;
-	private Date d_date;
+	private int e_num;
+	private Date e_sdate;
+	private Date e_edate;
 	
-	public int getNum() {
-		return num;
+	public int getE_num() {
+		return e_num;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setE_num(int e_num) {
+		this.e_num = e_num;
 	}
-	public Date getS_date() {
-		return s_date;
+	public Date getE_sdate() {
+		return e_sdate;
 	}
-	public void setS_date(Date s_date) {
-		this.s_date = s_date;
+	public void setE_sdate(Date e_sdate) {
+		this.e_sdate = e_sdate;
 	}
-	public Date getD_date() {
-		return d_date;
+	public Date getE_edate() {
+		return e_edate;
 	}
-	public void setD_date(Date d_date) {
-		this.d_date = d_date;
+	public void setE_edate(Date e_edate) {
+		this.e_edate = e_edate;
 	}
+
+	
+	
+
 	
 	
 	

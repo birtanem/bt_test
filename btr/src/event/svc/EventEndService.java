@@ -11,7 +11,7 @@ import event.dao.EventDAO;
 public class EventEndService {
 	
 	public boolean setEventEndDate() {
-		
+		System.out.println("EventEndService");
 		boolean isSetDate = false;
 		
 		Connection con = getConnection();

@@ -37,6 +37,12 @@ $(document).ready(function() {
 			    					
 									$('.p1').html("<img src='images/a.png' class='img'><br>");
 									$("#btn").css('opacity','0').css('pointer-events','none');
+							    	
+									$('#countdown').empty();
+							    	$('#countdown').countdown({
+							    		callback	: function(days, hours, minutes, seconds){						    		
+							    		}
+							    	});
 												
 			    					}, 4000);
 			    					
@@ -91,27 +97,22 @@ $(document).ready(function() {
 
 
 	$(document).ready(function() {
-		
-		function countdown() {
-			
-			var addDate = document.getElementById("hid").value;
-		
-		
+				
+		var addDate = document.getElementById("hid").value;		
 		var ts = new Date(addDate);
 		var newYear = true;
-		
-		
+
     	if((new Date()) > ts){
 
-    		$.ajax("eventCheck.ev", {
-    			success: function(rdata) {
+//    		$.ajax("eventCheck.ev", {
+//    			success: function(rdata) {
     
-    				if(rdata == "-1") {
+//    				if(rdata == "-1") {
 						$('.p1').html("<img src='images/a.png' class='img'><br>");
 						$("#btn").css('opacity','0').css('pointer-events','none');
-    				}
-    			}
-    		});
+//    				}
+//    			}
+//    		});
     		
     		newYear = false;
     	}
@@ -124,7 +125,4 @@ $(document).ready(function() {
     		
     		}
     });
-		}
-		
-		countdown();
 });

@@ -57,34 +57,47 @@
 <jsp:include page="../inc/top.jsp"></jsp:include>
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>무료 이벤트</h1>
+        <h1>이벤트 관리</h1>
     </div>
 
     <section id="contact-page">
 
-<%
-ArrayList articleList = (ArrayList)request.getAttribute("articleList");
+<h1>이벤트시작, 종료 및 당첨내역??</h1>
 
-%>
-<h1>여기는 당첨내역</h1>
-<%=articleList %>
+<h2>이벤트 회차</h2>
+<table border="1">
+<tr><td>회차</td><td>시작일</td><td>종료일</td></tr>
+
+
+<c:forEach var="List" items="${eventList}">
+<tr><td>${List.e_num}</td><td>${List.e_sdate}</td><td>${List.e_edate}</td></tr>
+</c:forEach>
+
+
+
+</table>
+
+
+
+<h2>당첨내역</h2>
 <select>
 <option>1</option>
 <option>2</option>
 <option>3</option>
 </select>
 <table border="1">
-<tr><td>당첨자</td><td>당첨품</td><td>당첨일</td></tr>
-<%-- <c:forEach var="articleList" items="${articleList}"> --%>
+<tr><td>당첨자</td><td>당첨일</td></tr>
 
-<%-- <tr><td>${articleList.member_id}</td><td>${articleList.ew_50000}</td><td>${articleList.date}</td></tr> --%>
 
-<%-- </c:forEach> --%>
+<c:forEach var="wList" items="${eventWinList}">
+<tr><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
+</c:forEach>
+
 
 
 </table>
 
-<input type="button" id ="btn" onclick="fun1()">
+
     </section>
     <!--/#bottom-->
 	<jsp:include page="../inc/bottom.jsp"></jsp:include>

@@ -278,7 +278,7 @@
 
 <body class="homepage">
 
-<jsp:include page="inc/top.jsp"></jsp:include>
+<jsp:include page="../inc/top.jsp"></jsp:include>
     <!--/header-->
 
     <section id="main-slider" class="no-margin">
@@ -936,7 +936,7 @@ inkscape:version="0.48.1 " version="1.1">
     </section>
     <!--/#bottom-->
 
-	<jsp:include page="inc/bottom.jsp"></jsp:include>
+	<jsp:include page="../inc/bottom.jsp"></jsp:include>
     <!--/#footer-->
 
     <script src="js/jquery.js"></script>

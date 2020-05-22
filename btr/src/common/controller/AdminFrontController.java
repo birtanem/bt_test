@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.action.adminEventListAction;
+import admin.action.adminEventWinListAction;
 import admin.action.adminProductAction;
 import common.action.Action;
 import common.vo.ActionForward;
@@ -31,6 +33,19 @@ public class AdminFrontController extends HttpServlet {
 				action=new adminProductAction();
 				
 				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/adminEvent.ad")) {
+			try {
+				action=new adminEventWinListAction();
+				
+				forward = action.execute(request, response);
+				
+				action=new adminEventListAction();
+				
+				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
