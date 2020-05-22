@@ -15,7 +15,7 @@ table {
 
 <h2 style="text-align: center;">상품 등록</h2> 
 
-<form action="productRegistPro.bo" method="post" name="fr"
+<form action="productRegistPro.pr" method="post" name="fr"
 enctype="multipart/form-data">
 
 <table border="1">
@@ -48,7 +48,7 @@ enctype="multipart/form-data">
 		<td colspan="2" align="center">
 			<input type="submit" value="상품등록">
 			<input type="reset" value="다시작성">
-			<input type="button" value="상품목록" onclick="location.href='productList.bo'">
+			<input type="button" value="상품목록" onclick="location.href='productList.pr'">
 		</td>
 	</tr>
 

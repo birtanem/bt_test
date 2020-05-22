@@ -63,7 +63,36 @@ public class ReviewFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/Review_UpdateForm.re")) {
+			
+			action = new ReviewUpdateFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/Review_UpdatePro.re")) {
+			
+			action = new ReviewUpdateProAction();
+			
+			try {
+				forward  = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/Review_DeleteForm.re")) {
+			
+			forward = new ActionForward();
+			forward.setPath("/review/review_Delete.jsp");
+			
+		}else if(command.equals("/Review_DeletePro.re")) {
+			
 		}
+		
+		
 		
 		
 		

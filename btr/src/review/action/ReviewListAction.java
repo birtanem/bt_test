@@ -36,7 +36,7 @@ public class ReviewListAction implements Action {
 		for (int i = 0; i < articleList.size(); i++) {
 			
 			ReviewBean reviewBean = articleList.get(i);
-			System.out.println(reviewBean.getNum());
+			System.out.println(reviewBean.getR_num());
 			
 		}
 		int maxPage = (int)((double)listCount/limit+0.95);

@@ -40,7 +40,7 @@ public class ReviewDAO {
 		
 		try {
 			
-			String sql = "select max(num) from review";
+			String sql = "select max(r_num) from review";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -50,17 +50,19 @@ public class ReviewDAO {
 				num = rs.getInt(1)+1;
 			}
 			
-			sql = "insert into review values(?,?,?,?,?,now())";
+			sql = "insert into review values(?,?,?,?,?,?,now(),?,?)";
 			
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, reviewBean.getSubject());
-			pstmt.setString(3, reviewBean.getContent());
-			pstmt.setInt(4, 0);
+			pstmt.setString(2, reviewBean.getMember_member_id());
+			pstmt.setString(3, reviewBean.getR_subject());
+			pstmt.setString(4, reviewBean.getR_content());
 			pstmt.setInt(5, 0);
+			pstmt.setInt(6, 0);
+			pstmt.setString(7, reviewBean.getR_image());
+			pstmt.setInt(8, reviewBean.getRegion_region_code());
 			
-
 			insertCount = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -81,7 +83,7 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select count(num) from review";
+			String sql = "select count(r_num) from review";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -111,7 +113,7 @@ public class ReviewDAO {
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
 		try {
-			String sql = "select * from review order by num desc";
+			String sql = "select * from review order by r_num desc";
 			
 			pstmt = con.prepareStatement(sql);
 
@@ -121,12 +123,15 @@ public class ReviewDAO {
 
 				ReviewBean reviewBean = new ReviewBean();
 				
-				reviewBean.setNum(rs.getInt("num"));
-				reviewBean.setSubject(rs.getString("subject"));
-				reviewBean.setContent(rs.getString("content"));
-				reviewBean.setReadcount(rs.getInt("readcount"));
-				reviewBean.setLikecount(rs.getInt("likecount"));
-				reviewBean.setDate(rs.getDate("date"));
+				reviewBean.setR_num(rs.getInt("r_num"));
+				reviewBean.setMember_member_id(rs.getString("member_member_id"));
+				reviewBean.setR_subject(rs.getString("r_subject"));
+				reviewBean.setR_content(rs.getString("r_content"));
+				reviewBean.setR_readcount(rs.getInt("r_readcount"));
+				reviewBean.setR_likecount(rs.getInt("r_likecount"));
+				reviewBean.setR_date(rs.getDate("r_date"));
+				reviewBean.setR_image(rs.getString("r_image"));
+				reviewBean.setRegion_region_code(rs.getInt("region_region_code"));
 				
 				articleList.add(reviewBean);
 				
@@ -141,7 +146,7 @@ public class ReviewDAO {
 		return articleList;
 	}
 
-	public ReviewBean selectArticle(int num) {
+	public ReviewBean selectArticle(int r_num) {
 
 		ReviewBean article = null;
 		
@@ -150,11 +155,11 @@ public class ReviewDAO {
 		
 		try {
 			
-			String sql = "select * from review where num = ?";
+			String sql = "select * from review where r_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, r_num);
 			
 			rs = pstmt.executeQuery();
 			
@@ -162,12 +167,15 @@ public class ReviewDAO {
 				
 				article = new ReviewBean();
 				
-				article.setNum(rs.getInt("num"));
-				article.setSubject(rs.getString("subject"));
-				article.setContent(rs.getString("content"));
-				article.setReadcount(rs.getInt("readcount"));
-				article.setLikecount(rs.getInt("likecount"));
-				article.setDate(rs.getDate("date"));
+				article.setR_num(rs.getInt("r_num"));
+				article.setMember_member_id(rs.getString("member_member_id"));
+				article.setR_subject(rs.getString("r_subject"));
+				article.setR_content(rs.getString("r_content"));
+				article.setR_readcount(rs.getInt("r_readcount"));
+				article.setR_likecount(rs.getInt("r_likecount"));
+				article.setR_date(rs.getDate("r_date"));
+				article.setR_image(rs.getString("r_image"));
+				article.setRegion_region_code(rs.getInt("region_region_code"));
 			}
 		
 		} catch (SQLException e) {
@@ -181,18 +189,18 @@ public class ReviewDAO {
 		return article;
 	}
 
-	public int updateCount(int num) {
+	public int updateCount(int r_num) {
 
 		int updateCount = 0;
 		
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update review set readcount = readcount+1 where num = ?";
+			String sql = "update review set r_readcount = r_readcount+1 where r_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, r_num);
 			
 			updateCount = pstmt.executeUpdate();
 			
@@ -204,5 +212,27 @@ public class ReviewDAO {
 		
 		return updateCount;
 	}
-	
+
+	public int update(int r_num) {
+
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+		
+			String sql = "update review set r_subject = ? , r_content = ? where r_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return updateCount;
+	}
+
 }

@@ -1,36 +1,31 @@
-package product.action;
+package admin_action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.javafx.collections.MappingChange.Map;
+import org.json.simple.JSONArray;
 
-import common.action.Action;
-import common.vo.ActionForward;
-import product.svc.ProductListService;
-import product.vo.ProductBean;
+import action.Action;
+import product_svc.ProductListService;
+import product_vo.ProductBean;
+import vo.ActionForward;
 
-public class ProductListAction implements Action {
+public class adminProductAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
 		System.out.println("productListAction");
-		List<ProductBean> productList=ProductListService.getProductList();
-		
+		ArrayList<ProductBean> productList=ProductListService.getProductList();
 		ProductListService productListService=new ProductListService();
 		int ListCount=productListService.getListCount();
 		request.setAttribute("productList", productList);
-		request.setAttribute("a", "hollo");
 		request.setAttribute("ListCount", ListCount);
 		
-		
 		forward=new ActionForward();
-		forward.setPath("/product/product_list2.jsp");
+		forward.setPath("/admin/adminProduct.jsp");
 		return forward;
 	}
 

@@ -55,7 +55,8 @@
                         <li class="active"><a href="index.html">Home</a></li>
                         <li><a href="about-us.html">About Us</a></li>
                         <li><a href="services.html">Services</a></li>
-                        <li><a href="productList.bo">여행상품</a></li>
+                        <li><a href="Review_List.re">Review</a></li>
+                        <li><a href="productList.pr">여행상품</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
@@ -64,7 +65,7 @@
                                 <li><a href="404.html">404</a></li>
                             </ul>
                         </li>
-                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="Suggestion_WriteForm.su">건의사항</a></li>
                         <li><a href="event.ev">이벤트</a></li>
                     </ul>
                 </div>

@@ -28,6 +28,7 @@ public class ProductCartAddService {
 		// 중복이면 수량 update
 		int check = cdao.checkProduct(cb);
 		if (check != 1) { // 없으면(1이 아니면)
+			System.out.println(check);
 			cdao.cartAdd(cb);
 			commit(con);
 			isWriteSuccess = true; // 장바구니 추가 성공
