@@ -5,12 +5,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
-	int ListCount = (int) request.getAttribute("ListCount");
+// 	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
+// 	int ListCount = (int) request.getAttribute("ListCount");
 %>
-<c:forEach var="productList" items"${productList }">
-	
-</c:forEach>
+
 
 
 <!DOCTYPE html>
@@ -73,59 +71,69 @@
 
 
 		<!--<section id="portfolio"> -->
-		<div class="container">
-			<input type="button" class="btn btn-default active" value="관리자:상품등록"
-				onclick="location.href='productRegistForm.bo'" />
-			<div class="portfolio-items">
-				<ul class="product-list">
+		
+		<c:set var="ListCount" value="${ListCount }"></c:set>
+		<c:out value="${ListCount }"></c:out>
+		${ListCount }
+		
+		<c:set var="productList" value="${producList }"></c:set>
+		
+		
+		
+		
+<!-- 		<div class="container"> -->
+<!-- 			<input type="button" class="btn btn-default active" value="관리자:상품등록" -->
+<!-- 				onclick="location.href='productRegistForm.bo'" /> -->
+<!-- 			<div class="portfolio-items"> -->
+<!-- 				<ul class="product-list"> -->
 					<%
-						if (productList != null && ListCount > 0) {
-							for (int i = 0; i < productList.size(); i++) {
+// 						if (productList != null && ListCount > 0) {
+// 							for (int i = 0; i < productList.size(); i++) {
 					%>
-					<li
-						class="portfolio-item <%=productList.get(i).getP_category()%> col-xs-12 col-sm-4 col-md-3 single-work">
-						<img
-						src="product/productUpload/<%=productList.get(i).getP_image()%>"
-						alt="product">
-						<h5 class="product-title"><%=productList.get(i).getP_name()%></h5>
-						<p>
-							<strong><%=productList.get(i).getP_price()%> </strong>
-						</p> <!-- Trigger/Open The Modal --> 
-						<input type="button" class="myBtn"	value="구매하기">
-					</li>
+<!-- 					<li -->
+<%-- 						class="portfolio-item <%=productList.get(i).getP_category()%> col-xs-12 col-sm-4 col-md-3 single-work"> --%>
+<!-- 						<img -->
+<%-- 						src="product/productUpload/<%=productList.get(i).getP_image()%>" --%>
+<!-- 						alt="product"> -->
+<%-- 						<h5 class="product-title"><%=productList.get(i).getP_name()%></h5> --%>
+<!-- 						<p> -->
+<%-- 							<strong><%=productList.get(i).getP_price()%> </strong> --%>
+<!-- 						</p> Trigger/Open The Modal  -->
+<!-- 						<input type="button" class="myBtn"	value="구매하기"> -->
+<!-- 					</li> -->
 
-					<!-- The Modal -->
-					<div id="myModal" class="modal">
-						<!-- Modal content -->
-						<div class="modal-content">
-							<div class="modal-header">
-								<span class="close">&times;</span>
-								<h2><%=productList.get(i).getP_name()%></h2>
-							</div>
+<!-- 					The Modal -->
+<!-- 					<div id="myModal" class="modal"> -->
+<!-- 						Modal content -->
+<!-- 						<div class="modal-content"> -->
+<!-- 							<div class="modal-header"> -->
+<!-- 								<span class="close">&times;</span> -->
+<%-- 								<h2><%=productList.get(i).getP_name()%></h2> --%>
+<!-- 							</div> -->
 
-							<div class="modal-body">
-								<%=productList.get(i).getP_content()%>
-							</div>
-							<div class="modal-footer">
-								<h3>
+<!-- 							<div class="modal-body"> -->
+<%-- 								<%=productList.get(i).getP_content()%> --%>
+<!-- 							</div> -->
+<!-- 							<div class="modal-footer"> -->
+<!-- 								<h3> -->
 
-									<%=productList.get(i).getP_price()%>
-									<input type="button" value="-"> <input type="text"
-										value="1"> <input type="button" value="+"> <input
-										type="button" value="장바구니담기" onclick="#"> <input
-										type="button" value="바로결제" onclick="#">
-								</h3>
-							</div>
-						</div>
-					</div>
+<%-- 									<%=productList.get(i).getP_price()%> --%>
+<!-- 									<input type="button" value="-"> <input type="text" -->
+<!-- 										value="1"> <input type="button" value="+"> <input -->
+<!-- 										type="button" value="장바구니담기" onclick="#"> <input -->
+<!-- 										type="button" value="바로결제" onclick="#"> -->
+<!-- 								</h3> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 
 					<%
-						}
-						} else {
+// 						}
+// 						} else {
 					%>
-					<section id="emptyArea">등록된 글이 없습니다.</section>
+<!-- 					<section id="emptyArea">등록된 글이 없습니다.</section> -->
 					<%
-						}
+					//	}
 					%>
 				</ul>
 			</div>

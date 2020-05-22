@@ -5,7 +5,7 @@ import static common.db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import common.dao.ProductDAO;
+import product.dao.ProductDAO;
 import product.vo.ProductBean;
 
 public class ProductListService {

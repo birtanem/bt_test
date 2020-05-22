@@ -4,7 +4,7 @@ import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import common.dao.ProductDAO;
+import product.dao.ProductDAO;
 import product.vo.ProductBean;
 
 public class ProductRegistProService {

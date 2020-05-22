@@ -1,9 +1,13 @@
 package product.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 import common.action.Action;
 import common.vo.ActionForward;
@@ -16,16 +20,17 @@ public class ProductListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
 		System.out.println("productListAction");
-		ArrayList<ProductBean> productList=ProductListService.getProductList();
+		List<ProductBean> productList=ProductListService.getProductList();
 		
 		ProductListService productListService=new ProductListService();
 		int ListCount=productListService.getListCount();
 		request.setAttribute("productList", productList);
+		request.setAttribute("a", "hollo");
 		request.setAttribute("ListCount", ListCount);
 		
 		
 		forward=new ActionForward();
-		forward.setPath("/product/product_list.jsp");
+		forward.setPath("/product/product_list2.jsp");
 		return forward;
 	}
 

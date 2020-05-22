@@ -1,4 +1,4 @@
-package common.dao;
+package product.dao;
 
 import static common.db.JdbcUtil.*;
 
