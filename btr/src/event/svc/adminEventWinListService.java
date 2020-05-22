@@ -1,18 +1,19 @@
 package event.svc;
 
+import static common.db.JdbcUtil.close;
+import static common.db.JdbcUtil.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import event.dao.EventDAO;
 import event.vo.EventWinBean;
 
-import static common.db.JdbcUtil.*;
+public class adminEventWinListService {
 
-public class EventWinListService {
-	
 	public ArrayList<EventWinBean> getArticleList() {
 		
-		System.out.println("EventWinListService");
+		System.out.println("adminEventWinListService");
 		
 		Connection con = getConnection();
 		
@@ -20,12 +21,12 @@ public class EventWinListService {
 		
 		eventDAO.setConnection(con);
 		
-		ArrayList<EventWinBean> articleList = eventDAO.getArticle();
+		ArrayList<EventWinBean> eventWinList = eventDAO.getWinArticle();
 		
 		
 		close(con);
 		
-		return articleList;
+		return eventWinList;
 		
 	}
 }
