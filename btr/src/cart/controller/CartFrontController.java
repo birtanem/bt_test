@@ -13,7 +13,7 @@ import common.action.Action;
 import common.vo.ActionForward;
 
 
-@WebServlet("*.bo")
+@WebServlet("*.ca")
 public class CartFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
