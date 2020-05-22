@@ -91,10 +91,17 @@
 						<p>
 							<strong><%=productList.get(i).getP_price()%> </strong>
 						</p> 
+<<<<<<< HEAD
 						<%=productList.get(i).getP_num() %>
 						<input type="hidden" value="<%=productList.get(i).getP_num() %>">
 						<input type="hidden" value="">
 						<%=productList.get(i).getP_amount() %>
+=======
+						
+						<input type="hidden" value="<%=productList.get(i).getP_num() %>" name="p_num">
+						<input type="hidden" value="<%=productList.get(i).getP_amount()%>" name="p_amount">
+						
+>>>>>>> refs/remotes/origin/master
 						<!-- Trigger/Open The Modal --> 
 						<input type="button" class="myBtn"	value="구매하기" onclick="#">
 						<input type="submit" class="Btn"value="장바구니담기" >

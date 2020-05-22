@@ -19,8 +19,13 @@ public class ReviewWriteProAction implements Action{
 		
 		System.out.println("ReviewWriteProAction");
 		
+		int region = Integer.parseInt(request.getParameter("region"));
+		
 		ReviewBean reviewBean = new ReviewBean();
 		
+		reviewBean.setMember_member_id(request.getParameter("r_id"));
+		reviewBean.setR_image(request.getParameter("r_image"));
+		reviewBean.setRegion_region_code(region);
 		reviewBean.setR_subject(request.getParameter("r_subject"));
 		reviewBean.setR_content(request.getParameter("r_content"));
 		
