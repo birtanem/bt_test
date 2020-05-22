@@ -21,8 +21,8 @@ public class ReviewWriteProAction implements Action{
 		
 		ReviewBean reviewBean = new ReviewBean();
 		
-		reviewBean.setSubject(request.getParameter("subject"));
-		reviewBean.setContent(request.getParameter("content"));
+		reviewBean.setR_subject(request.getParameter("r_subject"));
+		reviewBean.setR_content(request.getParameter("r_content"));
 		
 		ReviewWriteProService reviewWriteProService = new ReviewWriteProService();
 		
