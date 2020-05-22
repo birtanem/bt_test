@@ -120,13 +120,17 @@
                     <table>
                         <tr>
                             <td>제 목</td>
-                            <td style="width: 90%;"><%= article.getSubject() %></td>
+                            <td style="width: 90%;"><%= article.getR_subject() %></td>
                         </tr>
                         <tr>
                             <td>내용</td>
-                            <td style="width: 90%; height: 400px;"><%= article.getContent() %></td>
+                            <td style="width: 90%; height: 400px;"><%= article.getR_content() %></td>
                         </tr>
                     </table>
+                    <input type="button" value="댓글" onclick="location.href='Review_ReplyForm.re'">
+                    <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=<%= article.getR_num() %>'">
+                    <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re'">
+                    <input type="button" value="목록" onclick="location.href='Review_List.re'">
              </section>
                     
           </div>      

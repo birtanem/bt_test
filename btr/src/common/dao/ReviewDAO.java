@@ -50,17 +50,19 @@ public class ReviewDAO {
 				num = rs.getInt(1)+1;
 			}
 			
-			sql = "insert into review values(?,?,?,?,?,now())";
+			sql = "insert into review values(?,?,?,?,?,?,now(),?,?)";
 			
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, reviewBean.getR_subject());
-			pstmt.setString(3, reviewBean.getR_content());
-			pstmt.setInt(4, 0);
+			pstmt.setString(2, reviewBean.getMember_member_id());
+			pstmt.setString(3, reviewBean.getR_subject());
+			pstmt.setString(4, reviewBean.getR_content());
 			pstmt.setInt(5, 0);
+			pstmt.setInt(6, 0);
+			pstmt.setString(7, reviewBean.getR_image());
+			pstmt.setInt(8, reviewBean.getRegion_region_code());
 			
-
 			insertCount = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -144,7 +146,7 @@ public class ReviewDAO {
 		return articleList;
 	}
 
-	public ReviewBean selectArticle(int num) {
+	public ReviewBean selectArticle(int r_num) {
 
 		ReviewBean article = null;
 		
@@ -157,7 +159,7 @@ public class ReviewDAO {
 			
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, r_num);
 			
 			rs = pstmt.executeQuery();
 			
@@ -187,7 +189,7 @@ public class ReviewDAO {
 		return article;
 	}
 
-	public int updateCount(int num) {
+	public int updateCount(int r_num) {
 
 		int updateCount = 0;
 		
@@ -198,7 +200,7 @@ public class ReviewDAO {
 			
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, r_num);
 			
 			updateCount = pstmt.executeUpdate();
 			
@@ -210,5 +212,27 @@ public class ReviewDAO {
 		
 		return updateCount;
 	}
-	
+
+	public int update(int r_num) {
+
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+		
+			String sql = "update review set r_subject = ? , r_content = ? where r_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return updateCount;
+	}
+
 }

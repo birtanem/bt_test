@@ -10,7 +10,7 @@ import review.vo.*;
 
 public class ReviewContentService {
 
-	public ReviewBean  getArticle(int num) {
+	public ReviewBean  getArticle(int r_num) {
 		
 		ReviewBean article = null;
 		
@@ -20,10 +20,10 @@ public class ReviewContentService {
 		
 		reviewDAO.setConnection(con);
 		
-		article = reviewDAO.selectArticle(num);
+		article = reviewDAO.selectArticle(r_num);
 		
 		if (article != null) {
-			int updateCount = reviewDAO.updateCount(num);
+			int updateCount = reviewDAO.updateCount(r_num);
 			if (updateCount > 0) {
 				commit(con);
 			}else {

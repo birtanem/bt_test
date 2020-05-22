@@ -17,11 +17,11 @@ public class ReviewContentAction implements Action{
 		
 		System.out.println("ReviewContentAction");
 		
-		int num = Integer.parseInt(request.getParameter("num"));
+		int r_num = Integer.parseInt(request.getParameter("r_num"));
 		
 		ReviewContentService reviewContentService = new ReviewContentService();
 		
-		ReviewBean article = reviewContentService.getArticle(num);
+		ReviewBean article = reviewContentService.getArticle(r_num);
 		
 		request.setAttribute("article", article);
 		
