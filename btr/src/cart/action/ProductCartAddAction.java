@@ -16,7 +16,7 @@ public class ProductCartAddAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("ProductCartAddAction");
-		System.out.println(request.getParameter("p_num"));
+
 		// 리턴 잊지 않도록 미리 선언 해주기
 		ActionForward forward = null;
 		
@@ -43,17 +43,20 @@ public class ProductCartAddAction implements Action {
 		PrintWriter out = response.getWriter();	
 		
 		out.println("<script>");
-		out.println("alert('장바구니 추가가 실패되었습니다.')");
-		out.println("hilstory.back()");
+		out.println("alert('장바구니 추가가 실패되었습니다.');");
+		out.println("history.back()");
 		out.println("</script>");
+		
 	} else {
+		
 		System.out.println("장바구니에 추가되었습니다");
 		
 		PrintWriter out = response.getWriter();	
 		out.println("<script>");
-		out.println("alert('장바구니에 상품이 추가되었습니다.')");
-		out.println("hilstory.back()");
+		out.println("alert('장바구니에 상품이 추가되었습니다.');");
+		out.println("history.back()");
 		out.println("</script>");
+		
 		// 현재에서 CartList.bo 서블릿을 요청하여 Redirect 방식 포워딩
 		forward = new ActionForward();
 		// 포워딩 방식 지정
