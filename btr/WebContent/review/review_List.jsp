@@ -133,20 +133,20 @@ int endPage=pageInfo.getEndPage();
 					
 					for(int i = 0; i < article.size();i++){ %>
 
-							<ul style="width: 100%; height: 150px;" onclick="location.href='Review_Content.re?&num=<%=article.get(i).getNum()%>&page=<%=nowPage%>'">
+							<ul style="width: 100%; height: 150px;" onclick="location.href='Review_Content.re?&num=<%=article.get(i).getR_num()%>&page=<%=nowPage%>'">
 								<li style="list-style: none;">
 									<div style="float: left;">
 										<img src="review/emg1.jpg" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
 									</div>
 									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px; background-color: gray;">
 										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											[카테고리]&nbsp;<%= article.get(i).getSubject() %>(댓글)
+											[카테고리]&nbsp;<%= article.get(i).getR_subject() %>(댓글)
 										</div>
 										<div style="width: 100%; height: 25px; font-size: 12px">
-											작성자&nbsp;<%= article.get(i).getDate() %>&nbsp;&nbsp;조회수&nbsp;<%= article.get(i).getReadcount() %>
+											작성자&nbsp;<%= article.get(i).getR_date() %>&nbsp;&nbsp;조회수&nbsp;<%= article.get(i).getR_readcount() %>
 										</div>
 										<p style="font-size: 20px;">
-										<%= article.get(i).getContent() %>
+										<%= article.get(i).getR_content() %>
 										</p>
 									</div>
 								</li>
