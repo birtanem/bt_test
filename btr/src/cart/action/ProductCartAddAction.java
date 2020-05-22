@@ -48,6 +48,12 @@ public class ProductCartAddAction implements Action {
 		out.println("</script>");
 	} else {
 		System.out.println("장바구니에 추가되었습니다");
+		
+		PrintWriter out = response.getWriter();	
+		out.println("<script>");
+		out.println("alert('장바구니에 상품이 추가되었습니다.')");
+		out.println("hilstory.back()");
+		out.println("</script>");
 		// 현재에서 CartList.bo 서블릿을 요청하여 Redirect 방식 포워딩
 		forward = new ActionForward();
 		// 포워딩 방식 지정
