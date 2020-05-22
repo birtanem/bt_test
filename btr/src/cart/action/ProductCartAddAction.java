@@ -16,7 +16,7 @@ public class ProductCartAddAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("ProductCartAddAction");
-		
+		System.out.println(request.getParameter("p_num"));
 		// 리턴 잊지 않도록 미리 선언 해주기
 		ActionForward forward = null;
 		
@@ -25,7 +25,7 @@ public class ProductCartAddAction implements Action {
 		
 		// 자바빈 저장
 		cb.setC_p_num(Integer.parseInt(request.getParameter("p_num")));
-		cb.setC_p_amount(Integer.parseInt(request.getParameter("p_mount")));
+		cb.setC_p_amount(Integer.parseInt(request.getParameter("p_amount")));
 //		cb.setC_member_id(id); // 멤버 생성되면 추가해주기
 		
 		// ProductCartAddService 클래스 생성
@@ -59,7 +59,7 @@ public class ProductCartAddAction implements Action {
 		// 포워딩 방식 지정
 		forward.setRedirect(true);
 		// 포워딩 주소
-		forward.setPath("CartList.bo");
+		forward.setPath("ProductCartList.ca");
 	}
 		
 		return forward;

@@ -41,9 +41,7 @@
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <script type="text/javascript">
-	function Cart() {
-		if ()
-	}
+
 </script>
 <!--/head-->
 <body>
@@ -102,35 +100,7 @@
 						<input type="submit" class="Btn"value="장바구니담기" >
 					</li>
 
-<<<<<<< HEAD
-					<!-- The Modal -->
-					<div id="myModal" class="modal">
-						<!-- Modal content -->
-						<div class="modal-content">
-							<div class="modal-header">
-								<span class="close">&times;</span>
-								<h2><%=productList.get(i).getP_name()%></h2>
-							</div>
 
-							<div class="modal-body">
-								<%=productList.get(i).getP_content()%>
-							</div>
-							<div class="modal-footer">
-								<h3>
-
-									<%=productList.get(i).getP_price()%>
-									<input type="button" value="-"> <input type="text"
-										value="1"> <input type="button" value="+"> <input
-										type="button" value="장바구니담기" 
-										onclick="location.href='product/cartList.jsp?p_num='+"> 
-										<input type="button" value="바로결제" onclick="#">
-								</h3>
-							</div>
-						</div>
-					</div>
-
-=======
->>>>>>> branch 'master' of https://github.com/funmtb504/bt_test.git
 					<%
 						}
 						} else {
