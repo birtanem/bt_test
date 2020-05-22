@@ -90,10 +90,13 @@ public class CartDAO {
 			sql = "insert into cart values(?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, c_num);
-			pstmt.setString(2, cb.getC_member_id());
-			pstmt.setInt(3, cb.getC_p_num());
-			pstmt.setInt(4, cb.getC_p_amount());
-			
+			pstmt.setInt(2, cb.getC_p_num());
+			pstmt.setString(3, cb.getC_member_id());
+			pstmt.setInt(4, cb.getC_p_amount()); 
+			System.out.println(c_num);
+			System.out.println(cb.getC_p_num());
+			System.out.println(cb.getC_p_amount());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("CartDAO - cartAdd() 실패 ! : " + e.getMessage());
 		} finally {

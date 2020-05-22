@@ -40,6 +40,9 @@
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
+<script type="text/javascript">
+
+</script>
 <!--/head-->
 <body>
 	<jsp:include page="/inc/top.jsp" />
@@ -89,13 +92,14 @@
 							<strong><%=productList.get(i).getP_price()%> </strong>
 						</p> 
 						
-						<input type="hidden" value="<%=productList.get(i).getP_num() %>">
-						<input type="hidden" value="<%=productList.get(i).getP_amount() %>">
+						<input type="hidden" value="<%=productList.get(i).getP_num() %>" name="p_num">
+						<input type="hidden" value="<%=productList.get(i).getP_amount()%>" name="p_amount">
 						
 						<!-- Trigger/Open The Modal --> 
 						<input type="button" class="myBtn"	value="구매하기" onclick="#">
 						<input type="submit" class="Btn"value="장바구니담기" >
 					</li>
+
 
 					<%
 						}

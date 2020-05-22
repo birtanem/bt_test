@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cart.action.ProductCartAddAction;
+import cart.action.ProductCartListAction;
 import common.action.Action;
 import common.vo.ActionForward;
 
@@ -29,7 +30,7 @@ public class CartFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/ProductCartAdd.bo")) { // 장바구니 추가 서블릿
+		if(command.equals("/ProductCartAdd.ca")) { // 장바구니 추가 서블릿
 			// ProductCartAdd 클래스 인스턴스 생성 => Action 타입으로 업캐스팅
 			action = new ProductCartAddAction();
 			try {
@@ -37,7 +38,14 @@ public class CartFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} 
+		} else if (command.equals("/ProductCartList.ca")) { // 장바구니 목록 서블릿
+			action = new ProductCartListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 				
 					
 		// 포워딩
