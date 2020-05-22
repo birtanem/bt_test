@@ -43,9 +43,14 @@ function start() {
 	
 	var date = document.getElementById("mydate").value;
 	var timeleft = 5;
-	
+
 	if(date == "") {
-		alert("이벤트 기간을 선택하세요")
+		alert("이벤트 기간을 선택하세요!")
+		return false;
+	}
+	
+	if(new Date(date) < new Date()) {
+		alert("현재 일 이후로 선택하세요!")
 		return false;
 	}
 	

@@ -38,7 +38,7 @@ public class EventPageAction implements Action {
 		
 		forward = new ActionForward();
 		
-		forward.setPath("/event.jsp");
+		forward.setPath("/event/event.jsp");
 			
 		return forward;
 	}

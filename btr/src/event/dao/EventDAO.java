@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -69,10 +70,18 @@ public class EventDAO {
 		if(checkDate == 1) {
 			
 			try {
-				String sql = "INSERT INTO event VALUES(null, now(), ?)";
+				
+				String sql = "UPDATE event_box SET eb_pull = 0";
+				pstmt = con.prepareStatement(sql);
+				pstmt.executeUpdate();
+				
+				
+				sql = "INSERT INTO event VALUES(null, now(), ?)";
 				pstmt  = con.prepareStatement(sql);
 				pstmt.setString(1, date);
 				setDateCount = pstmt.executeUpdate();
+				
+
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -149,5 +158,87 @@ public class EventDAO {
 		}
 		
 		return date;
+	}
+	
+	public int setPull() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int num = 0;
+		int checkNum = 0;
+		int checkPull = 0;
+		try {
+			
+			String sql = "SELECT * FROM event_box WHERE eb_rank > 0 AND eb_pull = 0";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				sql = "SELECT * FROM event_box WHERE eb_pull = 0 ORDER BY rand() LIMIT 1";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+							
+				if(rs.next()) {
+					
+					num = rs.getInt("eb_num");
+					
+					if(num==3 || num==6 || num==9) {
+						checkNum = 1; // 당첨	
+					}else {
+						checkNum = 2; // 꽝	
+					}
+					
+				}else {
+					
+					checkNum = -1;
+				}
+				
+				sql = "UPDATE event_box SET eb_pull = 1 WHERE eb_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				checkPull = pstmt.executeUpdate() + checkNum;				
+			}
+								
+			System.out.println(checkPull);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - setPull() 실패! : "+e.getMessage());
+		}
+		
+	
+		return checkPull;
+	}
+
+	public ArrayList<EventWinBean> getArticle() {
+		
+	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		ArrayList<EventWinBean> articleList = new ArrayList<EventWinBean>();
+		
+		try {
+			String sql = "SELECT * FROM event_win";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				EventWinBean article = new EventWinBean();
+				article.setMember_id(rs.getString("member_id"));
+				article.setEw_date(rs.getDate("ew_date"));
+				article.setEw_100000(rs.getInt("ew_100000"));
+				article.setEw_50000(rs.getInt("ew_50000"));
+				article.setEw_30000(rs.getInt("ew_30000"));
+				articleList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return articleList;
 	}
 }

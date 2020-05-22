@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import event.action.EventCheckAction;
 import event.action.EventEndAction;
 import event.action.EventPageAction;
 import event.action.EventPullAction;
 import event.action.EventStartAction;
+import event.action.EventWinListAction;
 
 @WebServlet("*.ev") // 서블릿 주소 중 XXX.bo 주소에 대한 요청을 전달받음
 public class EventFrontController extends HttpServlet {
@@ -75,7 +77,28 @@ public class EventFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		}	
+		}else if(command.equals("/eventCheck.ev")) {
+
+			action = new EventCheckAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if(command.equals("/eventAdmin.ev")) {
+
+			action = new EventWinListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
+			
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행
 		if(forward != null) {
 			// ActionForward 객체 내의 포워딩 방식(Dispatcher or Redirect) 판별

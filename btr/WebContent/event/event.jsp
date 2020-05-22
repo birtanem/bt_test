@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+/*
 
+포인트 불러오기
+포인트 교환권 사용하기
+당첨내역 불러오기
+당첨등록
+
+*/
+
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +35,12 @@
 
 <!-- 이벤트 css, js -->
 <link href="css/event.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/countdown/jquery.countdown.css" />
+<link rel="stylesheet" href="event/assets/countdown/jquery.countdown.css" />
 
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="assets/countdown/jquery.countdown.js"></script>
-<script src="<c:url value="/js/event.js" />"></script>
-<script src="<c:url value="/js/eventPop.js" />"></script>
+<script src="event/assets/countdown/jquery.countdown.js"></script>
+<script src="<c:url value="js/event.js" />"></script>
+<script src="<c:url value="js/eventPop.js" />"></script>
 
 <!-- /이벤트 css, js -->
 
@@ -40,7 +52,7 @@
 </head>
 
 <body>
-<jsp:include page="inc/top.jsp"></jsp:include>
+<jsp:include page="../inc/top.jsp"></jsp:include>
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
         <h1>무료 이벤트</h1>
@@ -116,7 +128,7 @@
 
     </section>
     <!--/#bottom-->
-	<jsp:include page="inc/bottom.jsp"></jsp:include>
+	<jsp:include page="../inc/bottom.jsp"></jsp:include>
     <!--/#footer-->
 
 <!--     <script src="js/jquery.js"></script> -->
