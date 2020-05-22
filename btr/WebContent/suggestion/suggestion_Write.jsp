@@ -1,15 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+// String id = (String)session.getAttribute("id");
+String id = "admin";
+String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
 
-    
-    
-    
-    
-    
-    
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script type="text/javascript">
+function checkValue(){
+	var form = document.contentinfo;
+	
+	if(!form.subject.value){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	
+	if(!form.content.value){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	
+	
+}
+</script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -124,8 +142,8 @@
 							<table border="1" style="width: 610px; position: relative;">
 <%-- 								<tr><td>아이디</td><td><input type="text" name="id" value="<%=id%>" readonly></td> --%>
 <%-- 								<td>이메일</td><td><input type="text" name="email" value="<%=email%>" readonly></td></tr> --%>
-								<tr><td>아이디</td><td><input type="text" name="id" value="아이디불러오기" readonly></td>
-								<td>이메일</td><td><input type="text" name="email" value="이메일불러오기" readonly></td></tr>
+								<tr><td>아이디</td><td><input type="text" name="id" value="<%=id%>" readonly></td>
+								<td>이메일</td><td><input type="text" name="email" value="<%=email%>" readonly></td></tr>
 								<tr><td>제목</td><td colspan="3"><input type="text" name="subject" id="subject" style="width: 540px; margin: 1px;"></td></tr>
 								<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
 								<tr><td colspan="4" style="height: 300px"><textarea name="content" id="content" rows="10" cols="20" style="margin: 5px; width: 575px; height: 270px;"></textarea></td></tr>

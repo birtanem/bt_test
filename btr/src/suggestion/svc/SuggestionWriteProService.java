@@ -1,9 +1,6 @@
 package suggestion.svc;
-
 import static common.db.JdbcUtil.*;
-
 import java.sql.*;
-
 import common.dao.*;
 import common.vo.*;
 import suggestion.vo.*;
