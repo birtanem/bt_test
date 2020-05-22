@@ -82,7 +82,7 @@ public class ProductRegistProAction implements Action {
 			// 포워딩 방식 지정
 			forward.setRedirect(true);
 			// 포워딩 주소
-			forward.setPath("productList.bo");
+			forward.setPath("productList.pr");
 		}
 		
 		
