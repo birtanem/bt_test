@@ -87,7 +87,7 @@
 						<p>
 							<strong><%=productList.get(i).getP_price()%> </strong>
 						</p> <!-- Trigger/Open The Modal --> 
-						<input type="button" id="myBtn"	value="구매하기">
+						<input type="button" class="myBtn"	value="구매하기">
 					</li>
 
 					<!-- The Modal -->

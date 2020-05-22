@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+
 import action.Action;
 import product_svc.ProductListService;
 import product_vo.ProductBean;
@@ -17,7 +19,6 @@ public class adminProductAction implements Action {
 		ActionForward forward=null;
 		System.out.println("productListAction");
 		ArrayList<ProductBean> productList=ProductListService.getProductList();
-		
 		ProductListService productListService=new ProductListService();
 		int ListCount=productListService.getListCount();
 		request.setAttribute("productList", productList);
