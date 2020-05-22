@@ -1,4 +1,4 @@
-package common.controller;
+package product.controller;
 
 import java.io.IOException;
 
@@ -17,13 +17,12 @@ import product.action.ProductRegistProAction;
 /**
  * Servlet implementation class ProductFrontController
  */
-@WebServlet("*.bo")
+@WebServlet("*.pr")
 public class ProductFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// POST 방식 한글 처리
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("dd");
 		// 서블릿 주소 가져오기
 		String command = request.getServletPath();
 		System.out.println("서블릿 확인:"+command);
@@ -32,12 +31,12 @@ public class ProductFrontController extends HttpServlet {
 		ActionForward forward = null;
 		
 
-		if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
+		if(command.equals("/productRegistForm.pr")) { // 상품 등록을 보여줌
 				// 등록 페이지는 비즈니스 로직이 필요 없다 => JSP 페이지로 바로 연결 수행
 				// dispatcher 방식으로 설정(기본값 생략)
 				forward = new ActionForward();
 				forward.setPath("/product/product_registForm.jsp");
-		} else if(command.equals("/productRegistPro.bo")){ // 상품 등록함
+		} else if(command.equals("/productRegistPro.pr")){ // 상품 등록함
 			try {
 				System.out.println("상품 등록 프론트 컨트롤러");
 				action = new ProductRegistProAction();
@@ -46,14 +45,14 @@ public class ProductFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-		} else if(command.equals("/productRegistForm.bo")) { // 상품 등록을 보여줌
+		} else if(command.equals("/productRegistForm.pr")) { // 상품 등록을 보여줌
 			try {
 				action = new ProductRegistProAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/productList.bo")) {
+		} else if(command.equals("/productList.pr")) {
 			action=new ProductListAction();
 			try {
 				forward=action.execute(request, response);

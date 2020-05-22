@@ -2,11 +2,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
 	int ListCount = (int) request.getAttribute("ListCount");
 %>
+<c:forEach var="productList" items"${productList }">
+	
+</c:forEach>
 
 
 <!DOCTYPE html>
@@ -40,11 +44,6 @@
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
-<script type="text/javascript">
-	function Cart() {
-		if ()
-	}
-</script>
 <!--/head-->
 <body>
 	<jsp:include page="/inc/top.jsp" />
@@ -76,9 +75,8 @@
 		<!--<section id="portfolio"> -->
 		<div class="container">
 			<input type="button" class="btn btn-default active" value="관리자:상품등록"
-				onclick="location.href='productRegistForm.pr'" />
+				onclick="location.href='productRegistForm.bo'" />
 			<div class="portfolio-items">
-			<form action="ProductCartAdd.ca" method="post">
 				<ul class="product-list">
 					<%
 						if (productList != null && ListCount > 0) {
@@ -92,17 +90,10 @@
 						<h5 class="product-title"><%=productList.get(i).getP_name()%></h5>
 						<p>
 							<strong><%=productList.get(i).getP_price()%> </strong>
-						</p> 
-						
-						<input type="hidden" value="<%=productList.get(i).getP_num() %>">
-						<input type="hidden" value="<%=productList.get(i).getP_amount() %>">
-						
-						<!-- Trigger/Open The Modal --> 
-						<input type="button" class="myBtn"	value="구매하기" onclick="#">
-						<input type="submit" class="Btn"value="장바구니담기" >
+						</p> <!-- Trigger/Open The Modal --> 
+						<input type="button" class="myBtn"	value="구매하기">
 					</li>
 
-<<<<<<< HEAD
 					<!-- The Modal -->
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
@@ -121,16 +112,13 @@
 									<%=productList.get(i).getP_price()%>
 									<input type="button" value="-"> <input type="text"
 										value="1"> <input type="button" value="+"> <input
-										type="button" value="장바구니담기" 
-										onclick="location.href='product/cartList.jsp?p_num='+"> 
-										<input type="button" value="바로결제" onclick="#">
+										type="button" value="장바구니담기" onclick="#"> <input
+										type="button" value="바로결제" onclick="#">
 								</h3>
 							</div>
 						</div>
 					</div>
 
-=======
->>>>>>> branch 'master' of https://github.com/funmtb504/bt_test.git
 					<%
 						}
 						} else {
@@ -140,17 +128,12 @@
 						}
 					%>
 				</ul>
-				</form>
 			</div>
 		</div>
 		<!-- 			</section> -->
 
 
 	</section>
-
-
-
-
 
 
 	<section id="bottom">
