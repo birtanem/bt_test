@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | Corlate</title>
+    <title>Home | With Trip</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -273,6 +273,56 @@
     
     
     </style>
+    <script src="js/jquery-3.5.0.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function() {
+
+	var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric&cnt=8';
+		$.getJSON(apiURL, function(rdata){
+			
+		$.each(rdata.list,function(index,item){
+			
+				var today = new Date(item.dt_txt);
+				var icon = item.weather[0].icon;
+				var hour = today.getHours();
+				
+				$('.time').append("<div style='border:1px solid;float:left; width: 50px; height: 100px; text-align: center;'>"
+						+hour+'시'+'<br>'
+						+'<img src="icon/'+icon+'.png" width = "50" height = "50" />'
+						+item.main.temp.toFixed(0)+"˚C"+"</div>");
+				
+			});
+		
+		});
+   
+		var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric';
+		var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
+		
+		$.getJSON(apiURL, function(rdata){
+			
+			
+			$.each(rdata.list,function(index,item){
+					
+
+				if(index%8 == 2){
+						
+					var icon = item.weather[0].icon;
+					var date = new Date(item.dt_txt).getDay();
+					var label = week[date];
+					
+					$('.day').append("<div style='border:1px solid;float:left; width: 80px; height: 100px; text-align: center;'>"
+										+label+"<br>"
+										+'<img src="icon/'+icon+'.png" width = "50" height = "50" />'+'<br>'+item.main.temp.toFixed(0)+"˚C"+"</div>");
+				}
+					
+			});
+			
+		});
+		
+		
+	});
+
+</script>
 </head>
 <!--/head-->
 
@@ -290,7 +340,14 @@
 <!--             </ol> -->
             <div class="carousel-inner">
   				<div class="item active" style="background-color: #f4b200">
+<div class="weather">
 
+	<h2>시간별 날씨</h2>
+	<div class="time"></div>
+	<h2>요일별 날씨</h2>
+	<div class="day"></div>
+
+</div>	
   				<svg xmlns="http://www.w3.org/2000/svg" id="Busan" enable-background="new -5.5 4.5 600 450" 
 viewBox="-30 -50 700 550" x="" y="" width="" height="" 
 xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" 

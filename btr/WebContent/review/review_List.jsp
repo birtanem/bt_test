@@ -1,5 +1,6 @@
-<%@page import="vo.ReviewPageInfo"%>
-<%@page import="vo.ReviewBean"%>
+
+<%@page import="review.vo.ReviewPageInfo"%>
+<%@page import="review.vo.ReviewBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -126,31 +127,33 @@ int endPage=pageInfo.getEndPage();
         <div class="blog container">
             <div class="row">
                 <div class="col-md-8">
-                
-				<table>
-				<%
-				
-				if(article != null && listCount >0){
-					%>
-					<tr class="title">
-					<td class="num">번호</td>
-					<td class="subject" style="text-align: center;">제목</td>
-					<td class="readcount">조회수</td>
-					<td class="date">날짜</td>
-					</tr>
+
+                	<table>
 					<%
 					
 					for(int i = 0; i < article.size();i++){ %>
-					<tr onclick="location.href='Review_Content.re?&num=<%=article.get(i).getNum()%>&page=<%=nowPage%>'">
-				        <td class="num"><%= article.get(i).getNum() %></td>
-				        <td class="subject" style="text-align: center;"><%= article.get(i).getSubject() %></td>
-				        <td class="readcount"><%= article.get(i).getReadcount() %></td>
-				        <td class="date"><%= article.get(i).getDate() %></td>
-				    </tr>
+
+							<ul style="width: 100%; height: 150px;" onclick="location.href='Review_Content.re?&r_num=<%=article.get(i).getR_num()%>&page=<%=nowPage%>'">
+								<li style="list-style: none;">
+									<div style="float: left;">
+										<img src="review/emg1.jpg" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
+									</div>
+									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
+										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
+											[카테고리]&nbsp;<%= article.get(i).getR_subject() %>(댓글)
+										</div>
+										<div style="width: 100%; height: 25px; font-size: 14px">
+											<%=article.get(i).getMember_member_id() %>&nbsp;&nbsp;<%= article.get(i).getR_date() %>&nbsp;&nbsp;조회수&nbsp;<%= article.get(i).getR_readcount() %>
+										</div>
+										<p style="font-size: 20px;">
+										<%= article.get(i).getR_content() %>
+										</p>
+									</div>
+								</li>
+							</ul>
+
 					<%}
 					
-				}
-				
 				%>
 				</table>
                     

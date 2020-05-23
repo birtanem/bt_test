@@ -1,5 +1,3 @@
-<%@page import="vo.ReviewPageInfo"%>
-<%@page import="vo.ReviewBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -113,16 +111,19 @@
 		        <div class="blog container">
 		            <div class="row" style="padding-left: 100px; padding-right: 100px;">
 		                	    <section id="writeForm">
-		        <h2>게시판글등록</h2>
 		        <form action="Review_WritePro.re" method="post">
 		            <table>
 		                <tr>
+		                
 		                    <td>제 목</td>
-		                    <td><input type="text" name="subject" style="width: 100%;" /></td>
+		                    <td><input type="text" name="r_subject" style="width: 100%;" /></td>
 		                </tr>
 		                <tr>
 		                    <td>내용</td>
-		                    <td><textarea name="content" cols="120" rows="15" style="resize: none; width: 100%;"></textarea></td>
+		                    <td><textarea name="r_content" cols="120" rows="15" style="resize: none; width: 100%;"></textarea></td>
+		                	<td><input type="hidden" name="r_image" value="1"></td>
+		                	<td><input type="hidden" name="member_member_id" value="test"></td>
+		                	<td><input type="hidden" name="region_region_code" value="1"></td>
 		                </tr>
 		            </table>
 		                <input type="submit" value="등록">

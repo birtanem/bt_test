@@ -1,7 +1,8 @@
-<%@page import="vo.ProductBean"%>
+<%@page import="product.vo.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
@@ -40,6 +41,9 @@
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
+<script type="text/javascript">
+
+</script>
 <!--/head-->
 <body>
 	<jsp:include page="/inc/top.jsp" />
@@ -67,12 +71,12 @@
 		</ul>
 		<!--/#portfolio-filter-->
 
-
-		<!-- 			<section id="portfolio"> -->
+		<section id="portfolio">
 		<div class="container">
 			<input type="button" class="btn btn-default active" value="관리자:상품등록"
-				onclick="location.href='productRegistForm.bo'" />
+				onclick="location.href='productRegistForm.pr'" />
 			<div class="portfolio-items">
+<!-- 			<form action="ProductCartAdd.ca" method="post"> -->
 				<ul class="product-list">
 					<%
 						if (productList != null && ListCount > 0) {
@@ -86,13 +90,20 @@
 						<h5 class="product-title"><%=productList.get(i).getP_name()%></h5>
 						<p>
 							<strong><%=productList.get(i).getP_price()%> </strong>
-						</p> <!-- Trigger/Open The Modal --> 
-						<input type="button" id="myBtn"	value="구매하기">
+						</p> 
+						
+<%-- 						<input type="hidden" value="<%productList.get(i).getP_num(); %>" name="p_num"> --%>
+<%-- 						<input type="hidden" value="<%productList.get(i).getP_amount();%>" name="p_amount"> --%>
+						
+						
+						<!-- Trigger/Open The Modal --> 
+						<input type="button" id="myBtn" value="구매하기" >
+<!-- 						<input type="submit" class="Btn"value="장바구니담기" > -->
 					</li>
-
+					</ul>
 					<!-- The Modal -->
-					<div id="myModal" class="modal">
-						<!-- Modal content -->
+					<div id="modal">
+<!-- 						Modal content -->
 						<div class="modal-content">
 							<div class="modal-header">
 								<span class="close">&times;</span>
@@ -114,7 +125,6 @@
 							</div>
 						</div>
 					</div>
-
 					<%
 						}
 						} else {
@@ -123,13 +133,18 @@
 					<%
 						}
 					%>
-				</ul>
+				
+<!-- 				</form> -->
 			</div>
 		</div>
 		<!-- 			</section> -->
 
 
 	</section>
+
+
+
+
 
 
 	<section id="bottom">
@@ -224,6 +239,7 @@
 		</div>
 	</footer>
 	<!--/#footer-->
+	
 	<script src="js/product_modal.js"></script>
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
