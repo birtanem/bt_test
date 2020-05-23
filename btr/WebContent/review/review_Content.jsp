@@ -1,3 +1,4 @@
+<%@page import="review_vo.ReviewBean"%>
 <%@page import="vo.ReviewPageInfo"%>
 <%@page import="vo.ReviewBean"%>
 <%@page import="java.util.ArrayList"%>
