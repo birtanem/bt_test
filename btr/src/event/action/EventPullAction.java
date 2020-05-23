@@ -22,17 +22,27 @@ public class EventPullAction implements Action {
 		
 		PrintWriter out = response.getWriter();
 		
-		if(setPullSuccess == 2) {
+		if(setPullSuccess == 30001) {
 			
-			out.print("1");
+			out.println("30000");
 			
-		}else if(setPullSuccess == 3){
+		}else if(setPullSuccess == 50001){
 			
-			out.print("0");		
+			out.println("50000");		
 			
+		}else if(setPullSuccess == 100001){
+			
+			out.println("100000");
+			
+		}else if(setPullSuccess == 1) { // 꽝
+			
+			out.println("1");
+			
+		}else if(setPullSuccess == 0){ // 종료
+			
+			out.println("0");
 		}else {
 			
-			out.print("-1");
 			
 		}
 		

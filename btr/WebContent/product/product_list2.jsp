@@ -72,12 +72,23 @@
 
 		<!--<section id="portfolio"> -->
 		
-		<c:set var="ListCount" value="${ListCount }"></c:set>
-		<c:out value="${ListCount }"></c:out>
-		${ListCount }
+<%-- 		<c:set var="ListCount" value="${ListCount }"></c:set> --%>
+<%-- 		<c:out value="${ListCount }"></c:out> --%>
+<%-- 		${ListCount } --%>
 		
-		<c:set var="productList" value="${producList }"></c:set>
+<%-- 		<c:set var="productList" value="${producList }"></c:set> --%>
 		
+				
+		<!-- 엄대정 -->
+		
+			<ol>
+			<c:forEach var="List" items="${productList}">		
+				<li>${List.p_name}</li><li>${List.p_price}</li>		
+			</c:forEach>
+			</ol>
+	
+		
+		<!-- 엄대정 -->
 		
 		
 		

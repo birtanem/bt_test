@@ -4,54 +4,48 @@
 
 $(document).ready(function() {
 	
-	
 	$('#btn').click(function() {
-		
-//		if(true) {
-//			alert("작업중")
-//			return false
-//		}
+			$.ajax("eventMinusPoint.ev",{
+				success: function(rdata) {
+					$("#myCoupon").html(rdata);
+				}
+			})
 			$.ajax({
 				url: 'eventPull.ev',
 				dataType: 'html',
 				type: 'get',
 				success: function(rdata) {
-
-//					if(rdata.indexOf("당첨")!=-1) {
-//						$('.p1').html("<img src='http://1.bp.blogspot.com/-HjVB3SbsLXk/VlowxvdkctI/AAAAAAAARqA/Fh7P3WbWcHM/s1600/congratulations.png' class='img'><br>"+rdata);	
-//					}else if(rdata.indexOf("꽝")!=-1) {
-//						$('.p1').html("<img src='images/x.PNG' class='img'><br>"+rdata);
-//					}else if(rdata.indexOf("종료")!=-1){
-//						$('.p1').html("<img src='images/a.png' class='img'><br>"+rdata);
-//						$("#btn").css('opacity','0').css('pointer-events','none');
-//						return false;
-//					}	
 					
-					if(rdata == "1") {
+					var point = rdata.trim();
+				
+					if(rdata == 30000 || rdata == 50000 || rdata == 100000) {
 						$('.p1').html("<img src='http://1.bp.blogspot.com/-HjVB3SbsLXk/VlowxvdkctI/AAAAAAAARqA/Fh7P3WbWcHM/s1600/congratulations.png' class='img'><br>");
-			    		$.ajax("eventCheck.ev", {
+						$.ajax("eventWin.ev",{
+							data: {"point": point},
+							success: function() {
+								
+							}
+						})
+			    		$.ajax("eventPull.ev", {
 			    			success: function(rdata) {
-			    
-			    				if(rdata == "-1") {
+			    			
+			    				if(rdata == 0) {
 			    					setTimeout(function() {
-			    					
-									$('.p1').html("<img src='images/a.png' class='img'><br>");
-									$("#btn").css('opacity','0').css('pointer-events','none');
-							    	
-									$('#countdown').empty();
-							    	$('#countdown').countdown({
-							    		callback	: function(days, hours, minutes, seconds){						    		
-							    		}
-							    	});
+
+			    						$.ajax("eventEnd.ev",{
+				    						success: function() {
+				    							location.reload();
+				    						}
+				    					});
 												
-			    					}, 4000);
+			    					}, 3000);
 			    					
-			    					$.ajax("eventEnd.ev");
+			    			
 			    				}
 
 			    			}
 			    		});
-					}else if(rdata == "0") {
+					}else if(rdata == 1) {
 						$('.p1').html("<img src='images/x.PNG' class='img'><br>");
 					}else {
 						$('.p1').html("<img src='images/a.png'><br>");
@@ -104,16 +98,9 @@ $(document).ready(function() {
 
     	if((new Date()) > ts){
 
-//    		$.ajax("eventCheck.ev", {
-//    			success: function(rdata) {
-    
-//    				if(rdata == "-1") {
-						$('.p1').html("<img src='images/a.png' class='img'><br>");
-						$("#btn").css('opacity','0').css('pointer-events','none');
-//    				}
-//    			}
-//    		});
-    		
+			$('.p1').html("<img src='images/a.png' class='img'><br>");
+			$("#btn").css('opacity','0').css('pointer-events','none');
+ 		
     		newYear = false;
     	}
     	

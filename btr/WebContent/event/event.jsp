@@ -62,8 +62,8 @@
 <br>
 
     	<div class="event">
-    	<input type="hidden" id="hid" value="${article.ew_date}">
-			<p>나의 포인트  <em><i id="myCoupon">9999999</i>점</em></p>
+    	<input type="hidden" id="hid" value="${date}">
+			<p>나의 포인트  <em><i id="myCoupon">${point}</i>점</em></p>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return eventPop()">당첨내역</a>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return adminPop()">관리자</a>
 		</div>
@@ -93,7 +93,7 @@
 								<i class="ico"></i>
 								<strong>포인트 30000</strong>
 								<p>보유쿠폰: <em>${article.ew_30000}</em> 장</p>
-								<span>교환</span>
+								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=30000'">
 							</a>
 						</li>
 						<li class="review  emth5">
@@ -101,7 +101,7 @@
 								<i class="ico"></i>
 								<strong>포인트 50000</strong>
 								<p>보유쿠폰: <em>${article.ew_50000}</em> 장</p>
-								<span>교환</span>
+								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=50000'">
 							</a>
 						</li>
 						<li class="ad  emth8">
@@ -109,7 +109,7 @@
 								<i class="ico"></i>
 								<strong>포인트 100000</strong>
 								<p>보유쿠폰: <em>${article.ew_100000}</em> 장</p>
-								<span>교환</span>
+								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=100000'">
 							</a>
 						</li>
 					</ul>

@@ -21,15 +21,17 @@ public class ProductListAction implements Action {
 		ActionForward forward=null;
 		System.out.println("productListAction");
 		List<ProductBean> productList=ProductListService.getProductList();
+//		ArrayList<ProductBean> productList=ProductListService.getProductList();
 		
 		ProductListService productListService=new ProductListService();
 		int ListCount=productListService.getListCount();
-		request.setAttribute("productList", productList);
+		request.setAttribute("productList", productList);		
 		request.setAttribute("a", "hollo");
 		request.setAttribute("ListCount", ListCount);
 		
 		
 		forward=new ActionForward();
+		
 		forward.setPath("/product/product_list2.jsp");
 		return forward;
 	}

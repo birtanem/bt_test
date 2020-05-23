@@ -1,5 +1,7 @@
 package event.action;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,7 +19,7 @@ public class EventPageAction implements Action {
 		System.out.println("EventListAction");
 		
 		ActionForward forward = null;
-		
+	
 		// EventListService 클래스 인스턴스 생성
 		EventPageService eventPageService = new EventPageService();
 		
@@ -31,7 +33,14 @@ public class EventPageAction implements Action {
 					
 			EventWinBean article = eventPageService.getArticle(id);
 			
+			Timestamp date = eventPageService.getDate();
+			
+			int point = eventPageService.getPoint(id);
+			
 			request.setAttribute("article", article);
+			request.setAttribute("date", date);
+			request.setAttribute("point", point);
+			
 			
 		}
 		

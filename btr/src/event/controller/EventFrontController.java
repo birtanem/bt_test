@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
-import event.action.EventCheckAction;
 import event.action.EventEndAction;
+import event.action.EventExchangeAction;
 import event.action.EventPageAction;
+import event.action.EventPointAction;
 import event.action.EventPullAction;
 import event.action.EventStartAction;
+import event.action.EventWinAction;
 
 @WebServlet("*.ev") // 서블릿 주소 중 XXX.bo 주소에 대한 요청을 전달받음
 public class EventFrontController extends HttpServlet {
@@ -76,9 +78,29 @@ public class EventFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		}else if(command.equals("/eventCheck.ev")) {
+		}else if(command.equals("/eventMinusPoint.ev")) {
 
-			action = new EventCheckAction();
+			action = new EventPointAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if(command.equals("/eventExchangePoint.ev")) {
+
+			action = new EventExchangeAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if(command.equals("/eventWin.ev")) {
+
+			action = new EventWinAction();
 			
 			try {
 				forward = action.execute(request, response);
