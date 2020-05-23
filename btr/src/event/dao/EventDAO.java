@@ -186,22 +186,24 @@ public class EventDAO {
 					
 					num = rs.getInt("eb_num");
 					
-					if(num==3 || num==6 || num==9) {
-						checkNum = 1; // 당첨	
-					}else {
-						checkNum = 2; // 꽝	
+					checkNum = rs.getInt("eb_rank");
+					
+					if(checkNum == 0) {
+						
+						checkNum = 0;
 					}
 					
 				}else {
 					
-					checkNum = -1;
+					checkNum = -1; // 종료
 				}
 				
 				sql = "UPDATE event_box SET eb_pull = 1 WHERE eb_num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, num);
 				
-				checkPull = pstmt.executeUpdate() + checkNum;				
+				checkPull = pstmt.executeUpdate() + checkNum; // 30001 50001 100001	당첨, 1 꽝
+				
 			}
 								
 			System.out.println(checkPull);
@@ -274,5 +276,102 @@ public class EventDAO {
 		}
 		
 		return articleList;
+	}
+	
+	public int selectPoint(String member_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int point = 0;
+		
+		
+		try {
+			String sql = "SELECT point FROM member WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				point = rs.getInt("point");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - selectPoint() 실패! : "+e.getMessage());
+		}
+	
+		
+		return point;
+	}
+
+	public int updateMinusPoint(String memeber_id) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		
+		
+		try {
+			String sql = "UPDATE member SET point = point - 100  WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memeber_id);
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - updateMinusPoint() 실패! : "+e.getMessage());
+		}
+	
+		
+		return updateCount;
+	}
+
+	public int updateExchangePoint(int point, String member_id) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		
+		
+		try {
+			String sql = "UPDATE member SET point = point + ?  WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, member_id);
+			updateCount = pstmt.executeUpdate();
+			
+			
+			sql = "UPDATE event_win SET ew_? = ew_? - 1 WHERE member_id = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setInt(2, point);
+			pstmt.setString(3, member_id);
+			updateCount += pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - updateExchangePoint() 실패! : "+e.getMessage());
+		}
+	
+		
+		return updateCount;
+	}
+
+	public int updateCoupon(int point, String member_id) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		
+		
+		try {
+			String sql = "UPDATE event_win SET ew_? = ew_? + 1  WHERE member_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setInt(2, point);
+			pstmt.setString(3, member_id);
+			insertCount = pstmt.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - updateExchangePoint() 실패! : "+e.getMessage());
+		}
+	
+		
+		return insertCount;
 	}
 }

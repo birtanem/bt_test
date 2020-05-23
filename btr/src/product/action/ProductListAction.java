@@ -20,17 +20,21 @@ public class ProductListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
 		System.out.println("productListAction");
+
 		ArrayList<ProductBean> productList=ProductListService.getProductList();
-		
+
 		ProductListService productListService=new ProductListService();
 		int ListCount=productListService.getListCount();
-		request.setAttribute("productList", productList);
+
+		request.setAttribute("productList", productList);		
 		request.setAttribute("ListCount", ListCount);
 		
 		
 		forward=new ActionForward();
-		forward.setRedirect(false);
+
 		forward.setPath("/product/product_list3.jsp");
+
+
 		return forward;
 	}
 
