@@ -89,7 +89,7 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBean.setP_category(rs.getString(7));			
+				productBean.setP_category(rs.getString(7));
 				productList.add(productBean);
 			}
 		} catch (SQLException e) {
