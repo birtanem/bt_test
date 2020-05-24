@@ -5,6 +5,7 @@ import java.util.Date;
 public class EventWinBean {
 	
 	private int ew_num;
+	private int round;
 	private String member_id;
 	private Date ew_date;
 	private int ew_30000;
@@ -16,6 +17,12 @@ public class EventWinBean {
 	}
 	public void setEw_num(int ew_num) {
 		this.ew_num = ew_num;
+	}
+	public int getRound() {
+		return round;
+	}
+	public void setRound(int round) {
+		this.round = round;
 	}
 	public String getMember_id() {
 		return member_id;
@@ -47,6 +54,8 @@ public class EventWinBean {
 	public void setEw_100000(int ew_100000) {
 		this.ew_100000 = ew_100000;
 	}
+
+	
 	
 	
 }

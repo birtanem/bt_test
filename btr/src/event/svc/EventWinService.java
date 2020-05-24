@@ -14,7 +14,7 @@ import event.vo.EventWinBean;
 
 public class EventWinService {
 
-	public boolean insertWinList(int point, String member_id) {
+	public boolean addWinCoupon(int point, String member_id) {
 		System.out.println("EventWinService - insertWinList");
 		Connection con = getConnection();
 		
@@ -25,6 +25,33 @@ public class EventWinService {
 		eventDAO.setConnection(con);
 		
 		int insertCount = eventDAO.updateCoupon(point, member_id);
+		
+		if(insertCount > 0) {
+			
+			commit(con);
+			isInsertSuccess = true;
+
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return isInsertSuccess;
+	}
+	
+	public boolean addWinList(String member_id) {
+		System.out.println("EventWinService - addWinList");
+		Connection con = getConnection();
+		
+		boolean isInsertSuccess = false;
+		
+		EventDAO eventDAO = EventDAO.getInstance();
+		
+		eventDAO.setConnection(con);
+		
+		int insertCount = eventDAO.insertWinArticle(member_id);
 		
 		if(insertCount > 0) {
 			

@@ -210,6 +210,10 @@ public class EventDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - setPull() 실패! : "+e.getMessage());
+		}finally {
+			
+			close(rs);
+			close(pstmt);
 		}
 		
 	
@@ -234,6 +238,7 @@ public class EventDAO {
 				
 				EventWinBean article = new EventWinBean();
 				article.setMember_id(rs.getString("member_id"));
+				article.setRound(rs.getInt("round"));
 				article.setEw_date(rs.getDate("ew_date"));
 				article.setEw_100000(rs.getInt("ew_100000"));
 				article.setEw_50000(rs.getInt("ew_50000"));
@@ -243,6 +248,9 @@ public class EventDAO {
 		} catch (SQLException e) {
 			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		
 		return articleList;
@@ -273,6 +281,9 @@ public class EventDAO {
 		} catch (SQLException e) {
 			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		
 		return articleList;
@@ -297,6 +308,9 @@ public class EventDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - selectPoint() 실패! : "+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 	
 		
@@ -317,6 +331,8 @@ public class EventDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - updateMinusPoint() 실패! : "+e.getMessage());
+		}finally {
+			close(pstmt);
 		}
 	
 		
@@ -346,6 +362,8 @@ public class EventDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - updateExchangePoint() 실패! : "+e.getMessage());
+		}finally {
+			close(pstmt);
 		}
 	
 		
@@ -369,6 +387,30 @@ public class EventDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - updateExchangePoint() 실패! : "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+	
+		
+		return insertCount;
+	}
+
+	public int insertWinArticle(String member_id) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		
+		try {
+			String sql = "INSERT INTO event_win VALUES(null,(SELECT MAX(e_num) FROM event), ?, now(), 1,1,1)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			insertCount = pstmt.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - insertWinArticle() 실패! : "+e.getMessage());
+		}finally {
+			close(pstmt);
 		}
 	
 		
