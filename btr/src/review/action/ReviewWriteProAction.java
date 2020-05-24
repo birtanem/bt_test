@@ -5,6 +5,9 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.oreilly.servlet.*;
+import com.oreilly.servlet.multipart.*;
+
 import common.action.*;
 import common.vo.*;
 import review.svc.*;
@@ -19,16 +22,32 @@ public class ReviewWriteProAction implements Action{
 		
 		System.out.println("ReviewWriteProAction");
 		
-		int region = Integer.parseInt(request.getParameter("region"));
+		ServletContext context = request.getServletContext();
+		
+		String saveFolder = "/reviewUpload";
+		
+		String realFolder = context.getRealPath(saveFolder);
+		
+		int fileSize = 1024*1024*10;
+		
+		MultipartRequest multi = new MultipartRequest(
+				request, 
+				realFolder, 
+				fileSize, 
+				"UTF-8", 
+				new DefaultFileRenamePolicy());
+		
+		int region = Integer.parseInt(multi.getParameter("region"));
 		
 		ReviewBean reviewBean = new ReviewBean();
 		
-		reviewBean.setMember_member_id(request.getParameter("r_id"));
-		reviewBean.setR_image(request.getParameter("r_image"));
+		reviewBean.setMember_member_id(multi.getParameter("r_id"));
 		reviewBean.setRegion_region_code(region);
-		reviewBean.setR_subject(request.getParameter("r_subject"));
-		reviewBean.setR_content(request.getParameter("r_content"));
+		reviewBean.setR_subject(multi.getParameter("r_subject"));
+		reviewBean.setR_content(multi.getParameter("r_content"));
 		
+		reviewBean.setR_image(
+				multi.getOriginalFileName( (String)multi.getFileNames().nextElement() ));
 		ReviewWriteProService reviewWriteProService = new ReviewWriteProService();
 		
 		boolean isWriteSucces = reviewWriteProService.registArticle(reviewBean);
