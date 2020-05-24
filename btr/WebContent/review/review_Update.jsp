@@ -3,10 +3,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    ReviewBean article = (ReviewBean)request.getAttribute("article");
-    String nowPage = request.getParameter("page");
-    %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <c:set var = "article" value="${article }" />
+    <c:set var = "nowPage" value="${page }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,15 +121,15 @@
 		            <table>
 		                <tr>
 		                    <td>제 목</td>
-		                    <td><input type="text" value="<%= article.getR_subject() %>" name="r_subject" style="width: 100%;" /></td>
+		                    <td><input type="text" value="${article.r_subject }" name="r_subject" style="width: 100%;" /></td>
 		                </tr>
 		                <tr>
 		                    <td>내용</td>
-		                    <td><input type="text" value="<%= article.getR_content() %>" name="r_content" style="width:100%;height:400px;"/></td>
-		                	<td><input type="hidden" name="r_image" value="<%= article.getR_image() %>"></td>
-		                	<td><input type="hidden" name="r_id" value="test"></td>
-		                	<td><input type="hidden" name="r_code" value="1"></td>
-		                	<td><input type="hidden" name="r_num" value="<%= article.getR_num() %>"></td>
+		                    <td><input type="text" value="${article.r_content }" name="r_content" style="width:100%;height:400px;"/></td>
+		                	<td><input type="hidden" name="r_image" value="${article.r_image }"></td>
+		                	<td><input type="hidden" name="r_id" value="${article.r_id }"></td>
+		                	<td><input type="hidden" name="r_code" value="${article.r_code }"></td>
+		                	<td><input type="hidden" name="r_num" value="${article.r_num }"></td>
                             
 		                </tr>
 		            </table>

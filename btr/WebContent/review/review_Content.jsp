@@ -2,10 +2,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    String nowPage = request.getParameter("page");
-    ReviewBean article = (ReviewBean)request.getAttribute("article");
-    %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <c:set var="article" value="${article }" />
+    <c:set var="nowPage" value="${page }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,17 +118,17 @@
                     <table>
                         <tr>
                             <td>제 목</td>
-                            <td style="width: 90%;"><%= article.getR_subject() %></td>
+                            <td style="width: 90%;">${article.r_subject }</td>
                         </tr>
                         <tr>
                             <td>내용</td>
-                            <td style="width: 90%; height: 400px;"><%= article.getR_content() %></td>
+                            <td style="width: 90%; height: 400px;">${article.r_content }</td>
                         </tr>
                     </table>
                     <input type="button" value="댓글" onclick="location.href='Review_ReplyForm.re'">
-                    <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=<%= article.getR_num() %>'">
-                    <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=<%= article.getR_num() %>'">
-                    <input type="button" value="목록" onclick="location.href='Review_List.re?page=<%= nowPage %>'">
+                    <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=${article.r_num }'">
+                    <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=${article.r_num }'">
+                    <input type="button" value="목록" onclick="location.href='Review_List.re?page=${nowPage }'">
              </section>
                     
           </div>      
