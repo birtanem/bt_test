@@ -18,12 +18,14 @@ public class ReviewContentAction implements Action{
 		System.out.println("ReviewContentAction");
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
+		String page = request.getParameter("page");
 		
 		ReviewContentService reviewContentService = new ReviewContentService();
 		
 		ReviewBean article = reviewContentService.getArticle(r_num);
 		
 		request.setAttribute("article", article);
+		request.setAttribute("page", page);
 		
 		forward = new ActionForward();
 		
