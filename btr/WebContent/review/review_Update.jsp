@@ -128,7 +128,10 @@
 		                    <td>내용</td>
 		                    <td><input type="text" value="<%= article.getR_content() %>" name="r_content" style="width:100%;height:400px;"/></td>
 		                	<td><input type="hidden" name="r_image" value="<%= article.getR_image() %>"></td>
-		                	<td><input type="hidden" name="member_member_id" value="test"></td>
+		                	<td><input type="hidden" name="r_id" value="test"></td>
+		                	<td><input type="hidden" name="r_code" value="1"></td>
+		                	<td><input type="hidden" name="r_num" value="<%= article.getR_num() %>"></td>
+                            
 		                </tr>
 		            </table>
 		                <input type="submit" value="등록">

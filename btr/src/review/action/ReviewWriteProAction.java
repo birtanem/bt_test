@@ -41,8 +41,8 @@ public class ReviewWriteProAction implements Action{
 		
 		ReviewBean reviewBean = new ReviewBean();
 		
-		reviewBean.setMember_member_id(multi.getParameter("r_id"));
-		reviewBean.setRegion_region_code(region);
+		reviewBean.setR_id(multi.getParameter("r_id"));
+		reviewBean.setR_code(region);
 		reviewBean.setR_subject(multi.getParameter("r_subject"));
 		reviewBean.setR_content(multi.getParameter("r_content"));
 		

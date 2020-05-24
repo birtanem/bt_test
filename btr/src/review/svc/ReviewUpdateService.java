@@ -30,4 +30,28 @@ public class ReviewUpdateService {
 		return article;
 	}
 
+	public boolean UpdateArticle(ReviewBean reviewBean) {
+
+		boolean isupdate = false;
+		
+		Connection con = getConnection();
+		
+		ReviewDAO reviewDAO = ReviewDAO.getInstance();
+		
+		reviewDAO.setConnection(con);
+
+		int updateCount = reviewDAO.update(reviewBean);
+		
+		if (updateCount > 0) {
+			commit(con);
+			isupdate = true;
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return isupdate;
+	}
+
 }

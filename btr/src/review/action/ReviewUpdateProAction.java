@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import review.svc.*;
 import review.vo.ReviewBean;
 
 public class ReviewUpdateProAction implements Action {
@@ -17,12 +18,16 @@ public class ReviewUpdateProAction implements Action {
 		System.out.println("ReviewUpdateProAction");
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
-		
+		System.out.println(r_num);
 		ReviewBean reviewBean = new ReviewBean();
 		
 		reviewBean.setR_num(r_num);
 		reviewBean.setR_subject(request.getParameter("r_subject"));
 		reviewBean.setR_content(request.getParameter("r_content"));
+		
+		ReviewUpdateService reviewUpdateService = new ReviewUpdateService();
+		
+		boolean isUpdate = reviewUpdateService.UpdateArticle(reviewBean);
 		
 		forward = new ActionForward();
 		forward.setPath("Review_List.re");

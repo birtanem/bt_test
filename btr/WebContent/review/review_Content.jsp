@@ -128,8 +128,8 @@
                     </table>
                     <input type="button" value="댓글" onclick="location.href='Review_ReplyForm.re'">
                     <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=<%= article.getR_num() %>'">
-                    <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re'">
-                    <input type="button" value="목록" onclick="location.href='Review_List.re'">
+                    <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=<%= article.getR_num() %>'">
+                    <input type="button" value="목록" onclick="location.href='Review_List.re?page=<%= nowPage %>'">
              </section>
                     
           </div>      

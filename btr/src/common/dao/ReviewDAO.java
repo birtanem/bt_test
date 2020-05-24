@@ -55,13 +55,13 @@ public class ReviewDAO {
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, reviewBean.getMember_member_id());
+			pstmt.setString(2, reviewBean.getR_id());
 			pstmt.setString(3, reviewBean.getR_subject());
 			pstmt.setString(4, reviewBean.getR_content());
 			pstmt.setInt(5, 0);
 			pstmt.setInt(6, 0);
 			pstmt.setString(7, reviewBean.getR_image());
-			pstmt.setInt(8, reviewBean.getRegion_region_code());
+			pstmt.setInt(8, reviewBean.getR_code());
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -124,14 +124,14 @@ public class ReviewDAO {
 				ReviewBean reviewBean = new ReviewBean();
 				
 				reviewBean.setR_num(rs.getInt("r_num"));
-				reviewBean.setMember_member_id(rs.getString("member_member_id"));
+				reviewBean.setR_id(rs.getString("member_member_id"));
 				reviewBean.setR_subject(rs.getString("r_subject"));
 				reviewBean.setR_content(rs.getString("r_content"));
 				reviewBean.setR_readcount(rs.getInt("r_readcount"));
 				reviewBean.setR_likecount(rs.getInt("r_likecount"));
 				reviewBean.setR_date(rs.getDate("r_date"));
 				reviewBean.setR_image(rs.getString("r_image"));
-				reviewBean.setRegion_region_code(rs.getInt("region_region_code"));
+				reviewBean.setR_code(rs.getInt("region_region_code"));
 				
 				articleList.add(reviewBean);
 				
@@ -168,14 +168,14 @@ public class ReviewDAO {
 				article = new ReviewBean();
 				
 				article.setR_num(rs.getInt("r_num"));
-				article.setMember_member_id(rs.getString("member_member_id"));
+				article.setR_id(rs.getString("member_member_id"));
 				article.setR_subject(rs.getString("r_subject"));
 				article.setR_content(rs.getString("r_content"));
 				article.setR_readcount(rs.getInt("r_readcount"));
 				article.setR_likecount(rs.getInt("r_likecount"));
 				article.setR_date(rs.getDate("r_date"));
 				article.setR_image(rs.getString("r_image"));
-				article.setRegion_region_code(rs.getInt("region_region_code"));
+				article.setR_code(rs.getInt("region_region_code"));
 			}
 		
 		} catch (SQLException e) {
@@ -213,7 +213,7 @@ public class ReviewDAO {
 		return updateCount;
 	}
 
-	public int update(int r_num) {
+	public int update(ReviewBean reviewBean) {
 
 		int updateCount = 0;
 		
@@ -225,14 +225,40 @@ public class ReviewDAO {
 			
 			pstmt = con.prepareStatement(sql);
 
-		
+			pstmt.setString(1, reviewBean.getR_subject());
+			pstmt.setString(2, reviewBean.getR_content());
+			pstmt.setInt(3, reviewBean.getR_num());
+			
+			updateCount = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("BoardDAO - update() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
 		}
 		
-		
-		
 		return updateCount;
+	}
+
+	public int Delete(int r_num) {
+
+		int deleteCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "delete from review where r_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, r_num);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - Delete() 실패! : " + e.getMessage());
+		}
+		return deleteCount;
 	}
 
 }
