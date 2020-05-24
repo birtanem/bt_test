@@ -7,14 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import cart.vo.CartBean;
+import product.vo.ProductBean;
 
 public class CartDAO {
 	
 	private static CartDAO instance;
 	
-	private CartDAO() {}
+	public CartDAO() {}
 	
 	public static CartDAO getInstance() {
 		// CartDAO 객체가 없을 경우에만 생성
@@ -110,16 +113,42 @@ public class CartDAO {
 
 	
 	// 장바구니 목록 메서드 시작
-	public ArrayList<CartBean> getList() {
-		ArrayList<CartBean> cartList = new ArrayList<CartBean>();
+	public Vector getList() { // ==> 로그인 완료되면 파라미터 id 추가하기 !!
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		Vector vector = new Vector();
+		List cartList = new ArrayList();
+		List productList = new ArrayList();
 		
 		try {
-			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where member_id = ?";
+			
+			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where c_member_id = ?";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CartBean cb = new CartBean();
+				ProductBean pb = new ProductBean();
+				cb.setC_num(rs.getInt("c_num"));
+				cb.setC_p_num(rs.getInt("c_p_num"));
+				cb.setC_member_id(rs.getString("c_member_id"));
+				cb.setC_p_amount(rs.getInt("c_p_amount"));
+				pb.setP_num(rs.getInt("p_num"));
+				pb.setP_name(rs.getString("p_name"));
+				pb.setP_content(rs.getString("p_content"));
+				pb.setP_image(rs.getString("p_image"));
+				pb.setP_price(rs.getInt("p_price"));
+				pb.setP_amount(rs.getInt("p_amount"));
+				pb.setP_category(rs.getString("p_category"));
+				cartList.add(cb);
+				productList.add(pb);
+			}
+			// 벡터 첫번째 칸에 장바구니 목록
+			// 벡터 두번째 칸에 상품 목록
+			vector.add(cartList);
+			vector.add(productList);
+			
 		} catch (SQLException e) {
 			System.out.println(("CartDAO - getList실패" + e.getMessage()));
 		} finally {
@@ -128,7 +157,7 @@ public class CartDAO {
 		}
 		
 		
-		return cartList;
+		return vector;
 	} // 장바구니 목록 메서드 끝
 
 

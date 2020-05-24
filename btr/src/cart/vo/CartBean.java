@@ -2,7 +2,7 @@ package cart.vo;
 
 public class CartBean {
 	private int c_num; // 장바구니 번호
-	private String c_member_id; // 사용자 아이디 // 멤버테이블 완성되면 외래키 생성하기
+	private String c_member_id; // 사용자 아이디 // 값 가지고 다니기
 	private int c_p_num; // 상품 번호 // 상품테이블 외래키 생성
 	private int c_p_amount; // 수량
 	

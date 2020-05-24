@@ -2,25 +2,27 @@ package cart.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cart.svc.ProductCartListService;
+import cart.dao.CartDAO;
 import cart.vo.CartBean;
 import common.action.Action;
 import common.vo.ActionForward;
+import static common.db.JdbcUtil.*;
 
 public class ProductCartListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ProductCartListAction");
+		System.out.println("ProductCartListAction 도입부");
 		
-		ActionForward forward = null;
+		ActionForward forward = new ActionForward();
 		
-		// 요청한 클라이언트의 세션 영역 객체 가져오기
+//		// 요청한 클라이언트의 세션 영역 객체 가져오기
 //		HttpSession session = request.getSession();
 //		String id = (String)session.getAttribute("id"); // ==> 로그인 완료되면 추가하기 !!
 //		// id가 없으면 login 페이지로 돌아가기
@@ -29,14 +31,7 @@ public class ProductCartListAction implements Action {
 //			forward.setPath("MemberLogin.me");
 //			return forward;
 //		}
-		
-		// 장바구니 리스트
-		List<CartBean> cartList = ProductCartListService.getCartList();
-		
-		
-		// 서비스 생성
-		ProductCartListService productCartListService = new ProductCartListService();
-		
+//		
 		// 총 금액 계산 => CartBean에 price 추가한 뒤 수정하기
 //		int totalMoney = 0;
 //		int money = 0;
@@ -44,15 +39,24 @@ public class ProductCartListAction implements Action {
 //		for(int i = 0; i < cartList.size(); i++) {
 //			money = cartList.get(i).get
 //		}
+	
+		// CartDAO 객체 생성
+		CartDAO cdao = new CartDAO();
+		// Vector vector 메서드 호출 getList(String id)
+		Vector vector = cdao.getList(); // ==> 로그인 완료되면 파라미터 id 추가하기 !!
+		// List cartList = vector 첫번째 데이터
+		List cartList = (List)vector.get(0);
+		// List productList = vecotr 두번째 데이터
+		List productList = (List)vector.get(1);
+		// 저장
+		request.setAttribute("cartList", cartList);
+		request.setAttribute("productList", productList);
 		
-		
-		// 장바구니 목록을 request 영역에 공유하기
-		request.setAttribute("cartList", cartList);		
+		System.out.println("ProductCartListAction 끝 부분");
 		
 		// 디스패쳐 방식으로 이동 
 		forward.setPath("/product/cartList.jsp");
-		
-		
+	
 		return forward;
 	}
 
