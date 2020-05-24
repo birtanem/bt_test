@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-<%@page import="review_vo.ReviewBean"%>
-<%@page import="vo.ReviewPageInfo"%>
-<%@page import="vo.ReviewBean"%>
-=======
-
 <%@page import="review.vo.ReviewBean"%>
->>>>>>> refs/remotes/origin/master
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

@@ -122,8 +122,8 @@
 		                    <td>내용</td>
 		                    <td><textarea name="r_content" cols="120" rows="15" style="resize: none; width: 100%;"></textarea></td>
 		                	<td><input type="hidden" name="r_image" value="1"></td>
-		                	<td><input type="hidden" name="member_member_id" value="test"></td>
-		                	<td><input type="hidden" name="region_region_code" value="1"></td>
+		                	<td><input type="hidden" name="r_id" value="test"></td>
+		                	<td><input type="hidden" name="region" value="1"></td>
 		                </tr>
 		            </table>
 		                <input type="submit" value="등록">
