@@ -85,12 +85,15 @@ public class ReviewFrontController extends HttpServlet {
 			
 		}else if(command.equals("/Review_DeleteForm.re")) {
 			
-			forward = new ActionForward();
-			forward.setPath("/review/review_Delete.jsp");
+			action = new ReviewDeleteProAction();
 			
-		}else if(command.equals("/Review_DeletePro.re")) {
-			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
 		
 		
 		

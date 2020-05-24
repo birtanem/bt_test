@@ -20,6 +20,7 @@ public class ReviewUpdateFormAction implements Action {
 		ReviewUpdateService reviewUpdateService = new ReviewUpdateService();
 		
 		ReviewBean article = reviewUpdateService.SelectUpdateArticle(r_num);
+		
 		request.setAttribute("article", article);
 		
 		forward = new ActionForward();

@@ -143,7 +143,7 @@ int endPage=pageInfo.getEndPage();
 											[카테고리]&nbsp;<%= article.get(i).getR_subject() %>(댓글)
 										</div>
 										<div style="width: 100%; height: 25px; font-size: 14px">
-											<%=article.get(i).getMember_member_id() %>&nbsp;&nbsp;<%= article.get(i).getR_date() %>&nbsp;&nbsp;조회수&nbsp;<%= article.get(i).getR_readcount() %>
+											<%=article.get(i).getR_id() %>&nbsp;&nbsp;<%= article.get(i).getR_date() %>&nbsp;&nbsp;조회수&nbsp;<%= article.get(i).getR_readcount() %>
 										</div>
 										<p style="font-size: 20px;">
 										<%= article.get(i).getR_content() %>
