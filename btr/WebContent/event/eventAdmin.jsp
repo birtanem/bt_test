@@ -43,6 +43,7 @@
 <script src="event/assets/countdown/jquery.countdown.js"></script>
 <script src="<c:url value="js/event.js" />"></script>
 <script src="<c:url value="js/eventPop.js" />"></script>
+<script src="<c:url value="js/jquery-3.5.0.js" />"></script>
 
 <!-- /이벤트 css, js -->
 
@@ -52,7 +53,31 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+// 	var list = new Array();
 
+// 	<c:forEach var="itemList" items="${eventWinList}" varStatus="listIdx"  >
+
+// 		$("#table2").html("<tr><td>${itemList.round}</td><td>${itemList.e_sdate}</td><td>${itemList.e_edate}</td></tr>");
+
+// 	</c:forEach>
+	
+	$("#sel").change(function() {
+		
+
+		alert($("#sel option:selected").val());
+		$("#table2").html("<tr><td></td><td></td><td></td></tr>")
+	})
+})
+
+</script>
+<script type="text/javascript">
+
+
+
+</script>
 <body>
 <jsp:include page="../inc/top.jsp"></jsp:include>
 
@@ -80,17 +105,19 @@
 
 
 <h2>당첨내역</h2>
-<select>
+<select id="sel">
+<option>96</option>
 <option>1</option>
-<option>2</option>
 <option>3</option>
 </select>
-<table border="1">
-<tr><td>당첨자</td><td>당첨일</td></tr>
+<table border="1" id="table2">
+<tr><td>회차</td><td>당첨자</td><td>당첨일</td></tr>
 
 
 <c:forEach var="wList" items="${eventWinList}">
-<tr><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
+<%-- <c:if test="${wList.round eq document.getElementById('sel').options[target.selectedIndex].text}"> --%>
+<tr><td>${wList.round}</td><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
+<%-- </c:if> --%>
 </c:forEach>
 
 
@@ -104,6 +131,7 @@
     <!--/#footer-->
 
 <!--     <script src="js/jquery.js"></script> -->
+
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/owl.carousel.min.js"></script>

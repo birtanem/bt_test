@@ -19,11 +19,12 @@ $(document).ready(function() {
 					var point = rdata.trim();
 				
 					if(rdata == 30000 || rdata == 50000 || rdata == 100000) {
-						$('.p1').html("<img src='http://1.bp.blogspot.com/-HjVB3SbsLXk/VlowxvdkctI/AAAAAAAARqA/Fh7P3WbWcHM/s1600/congratulations.png' class='img'><br>");
+				
+						$('.p1').html("<img src='images/eventCoupon.png' class='img'><br>");
 						$.ajax("eventWin.ev",{
 							data: {"point": point},
 							success: function() {
-								
+							
 							}
 						})
 			    		$.ajax("eventPull.ev", {
@@ -35,10 +36,11 @@ $(document).ready(function() {
 			    						$.ajax("eventEnd.ev",{
 				    						success: function() {
 				    							location.reload();
+				    							
 				    						}
 				    					});
-												
-			    					}, 3000);
+											
+			    					}, 4000);
 			    					
 			    			
 			    				}

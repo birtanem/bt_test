@@ -26,9 +26,10 @@ public class EventWinAction implements Action {
 			String id = (String)session.getAttribute("id");
 			int point = Integer.parseInt(request.getParameter("point"));
 			System.out.println(point);
-			boolean isInsertSuccess =  eventWinService.insertWinList(point, id);
+			boolean isInsertSuccess =  eventWinService.addWinCoupon(point, id);
+			boolean isInsertSuccess2 = eventWinService.addWinList(id); 
 			
-			if(!isInsertSuccess) {
+			if(!isInsertSuccess || isInsertSuccess2) {
 				
 			}else {
 				
