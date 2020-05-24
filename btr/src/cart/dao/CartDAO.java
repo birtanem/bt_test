@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import cart.vo.CartBean;
 
@@ -70,7 +71,7 @@ public class CartDAO {
 		return check;
 	} // 장바구니 중복 확인 메서드 끝
 
-	// 장바구니 추가
+	// 장바구니 추가 시작
 	public void cartAdd(CartBean cb) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -106,6 +107,29 @@ public class CartDAO {
 		
 		
 	} // 장바구니 추가 메서드 끝
+
+	
+	// 장바구니 목록 메서드 시작
+	public ArrayList<CartBean> getList() {
+		ArrayList<CartBean> cartList = new ArrayList<CartBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where member_id = ?";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.println(("CartDAO - getList실패" + e.getMessage()));
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return cartList;
+	} // 장바구니 목록 메서드 끝
 
 
 	

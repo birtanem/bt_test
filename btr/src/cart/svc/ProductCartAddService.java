@@ -18,7 +18,7 @@ public class ProductCartAddService {
 		// 공통작업 1. Connection 객체
 		Connection con = getConnection(); // static import로 지정된 메서드 호출
 		
-		// 공통작업 2. DB 작업을 위해 BoardDAO의 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
+		// 공통작업 2. DB 작업을 위해CartDAO의 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
 		CartDAO cdao = CartDAO.getInstance();
 		
 		// 공통작업 3. CartCAO 객체에 Connection 객체 전달
