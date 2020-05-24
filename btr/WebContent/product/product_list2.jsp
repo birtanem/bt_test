@@ -3,14 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%
-// 	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
-// 	int ListCount = (int) request.getAttribute("ListCount");
+	//ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
+	//int ListCount = (int) request.getAttribute("ListCount");
 %>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +47,8 @@
 		style="background-image: url(images/page-title.png)">
 		<h1>Product</h1>
 	</div>
+	
+	
 
 	<section id="portfolio">
 
@@ -58,7 +56,7 @@
 			<h2>Product List</h2>
 			<p class="lead">상품 리스트 상품확인 관리자 수정삭제 흑흑흑흑</p>
 		</div>
-		<!-- 			data-filter 수정해야함 ~ test용 -->
+
 		<ul class="portfolio-filter text-center">
 			<li><a class="btn btn-default active" href="#" data-filter="*">All
 					Works</a></li>
@@ -70,26 +68,42 @@
 		<!--/#portfolio-filter-->
 
 
-		<!--<section id="portfolio"> -->
+		<section id="portfolio">
+
 		
-		<c:set var="ListCount" value="${ListCount }"></c:set>
-		<c:out value="${ListCount }"></c:out>
-		${ListCount }
+<%-- 		<c:set var="ListCount" value="${ListCount }"></c:set> --%>
+<%-- 		<c:out value="${ListCount }"></c:out> --%>
+<%-- 		${ListCount } --%>
 		
-		<c:set var="productList" value="${producList }"></c:set>
+<%-- 		<c:set var="productList" value="${producList }"></c:set> --%>
 		
+				
+		<!-- 엄대정 -->
 		
+			<ol>
+			<c:forEach var="List" items="${productList}">		
+				<li>${List.p_name}</li><li>${List.p_price}</li>		
+			</c:forEach>
+			</ol>
+	
 		
+		<!-- 엄대정 -->
+		
+
 		
 <!-- 		<div class="container"> -->
-<!-- 			<input type="button" class="btn btn-default active" value="관리자:상품등록" -->
-<!-- 				onclick="location.href='productRegistForm.bo'" /> -->
-<!-- 			<div class="portfolio-items"> -->
-<!-- 				<ul class="product-list"> -->
-					<%
-// 						if (productList != null && ListCount > 0) {
-// 							for (int i = 0; i < productList.size(); i++) {
-					%>
+			<input type="button" class="btn btn-default active" value="관리자:상품등록"
+				onclick="location.href='productRegistForm.bo'"/>
+			<div class="portfolio-items">
+			<ul>		
+					<c:forEach var="list" items="${productList }">
+					<li class="${list.p_category }">${list.p_name } ${list.p_name } ${list.p_content } 
+					<c:url value="${list.p_image }" var="image"></c:url>
+					<img src="product/productUpload/${image }">
+					</li>
+					</c:forEach>
+					</ul>
+				
 <!-- 					<li -->
 <%-- 						class="portfolio-item <%=productList.get(i).getP_category()%> col-xs-12 col-sm-4 col-md-3 single-work"> --%>
 <!-- 						<img -->
@@ -135,9 +149,9 @@
 					<%
 					//	}
 					%>
-				</ul>
+<!-- 				</ul> -->
 			</div>
-		</div>
+<!-- 		</div> -->
 		<!-- 			</section> -->
 
 

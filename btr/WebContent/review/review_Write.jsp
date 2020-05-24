@@ -79,6 +79,7 @@
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.html">Home</a></li>
+                        
                         <li><a href="about-us.html">About Us</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="Review_List.re">Review</a></li>
@@ -111,7 +112,7 @@
 		        <div class="blog container">
 		            <div class="row" style="padding-left: 100px; padding-right: 100px;">
 		                	    <section id="writeForm">
-		        <form action="Review_WritePro.re" method="post">
+		        <form action="Review_WritePro.re" method="post" enctype="multipart/form-data">
 		            <table>
 		                <tr>
 		                
@@ -121,9 +122,9 @@
 		                <tr>
 		                    <td>내용</td>
 		                    <td><textarea name="r_content" cols="120" rows="15" style="resize: none; width: 100%;"></textarea></td>
-		                	<td><input type="hidden" name="r_image" value="1"></td>
-		                	<td><input type="hidden" name="member_member_id" value="test"></td>
-		                	<td><input type="hidden" name="region_region_code" value="1"></td>
+		                	<td><input type="file" name="r_image"></td>
+		                	<td><input type="text" name="r_id" value="test"></td>
+		                	<td><input type="hidden" name="region" value="1"></td>
 		                </tr>
 		            </table>
 		                <input type="submit" value="등록">

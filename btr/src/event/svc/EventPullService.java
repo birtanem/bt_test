@@ -21,13 +21,12 @@ public class EventPullService {
 		
 		int setPull = eventDAO.setPull();
 		
-		if(setPull == 2 || setPull == 3) {
+		if(setPull == 30001 || setPull == 50001 || setPull == 100001 || setPull == 1 || setPull == 0) {
 			
 			commit(con);
 			
 		}else {
-			
-			setPull = 0;
+		
 			rollback(con);
 		}
 		

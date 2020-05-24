@@ -14,9 +14,8 @@ public class EventPageService {
 	
 	public EventWinBean getArticle(String memeber_id) {
 
-		System.out.println("EventPageService");
+		System.out.println("EventPageService - getArticle()");
 		EventWinBean article = null;
-		Timestamp date = null;
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
 		// 공통작업-1. DB 작업에 필요한 Connection 객체 가져오기
@@ -30,16 +29,8 @@ public class EventPageService {
 		
 	
 		article = eventDAO.selectArticle(memeber_id);
-		
-		date = eventDAO.selectDate();
-		
-		article.setEw_date(date);
-		
-		
-		
-		// article 객체가 null 이 아닐 때 조회수 증가
-		
-		if(article != null && date != null) {
+			
+		if(article != null) {
 			commit(con);
 		}else {
 			rollback(con);
@@ -49,5 +40,61 @@ public class EventPageService {
 		close(con);
 		
 		return article;
+	}
+	
+	public Timestamp getDate() {
+		
+		System.out.println("EventPageService - getDate()");
+		Timestamp date = null;
+		Connection con = getConnection(); // static import 로 지정된 메서드 호출
+		
+		// 공통작업-2. DB 작업을 위한 BoardDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
+		EventDAO eventDAO = EventDAO.getInstance();
+		
+		// 공통작업-3. BoardDAO 객체에 Connection 객체 전달
+		eventDAO.setConnection(con);
+			
+		date = eventDAO.selectDate();
+	
+		if(date != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+		
+		return date;
+		
+	}
+	
+	public int getPoint(String member_id) {
+		
+		System.out.println("EventPageService - getPoint()");
+		int point = 0;
+		
+		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
+		// 공통작업-1. DB 작업에 필요한 Connection 객체 가져오기
+		Connection con = getConnection(); // static import 로 지정된 메서드 호출
+		
+		// 공통작업-2. DB 작업을 위한 BoardDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
+		EventDAO eventDAO = EventDAO.getInstance();
+		
+		// 공통작업-3. BoardDAO 객체에 Connection 객체 전달
+		eventDAO.setConnection(con);
+		
+	
+		point = eventDAO.selectPoint(member_id);
+			
+		if(point >= 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		// 공통작업-5. Connection 객체 반환
+		close(con);
+		
+		return point;
 	}
 }

@@ -12,6 +12,8 @@ public class ReviewWriteProService {
 
 	public boolean registArticle(ReviewBean reviewBean) {
 		
+		System.out.println("ReviewWriteProService");
+		
 		boolean isWriteSucces = false;
 		
 		Connection con = getConnection();

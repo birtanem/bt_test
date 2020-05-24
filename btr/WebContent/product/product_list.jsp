@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
@@ -70,13 +71,12 @@
 		</ul>
 		<!--/#portfolio-filter-->
 
-
-		<!--<section id="portfolio"> -->
+		<section id="portfolio">
 		<div class="container">
 			<input type="button" class="btn btn-default active" value="관리자:상품등록"
 				onclick="location.href='productRegistForm.pr'" />
 			<div class="portfolio-items">
-			<form action="ProductCartAdd.ca" method="post">
+<!-- 			<form action="ProductCartAdd.ca" method="post"> -->
 				<ul class="product-list">
 					<%
 						if (productList != null && ListCount > 0) {
@@ -91,23 +91,40 @@
 						<p>
 							<strong><%=productList.get(i).getP_price()%> </strong>
 						</p> 
-<<<<<<< HEAD
-						<%=productList.get(i).getP_num() %>
-						<input type="hidden" value="<%=productList.get(i).getP_num() %>">
-						<input type="hidden" value="">
-						<%=productList.get(i).getP_amount() %>
-=======
 						
-						<input type="hidden" value="<%=productList.get(i).getP_num() %>" name="p_num">
-						<input type="hidden" value="<%=productList.get(i).getP_amount()%>" name="p_amount">
+<%-- 						<input type="hidden" value="<%productList.get(i).getP_num(); %>" name="p_num"> --%>
+<%-- 						<input type="hidden" value="<%productList.get(i).getP_amount();%>" name="p_amount"> --%>
 						
->>>>>>> refs/remotes/origin/master
+						
 						<!-- Trigger/Open The Modal --> 
-						<input type="button" class="myBtn"	value="구매하기" onclick="#">
-						<input type="submit" class="Btn"value="장바구니담기" >
+						<input type="button" id="myBtn" value="구매하기" >
+<!-- 						<input type="submit" class="Btn"value="장바구니담기" > -->
 					</li>
-					
+					</ul>
+					<!-- The Modal -->
+					<div id="modal">
+<!-- 						Modal content -->
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close">&times;</span>
+								<h2><%=productList.get(i).getP_name()%></h2>
+							</div>
 
+							<div class="modal-body">
+								<%=productList.get(i).getP_content()%>
+							</div>
+							<div class="modal-footer">
+								<h3>
+
+									<%=productList.get(i).getP_price()%>
+									<input type="button" value="-"> <input type="text"
+										value="1"> <input type="button" value="+"> <input
+										type="button" value="장바구니담기" onclick="#"> <input
+										type="button" value="바로결제" onclick="#">
+								</h3>
+							</div>
+						</div>
+					</div>
 					<%
 						}
 						} else {
@@ -116,8 +133,8 @@
 					<%
 						}
 					%>
-				</ul>
-				</form>
+				
+<!-- 				</form> -->
 			</div>
 		</div>
 		<!-- 			</section> -->
@@ -222,6 +239,7 @@
 		</div>
 	</footer>
 	<!--/#footer-->
+	
 	<script src="js/product_modal.js"></script>
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>

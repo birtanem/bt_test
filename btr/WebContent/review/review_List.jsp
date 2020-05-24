@@ -133,10 +133,10 @@ int endPage=pageInfo.getEndPage();
 					
 					for(int i = 0; i < article.size();i++){ %>
 
-							<ul style="width: 100%; height: 150px;" onclick="location.href='Review_Content.re?&r_num=<%=article.get(i).getR_num()%>&page=<%=nowPage%>'">
+							<ul style="width: 100%; height: 150px; " onclick="location.href='Review_Content.re?&r_num=<%=article.get(i).getR_num()%>&page=<%=nowPage%>'">
 								<li style="list-style: none;">
 									<div style="float: left;">
-										<img src="review/emg1.jpg" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
+										<img src="reviewUpload/<%= article.get(i).getR_image() %>" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
 									</div>
 									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
 										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
