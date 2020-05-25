@@ -3,7 +3,7 @@
 
 
 $(document).ready(function() {
-	
+
 	$('#btn').click(function() {
 			$.ajax("eventMinusPoint.ev",{
 				success: function(rdata) {
@@ -16,7 +16,7 @@ $(document).ready(function() {
 				type: 'get',
 				success: function(rdata) {
 					
-					var point = rdata.trim();
+					var point = rdata.trim()/10000;
 				
 					if(rdata == 30000 || rdata == 50000 || rdata == 100000) {
 				

@@ -10,6 +10,7 @@ import common.action.Action;
 import common.vo.ActionForward;
 import event.svc.EventPageService;
 import event.vo.EventWinBean;
+import member.vo.MemberBean;
 
 
 public class EventPageAction implements Action {
@@ -31,16 +32,12 @@ public class EventPageAction implements Action {
 			
 			String id = (String)session.getAttribute("id");
 					
-			EventWinBean article = eventPageService.getArticle(id);
+			MemberBean article = eventPageService.getArticle(id);
 			
-			Timestamp date = eventPageService.getDate();
+			article.setDate(eventPageService.getDate());
 			
-			int point = eventPageService.getPoint(id);
 			
-			request.setAttribute("article", article);
-			request.setAttribute("date", date);
-			request.setAttribute("point", point);
-			
+			request.setAttribute("article", article);	
 			
 		}
 		

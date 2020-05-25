@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import event.vo.EventBean;
 import event.vo.EventWinBean;
+import member.vo.MemberBean;
 
 public class EventDAO {
 	
@@ -114,30 +115,34 @@ public class EventDAO {
 		
 		return setDate;
 	}
-	public EventWinBean selectArticle(String member_id) {
+	public MemberBean selectArticle(String member_id) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		EventWinBean article = null;
+		MemberBean article = null;
 			
 		try {
-			String sql = "SELECT * FROM event_win WHERE member_id = ?";
+			String sql = "SELECT * FROM member WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				
-				article = new EventWinBean();
-				article.setEw_30000(rs.getInt("ew_30000"));
-				article.setEw_50000(rs.getInt("ew_50000"));
-				article.setEw_100000(rs.getInt("ew_100000"));
+				article = new MemberBean();
+				article.setPoint(rs.getInt("point"));
+				article.setCp_3(rs.getInt("cp_3"));
+				article.setCp_5(rs.getInt("cp_5"));
+				article.setCp_10(rs.getInt("cp_10"));
 			}
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 			System.out.println("EventDAO - selectArticle() 실패! : "+e.getMessage());
-		}	
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
 		return article;
 	}
 
@@ -240,9 +245,6 @@ public class EventDAO {
 				article.setMember_id(rs.getString("member_id"));
 				article.setRound(rs.getInt("round"));
 				article.setEw_date(rs.getDate("ew_date"));
-				article.setEw_100000(rs.getInt("ew_100000"));
-				article.setEw_50000(rs.getInt("ew_50000"));
-				article.setEw_30000(rs.getInt("ew_30000"));
 				articleList.add(article);
 			}
 		} catch (SQLException e) {
@@ -345,20 +347,14 @@ public class EventDAO {
 		
 		
 		try {
-			String sql = "UPDATE member SET point = point + ?  WHERE id = ?";
+			String sql = "UPDATE member SET point = point + ?, cp_? = cp_? - 1  WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, point);
-			pstmt.setString(2, member_id);
-			updateCount = pstmt.executeUpdate();
-			
-			
-			sql = "UPDATE event_win SET ew_? = ew_? - 1 WHERE member_id = ? ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, point);
+			pstmt.setInt(1, point*10000);
 			pstmt.setInt(2, point);
-			pstmt.setString(3, member_id);
-			updateCount += pstmt.executeUpdate();
-			
+			pstmt.setInt(3, point);
+			pstmt.setString(4, member_id);
+			updateCount = pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - updateExchangePoint() 실패! : "+e.getMessage());
@@ -376,12 +372,13 @@ public class EventDAO {
 		
 		
 		try {
-			String sql = "UPDATE event_win SET ew_? = ew_? + 1  WHERE member_id = ?";
+			String sql = "UPDATE member SET cp_? = cp_? + 1  WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setInt(2, point);
 			pstmt.setString(3, member_id);
 			insertCount = pstmt.executeUpdate();
+			System.out.println(insertCount+"dddddddddd");
 
 			
 		} catch (SQLException e) {
@@ -400,7 +397,7 @@ public class EventDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql = "INSERT INTO event_win VALUES(null,(SELECT MAX(e_num) FROM event), ?, now(), 1,1,1)";
+			String sql = "INSERT INTO event_win VALUES(null,(SELECT MAX(e_num) FROM event), ?, now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			insertCount = pstmt.executeUpdate();

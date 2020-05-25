@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import event.dao.EventDAO;
 import event.vo.EventWinBean;
+import member.vo.MemberBean;
 
 import static common.db.JdbcUtil.*;
 
@@ -21,11 +22,11 @@ public class EventExchangeService {
 		
 		int updaCount = eventDAO.updateExchangePoint(point, member_id);
 		
-		if(updaCount > 1) {
+		if(updaCount > 0) {
 			
 			
-			EventWinBean article = eventDAO.selectArticle(member_id);
-			if(article.getEw_30000() < 0 || article.getEw_50000() < 0 || article.getEw_100000() < 0) {
+			MemberBean article = eventDAO.selectArticle(member_id);
+			if(article.getCp_3() < 0 || article.getCp_5() < 0 || article.getCp_10() < 0) {
 				rollback(con);
 			}else {
 				commit(con);

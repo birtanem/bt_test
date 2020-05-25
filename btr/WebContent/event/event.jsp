@@ -4,10 +4,8 @@
 <%
 /*
 
-포인트 불러오기
-포인트 교환권 사용하기
-당첨내역 불러오기
-당첨등록
+event_win 쿠폰 컬럼 삭제
+e_edate default 값 설정 
 
 */
 
@@ -62,8 +60,8 @@
 <br>
 
     	<div class="event">
-    	<input type="hidden" id="hid" value="${date}">
-			<p>나의 포인트  <em><i id="myCoupon">${point}</i>점</em></p>
+    	<input type="hidden" id="hid" value="${article.date}">
+			<p>나의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return eventPop()">당첨내역</a>
 			<a href="javascript:void(0);" class="getCoupon" onclick="return adminPop()">관리자</a>
 		</div>
@@ -92,24 +90,24 @@
 							<a onclick="" class="" >
 								<i class="ico"></i>
 								<strong>포인트 30000</strong>
-								<p>보유쿠폰: <em>${article.ew_30000}</em> 장</p>
-								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=30000'">
+								<p>보유쿠폰: <em>${article.cp_3}</em> 장</p>
+								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=3'">
 							</a>
 						</li>
 						<li class="review  emth5">
 							<a onclick="" class="">
 								<i class="ico"></i>
 								<strong>포인트 50000</strong>
-								<p>보유쿠폰: <em>${article.ew_50000}</em> 장</p>
-								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=50000'">
+								<p>보유쿠폰: <em>${article.cp_5}</em> 장</p>
+								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=5'">
 							</a>
 						</li>
 						<li class="ad  emth8">
 							 <a onclick="" class="">
 								<i class="ico"></i>
 								<strong>포인트 100000</strong>
-								<p>보유쿠폰: <em>${article.ew_100000}</em> 장</p>
-								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=100000'">
+								<p>보유쿠폰: <em>${article.cp_10}</em> 장</p>
+								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=10'">
 							</a>
 						</li>
 					</ul>

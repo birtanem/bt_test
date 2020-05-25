@@ -98,7 +98,7 @@
 
 
 <c:forEach var="wList" items="${eventWinList}">
-<tr><td>${wList.round}</td><td>${wList.member_id}</td><td>${wList.e_date}</td></tr>
+<tr><td>${wList.round}</td><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
 </c:forEach>
 
 

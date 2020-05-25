@@ -4,18 +4,17 @@ import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import event.dao.EventDAO;
-import event.vo.EventWinBean;
+import member.vo.MemberBean;
 
 
 public class EventPageService {
 	
-	public EventWinBean getArticle(String memeber_id) {
+	public MemberBean getArticle(String memeber_id) {
 
 		System.out.println("EventPageService - getArticle()");
-		EventWinBean article = null;
+		MemberBean article = null;
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
 		// 공통작업-1. DB 작업에 필요한 Connection 객체 가져오기
