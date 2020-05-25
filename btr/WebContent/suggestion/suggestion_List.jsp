@@ -1,10 +1,12 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="suggestion.vo.SuggestionBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 // String id = (String)session.getAttribute("id");
+ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttribute("articleList");
 String id = "admin";
 String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
-
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +100,7 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
                                 <li><a href="404.html">404</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="blog.jsp">Blog</a></li> 
+                        <li class="active"><a href="Suggestion_WriteForm.su">건의사항</a></li> 
                         <li><a href="contact-us.html">Contact</a></li>                        
                     </ul>
                 </div>
@@ -119,17 +121,27 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
             
 				<h3 style="text-align: center;"><건의사항></h3>
 					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
-						<form action="Suggestion_WritePro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
 							<table border="1" style="width: 610px; position: relative;">
 								<tr><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th style="width: 150px;">답변여부</th></tr>
-								<tr><td>OO을 건의합니다(제목)</td><td>2020-05-22(날짜)</td><td id="td1">미완료(답변여부)</td></tr>
+								<%
+								for(int i=0;i<articleList.size();i++){
+								%>
+								<tr>
+								<td>
+								<a href="Suggestion_Detail.su?su_num=<%=articleList.get(i).getNum()%>">
+								<%=articleList.get(i).getSubject() %>
+								</a>
+								</td>
+								<td><%=articleList.get(i).getDate() %></td>
+								<td id="td1"><%=articleList.get(i).getCheck() %></td>
+								</tr>
+								<%
+								}
+								%>
 							</table>
 							<div style="width: 600px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="건의하러가기" style="float: left; background-color: gray; color: white;" onclick="location.href='suggestion_p2.jsp'">
-								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;">
-								<input type="button" value="건의하러가기" style="float: right; margin-right: 5px; background-color: gray; color: white;">
+								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
 							</div>
-						</form>
 					</article>
 
             </div>
