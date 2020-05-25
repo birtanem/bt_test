@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.*;
 import common.vo.*;
+import suggestion.action.SuggestionListAction;
 import suggestion.action.SuggestionSendEmailAction;
 import suggestion.action.SuggestionWriteProAction;
 
@@ -33,7 +34,17 @@ public class SuggestionFrontController extends HttpServlet {
 //-----------------------------------------------------------------------------------------------------------------			
 		}else if(command.equals("/Suggestion_WritePro.su")) {
 			
-			action = new SuggestionSendEmailAction(); //ddddddddd
+			action = new SuggestionSendEmailAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/Suggestion_List.su")) {
+			
+			action = new SuggestionListAction(); //ddddddddd
 			
 			try {
 				forward = action.execute(request, response);
