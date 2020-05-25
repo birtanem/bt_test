@@ -53,7 +53,7 @@
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="PlaceList.pl">Place(부산 명소 소개)</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="Review_List.re">Review</a></li>
                         <li><a href="productList.pr">여행상품</a></li>
