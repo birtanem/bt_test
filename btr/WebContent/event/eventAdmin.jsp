@@ -54,23 +54,6 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <script type="text/javascript">
-$(document).ready(function() {
-	
-// 	var list = new Array();
-
-// 	<c:forEach var="itemList" items="${eventWinList}" varStatus="listIdx"  >
-
-// 		$("#table2").html("<tr><td>${itemList.round}</td><td>${itemList.e_sdate}</td><td>${itemList.e_edate}</td></tr>");
-
-// 	</c:forEach>
-	
-	$("#sel").change(function() {
-		
-
-		alert($("#sel option:selected").val());
-		$("#table2").html("<tr><td></td><td></td><td></td></tr>")
-	})
-})
 
 </script>
 <script type="text/javascript">
@@ -115,9 +98,7 @@ $(document).ready(function() {
 
 
 <c:forEach var="wList" items="${eventWinList}">
-<%-- <c:if test="${wList.round eq document.getElementById('sel').options[target.selectedIndex].text}"> --%>
-<tr><td>${wList.round}</td><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
-<%-- </c:if> --%>
+<tr><td>${wList.round}</td><td>${wList.member_id}</td><td>${wList.e_date}</td></tr>
 </c:forEach>
 
 

@@ -27,6 +27,8 @@ public class EventExchangeAction implements Action {
 		
 		int point = Integer.parseInt(request.getParameter("point"));
 		
+
+		
 		if(session != null) {
 			
 			String id = (String)session.getAttribute("id");
@@ -34,9 +36,9 @@ public class EventExchangeAction implements Action {
 			
 			if(!isExchageSuccess) {
 				
+		
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				
 				out.println("<script>");
 				out.println("alert('교환실패!')");
 				out.println("history.back()");
@@ -44,6 +46,7 @@ public class EventExchangeAction implements Action {
 				
 				
 			}else {
+
 				
 				forward = new ActionForward();
 				forward.setRedirect(true);
