@@ -37,7 +37,7 @@ public class ReviewWriteProAction implements Action{
 				"UTF-8", 
 				new DefaultFileRenamePolicy());
 		
-		int region = Integer.parseInt(multi.getParameter("region"));
+		int region = Integer.parseInt(multi.getParameter("r_code"));
 		
 		ReviewBean reviewBean = new ReviewBean();
 		

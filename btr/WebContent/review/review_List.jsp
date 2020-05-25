@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageInfo" value="${pageinfo }" />
 <%
 
 ArrayList<ReviewBean> article = (ArrayList<ReviewBean>)request.getAttribute("articleList");
@@ -130,32 +131,28 @@ int endPage=pageInfo.getEndPage();
                 <div class="col-md-8">
 
                 	<table>
-					<%
-					
-					for(int i = 0; i < article.size();i++){ %>
-
-							<ul style="width: 100%; height: 150px; " onclick="location.href='Review_Content.re?&r_num=<%=article.get(i).getR_num()%>&page=<%=nowPage%>'">
+                		<c:forEach var="article" items="${articleList }" >
+                			
+							<ul style="width: 100%; height: 150px; " onclick="location.href='Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }'">
 								<li style="list-style: none;">
 									<div style="float: left;">
-										<img src="reviewUpload/<%= article.get(i).getR_image() %>" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
+										<img src="reviewUpload/${article.r_image }" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
 									</div>
 									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
 										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											[카테고리]&nbsp;<%= article.get(i).getR_subject() %>(댓글)
+											[카테고리]&nbsp;${article.r_subject }(댓글)
 										</div>
 										<div style="width: 100%; height: 25px; font-size: 14px">
-											<%=article.get(i).getR_id() %>&nbsp;&nbsp;<%= article.get(i).getR_date() %>&nbsp;&nbsp;조회수&nbsp;<%= article.get(i).getR_readcount() %>
+											${article.r_id }&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }
 										</div>
 										<p style="font-size: 20px;">
-										<%= article.get(i).getR_content() %>
+											${article.r_content }
 										</p>
 									</div>
 								</li>
 							</ul>
 
-					<%}
-					
-				%>
+                		</c:forEach>
 				</table>
                     
                 </div>
@@ -202,28 +199,40 @@ int endPage=pageInfo.getEndPage();
             <div class="row">
                 <div class="col-md-12 text-center">
                     <ul class="pagination pagination-lg">
-                    <% if(nowPage <= 1){%>
-                    	<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
-                    <%}else {%>
-                        <li><a href="Review_List.re?page=<%=nowPage-1%>"><i class="fa fa-long-arrow-left"></i></a></li>
                     
-                    <%}
-                    %>
-						 <% for(int a = startPage; a <= endPage; a++){
-						 	if(a == nowPage){%>
-						 		<li class="active"><a href="Review_List.re?page=<%= a %>"><%= a %></a></li>
-						 	<%}else {%>
-						 		<li><a href="Review_List.re?page=<%=a%>"><%= a %></a></li><%
-						 	}
-						 }
-							 %>                      
-                        <% if(nowPage >= maxPage){%>
-                        	<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
-                        <%}else{%>
-                        <li><a href="Review_List.re?page=<%=nowPage+1%>"><i class="fa fa-long-arrow-right"></i></a></li>
-                        <%}
-                        	%>
+                    	<c:choose>
+                    	
+                    		<c:when test="${pageInfo.page <= 1 }">
+                    			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li><a href="Review_List.re?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:otherwise>
+                    	</c:choose>
                     
+                    	<c:forEach var="a" begin="${pageInfo.page }" end="${pageInfo.endPage }" step="1">
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page <= 1 }">
+                    				<li class="active"><a href="Review_List.re?page=${a }">${a }</a></li>
+                    			</c:when>
+                    			<c:otherwise>
+									<li><a href="Review_List.re?page=${a }">${a }</a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    	
+                    	</c:forEach>
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+                    				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li><a href="Review_List.re?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:otherwise>
+                    		</c:choose>
                     </ul>
                     <!--/.pagination-->
                 </div>
