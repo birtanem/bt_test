@@ -47,7 +47,7 @@ h2 {
 			
 			<tr height="50">
 			
-				<td width="150" align="center">패스워드</td>
+				<td width="150" align="center">패스워드d</td>
 				<td width="150" align="center">
 					<input type="password" name="pass1" size="40" placeholder="비밀번호를 넣으세요">
 				</td>
