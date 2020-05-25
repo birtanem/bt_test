@@ -127,7 +127,11 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								for(int i=0;i<articleList.size();i++){
 								%>
 								<tr>
-								<td><%=articleList.get(i).getSubject() %></td>
+								<td>
+								<a href="Suggestion_Detail.su?su_num=<%=articleList.get(i).getNum()%>">
+								<%=articleList.get(i).getSubject() %>
+								</a>
+								</td>
 								<td><%=articleList.get(i).getDate() %></td>
 								<td id="td1"><%=articleList.get(i).getCheck() %></td>
 								</tr>

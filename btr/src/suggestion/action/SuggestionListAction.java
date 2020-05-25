@@ -26,7 +26,7 @@ public class SuggestionListAction implements Action {
 		
 		System.out.println("전체 게시물 수 : " + listCount); //게시물수 
 		
-//		request.getSession(id); 세션 받아오기
+//		HttpSession session = request.getSession("id");  //세션 받아오기
 		String id = "admin"; //임시 아이디
 		
 		ArrayList<SuggestionBean> articleList = suggestionListService.getArticleList(id);

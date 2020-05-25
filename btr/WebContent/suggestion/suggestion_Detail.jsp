@@ -2,31 +2,20 @@
     pageEncoding="UTF-8"%>
 <%
 // String id = (String)session.getAttribute("id");
+// ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttribute("articleList")
+String subject = "건의합니다";
+String content = "글내용글내용글내용";
+
 String id = "admin";
 String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
+
+
 
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-<script type="text/javascript">
-function checkValue(){
-	var form = document.contentinfo;
-	
-	if(!form.subject.value){
-		alert("제목을 입력하세요.");
-		return false;
-	}
-	
-	if(!form.content.value){
-		alert("내용을 입력하세요.");
-		return false;
-	}
-	
-	
-}
-</script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
