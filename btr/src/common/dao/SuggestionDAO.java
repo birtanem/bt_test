@@ -3,6 +3,7 @@ package common.dao;
 import java.sql.*;
 import java.util.*;
 
+import review.vo.ReviewBean;
 import suggestion.vo.*;
 
 import static common.db.JdbcUtil.*;
@@ -67,84 +68,78 @@ public class SuggestionDAO {
 		return insertCount;
 	}
 
-//	public ArrayList<ReviewBean> selectArticleList(int page, int limit) {
-//
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		int startRow = (page-1)*limit;
-//		
-//		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
-//		
-//		try {
-//			String sql = "select * from review order by num desc";
-//			
-//			pstmt = con.prepareStatement(sql);
-//
-//			rs = pstmt.executeQuery();
-//			
-//			while (rs.next()) {
-//
-//				ReviewBean reviewBean = new ReviewBean();
-//				
-//				reviewBean.setNum(rs.getInt("num"));
-//				reviewBean.setSubject(rs.getString("subject"));
-//				reviewBean.setContent(rs.getString("content"));
-//				reviewBean.setReadcount(rs.getInt("readcount"));
-//				reviewBean.setLikecount(rs.getInt("likecount"));
-//				reviewBean.setDate(rs.getDate("date"));
-//				
-//				articleList.add(reviewBean);
-//				
-//			}
-//		
-//		} catch (SQLException e) {
-//			System.out.println("BoardDAO - selectArticleList() 실패! : " + e.getMessage());
-//		}finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		return articleList;
-//	}
+	public int selectListCount() {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
+		String sql = "SELECT COUNT(sg_num) FROM suggestion";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("SuggestionDAO - selectListCount() 실패! : " + e.getMessage());
+		} finally {
+			// DB 자원 반환
+			close(con);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+	
+//	public ArrayList<SuggestionBean> selectArticleList(int page, int limit) {
+	public ArrayList<SuggestionBean> selectArticleList(String id) {
 
-//	public ReviewBean selectArticle(int num) {
-//
-//		ReviewBean article = null;
-//		
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		try {
-//			
-//			String sql = "select * from review where num = ?";
-//			
-//			pstmt = con.prepareStatement(sql);
-//
-//			pstmt.setInt(1, num);
-//			
-//			rs = pstmt.executeQuery();
-//			
-//			if (rs.next()) {
-//				
-//				article = new ReviewBean();
-//				
-//				article.setNum(rs.getInt("num"));
-//				article.setSubject(rs.getString("subject"));
-//				article.setContent(rs.getString("content"));
-//				article.setReadcount(rs.getInt("readcount"));
-//				article.setLikecount(rs.getInt("likecount"));
-//				article.setDate(rs.getDate("date"));
-//			}
-//		
-//		} catch (SQLException e) {
-//			System.out.println("BoardDAO - selectArticle() 실패! : " + e.getMessage());
-//		}finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		
-//		
-//		return article;
-//	}
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+//		int startRow = (page-1)*limit;
+		
+		ArrayList<SuggestionBean> articleList = new ArrayList<SuggestionBean>();
+		
+		try {
+			String sql = "select * from suggestion where member_member_id=? order by sg_num desc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			// 조회된 레코드 만큼 반복
+			while(rs.next()) {
+				// 1개 레코드(게시물)를 저장할 SuggestionBean 객체 생성
+				SuggestionBean article = new SuggestionBean();
+				
+				// SuggestionBean 객체에 조회된 레코드(게시물) 정보를 저장
+				article.setNum(rs.getInt("sg_num"));
+				article.setId(rs.getString("member_member_id"));
+				article.setSubject(rs.getString("sg_subject"));
+				article.setEmail(rs.getString("sg_email"));
+				article.setDate(rs.getDate("sg_date"));
+				article.setCheck(rs.getString("sg_check"));
+
+				// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
+				articleList.add(article);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("SuggestionDAO - selectArticleList() 실패! : " + e.getMessage());
+		} finally {
+			// DB 자원 반환
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
 	
 }
