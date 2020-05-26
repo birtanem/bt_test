@@ -59,6 +59,14 @@ public class ProductFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/productUpdatePro.pr")) {
+			action=new ProductUpdateProAction();
+			try {
+				forward =action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 					
 		// 포워딩

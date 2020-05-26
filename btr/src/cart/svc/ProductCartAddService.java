@@ -12,7 +12,7 @@ public class ProductCartAddService {
 	public boolean AddArticle(CartBean cb) {
 		System.out.println("ProductCartAddService");
 		
-		boolean isWriteSuccess = false; // 장바구니 추가 성공여부
+		boolean isAddSuccess = false; // 장바구니 추가 성공여부
 		
 		// DB 작업 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드
 		// 공통작업 1. Connection 객체
@@ -24,19 +24,24 @@ public class ProductCartAddService {
 		// 공통작업 3. CartCAO 객체에 Connection 객체 전달
 		cdao.setConnection(con);
 		
-		// CartDAO 객체의 상품 중복체크 (있으면 1)
-		// 중복이면 수량 update
-		int check = cdao.checkProduct(cb);
-		if (check != 1) { // 없으면(1이 아니면)
-			System.out.println(check);
-			cdao.cartAdd(cb);
+
+		// CartDAO 객체의 cartAdd() 메서드 호출하여 장바구니 추가 처리
+		// => 파라미터 CartBean 객체, 리턴타입 int(insertCount)
+		int insertCount = cdao.cartAdd(cb);
+
+		
+		// 리턴받은 작업 결과 판별
+		if(insertCount > 0) {
 			commit(con);
-			isWriteSuccess = true; // 장바구니 추가 성공
+			isAddSuccess = true;
 		} else {
 			rollback(con);
 		}
-		
-		return isWriteSuccess;
+			
+	
+		close(con);
+	
+		return isAddSuccess;
 	}
 
 

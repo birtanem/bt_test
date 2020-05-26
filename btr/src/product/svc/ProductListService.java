@@ -17,6 +17,7 @@ public class ProductListService {
 		productList=productDAO.getList();
 		
 		System.out.println("ProductListService - getProductList");
+		System.out.println(productList);
 		close(con);
 		
 		return productList;
@@ -28,7 +29,7 @@ public class ProductListService {
 		ProductDAO productDAO=ProductDAO.getInstance();
 		productDAO.setConnection(con);
 		ListCount=productDAO.selectListCount();
-		System.out.println("ProductListService - getListCount");
+		System.out.println(ListCount);
 		close(con);
 		
 		return ListCount;
