@@ -277,9 +277,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `withTrip`.`cart` (
   `c_num` INT NOT NULL,
-  `p_num` INT NOT NULL,
-  `member_id` VARCHAR(45) NULL,
-  `c_acount` INT NULL,
+  `c_p_num` INT NOT NULL,
+  `c_member_id` VARCHAR(45) NULL,
+  `c_p_amount` INT NULL,
   PRIMARY KEY (`c_num`),
   INDEX `fk_basket_product1_idx` (`p_num` ASC),
   CONSTRAINT `fk_basket_product1`
