@@ -35,50 +35,49 @@ public class CartDAO {
 		this.con = con;
 	}
 
-	// 장바구니 중복 확인
-	public int checkProduct(CartBean cb) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int check = 0;
-		
-		try { // 멤버 아이디와 상품명이 중복되는 상품 확인하기
-			String sql = "select * from cart where c_member_id=? and c_p_num=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, cb.getC_member_id());
-			pstmt.setInt(2, cb.getC_p_num());
-			// rs 실행
-			rs=pstmt.executeQuery();
-			
-			// 데이터가 있으면 check = 1
-			// c_m_id와 c_p_num
-			// c_amount 업데이트 
-			if(rs.next()) {
-				check = 1;
-				sql = "update cart set c_p_amount = c_p_amount+? where c_m_id=? and c_p_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, cb.getC_p_amount());
-				pstmt.setString(2, cb.getC_member_id());
-				pstmt.setInt(3, cb.getC_p_num());
-				pstmt.executeUpdate();
-			}
-		} catch (SQLException e) {
-			System.out.println("CartDAO - checkProduct() 실패 ! : " + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		
-		
-		return check;
-	} // 장바구니 중복 확인 메서드 끝
+//	// 장바구니 중복 확인
+//	public int checkProduct(CartBean cb) {
+//		
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		int check = 0;
+//
+//		try { // 멤버 아이디와 상품명이 중복되는 상품 확인하기
+//			String sql = "select * from cart where c_member_id=? and c_p_num=?";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.setString(1, cb.getC_member_id());
+//			pstmt.setInt(2, cb.getC_p_num());
+//			// rs 실행
+//			rs=pstmt.executeQuery();
+//			// 데이터가 있으면 check = 1
+//			// c_m_id와 c_p_num
+//			// c_amount 업데이트 
+//			if(rs.next()) {
+//				sql = "update cart set c_p_amount = c_p_amount+? where c_member_id=? and c_p_num=?";
+//				pstmt = con.prepareStatement(sql);
+//				pstmt.setInt(1, cb.getC_p_amount());
+//				pstmt.setString(2, cb.getC_member_id());
+//				pstmt.setInt(3, cb.getC_p_num());
+//				pstmt.executeUpdate();
+//				check = 1;
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("CartDAO - checkProduct() 실패 ! : " + e.getMessage());
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//
+//		return check;
+//	
+//	} // 장바구니 중복 확인 메서드 끝
 
 	// 장바구니 추가 시작
-	public void cartAdd(CartBean cb) {
+	public int cartAdd(CartBean cb) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int c_num = 0;
+		int insertCount = 0;
 		
 		try {
 			// 장바구니 max num 구하기
@@ -97,23 +96,22 @@ public class CartDAO {
 			pstmt.setInt(2, cb.getC_p_num());
 			pstmt.setString(3, cb.getC_member_id());
 			pstmt.setInt(4, cb.getC_p_amount()); 
-			System.out.println(c_num);
-			System.out.println(cb.getC_p_num());
-			System.out.println(cb.getC_p_amount());
-			pstmt.executeUpdate();
+		
+			
+			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("CartDAO - cartAdd() 실패 ! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
+		// insert 구문 실행후 리턴되는 결과 값을 insertCount 변수에 저장
+		return insertCount;
 	} // 장바구니 추가 메서드 끝
 
 	
 	// 장바구니 목록 메서드 시작
-	public Vector getList() { // ==> 로그인 완료되면 파라미터 id 추가하기 !!
+	public Vector getList(String id) { 
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -122,9 +120,9 @@ public class CartDAO {
 		List productList = new ArrayList();
 		
 		try {
-			
 			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where c_member_id = ?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

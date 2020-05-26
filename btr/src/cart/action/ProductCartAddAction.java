@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cart.dao.CartDAO;
 import cart.svc.ProductCartAddService;
@@ -20,12 +21,26 @@ public class ProductCartAddAction implements Action {
 		// 리턴 잊지 않도록 미리 선언 해주기
 		ActionForward forward = null;
 		
+		// 요청한 클라이언트의 세션 영역 객체 가져오기
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("id", "nani");
+				
+		String id = (String)session.getAttribute("id"); // ==> 로그인 완료되면 추가하기 !!
+		// id가 없으면 login 페이지로 돌아가기
+		if(id == null) {
+		forward.setRedirect(true);
+		forward.setPath("MemberLogin.me");
+		return forward;
+		} 
+		
 		// 장바구니 하나의 데이터를 저장할 CartBean 객체 생성
 		CartBean cb = new CartBean();
 		
 		// 자바빈 저장
 		cb.setC_p_num(Integer.parseInt(request.getParameter("p_num")));
 		cb.setC_p_amount(Integer.parseInt(request.getParameter("p_amount")));
+		cb.setC_member_id(id);
 //		cb.setC_member_id(id); // 멤버 생성되면 추가해주기
 		
 		// ProductCartAddService 클래스 생성
@@ -47,7 +62,7 @@ public class ProductCartAddAction implements Action {
 		out.println("history.back()");
 		out.println("</script>");
 		
-	} else {
+		} else {
 		
 		System.out.println("장바구니에 추가되었습니다");
 		
