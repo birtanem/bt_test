@@ -4,15 +4,16 @@ import java.util.Date;
 
 public class EventBean {
 	
-	private int e_num;
+	private int e_round;
 	private Date e_sdate;
 	private Date e_edate;
 	
-	public int getE_num() {
-		return e_num;
+	
+	public int getE_round() {
+		return e_round;
 	}
-	public void setE_num(int e_num) {
-		this.e_num = e_num;
+	public void setE_round(int e_round) {
+		this.e_round = e_round;
 	}
 	public Date getE_sdate() {
 		return e_sdate;

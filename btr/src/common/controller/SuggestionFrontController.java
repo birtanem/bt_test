@@ -13,7 +13,6 @@ import common.vo.*;
 import suggestion.action.SuggestionDetailAction;
 import suggestion.action.SuggestionListAction;
 import suggestion.action.SuggestionSendEmailAction;
-import suggestion.action.SuggestionWriteProAction;
 
 @WebServlet("*.su")
 public class SuggestionFrontController extends HttpServlet {

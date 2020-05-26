@@ -3,7 +3,6 @@ package common.dao;
 import java.sql.*;
 import java.util.*;
 
-import review.vo.ReviewBean;
 import suggestion.vo.*;
 
 import static common.db.JdbcUtil.*;
@@ -36,7 +35,7 @@ public class SuggestionDAO {
 		ResultSet rs = null;
 		
 		int num = 0;
-		String check="미확인";
+		String check="미완료";
 		
 		try {
 			
@@ -141,5 +140,40 @@ public class SuggestionDAO {
 		
 		return articleList;
 	}
+
+	public SuggestionBean selectArticle(int su_num) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		SuggestionBean article = null;
+		
+		try {
+			String sql = "SELECT * FROM suggestion WHERE sg_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, su_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				article = new SuggestionBean();
+				article.setNum(rs.getInt("sg_num"));
+				article.setId(rs.getString("member_member_id"));
+				article.setEmail(rs.getString("sg_email"));
+				article.setSubject(rs.getString("sg_subject"));
+				article.setContent(rs.getString("sg_content"));
+				article.setDate(rs.getDate("sg_date"));
+				article.setCheck(rs.getString("sg_check"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - selectArticle() 실패 : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return article;
+	}
+	
 	
 }

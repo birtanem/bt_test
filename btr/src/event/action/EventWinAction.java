@@ -19,7 +19,7 @@ public class EventWinAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("id", "imumdae");
+		session.setAttribute("id", "test");
 		
 		if(session != null) {
 			

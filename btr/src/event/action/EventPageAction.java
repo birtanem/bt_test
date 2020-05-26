@@ -26,14 +26,13 @@ public class EventPageAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("id", "imumdae");
+		session.setAttribute("id", "test");
 		
 		if(session != null) {
 			
 			String id = (String)session.getAttribute("id");
 					
 			MemberBean article = eventPageService.getArticle(id);
-			
 			article.setDate(eventPageService.getDate());
 			
 			

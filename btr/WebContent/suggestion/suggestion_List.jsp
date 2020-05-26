@@ -133,7 +133,19 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								</a>
 								</td>
 								<td><%=articleList.get(i).getDate() %></td>
-								<td id="td1"><%=articleList.get(i).getCheck() %></td>
+								<%
+								if(articleList.get(i).getCheck().equals("답변완료")){
+									%>
+									<td id="td1" style="color: blue; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=articleList.get(i).getCheck() %></td>
+									<%
+									
+								} else {
+									%>
+									<td id="td1" style="color: red; font-weight: bold; "><%=articleList.get(i).getCheck() %></td>
+									<%
+								}
+								%>
+
 								</tr>
 								<%
 								}

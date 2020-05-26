@@ -31,10 +31,9 @@ public class ProductListAction implements Action {
 		
 		
 		forward=new ActionForward();
-
 		forward.setPath("/product/product_list3.jsp");
 
-
+		
 		return forward;
 	}
 
