@@ -281,9 +281,9 @@ CREATE TABLE IF NOT EXISTS `withTrip`.`cart` (
   `c_member_id` VARCHAR(45) NULL,
   `c_p_amount` INT NULL,
   PRIMARY KEY (`c_num`),
-  INDEX `fk_basket_product1_idx` (`p_num` ASC),
+  INDEX `fk_basket_product1_idx` (`c_p_num` ASC),
   CONSTRAINT `fk_basket_product1`
-    FOREIGN KEY (`p_num`)
+    FOREIGN KEY (`c_p_num`)
     REFERENCES `withTrip`.`product` (`p_num`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
