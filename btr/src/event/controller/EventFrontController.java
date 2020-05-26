@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import event.action.EventChangeListAction;
 import event.action.EventEndAction;
 import event.action.EventExchangeAction;
 import event.action.EventPageAction;
@@ -91,6 +92,16 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/eventExchangePoint.ev")) {
 
 			action = new EventExchangeAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if(command.equals("/eventChangeList.ev")) {
+
+			action = new EventChangeListAction();
 			
 			try {
 				forward = action.execute(request, response);
