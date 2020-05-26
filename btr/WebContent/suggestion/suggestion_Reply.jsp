@@ -1,17 +1,30 @@
 <%@page import="suggestion.vo.SuggestionBean"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 SuggestionBean article = (SuggestionBean)request.getAttribute("article");
-int su_num  = Integer.parseInt(request.getParameter("su_num"));
-String id = "admin";
+String id = "admin111";
 String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
+
+
+
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
+<script type="text/javascript">
+function checkValue(){
+	var form = document.contentinfo;
+	
+	if(!form.content.value){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	
+	
+}
+</script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,37 +133,24 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
     <section id="partner">
         <div class="container">
             <div class="center fadeInDown">
+            
+				<h3 style="text-align: center;"><건의사항 답변></h3>
 					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
+						<form action="Suggestion_ReplyPro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
+							<input type="hidden" value="<%= article.getNum()%>" name="num">
+							<input type="hidden" value="<%= article.getId()%>" name="id">
+							<input type="hidden" value="<%= article.getEmail()%>" name="email">
+							<input type="hidden" value="<%= article.getSubject()%>" name="subject">
 							<table border="1" style="width: 610px; position: relative;">
-								<tr>
-								<td>제목</td>
-								<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
-								<%
-								if(article.getCheck().equals("답변완료")){
-									%>
-									<td style="color: blue; width: 60px; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=article.getCheck()%></td>
-									<%
-								} else {
-									%>
-									<td style="color: red; width: 60px; font-weight: bold;"><%=article.getCheck()%></td>
-									<%
-								}
-								%>
-								</tr>
-								<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
-								<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
+								<tr><td colspan="4" style="text-align: center;">답변 내용</td></tr>
+								<tr><td colspan="4" style="height: 300px"><textarea name="content" id="content" rows="10" cols="20" style="margin: 5px; width: 575px; height: 270px;"></textarea></td></tr>
 							</table>
 							<div style="width: 600px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="내 건의사항" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
-								<%
-								if(id.equals("admin")){
-								%>		
-								<input type="button" value="답변하기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_ReplyForm.su?su_num=<%=su_num%>'">
-								<%
-								}
-								%>
-								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
+								<input type="button" value="건의사항 목록" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
+								<input type="reset" value="취소" style="float: right; background-color: gray; color: white;">
+								<input type="submit" value="답변하기" style="float: right; margin-right: 5px; background-color: gray; color: white;">
 							</div>
+						</form>
 					</article>
 
             </div>
