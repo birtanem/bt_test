@@ -20,12 +20,16 @@ public class SuggestionDetailAction implements Action {
 
 		ActionForward forward = null;
 		
+		int su_num = Integer.parseInt(request.getParameter("su_num"));
 		
-		
-//		SuggestionListService suggestionListService = new SuggestionListService();
+		SuggestionDetailService suggestionDetailService = new SuggestionDetailService();
+//		suggestionDetailService.
 //		ArrayList<SuggestionBean> articleList = suggestionListService.getArticleList(id);
 //		request.setAttribute("articleList", articleList);
+		SuggestionBean article = suggestionDetailService.getArticleList(su_num);
 		
+		request.setAttribute("article", article);
+
 		forward = new ActionForward();
 		forward.setPath("/suggestion/suggestion_Detail.jsp");
 		

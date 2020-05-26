@@ -46,7 +46,7 @@ public class EventDAO {
 		ResultSet rs = null;
 		int checkDate = 1;
 		
-		String sql = "SELECT e_num FROM event WHERE e_edate > now()";
+		String sql = "SELECT e_round FROM event WHERE e_edate > now()";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -102,7 +102,7 @@ public class EventDAO {
 		int setDate = 0;
 		try {
 
-			String sql = "UPDATE event SET e_edate = now() WHERE e_num = (SELECT MAX(e_num) FROM (SELECT e_num FROM event) as a)";
+			String sql = "UPDATE event SET e_edate = now() WHERE e_round = (SELECT MAX(e_round) FROM (SELECT e_round FROM event) as a)";
 			pstmt  = con.prepareStatement(sql);
 			setDate = pstmt.executeUpdate();
 			
@@ -151,21 +151,18 @@ public class EventDAO {
 		ResultSet rs = null;
 		Timestamp date = null;
 		
-		String sql = "SELECT e_edate FROM event WHERE e_num = (SELECT MAX(e_num) FROM event) ";
+		String sql = "SELECT e_edate FROM event WHERE e_round = (SELECT MAX(e_round) FROM event) ";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				date = rs.getTimestamp("e_edate");
-				
+				date = rs.getTimestamp("e_edate");			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - selectDate() 실패! : "+e.getMessage());
 		}
-	
-		
 		return date;
 	}
 	
@@ -243,7 +240,7 @@ public class EventDAO {
 				
 				EventWinBean article = new EventWinBean();
 				article.setMember_id(rs.getString("member_id"));
-				article.setRound(rs.getInt("round"));
+				article.setEvent_round(rs.getInt("event_round"));
 				article.setEw_date(rs.getDate("ew_date"));
 				articleList.add(article);
 			}
@@ -275,7 +272,7 @@ public class EventDAO {
 			while(rs.next()) {
 				
 				EventBean article = new EventBean();
-				article.setE_num(rs.getInt("e_num"));
+				article.setE_round(rs.getInt("e_round"));
 				article.setE_sdate(rs.getDate("e_sdate"));
 				article.setE_edate(rs.getDate("e_edate"));
 				articleList.add(article);
@@ -397,7 +394,7 @@ public class EventDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql = "INSERT INTO event_win VALUES(null,(SELECT MAX(e_num) FROM event), ?, now())";
+			String sql = "INSERT INTO event_win VALUES(null,(SELECT MAX(e_round) FROM event), ?, now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			insertCount = pstmt.executeUpdate();
