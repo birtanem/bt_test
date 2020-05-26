@@ -120,6 +120,7 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
             <div class="center fadeInDown">
             
 				<h3 style="text-align: center;"><건의사항></h3>
+					<div style="color: gray; text-align: right; font-size: 8px; width: 885px;">※ 답변 내용은 이메일을 통해 확인해주세요.</div>
 					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
 							<table border="1" style="width: 610px; position: relative;">
 								<tr><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th style="width: 150px;">답변여부</th></tr>

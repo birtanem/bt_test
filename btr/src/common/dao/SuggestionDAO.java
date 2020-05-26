@@ -175,5 +175,26 @@ public class SuggestionDAO {
 		return article;
 	}
 	
+	public int updateCheck(SuggestionBean suggestionBean) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		String check="답변완료";
+		
+		try {
+			String sql = "UPDATE suggestion SET sg_check=? WHERE sg_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, check);
+			pstmt.setInt(2, suggestionBean.getNum());
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SuggestionDAO - updateCheckSuggestion() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
 	
 }

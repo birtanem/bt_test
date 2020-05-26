@@ -12,6 +12,8 @@ import common.action.*;
 import common.vo.*;
 import suggestion.action.SuggestionDetailAction;
 import suggestion.action.SuggestionListAction;
+import suggestion.action.SuggestionReplyFormAction;
+import suggestion.action.SuggestionReplyProAction;
 import suggestion.action.SuggestionSendEmailAction;
 
 @WebServlet("*.su")
@@ -62,7 +64,28 @@ public class SuggestionFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		} else if(command.equals("/Suggestion_ReplyForm.su")) {
+			
+			action = new SuggestionReplyFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/Suggestion_ReplyPro.su")) {
+			
+			action = new SuggestionReplyProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
+		
 		
 		if (forward != null) {
 			
