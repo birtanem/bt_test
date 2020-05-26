@@ -47,7 +47,7 @@ public class SuggestionSendEmailAction implements Action{
 		String receiver = "lkj0511kr@gmail.com";
 		String sender = "lkj0511kr@gmail.com";
 		String subject = suggestionBean.getSubject() + "<건의사항>";
-		String content = "작성자 : " + suggestionBean.getEmail() + "<br>" + suggestionBean.getContent();
+		String content = "작성자 아이디 : " + suggestionBean.getId() + "<br>" + "작성자 이메일 : " + suggestionBean.getEmail() + "<br>" + suggestionBean.getContent();
 		
 		try {
 			Properties properties = System.getProperties();
