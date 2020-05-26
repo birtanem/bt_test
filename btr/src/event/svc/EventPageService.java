@@ -54,7 +54,7 @@ public class EventPageService {
 		eventDAO.setConnection(con);
 			
 		date = eventDAO.selectDate();
-	
+
 		if(date != null) {
 			commit(con);
 		}else {
