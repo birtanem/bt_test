@@ -7,6 +7,7 @@ $(document).ready(function() {
 	$('#btn').click(function() {
 			$.ajax("eventMinusPoint.ev",{
 				success: function(rdata) {
+					alert(rdata)
 					$("#myCoupon").html(rdata);
 				}
 			})

@@ -23,7 +23,7 @@ public class EventExchangeAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("id", "imumdae");
+		session.setAttribute("id", "test");
 		
 		int point = Integer.parseInt(request.getParameter("point"));
 		

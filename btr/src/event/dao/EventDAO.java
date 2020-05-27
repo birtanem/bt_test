@@ -349,11 +349,14 @@ public class EventDAO {
 		try {
 			String sql = "UPDATE member SET point = point + ?, cp_? = cp_? - 1  WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
+			System.out.println(point);
+			System.out.println(member_id);
 			pstmt.setInt(1, point*10000);
 			pstmt.setInt(2, point);
 			pstmt.setInt(3, point);
 			pstmt.setString(4, member_id);
 			updateCount = pstmt.executeUpdate();
+			System.out.println(updateCount);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
