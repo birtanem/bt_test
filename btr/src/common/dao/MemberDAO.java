@@ -74,7 +74,7 @@ public class MemberDAO {
 				pstmt.setString(6,bean.getEmail());
 				pstmt.setString(7,bean.getPhone());
 				pstmt.setTimestamp(8,bean.getDate());
-				pstmt.setString(9,bean.getPoint());
+				pstmt.setInt(9,bean.getPoint());
 				pstmt.setString(10,bean.getType());
 			
 				//sql문 실행
