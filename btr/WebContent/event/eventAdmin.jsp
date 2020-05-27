@@ -53,11 +53,19 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
-<script type="text/javascript">
 
-</script>
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#sel").change(function() {
+		$.ajax("eventChangeList.ev", {
+			data: {"sel": $("#sel option:selected").val()},
+			success: function(args) {
 
+				};
+			}
+		});
+	});
+});
 
 
 </script>
@@ -78,7 +86,7 @@
 
 
 <c:forEach var="List" items="${eventList}">
-<tr><td>${List.e_num}</td><td>${List.e_sdate}</td><td>${List.e_edate}</td></tr>
+<tr><td>${List.e_round}</td><td>${List.e_sdate}</td><td>${List.e_edate}</td></tr>
 </c:forEach>
 
 
@@ -89,16 +97,16 @@
 
 <h2>당첨내역</h2>
 <select id="sel">
-<option>96</option>
-<option>1</option>
-<option>3</option>
+<c:forEach var="wList" items="${eventWinList}" varStatus="stat">
+<option>${stat.count}</option>
+</c:forEach>
 </select>
 <table border="1" id="table2">
 <tr><td>회차</td><td>당첨자</td><td>당첨일</td></tr>
 
 
 <c:forEach var="wList" items="${eventWinList}">
-<tr><td>${wList.round}</td><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
+<tr><td>${wList.event_round}</td><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
 </c:forEach>
 
 

@@ -410,4 +410,38 @@ public class EventDAO {
 		
 		return insertCount;
 	}
+
+	public ArrayList<EventWinBean> getChangeWinArticle(int sel) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		ArrayList<EventWinBean> articleList = new ArrayList<EventWinBean>();
+		
+		try {
+			String sql = "SELECT * FROM event_win WHERE event_round = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, sel);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				EventWinBean article = new EventWinBean();
+				article.setMember_id(rs.getString("member_id"));
+				article.setEvent_round(rs.getInt("event_round"));
+				article.setEw_date(rs.getDate("ew_date"));
+				articleList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+
+	}
 }
