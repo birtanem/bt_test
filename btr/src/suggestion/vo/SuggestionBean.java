@@ -11,10 +11,14 @@ public class SuggestionBean {
 	private String content;
 	private Date date;
 	private String check;
+	private int num_ref;
+	private String content_r;
+	private Date date_r;
 	
 	public SuggestionBean() {}
-
-	public SuggestionBean(int num, String id, String email, String subject, String content, Date date, String check) {
+	
+	public SuggestionBean(int num, String id, String email, String subject, String content, Date date, String check,
+			int num_ref, String content_r, Date date_r) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -23,6 +27,33 @@ public class SuggestionBean {
 		this.content = content;
 		this.date = date;
 		this.check = check;
+		this.num_ref = num_ref;
+		this.content_r = content_r;
+		this.date_r = date_r;
+	}
+
+	public int getNum_ref() {
+		return num_ref;
+	}
+
+	public void setNum_ref(int num_ref) {
+		this.num_ref = num_ref;
+	}
+
+	public String getContent_r() {
+		return content_r;
+	}
+
+	public void setContent_r(String content_r) {
+		this.content_r = content_r;
+	}
+
+	public Date getDate_r() {
+		return date_r;
+	}
+
+	public void setDate_r(Date date_r) {
+		this.date_r = date_r;
 	}
 
 	public int getNum() {

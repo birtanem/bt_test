@@ -26,7 +26,7 @@ public class ProductCartAddAction implements Action {
 		
 		session.setAttribute("id", "nani");
 				
-		String id = (String)session.getAttribute("id"); // ==> 로그인 완료되면 추가하기 !!
+		String id = (String)session.getAttribute("id"); 
 		// id가 없으면 login 페이지로 돌아가기
 		if(id == null) {
 		forward.setRedirect(true);
@@ -39,7 +39,10 @@ public class ProductCartAddAction implements Action {
 		
 		// 자바빈 저장
 		cb.setC_p_num(Integer.parseInt(request.getParameter("p_num")));
+		System.out.println(Integer.parseInt(request.getParameter("p_num")));
+		System.out.println(Integer.parseInt(request.getParameter("p_amount")));
 		cb.setC_p_amount(Integer.parseInt(request.getParameter("p_amount")));
+	
 		cb.setC_member_id(id);
 //		cb.setC_member_id(id); // 멤버 생성되면 추가해주기
 		
@@ -49,36 +52,35 @@ public class ProductCartAddAction implements Action {
 		ProductCartAddService productCartAddService = new ProductCartAddService();
 		boolean isAddSuccess = productCartAddService.AddArticle(cb);
 		
+		// response 객체를 사용하여 문서 타입 및 인코딩 설정
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();	
+
 		// 리턴 받아서 장바구니 추가 판별
 		if(!isAddSuccess) {
 		
-			// response 객체를 사용하여 문서 타입 및 인코딩 설정
-		response.setContentType("text/html;charset=UTF-8");
 		// getWriter() 메서드 호출
-		PrintWriter out = response.getWriter();	
-		
 		out.println("<script>");
-		out.println("alert('장바구니 추가가 실패되었습니다.');");
-		out.println("history.back()");
+		out.println("alert('장바구니 수량이 추가되었습니다.')");
+		out.println("location.href='ProductCartList.ca'");
 		out.println("</script>");
 		
 		} else {
 		
 		System.out.println("장바구니에 추가되었습니다");
-		
-		PrintWriter out = response.getWriter();	
 		out.println("<script>");
-		out.println("alert('장바구니에 상품이 추가되었습니다.');");
-		out.println("history.back()");
+		out.println("alert('장바구니에 상품이 추가되었습니다.')");
+		out.println("location.href='ProductCartList.ca'");
 		out.println("</script>");
 		
-		// 현재에서 CartList.bo 서블릿을 요청하여 Redirect 방식 포워딩
-		forward = new ActionForward();
-		// 포워딩 방식 지정
-		forward.setRedirect(true);
+		}
+		
+//		// 현재에서 CartList.bo 서블릿을 요청하여 Redirect 방식 포워딩
+//		forward = new ActionForward();
+//		// 포워딩 방식 지정
+//		forward.setRedirect(true);
 		// 포워딩 주소
-		forward.setPath("ProductCartList.ca");
-	}
+//		forward.setPath("ProductCartList.ca");
 		
 		return forward;
 	}

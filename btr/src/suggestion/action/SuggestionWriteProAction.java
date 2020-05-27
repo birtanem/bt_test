@@ -27,7 +27,7 @@ import suggestion.svc.*;
 import suggestion.vo.*;
 import common.vo.*;
 
-public class SuggestionSendEmailAction implements Action{
+public class SuggestionWriteProAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -79,22 +79,26 @@ public class SuggestionSendEmailAction implements Action{
 		boolean isWriteSucces = suggestionWriteProService.registSuggestion(suggestionBean);//수정필요22222222222222
 		
 		if (!isWriteSucces) {
-			
-			response.setContentType("text/html:charset=UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			
 			out.println("<script>"); 
 			out.println("alert('건의사항 등록 실패!')");
-			out.println("history.back()"); 
+			out.println("history.back()");
 			out.println("</script>"); 
-			
-		}else {
+		} else {
 			System.out.println("건의사항 등록 성공");
-
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			String resultMsg = ""; 
+			resultMsg += "<script type='text/javascript'>"; 
+			resultMsg += "alert('건의사항 등록 완료!');";	
+			resultMsg += "</script>"; 
+			out.print(resultMsg);
 			forward = new ActionForward();
 			forward.setRedirect(true);
 			forward.setPath("Suggestion_WriteForm.su");
 		}
+		
 		return forward;
 	}
 }

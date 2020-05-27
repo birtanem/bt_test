@@ -5,19 +5,16 @@
 <%
 SuggestionBean article = (SuggestionBean)request.getAttribute("article");
 int su_num  = Integer.parseInt(request.getParameter("su_num"));
-String id = "admin";
-String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
+String id = (String)request.getAttribute("id");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | Corlate</title>
+    <title>Home | With Trip</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,6 +25,7 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
     <link href="css/icomoon.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+   
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -37,79 +35,11 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-
+    
 </head>
-<!--/head-->
-
-
 <body>
-
-    <header id="header">
-        <div class="top-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="top-number">
-                            <p><i class="fa fa-phone-square"></i> +0123 456 70 90</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="social">
-                            <ul class="social-share">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-skype"></i></a></li>
-                            </ul>
-                            <div class="search">
-                                <form role="form">
-                                    <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                                    <i class="fa fa-search"></i>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/.container-->
-        </div>
-        <!--/.top-bar-->
-
-        <nav class="navbar navbar-inverse" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
-                </div>
-                
-                <div class="collapse navbar-collapse navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="blog-item.html">Blog Single</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li><a href="404.html">404</a></li>
-                            </ul>
-                        </li>
-                        <li class="active"><a href="Suggestion_WriteForm.su">건의사항</a></li> 
-                        <li><a href="contact-us.html">Contact</a></li>                        
-                    </ul>
-                </div>
-            </div><!--/.container-->
-        </nav><!--/nav-->
-        
-    </header><!--/header-->
+	<jsp:include page="/inc/top.jsp" />
+	<!--/header-->
 
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
@@ -120,10 +50,63 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
     <section id="partner">
         <div class="container">
             <div class="center fadeInDown">
-					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
+            <%
+            if(article.getCheck().equals("답변완료")){
+            	%>
+            	            <article style="position: relative; float: right; margin-right: 255px; margin-right: 110px;">
+								<table border="1" bordercolor="black"
+								style="position: relative; 
+									   float: right; 
+									   margin-left: 10px; 
+									   width: 255px; 
+									   mix-blend-mode: difference;
+									   font-size: medium;
+									   color: black;
+									   font-family: fantasy;
+									   background-color: darkgrey;
+									   border: double;">
+									<tr><td colspan="2">관리자 답변</td></tr>
+									<tr><td>작성날짜</td><td><%=article.getDate_r()%></td></tr>
+									<tr><td colspan="2" style="height: 300px; background-color: azure;"><%=article.getContent_r()%></td></tr>
+								</table>
+								<table border="1" style="width: 610px; position: relative;">
+									<tr>
+									<td style="width: 80px;">작성 아이디</td>
+									<td style="width: 140px;"><%=article.getId()%></td>
+									<td style="width: 90px;">답변 받을 이메일</td>
+									<td><%=article.getEmail()%></td>
+									</tr>
+									<tr>
+										<td style="width: 40px;">제목</td>
+										<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
+										<%
+										if(article.getCheck().equals("답변완료")){
+											%>
+											<td style="color: blue; width: 60px; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=article.getCheck()%></td>
+											<%
+										} else {
+											%>
+											<td style="color: red; width: 60px; font-weight: bold;"><%=article.getCheck()%></td>
+											<%
+										}
+										%>
+									</tr>
+									<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
+									<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
+								</table>
+            	<%
+            } else {
+            	%>
+            			<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
 							<table border="1" style="width: 610px; position: relative;">
 								<tr>
-								<td>제목</td>
+								<td style="width: 80px;">작성 아이디</td>
+								<td style="width: 140px;"><%=article.getId()%></td>
+								<td style="width: 90px;">답변 받을 이메일</td>
+								<td><%=article.getEmail()%></td>
+								</tr>
+								<tr>
+								<td style="width: 40px;">제목</td>
 								<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
 								<%
 								if(article.getCheck().equals("답변완료")){
@@ -140,10 +123,13 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
 								<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
 							</table>
-							<div style="width: 600px; margin: 0px; margin-top: 5px;">
+            	<%
+            }
+            %>
+          					    <div style="width: 610px; margin: 0px; margin-top: 5px;">
 								<input type="button" value="내 건의사항" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
 								<%
-								if(id.equals("admin")){
+								if(id.equals("admin") && article.getCheck().equals("미완료")){
 								%>		
 								<input type="button" value="답변하기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_ReplyForm.su?su_num=<%=su_num%>'">
 								<%
@@ -152,7 +138,6 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
 							</div>
 					</article>
-
             </div>
         </div>
         <!--/.container-->

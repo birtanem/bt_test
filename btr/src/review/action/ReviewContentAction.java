@@ -1,5 +1,7 @@
 package review.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.*;
 
 import common.action.*;
@@ -24,11 +26,17 @@ public class ReviewContentAction implements Action{
 		
 		ReviewBean article = reviewContentService.getArticle(r_num);
 		
+		CommentListService commentListService = new CommentListService();
+		
+		int commentCount = commentListService.getArticle();
+		
+		ArrayList<CommentBean> articleList = commentListService.getArticleList(r_num);
+		
 		request.setAttribute("article", article);
 		request.setAttribute("page", page);
+		request.setAttribute("articleList", articleList);
 		
 		forward = new ActionForward();
-		
 		forward.setPath("/review/review_Content.jsp");
 		
 		return forward;

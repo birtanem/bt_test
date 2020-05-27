@@ -14,17 +14,23 @@ public class SuggestionReplyProService {
 		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
 		suggestionDAO.setConnection(con);
 
-		int updateCount = suggestionDAO.updateCheck(suggestionBean);
+//		답글 저장
+		int insertReply = suggestionDAO.insertReply(suggestionBean);
 		
-		if (updateCount > 0) {
-			commit(con);
-			isReplySucces = true;
-		}else {
+		if(insertReply > 0) {
+//			답글 저장완료 -> check상태 답변완료 수정
+			int updateCount = suggestionDAO.updateCheck(suggestionBean);
+			if (updateCount > 0) {
+				commit(con);
+				isReplySucces = true;
+			}else {
+				rollback(con);
+			}
+		} else {
 			rollback(con);
 		}
-		close(con);
 		
+		close(con);
 		return isReplySucces;
 	}
-	
 }

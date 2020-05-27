@@ -26,16 +26,22 @@ public class ProductCartAddService {
 		
 
 		// CartDAO 객체의 cartAdd() 메서드 호출하여 장바구니 추가 처리
-		// => 파라미터 CartBean 객체, 리턴타입 int(insertCount)
-		int insertCount = cdao.cartAdd(cb);
+		// => 파라미터 CartBean 객체, 리턴타입 int(check)
+		int check = cdao.checkProduct(cb);
 
 		
 		// 리턴받은 작업 결과 판별
-		if(insertCount > 0) {
+		// int check = 상품이 중복이면 수량 update(1)
+		// 중복이 아니면 장바구니에 더해주기 
+		if(check != 1) {
+
+			cdao.cartAdd(cb);
 			commit(con);
 			isAddSuccess = true;
 		} else {
-			rollback(con);
+
+			commit(con);
+			isAddSuccess = false;
 		}
 			
 	

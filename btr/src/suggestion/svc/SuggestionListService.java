@@ -50,4 +50,23 @@ public class SuggestionListService {
 		
 	}
 	
+	public ArrayList<SuggestionBean> adminGetArticleList() {
+		
+		ArrayList<SuggestionBean> articleList = null;
+		
+		System.out.println("ReviewListService -getArticleList()");
+		
+		Connection con = getConnection();
+		
+		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
+		
+		suggestionDAO.setConnection(con);
+		
+//		articleList = suggestionDAO.selectArticleList(page,limit);
+		articleList = suggestionDAO.adminselectArticleList();
+		
+		close(con);
+		
+		return articleList;
+	}
 }

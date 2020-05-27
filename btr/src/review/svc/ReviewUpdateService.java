@@ -2,7 +2,7 @@ package review.svc;
 
 import java.sql.Connection;
 
-import common.dao.ReviewDAO;
+import review.dao.ReviewDAO;
 import review.vo.ReviewBean;
 
 import static common.db.JdbcUtil.*;
@@ -12,8 +12,6 @@ public class ReviewUpdateService {
 	public ReviewBean SelectUpdateArticle(int r_num) {
 
 		ReviewBean article = null;
-		
-		int updateCount = 0;
 		
 		System.out.println("ReviewUpdateService");
 		

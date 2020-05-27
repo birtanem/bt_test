@@ -207,6 +207,7 @@ CREATE TABLE IF NOT EXISTS `withTrip`.`suggestion` (
   `sg_date` DATETIME NOT NULL,
   `sg_check` VARCHAR(45) NOT NULL,
   `sg_subject` VARCHAR(45) NOT NULL,
+  `sg_num_ref` INT NOT NULL,
   PRIMARY KEY (`sg_num`),
   INDEX `fk_suggestion_member1_idx` (`member_member_id` ASC),
   CONSTRAINT `fk_suggestion_member1`

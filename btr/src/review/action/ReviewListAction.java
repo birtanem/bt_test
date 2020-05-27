@@ -31,14 +31,12 @@ public class ReviewListAction implements Action {
 		
 		System.out.println(listCount);
 		
+		CommentListService commentListService = new CommentListService();
+				
+		int commentCount = commentListService.getArticle();
+		
 		ArrayList<ReviewBean> articleList = reviewListService.getArticleList(page, limit);
 		
-		for (int i = 0; i < articleList.size(); i++) {
-			
-			ReviewBean reviewBean = articleList.get(i);
-			System.out.println(reviewBean.getR_num());
-			
-		}
 		int maxPage = (int)((double)listCount/limit+0.95);
 		int startPage = (((int)((double)page/10+0.9))-1)*10+1;
 		int endPage = startPage+10-1;
@@ -47,7 +45,7 @@ public class ReviewListAction implements Action {
 			endPage = maxPage;
 		}
 		
-		ReviewPageInfo pageinfo = new ReviewPageInfo(page, maxPage, startPage, endPage, listCount);
+		ReviewPageInfo pageinfo = new ReviewPageInfo(page, maxPage, startPage, endPage, listCount, commentCount);
 		
 		request.setAttribute("pageinfo", pageinfo);
 		request.setAttribute("articleList", articleList);

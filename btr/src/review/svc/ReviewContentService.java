@@ -4,8 +4,7 @@ import static common.db.JdbcUtil.*;
 
 import java.sql.*;
 
-import common.dao.*;
-import common.vo.*;
+import review.dao.ReviewDAO;
 import review.vo.*;
 
 public class ReviewContentService {
@@ -34,6 +33,28 @@ public class ReviewContentService {
 		
 		return article;
 		
+	}
+
+	public int getLikeArticle(int r_num) {
+
+		int likeCount = 0;
+		System.out.println("ReviewContentService - getLikeArticle");
+		Connection con = getConnection();
+		
+		ReviewDAO reviewDAO = ReviewDAO.getInstance();
+		
+		reviewDAO.setConnection(con);
+		
+		likeCount = reviewDAO.UpdateLikeCount(r_num);
+		
+		if (likeCount > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return likeCount;
 	}
 	
 }

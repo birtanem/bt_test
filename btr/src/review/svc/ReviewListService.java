@@ -5,8 +5,7 @@ import static common.db.JdbcUtil.*;
 import java.sql.*;
 import java.util.*;
 
-import common.dao.*;
-import common.vo.*;
+import review.dao.ReviewDAO;
 import review.vo.*;
 
 public class ReviewListService {

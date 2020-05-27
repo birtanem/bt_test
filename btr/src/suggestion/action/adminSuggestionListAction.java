@@ -1,5 +1,6 @@
 package suggestion.action;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.*;
 
@@ -12,11 +13,11 @@ import common.vo.*;
 import suggestion.svc.*;
 import suggestion.vo.*;
 
-public class SuggestionListAction implements Action {
+public class adminSuggestionListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("SuggestionListAction");	
+		System.out.println("adminSuggestionListAction");	
 
 		ActionForward forward = null;
 		
@@ -28,14 +29,21 @@ public class SuggestionListAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		
-		ArrayList<SuggestionBean> articleList = suggestionListService.getArticleList(id);
-		
-		request.setAttribute("articleList", articleList);
-		
-		forward = new ActionForward();
-		forward.setPath("/suggestion/suggestion_List.jsp");
-		
+		if(id.equals("admin")) {
+			ArrayList<SuggestionBean> articleList = suggestionListService.adminGetArticleList();
+			
+			request.setAttribute("articleList", articleList);
+			
+			forward = new ActionForward();
+			forward.setPath("/suggestion/suggestion_List.jsp");
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>"); 
+			out.println("alert('관리자전용 페이지입니다')");
+			out.println("history.back()");
+			out.println("</script>"); 
+		}
 		return forward;
 	}
 
