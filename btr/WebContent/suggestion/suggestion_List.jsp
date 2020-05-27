@@ -6,7 +6,7 @@
 // String id = (String)session.getAttribute("id");
 ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttribute("articleList");
 String id = "admin";
-String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
+String email = "lkj0511kr@navr.com";       //테스트용 임시 !!!!!!!수정필요
 %>
 <!DOCTYPE html>
 <html lang="en">

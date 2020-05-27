@@ -2,9 +2,15 @@
     pageEncoding="UTF-8"%>
 <%
 // String id = (String)session.getAttribute("id");
-String id = "admin";
-String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
+// String id = "admin";
+// String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
 
+String id = null;
+String email = null;
+if(session.getAttribute("id") != null){
+	id = (String)session.getAttribute("id");
+	email = (String)request.getAttribute("email");
+}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +29,6 @@ function checkValue(){
 		alert("내용을 입력하세요.");
 		return false;
 	}
-	
-	
 }
 </script>
 

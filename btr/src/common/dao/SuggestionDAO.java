@@ -304,5 +304,28 @@ public class SuggestionDAO {
 		return insertCount;
 	}
 
+//	getEmail
+	public String getEmail(String id) {
+		String email = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select email from member WHERE id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				email = rs.getString("email");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("SuggestionDAO - getEmail() 실패! : " + e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return email;
+	}
 	
 }
