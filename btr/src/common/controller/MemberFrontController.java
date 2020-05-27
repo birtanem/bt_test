@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 import common.action.Action;
 import common.dao.MemberDAO;
 import common.vo.ActionForward;
+import member.action.MemberLogoutProAction;
 import member.vo.MemberBean;
+import suggestion.action.SuggestionWriteFormAction;
 
 
 /**
@@ -93,7 +95,18 @@ public class MemberFrontController extends HttpServlet {
 			forward.setPath("index.jsp");
 				
 			} 
-			
+			//민건 수정 로그아웃 시작
+			else if(command.equals("/MemberLogout.me")) {
+				
+				action = new MemberLogoutProAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			//민건 수정 로그아웃 끝
 			
 	//		
 		
