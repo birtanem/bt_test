@@ -116,9 +116,10 @@ $(document).ready(function(){
 											<img src="product/productUpload/${list.p_image }"alt="product">
 											<h5>${list.p_name }</h5>
 											<p>${list.p_price }</p> 
-											<input type="hidden" value="${list.p_num }" name="p_num"> 
-											<input type="hidden" value="${list.p_amount }" name="p_amount">
-											<input type="submit" class="btn" value="장바구니담기">
+<%-- 											<input type="hidden" value="${list.p_num }" name="p_num">  --%>
+<%-- 											<input type="hidden" value="${list.p_amount }" name="p_amount"> --%>
+<!-- 											<input type="submit" class="btn" value="장바구니담기" > -->
+											<input type="button" class="btn" value="장바구니담기" onclick="location.href='ProductCartAdd.ca?p_num=${list.p_num}&p_amount=${list.p_amount+1}'">
 											
 											<!-- modal trigger -->
 											<input type="button" id="myBtn${vs.index }" class="mybtn" value="구매하기">

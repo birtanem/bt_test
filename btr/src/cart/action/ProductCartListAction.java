@@ -43,6 +43,7 @@ public class ProductCartListAction implements Action {
 //		for(int i = 0; i < cartList.size(); i++) {
 //			money = cartList.get(i).get
 //		}
+		
 		Connection con = getConnection();
 		// CartDAO 객체 생성
 		CartDAO cdao = new CartDAO();
