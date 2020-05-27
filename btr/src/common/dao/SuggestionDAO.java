@@ -46,7 +46,7 @@ public class SuggestionDAO {
 				num = rs.getInt(1)+1;
 			}
 			
-			sql = "insert into suggestion values(?,?,?,?,now(),?,?)";
+			sql = "insert into suggestion values(?,?,?,?,now(),?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, suggestionBean.getId());
@@ -54,7 +54,7 @@ public class SuggestionDAO {
 			pstmt.setString(4, suggestionBean.getEmail());
 			pstmt.setString(5, check);
 			pstmt.setString(6, suggestionBean.getSubject());
-			
+			pstmt.setInt(7, 0);
 			insertCount = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
