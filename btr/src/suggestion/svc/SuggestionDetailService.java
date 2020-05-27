@@ -17,24 +17,20 @@ public class SuggestionDetailService {
 		
 		SuggestionBean article = null;
 		
-		//공통작업-1. DB 작업에 필요한 Connection 객체 가져오기
 		Connection con = getConnection();
-		
-		// 공통작업-2. DB 작업을 위한 BoardDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
 		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
-		
-		// 공통작업-3. BoardDAO 객체에 Connection 객체 전달
 		suggestionDAO.setConnection(con);
 		
-		// 4. 게시물 상세 내용 조회 및 조회수 증가
-		article = suggestionDAO.selectArticle(su_num);
-
-		// 공통작업-5. Connection 객체 반환
+		boolean checked = suggestionDAO.successCheck(su_num); //답변 완료인지 확인  
+		
+		if(!checked) {
+			article = suggestionDAO.selectArticle(su_num); //답변 미완료일경우 게시물만 출력 num_ref 조회 X
+		} else {
+			article = suggestionDAO.selectArticleR(su_num); //답변 완료일경우 게시물+답글 조회 출력
+		}
+		
 		close(con);
 		
-		// 6. 작업 결과 리턴
 		return article;
-		
 	}
-	
 }

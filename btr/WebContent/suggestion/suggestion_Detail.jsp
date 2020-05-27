@@ -51,7 +51,48 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
     <section id="partner">
         <div class="container">
             <div class="center fadeInDown">
-					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
+            <%
+            if(article.getCheck().equals("답변완료")){
+            	%>
+            	            <article style="position: relative; float: right; margin-right: 255px; margin-right: 110px;">
+								<table border="1" bordercolor="black"
+								style="position: relative; 
+									   float: right; 
+									   margin-left: 10px; 
+									   width: 255px; 
+									   mix-blend-mode: difference;
+									   font-size: medium;
+									   color: black;
+									   font-family: fantasy;
+									   background-color: darkgrey;
+									   border: double;">
+									<tr><td colspan="2">관리자 답변</td></tr>
+									<tr><td>작성날짜</td><td><%=article.getDate_r()%></td></tr>
+									<tr><td colspan="2" style="height: 300px; background-color: azure;"><%=article.getContent_r()%></td></tr>
+								</table>
+								<table border="1" style="width: 610px; position: relative;">
+									<tr>
+										<td style="width: 40px;">제목</td>
+										<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
+										<%
+										if(article.getCheck().equals("답변완료")){
+											%>
+											<td style="color: blue; width: 60px; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=article.getCheck()%></td>
+											<%
+										} else {
+											%>
+											<td style="color: red; width: 60px; font-weight: bold;"><%=article.getCheck()%></td>
+											<%
+										}
+										%>
+									</tr>
+									<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
+									<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
+								</table>
+            	<%
+            } else {
+            	%>
+            			<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
 							<table border="1" style="width: 610px; position: relative;">
 								<tr>
 								<td style="width: 40px;">제목</td>
@@ -71,10 +112,13 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
 								<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
 							</table>
-							<div style="width: 600px; margin: 0px; margin-top: 5px;">
+            	<%
+            }
+            %>
+          					    <div style="width: 610px; margin: 0px; margin-top: 5px;">
 								<input type="button" value="내 건의사항" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
 								<%
-								if(id.equals("admin")){
+								if(id.equals("admin") && article.getCheck().equals("미완료")){
 								%>		
 								<input type="button" value="답변하기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_ReplyForm.su?su_num=<%=su_num%>'">
 								<%
@@ -83,7 +127,6 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
 							</div>
 					</article>
-
             </div>
         </div>
         <!--/.container-->
