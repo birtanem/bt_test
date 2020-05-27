@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.action.Action;
 import common.dao.MemberDAO;
@@ -73,6 +74,11 @@ public class MemberFrontController extends HttpServlet {
 			
 			}
 			else if(command.equals("/MemberLoginPro.me")) {
+				
+				HttpSession session = request.getSession();
+				String id =request.getParameter("id");
+				
+				session.setAttribute("id", id);
 				
 				forward = new ActionForward();
 				forward.setPath("index.jsp");

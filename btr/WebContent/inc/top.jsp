@@ -43,7 +43,8 @@ if(session.getAttribute("id") != null) {
                     	<div class="login">
                     	<section id="login">
 	<!-- 세션에 저장된 ID 가 있을 경우 "로그아웃"(MemberLogout.me) 페이지 링크 -->
-	<!-- 세션에 저장된 ID 가 없을 경우 "로그인"(MemberLoginForm.me) 페이지 링크 -->
+	<!-- 세션에 저장된 ID 가 없을 경우 "로그인"(MemberLoginForm.me) 페이지 링크
+	해야한다. -->
 	<%if(id == null) {%>
 		<a href="MemberLoginForm.me">로그인</a> | 
 		<a href="MemberJoinForm.me">회원가입</a>

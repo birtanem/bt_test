@@ -22,7 +22,9 @@ public class MemberLoginProService {
 		//커넥션, dao 가져오고  전달하고?
 		
 		Connection con = getConnection();
+		
 		MemberDAO memberDAO = MemberDAO.getInstance();
+		
 		memberDAO.setConnection(con);
 		
 		
