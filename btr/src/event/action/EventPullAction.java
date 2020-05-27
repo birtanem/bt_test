@@ -13,7 +13,7 @@ public class EventPullAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		System.out.println("EventPullAction");
 		ActionForward forward = null;
 		
 		EventPullService eventPullService = new EventPullService();
@@ -38,14 +38,7 @@ public class EventPullAction implements Action {
 			
 			out.println("1");
 			
-		}else if(setPullSuccess == 0){ // 종료
-			
-			out.println("0");
-		}else {
-			
-			
-		}
-		
+		}	
 		return forward;
 	}
 

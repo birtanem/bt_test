@@ -2,7 +2,7 @@ package place.svc;
 
 import java.sql.Connection;
 
-import common.dao.PlaceDAO;
+import place.dao.PlaceDAO;
 import place.vo.PlaceBean;
 import static common.db.JdbcUtil.*;
 public class PlaceWriteProService {

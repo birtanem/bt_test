@@ -173,45 +173,25 @@ public class EventDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int num = 0;
-		int checkNum = 0;
+		int checkRank = 0;
 		int checkPull = 0;
+		
 		try {
-			
-			String sql = "SELECT * FROM event_box WHERE eb_rank > 0 AND eb_pull = 0";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
 				
-				sql = "SELECT * FROM event_box WHERE eb_pull = 0 ORDER BY rand() LIMIT 1";
+				String sql = "SELECT * FROM event_box WHERE eb_pull = 0 ORDER BY rand() LIMIT 1";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
-							
+	
 				if(rs.next()) {
-					
+													
 					num = rs.getInt("eb_num");
 					
-					checkNum = rs.getInt("eb_rank");
+					checkRank = rs.getInt("eb_rank");
 					
-					if(checkNum == 0) {
-						
-						checkNum = 0;
-					}
-					
-				}else {
-					
-					checkNum = -1; // 종료
-				}
+				}			
 				
-				sql = "UPDATE event_box SET eb_pull = 1 WHERE eb_num = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, num);
+				checkPull = setPull2(num) + checkRank; // 30001 50001 100001	당첨, 1 꽝
 				
-				checkPull = pstmt.executeUpdate() + checkNum; // 30001 50001 100001	당첨, 1 꽝
-				
-			}
-								
-			System.out.println(checkPull);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - setPull() 실패! : "+e.getMessage());
@@ -221,8 +201,46 @@ public class EventDAO {
 			close(pstmt);
 		}
 		
-	
 		return checkPull;
+	}
+	public int setPull2(int num) {
+		PreparedStatement pstmt = null;
+		int checkPull = 0;
+		
+		try {			
+				String sql = "UPDATE event_box SET eb_pull = 1 WHERE eb_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);			
+				checkPull = pstmt.executeUpdate(); // 30001 50001 100001	당첨, 1 꽝				
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - setPull2() 실패! : "+e.getMessage());
+		}
+		
+		return checkPull;
+	}
+	
+	public int setPullCheck() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int check = 0;
+		
+		try {	
+			String sql = "SELECT COUNT(DISTINCT eb_num) as 'num' FROM event_box WHERE eb_rank > 0 AND eb_pull = 0";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {					
+				check = rs.getInt("num");				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("EventDAO - setPullcheck() 실패! : "+e.getMessage());
+		}finally {			
+			close(rs);
+			close(pstmt);
+		}		
+		return check;
 	}
 
 	public ArrayList<EventWinBean> getWinArticle() {
@@ -381,9 +399,7 @@ public class EventDAO {
 			pstmt.setInt(2, point);
 			pstmt.setString(3, member_id);
 			insertCount = pstmt.executeUpdate();
-			System.out.println(insertCount+"dddddddddd");
-
-			
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - updateExchangePoint() 실패! : "+e.getMessage());
