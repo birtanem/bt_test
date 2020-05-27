@@ -17,6 +17,9 @@ public class SuggestionDetailAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("SuggestionDetailAction");	
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
 
 		ActionForward forward = null;
 		
@@ -29,6 +32,7 @@ public class SuggestionDetailAction implements Action {
 		SuggestionBean article = suggestionDetailService.getArticleList(su_num);
 		
 		request.setAttribute("article", article);
+		request.setAttribute("id", id);
 
 		forward = new ActionForward();
 		forward.setPath("/suggestion/suggestion_Detail.jsp");

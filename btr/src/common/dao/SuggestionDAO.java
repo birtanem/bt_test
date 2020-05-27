@@ -328,4 +328,48 @@ public class SuggestionDAO {
 		return email;
 	}
 	
+	//=============================================admin==================================
+	
+	public ArrayList<SuggestionBean> adminselectArticleList() {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<SuggestionBean> articleList = new ArrayList<SuggestionBean>();
+		
+		try {
+			String sql = "select * from suggestion where sg_num_ref=? order by sg_num desc"; //답변글 제외한 모든글 보기 (답변완료글 포함)
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, 0);
+			rs = pstmt.executeQuery();
+			
+			// 조회된 레코드 만큼 반복
+			while(rs.next()) {
+				// 1개 레코드(게시물)를 저장할 SuggestionBean 객체 생성
+				SuggestionBean article = new SuggestionBean();
+				
+				// SuggestionBean 객체에 조회된 레코드(게시물) 정보를 저장
+				article.setNum(rs.getInt("sg_num"));
+				article.setId(rs.getString("member_member_id"));
+				article.setSubject(rs.getString("sg_subject"));
+				article.setEmail(rs.getString("sg_email"));
+				article.setDate(rs.getDate("sg_date"));
+				article.setCheck(rs.getString("sg_check"));
+
+				// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
+				articleList.add(article);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("SuggestionDAO - selectArticleList() 실패! : " + e.getMessage());
+		} finally {
+			// DB 자원 반환
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
+	
 }

@@ -5,8 +5,7 @@
 <%
 SuggestionBean article = (SuggestionBean)request.getAttribute("article");
 int su_num  = Integer.parseInt(request.getParameter("su_num"));
-String id = "admin";
-String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
+String id = (String)request.getAttribute("id");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,6 +71,12 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
 								</table>
 								<table border="1" style="width: 610px; position: relative;">
 									<tr>
+									<td style="width: 80px;">작성 아이디</td>
+									<td style="width: 140px;"><%=article.getId()%></td>
+									<td style="width: 90px;">답변 받을 이메일</td>
+									<td><%=article.getEmail()%></td>
+									</tr>
+									<tr>
 										<td style="width: 40px;">제목</td>
 										<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
 										<%
@@ -94,6 +99,12 @@ String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정�
             	%>
             			<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
 							<table border="1" style="width: 610px; position: relative;">
+								<tr>
+								<td style="width: 80px;">작성 아이디</td>
+								<td style="width: 140px;"><%=article.getId()%></td>
+								<td style="width: 90px;">답변 받을 이메일</td>
+								<td><%=article.getEmail()%></td>
+								</tr>
 								<tr>
 								<td style="width: 40px;">제목</td>
 								<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>

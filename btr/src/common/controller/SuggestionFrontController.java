@@ -16,6 +16,7 @@ import suggestion.action.SuggestionReplyFormAction;
 import suggestion.action.SuggestionReplyProAction;
 import suggestion.action.SuggestionWriteFormAction;
 import suggestion.action.SuggestionWriteProAction;
+import suggestion.action.adminSuggestionListAction;
 
 @WebServlet("*.su")
 public class SuggestionFrontController extends HttpServlet {
@@ -82,6 +83,16 @@ public class SuggestionFrontController extends HttpServlet {
 		} else if(command.equals("/Suggestion_ReplyPro.su")) {
 			
 			action = new SuggestionReplyProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/adminSuggestion_List.su")) {
+			
+			action = new adminSuggestionListAction();
 			
 			try {
 				forward = action.execute(request, response);
