@@ -1,4 +1,4 @@
-package common.controller;
+package place.controller;
 
 import java.io.IOException;
 
@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import common.action.Action;
 import common.vo.ActionForward;
+import place.action.PlaceDetailAction;
 import place.action.PlaceListAction;
 import place.action.PlaceWriteProAction;
 
@@ -52,7 +54,20 @@ public class PlaceFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 				
+		} else if(command.equals("/PlaceDetail.pl")) {
+			// 글 상세내용 표시를 위해 BoardDetailAction 클래스 인스턴스 생성 => Action 타입 업캐스팅
+			action = new PlaceDetailAction();
+			// 공통 메서드인 execute() 메서드를 호출하여 request, response 객체 전달
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
+		
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행
 		if(forward != null) {
