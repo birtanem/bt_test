@@ -7,7 +7,7 @@ meta name ="viewport" content ="width=device-width, initial-scale =1">body
 }
 
 /* The Modal (background) */
-.modal {
+.mymodal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */

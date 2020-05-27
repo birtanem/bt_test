@@ -4,11 +4,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
-	// 	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
-	// 	int ListCount = (int) request.getAttribute("ListCount");
-%>
-
 
 <!DOCTYPE html>
 <html>
@@ -40,39 +35,13 @@
 	href="images/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function(){
-  $(".mybtn").click(function(){
-    $(".mymodal").modal();
-  });
-});
-</script>
-	<script type="text/javascript">
-	// Get the modal
-// 	var modal = document.getElementById("modal");
-// 	// Get the button that opens the modal
-// // 	var modalbtn = document.getElementById("myBtn");
-// 		// Get the <span> element that closes the modal
-// 		var span = document.getElementsByClassName("close")[0];
-// 		// When the user clicks the button, open the modal 
-// 		function modalbtn() {
-// 		  modal.style.display = "block";
-// 		}
-// 		// When the user clicks on <span> (x), close the modal
-// 		span.onclick = function() {
-// 		  modal.style.display = "none";
-// 		}
-// 		// When the user clicks anywhere outside of the modal, close it
-// 		window.onclick = function(event) {
-// 		  if (event.target == modal) {
-// 		    modal.style.display = "none";
-// 		  }
-// 		}
-		</script>
-</head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+</head>
 <!--/head-->
 <body>
 	<jsp:include page="/inc/top.jsp" />
@@ -103,7 +72,7 @@ $(document).ready(function(){
 		<section id="portfolio">
 			<div class="container">
 				<input type="button" class="btn btn-default active" value="관리자:상품등록"
-					onclick="location.href='productRegistForm.pr'"/>
+					onclick="location.href='productRegistForm.pr'" />
 				<form action="ProductCartAdd.ca" method="post"
 					name="productListForm">
 					<div class="portfolio-items">
@@ -113,17 +82,41 @@ $(document).ready(function(){
 									<c:forEach var="list" items="${productList }" varStatus="vs">
 										<li
 											class="portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
-											<img src="product/productUpload/${list.p_image }"alt="product">
+											<img src="product/productUpload/${list.p_image }"
+											alt="product">
 											<h5>${list.p_name }</h5>
-											<p>${list.p_price }</p> 
-<%-- 											<input type="hidden" value="${list.p_num }" name="p_num">  --%>
-<%-- 											<input type="hidden" value="${list.p_amount }" name="p_amount"> --%>
-<!-- 											<input type="submit" class="btn" value="장바구니담기" > -->
-											<input type="button" class="btn" value="장바구니담기" onclick="location.href='ProductCartAdd.ca?p_num=${list.p_num}&p_amount=${list.p_amount+1}'">
-											
-											<!-- modal trigger -->
-											<input type="button" id="myBtn${vs.index }" class="mybtn" value="구매하기">
+											<p>${list.p_price }</p> <%-- 	<input type="hidden" value="${list.p_num }" name="p_num">  --%>
+											<%-- 											<input type="hidden" value="${list.p_amount }" name="p_amount"> --%>
+											<!-- 											<input type="submit" class="btn" value="장바구니담기" > -->
+											<input type="button" class="btn" value="장바구니담기"
+											onclick="location.href='ProductCartAdd.ca?p_num=${list.p_num}&p_amount=${list.p_amount+1}'">
+
+											<!-- modal trigger --> <input type="button"
+											id="myBtn" class="btn" value="구매하기" onclick="openModal()">
 										</li>
+										
+										<!--modal -->
+			<div id="modal${vs.index }" class="mymodal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="close">&times;</span>
+						<h2>${list.p_name }</h2>
+					</div>
+
+					<div class="modal-body">${list.p_content }</div>
+					<div class="modal-footer">
+						<h3>
+							${list.p_price } <input type="button" value="-"> <input
+								type="text" value="1"> <input type="button" value="+">
+							<input type="button" value="장바구니담기" onclick="#"> <input
+								type="button" value="바로결제" onclick="#">
+						</h3>
+					</div>
+				</div>
+			</div>
+										
+										
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
@@ -136,30 +129,16 @@ $(document).ready(function(){
 						</ul>
 					</div>
 				</form>
-			
+
 			</div>
 			<c:forEach var="list" items="${productList }" varStatus="vs">
-				<!--modal -->
-				<div id="modal${vs.index }" class="mymodal"> 
-					<!-- 						Modal content -->
-					<div class="modal-content">
-						<div class="modal-header">
-							<span class="close">&times;</span>
-							<h2>${list.p_name }</h2>
-						</div>
-
-						<div class="modal-body">${list.p_content }</div>
-						<div class="modal-footer">
-							<h3>
-								${list.p_price } <input type="button" value="-">
-								 <input type="text" value="1"> <input type="button" value="+">
-								<input type="button" value="장바구니담기" onclick="#"> 
-								<input type="button" value="바로결제" onclick="#">
-							</h3>
-						</div>
-					</div>
-				</div>
+			
 			</c:forEach>
+
+
+
+
+
 
 		</section>
 		<!-- 			</section> -->
@@ -236,35 +215,34 @@ $(document).ready(function(){
 			</div>
 		</section>
 		<!--/#bottom-->
-</section>
-		<footer id="footer" class="midnight-blue">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						&copy; 2013 <a target="_blank" href="http://shapebootstrap.net/"
-							title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>.
-						All Rights Reserved.
-					</div>
-					<div class="col-sm-6">
-						<ul class="pull-right">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Faq</a></li>
-							<li><a href="#">Contact Us</a></li>
-						</ul>
-					</div>
+	</section>
+	<footer id="footer" class="midnight-blue">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					&copy; 2013 <a target="_blank" href="http://shapebootstrap.net/"
+						title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>.
+					All Rights Reserved.
+				</div>
+				<div class="col-sm-6">
+					<ul class="pull-right">
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Faq</a></li>
+						<li><a href="#">Contact Us</a></li>
+					</ul>
 				</div>
 			</div>
-		</footer>
-		<!--/#footer-->
-	
-<!-- 		<script src="js/product_modal.js"></script> -->
+		</div>
+	</footer>
+	<!--/#footer-->
 
-		<script src="js/jquery.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jquery.prettyPhoto.js"></script>
-		<script src="js/owl.carousel.min.js"></script>
-		<script src="js/jquery.isotope.min.js"></script>
-		<script src="js/main.js"></script>
+	<script src="js/product_modal.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.isotope.min.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>
