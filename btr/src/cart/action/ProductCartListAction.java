@@ -36,13 +36,6 @@ public class ProductCartListAction implements Action {
 		} 
 		
 		
-		// 총 금액 계산 => CartBean에 price 추가한 뒤 수정하기
-//		int totalMoney = 0;
-//		int money = 0;
-//		
-//		for(int i = 0; i < cartList.size(); i++) {
-//			money = cartList.get(i).get
-//		}
 		
 		Connection con = getConnection();
 		// CartDAO 객체 생성

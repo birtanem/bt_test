@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +74,7 @@
 		<td>상품명</td>
 		<td>가격</td>
 		<td>수량</td>
+		<td>합계</td>
 	</tr>
 
 <c:forEach var="p" items="${productList }" varStatus="status">
@@ -80,7 +82,6 @@
 		<td>
 			<input type="checkbox" name="rowCheck" value="${cartList[status.index].c_num }"/>
 		</td>
-		
 		<td>
 			${cartList[status.index].c_num }
 		</td>
@@ -88,7 +89,7 @@
 			${p.p_category }
 		</td>
 		<td>
-			${p.p_image }
+			<img src="product/productUpload/${p.p_image }" width="200" height = "100">
 		</td>
 		<td>
 			${p.p_name }
@@ -99,9 +100,20 @@
 		<td>
 			${cartList[status.index].c_p_amount }
 		</td>
+		<td>
+			${cartList[status.index].c_p_amount * p.p_price}
+		</td>
 	</tr>
-</c:forEach>	
+</c:forEach>
 </table>
+	
+			총 금액 :
+			<c:set var="totalmoney" value="0" />
+			<c:forEach var="p" items="${productList }" varStatus="status">
+			<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
+				<c:set var="totalmoney" value="${totalmoney + money }"/>
+			</c:forEach>
+			<c:out value="${totalmoney }"/> 
 	<input type="button" value="취소" onclick="return deleteCart()">
 </form>
 <c:if test="${productList == null }">
