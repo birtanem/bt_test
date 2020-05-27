@@ -8,15 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import common.action.Action;
 import common.dao.MemberDAO;
+import common.vo.ActionForward;
 import member.vo.MemberBean;
 
 
 /**
  * Servlet implementation class MemberJoinProc
  */
-@WebServlet("*.do")
+@WebServlet("*.me")
 public class MemberFrontController extends HttpServlet {
 	
 
@@ -35,68 +38,76 @@ public class MemberFrontController extends HttpServlet {
 		reqPro(request,response);
 	}
 	
-	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//�ѱ�ó��
-		request.setCharacterEncoding("EUC-KR");
-		
-		MemberBean bean = new MemberBean();
-		
-		bean.setId(request.getParameter("id"));
-		
-		String pass1 = request.getParameter("pass1");
-		String pass2 = request.getParameter("pass2");
-		
-		bean.setPass1(pass1);
-		bean.setPass2(pass2);
-		//
-		
-		bean.setEmail(request.getParameter("email"));
-		
-		bean.setTel(request.getParameter("tel"));
-		
-		String [] arr = request.getParameterValues("hobby"); //�迭�ι޾ƿ���
+	protected void reqPro(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		String data ="";
-		
-			for (String string : arr) {
+		// POST 방식 한글 처리
+			request.setCharacterEncoding("UTF-8");
 				
-				data+=string+" "; //�ϳ��� ��Ʈ������ ������ ����
+		
+			String command = request.getServletPath();
+			
+			System.out.println(command);
+			
+			//각 요청을 공통적으로 처리하기 위해 필요한 변수 선언
+			Action action = null;
+			ActionForward forward = null;
+		
+			//action 폼으로 이동
+			//로그인 폼
+			if(command.equals("/MemberLoginForm.me")) {
+				
+				forward = new ActionForward();
+				forward.setPath("/member/LoginForm.jsp");
+				
 			}
-		
-		
-		bean.setHobby(data);
-		bean.setJob(request.getParameter("job"));
-		bean.setAge(request.getParameter("age"));
-		bean.setInfo(request.getParameter("info"));
-		
-		
-		//�н����尡 ���� ��쿡�� ������ ���̽��� ����
-		
-		if(pass1 == pass2) {
 			
-			//�����ͺ��̽� ��ü����
-			MemberDAO mdao = new MemberDAO();
-			mdao.insertMember(bean);
-			RequestDispatcher dis = request.getRequestDispatcher("/member/MemberList.jsp");
-			dis.forward(request, response);
+			//회원가입 폼	
+			else if(command.equals("/MemberJoinForm.me")) {
+			
+			forward = new ActionForward();
+			forward.setPath("/member/JoinForm.jsp");
+			
+			//데이터가 입력되면 db에 쌓이고, (action?service?)
+			//로그인화면 보여줘야 한다.
+			
+			}
+			else if(command.equals("/MemberLoginPro.me")) {
+				
+				HttpSession session = request.getSession();
+				String id =request.getParameter("id");
+				
+				session.setAttribute("id", id);
+				
+				forward = new ActionForward();
+				forward.setPath("index.jsp");
+			
+				
+			}
+			// action -> service & dao 확인으로 멤버 로그인 되었으면
+			
+			else if(command.equals("/MemberJoinPro.me")){
+				
+			forward = new ActionForward();
+			forward.setPath("index.jsp");
+				
+			} 
 			
 			
-			
-		} else {
-			
-			request.setAttribute("msg", "�н����尡 ��ġ���� �ʽ��ϴ�.");
-			RequestDispatcher dis = request.getRequestDispatcher("/member/LoginError.jsp");
-			dis.forward(request, response);
-			
-			
-		}
+	//		
 		
 		
-		
-		//������ ���̽� ��ü ���� 
-		
+			if(forward != null) {
+				
+			if(forward.isRedirect()) {
+					response.sendRedirect(forward.getPath());
+			} else {
+					RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+					dispatcher.forward(request, response);
+					
+				}
+			}
 		
 		
 		
