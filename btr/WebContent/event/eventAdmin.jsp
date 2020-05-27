@@ -56,27 +56,30 @@
 
 <script type="text/javascript">
 
-function eventWinList() {
+function eventWinList(sel) {
 	
-	$.ajax({  
+	if($("#sel option:selected").val() != "선택") {
+		sel = 
+		$.ajax({  
 
-	    type : "POST",  
-	    url : "eventChangeList.ev",  
-	    data : {sel: $("#sel option:selected").val()},  
-	    dataType : "json",  
-	    success : function(rdata){
-	    	
-	    	$("#table1 tr:not(:first)").empty();
-	    	$("#table2 tr:not(:first)").empty();
-	    	
-	    	$("#table1").append("<tr><td>"+rdata[1].e_round+"</td><td>"+rdata[1].e_sdate+"</td><td>"+rdata[1].e_edate+"</td></tr>");
-	    	
-	    	$.each(rdata[0], function(index, item) {
-	    		$("#table2").append("<tr><td>"+item.member_id+"</td><td>"+item.ew_date+"</td><td>"+item.cp_3+"</td><td>"+item.cp_5+"</td><td>"+item.cp_10+"</td><td>"+item.cp_10+"</td></tr>");
-	    	});
-	    }  
-	});
-	
+		    type : "POST",
+		    url : "eventChangeList.ev",  
+		    data : {"sel": sel},  
+		    dataType : "json",  
+		    success : function(rdata){
+		    	
+		    	$("#table1 tr:not(:first)").empty();
+		    	$("#table2 tr:not(:first)").empty();
+		    	
+		    	$("#table1").append("<tr><td>"+rdata[1].e_round+"</td><td>"+rdata[1].e_sdate+"</td><td>"+rdata[1].e_edate+"</td></tr>");
+		    	
+		    	$.each(rdata[0], function(index, item) {
+		    		$("#table2").append("<tr><td>"+item.member_id+"</td><td>"+item.ew_date+"</td><td>"+item.cp_3+"</td><td>"+item.cp_5+"</td><td>"+item.cp_10+"</td></tr>");
+		    	});
+		    }  
+		});
+	}
+
 }
 
 </script>
@@ -86,12 +89,31 @@ $(document).ready(function() {
 	
 	eventWinList();
 
+	$("#selboxDirect").hide();
+	
 	$("#sel").change(function() {
+		
+		if($("#sel").val() == "직접입력") {
 
-		eventWinList();
+			$("#selboxDirect").show();
+			
+		}else {
+				
+			var sel = $("#sel option:selected").val();
+				
+			$("#selboxDirect").hide();
+			
+			eventWinList(sel);
+		}
+
 	});
-});
-
+	
+	$("#selectBtn").click(function() {
+		
+		var sel = $("#selboxDirect").val();
+		eventWinList(sel);	
+	});
+}); 
 </script>
 <body>
 <jsp:include page="../inc/top.jsp"></jsp:include>
@@ -103,12 +125,16 @@ $(document).ready(function() {
     <section id="contact-page">
 
 <h1>이벤트시작, 종료 및 당첨내역??</h1>
-
+<input type="text" id="selboxDirect" name="selboxDirect"/>
 <select id="sel">
+<option value="선택">선택</option>
+
 <c:forEach var="wList" items="${eventWinList}" varStatus="status" step="3">
 <option>${status.count}</option>
 </c:forEach>
+<option value="직접입력">직접입력</option>
 </select>
+<input type="button" value="확인" id="selectBtn"/>
 
 
 <h2>이벤트 회차</h2>
@@ -121,7 +147,7 @@ $(document).ready(function() {
 
 
 <table border="1" id="table2">
-<tr><td>회차</td><td>당첨자</td><td>당첨일</td><td>30000</td><td>50000P</td><td>100000P</td></tr>
+<tr><td>당첨자</td><td>당첨일</td><td>30000P</td><td>50000P</td><td>100000P</td></tr>
 </table>
 
 
