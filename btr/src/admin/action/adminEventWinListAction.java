@@ -18,7 +18,7 @@ public class adminEventWinListAction implements Action {
 		ActionForward forward = null;
 		adminEventWinListService admineventWinListService = new adminEventWinListService();
 		
-		ArrayList<EventWinBean> eventWinList =  admineventWinListService.getArticleList();
+		ArrayList<EventWinBean> eventWinList =  admineventWinListService.getWinArticleList();
 
 		request.setAttribute("eventWinList", eventWinList);
 

@@ -7,11 +7,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import event.dao.EventDAO;
+import event.vo.EventBean;
 import event.vo.EventWinBean;
 
 public class adminEventWinListService {
 
-	public ArrayList<EventWinBean> getArticleList() {
+	public ArrayList<EventWinBean> getWinArticleList() {
 		
 		System.out.println("adminEventWinListService");
 		
@@ -29,4 +30,6 @@ public class adminEventWinListService {
 		return eventWinList;
 		
 	}
+	
+
 }

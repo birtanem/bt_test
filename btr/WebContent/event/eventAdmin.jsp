@@ -55,18 +55,42 @@
 </head>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#sel").change(function() {
-		$.ajax("eventChangeList.ev", {
-			data: {"sel": $("#sel option:selected").val()},
-			success: function(args) {
 
-				};
-			}
-		});
+function eventWinList() {
+	
+	$.ajax({  
+
+	    type : "POST",  
+	    url : "eventChangeList.ev",  
+	    data : {sel: $("#sel option:selected").val()},  
+	    dataType : "json",  
+	    success : function(rdata){
+	    	
+	    	$("#table1 tr:not(:first)").empty();
+	    	$("#table2 tr:not(:first)").empty();
+	    	
+	    	$("#table1").append("<tr><td>"+rdata[1].e_round+"</td><td>"+rdata[1].e_sdate+"</td><td>"+rdata[1].e_edate+"</td></tr>");
+	    	
+	    	$.each(rdata[0], function(index, item) {
+	    		$("#table2").append("<tr><td>"+item.member_id+"</td><td>"+item.ew_date+"</td><td>"+item.cp_3+"</td><td>"+item.cp_5+"</td><td>"+item.cp_10+"</td><td>"+item.cp_10+"</td></tr>");
+	    	});
+	    }  
+	});
+	
+}
+
+</script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	eventWinList();
+
+	$("#sel").change(function() {
+
+		eventWinList();
 	});
 });
-
 
 </script>
 <body>
@@ -80,37 +104,24 @@ $(document).ready(function() {
 
 <h1>이벤트시작, 종료 및 당첨내역??</h1>
 
-<h2>이벤트 회차</h2>
-<table border="1">
-<tr><td>회차</td><td>시작일</td><td>종료일</td></tr>
-
-
-<c:forEach var="List" items="${eventList}">
-<tr><td>${List.e_round}</td><td>${List.e_sdate}</td><td>${List.e_edate}</td></tr>
-</c:forEach>
-
-
-
-</table>
-
-
-
-<h2>당첨내역</h2>
 <select id="sel">
-<c:forEach var="wList" items="${eventWinList}" varStatus="stat">
-<option>${stat.count}</option>
+<c:forEach var="wList" items="${eventWinList}" varStatus="status" step="3">
+<option>${status.count}</option>
 </c:forEach>
 </select>
+
+
+<h2>이벤트 회차</h2>
+
+<table border="1" id="table1">
+<tr><td>회차</td><td>시작일</td><td>종료일</td></tr>
+</table>
+
+<h2>당첨내역</h2>
+
+
 <table border="1" id="table2">
-<tr><td>회차</td><td>당첨자</td><td>당첨일</td></tr>
-
-
-<c:forEach var="wList" items="${eventWinList}">
-<tr><td>${wList.event_round}</td><td>${wList.member_id}</td><td>${wList.ew_date}</td></tr>
-</c:forEach>
-
-
-
+<tr><td>회차</td><td>당첨자</td><td>당첨일</td><td>30000</td><td>50000P</td><td>100000P</td></tr>
 </table>
 
 

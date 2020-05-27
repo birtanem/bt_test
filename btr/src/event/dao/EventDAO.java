@@ -14,6 +14,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import event.vo.EventBean;
 import event.vo.EventWinBean;
 import member.vo.MemberBean;
@@ -394,7 +397,7 @@ public class EventDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql = "INSERT INTO event_win VALUES(null,(SELECT MAX(e_round) FROM event), ?, now())";
+			String sql = "INSERT INTO event_win VALUES(null, ?, (SELECT MAX(e_round) FROM event), now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			insertCount = pstmt.executeUpdate();
@@ -411,27 +414,29 @@ public class EventDAO {
 		return insertCount;
 	}
 
-	public ArrayList<EventWinBean> getChangeWinArticle(int sel) {
+	public JSONArray getChangeWinArticle(int sel) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		
-		ArrayList<EventWinBean> articleList = new ArrayList<EventWinBean>();
+		JSONArray jArr = new JSONArray();
 		
 		try {
-			String sql = "SELECT * FROM event_win WHERE event_round = ?";
+			String sql = "SELECT e.*, m.cp_3, m.cp_5, m.cp_10 FROM event_win e JOIN member m "
+					+ "ON e.member_id = m.id WHERE event_round = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, sel);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				
-				EventWinBean article = new EventWinBean();
-				article.setMember_id(rs.getString("member_id"));
-				article.setEvent_round(rs.getInt("event_round"));
-				article.setEw_date(rs.getDate("ew_date"));
-				articleList.add(article);
+
+				JSONObject obj = new JSONObject();
+				obj.put("member_id", rs.getString("member_id"));
+				obj.put("event_round", rs.getString("event_round"));
+				obj.put("ew_date", rs.getString("ew_date"));
+				obj.put("cp_3", rs.getString("cp_3"));
+				obj.put("cp_5", rs.getString("cp_5"));
+				obj.put("cp_10", rs.getString("cp_10"));
+				jArr.add(obj);
 			}
 		} catch (SQLException e) {
 			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
@@ -441,7 +446,36 @@ public class EventDAO {
 			close(pstmt);
 		}
 		
-		return articleList;
+		return jArr;
 
+	}
+
+	public JSONObject getChageArticle(int sel) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONObject obj = null;
+		try {
+			String sql = "SELECT * FROM event WHERE e_round = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, sel);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+
+				obj = new JSONObject();
+				obj.put("e_round", rs.getString("e_round"));
+				obj.put("e_sdate", rs.getString("e_sdate"));
+				obj.put("e_edate", rs.getString("e_edate"));
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return obj;
 	}
 }

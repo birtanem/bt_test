@@ -137,8 +137,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `withTrip`.`event` (
   `e_round` INT NOT NULL AUTO_INCREMENT,
-  `e_sdate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `e_edate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `e_sdate` DATETIME NOT NULL,
+  `e_edate` DATETIME NOT NULL,
   PRIMARY KEY (`e_round`))
 ENGINE = InnoDB;
 

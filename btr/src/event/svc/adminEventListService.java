@@ -22,8 +22,7 @@ public class adminEventListService {
 		
 		eventDAO.setConnection(con);
 		
-		ArrayList<EventBean> eventList = eventDAO.getArticle();
-		
+		ArrayList<EventBean> eventList = eventDAO.getArticle();	
 		
 		close(con);
 		

@@ -28,22 +28,23 @@ public class EventChangeListAction implements Action {
 		int sel = Integer.parseInt(request.getParameter("sel"));
 		
 		EventChangeListService eventChangeListService = new EventChangeListService();
-		ArrayList<EventWinBean> articleList = eventChangeListService.changeEventWinList(sel);
-
+		
+		JSONArray articleList = eventChangeListService.changeEventWinList(sel);
+		
+		JSONObject articleList2 = eventChangeListService.changeEventList(sel);
+		
+		JSONArray result = new JSONArray();
+		
+		result.add(articleList);
+		result.add(articleList2);
 
 //		request.setAttribute("articleList", articleList);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		System.out.println(result);
+		out.print(result);
 
-		
-		JSONObject jso=new JSONObject();    // JASON 객체생성
-
-		jso.put("List", articleList);   
-
-		out.print(jso.toString());
 	
-		
-		
 		return forward;
 	}
 
