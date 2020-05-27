@@ -1,4 +1,4 @@
-package common.dao;
+package review.dao;
 
 import static common.db.JdbcUtil.*;
 
@@ -257,8 +257,34 @@ public class ReviewDAO {
 			
 		} catch (SQLException e) {
 			System.out.println("BoardDAO - Delete() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
 		}
 		return deleteCount;
+	}
+
+	public int UpdateLikeCount(int r_num) {
+
+		int likeCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update review set r_likecount = r_likecount+1 where r_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, r_num);
+			
+			likeCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return likeCount;
 	}
 
 }

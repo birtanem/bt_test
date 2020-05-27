@@ -1,4 +1,4 @@
-package common.controller;
+package review.controller;
 
 import java.io.IOException;
 
@@ -92,6 +92,26 @@ public class ReviewFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/Comment_WritePro.re")) {
+			
+			action = new CommentWriteProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/Review_ContentLike.re")) {
+			
+			action = new ReviewLikeAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		

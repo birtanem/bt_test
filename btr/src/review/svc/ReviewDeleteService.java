@@ -2,8 +2,7 @@ package review.svc;
 
 import java.sql.*;
 
-import common.dao.*;
-import review.vo.*;
+import review.dao.ReviewDAO;
 
 import static common.db.JdbcUtil.*;
 
