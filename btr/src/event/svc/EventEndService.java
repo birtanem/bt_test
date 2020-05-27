@@ -28,6 +28,9 @@ public class EventEndService {
 		}else {
 			rollback(con);
 		}
+		
+		close(con);
+		
 		return isSetDate;
 	}
 }

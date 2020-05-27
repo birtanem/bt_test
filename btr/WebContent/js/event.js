@@ -5,66 +5,67 @@
 $(document).ready(function() {
 
 	$('#btn').click(function() {
+		
 			$.ajax("eventMinusPoint.ev",{
 				success: function(rdata) {
-					alert(rdata)
 					$("#myCoupon").html(rdata);
 				}
 			})
+			
 			$.ajax({
 				url: 'eventPull.ev',
-				dataType: 'html',
-				type: 'get',
 				success: function(rdata) {
-					
 					var point = rdata.trim()/10000;
 				
 					if(rdata == 30000 || rdata == 50000 || rdata == 100000) {
-				
-						$('.p1').html("<img src='images/eventCoupon.png' class='img'><br>");
+						
+						if(rdata == 30000) {
+							$('.p1').html("<img src='images/eventCoupon.png' class='img'><br>");
+						}else if(rdata == "50000") {
+							$('.p1').html("<img src='images/eventCoupon2.png' class='img'><br>");
+						}else{
+							$('.p1').html("<img src='images/eventCoupon3.png' class='img'><br>");
+						}					
 						$.ajax("eventWin.ev",{
 							data: {"point": point},
 							success: function() {
-							
+								
+								setTimeout(function() {
+									alert("당첨!!")								
+		    					}, 2000);							
 							}
-						})
-			    		$.ajax("eventPull.ev", {
+						})					
+			    		$.ajax("eventPullCheck.ev", {
 			    			success: function(rdata) {
-			    			
 			    				if(rdata == 0) {
 			    					setTimeout(function() {
-
 			    						$.ajax("eventEnd.ev",{
 				    						success: function() {
-				    							location.reload();
-				    							
+				    							location.reload();			    							
 				    						}
-				    					});
-											
-			    					}, 4000);
-			    					
-			    			
+				    					});										
+			    					}, 2000);	
 			    				}
-
 			    			}
 			    		});
 					}else if(rdata == 1) {
 						$('.p1').html("<img src='images/x.PNG' class='img'><br>");
-					}else {
-						$('.p1').html("<img src='images/a.png'><br>");
-						$("#btn").css('opacity','0').css('pointer-events','none');
 						
-						$.ajax("eventEnd.ev", {
-							success: function() {
-								
-								location.reload();
-							}
-						})
-						return false;
-					}			
-				
+			    		$.ajax("eventPullCheck.ev", {
+			    			success: function(rdata) {
+			    				if(rdata == "0") {
+			    					setTimeout(function() {
+			    						$.ajax("eventEnd.ev",{
+				    						success: function() {
+				    							location.reload();			    							
+				    						}
+				    					});										
+			    					}, 2000);
+			    				}
+			    			}
+			    		});
+					}				
 					$("#btn").css('opacity','0').css('pointer-events','none');
-				
 					
 					setTimeout(function() {
 						
