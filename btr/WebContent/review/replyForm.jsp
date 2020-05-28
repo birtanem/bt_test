@@ -16,7 +16,7 @@
 	<input type="hidden" name="rc_ref" value="${param.rc_ref }">
 	<input type="hidden" name="rc_lev" value="${param.rc_lev }">
 	<input type="hidden" name="rc_seq" value="${param.rc_seq }">
-    <input type="hidden" name="id" value="test">
+    <input type="hidden" name="id" value="admin">
     <textarea rows="5" cols="100" name="rc_content"></textarea>
     <input type="submit" value="댓글">
 </form>

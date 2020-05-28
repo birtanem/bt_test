@@ -73,7 +73,7 @@
                             <td style="width: 90%; height: 400px;">${article.r_content }</td>
                         </tr>
                     </table>
-                    <input type="button" value="댓글" onclick="location.href='Comment_WriteForm.re?r_num=${article.r_num }'">
+                    <input type="button" value="댓글" onclick="location.href='Comment_WriteForm.re?r_num=${article.r_num }&page=${nowPage }'">
                     <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=${article.r_num }'">
                     <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=${article.r_num }'">
                     <input type="button" value="목록" onclick="location.href='Review_List.re?page=${nowPage }'">

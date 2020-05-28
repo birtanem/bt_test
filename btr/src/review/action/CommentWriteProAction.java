@@ -18,6 +18,7 @@ public class CommentWriteProAction implements Action {
 		System.out.println("CommentWriteProAction");
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
+		int page = Integer.parseInt(request.getParameter("page"));
 		
 		CommentBean article = new CommentBean();
 
@@ -30,7 +31,7 @@ public class CommentWriteProAction implements Action {
 		boolean isComment = commentWriteService.isWriteComment(article);
 		
 		forward = new ActionForward();
-		forward.setPath("/Review_Content.re?r_num="+r_num);
+		forward.setPath("/Review_Content.re?r_num="+r_num+"&page="+page);
 		
 		return forward;
 	}

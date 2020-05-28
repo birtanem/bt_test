@@ -113,7 +113,7 @@ public class CommentDAO {
 		
 		try {
 			String sql = "select * from review_comment where review_review_num = ?"
-					+ " order by rc_ref desc, rc_seq asc";
+					+ " order by rc_ref desc, rct_lev asc";
 			
 			pstmt = con.prepareStatement(sql);
 
@@ -131,8 +131,8 @@ public class CommentDAO {
 				article.setRc_content(rs.getString("rc_content"));
 				article.setRc_date(rs.getDate("rc_date"));
 				article.setRc_ref(rs.getInt("rc_ref"));
-				article.setRc_seq(rs.getInt("rc_lev"));
-				article.setRc_lev(rs.getInt("rc_seq"));
+				article.setRc_seq(rs.getInt("rc_seq"));
+				article.setRc_lev(rs.getInt("rct_lev"));
 				
 				articleList.add(article);
 			}
@@ -168,9 +168,12 @@ public class CommentDAO {
 				rc_num = rs.getInt(1)+1;
 			}
 			
-			sql = "update review_comment set rc_ref = rc_ref+1 where rc_ref = ? and rc_seq > ? ";
+			sql = "update review_comment set rc_ref = rc_ref+1 where rc_ref = ? and rct_lev > ? ";
 			
 			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, article.getRc_ref());
+			pstmt.setInt(2, article.getRc_lev());
 			
 			sql = "insert into review_comment values(?,?,?,?,now(),?,?,?)";
 			
@@ -181,8 +184,8 @@ public class CommentDAO {
 			pstmt.setString(3, article.getRc_id());
 			pstmt.setString(4, article.getRc_content());
 			pstmt.setInt(5, article.getRc_ref());
-			pstmt.setInt(6, article.getRc_lev()+1);
 			pstmt.setInt(7, article.getRc_seq()+1);
+			pstmt.setInt(6, article.getRc_lev()+1);
 			
 			replyCount = pstmt.executeUpdate();
 			

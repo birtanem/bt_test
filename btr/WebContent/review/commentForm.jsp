@@ -12,7 +12,8 @@
 <body>
 <form action="Comment_WritePro.re" method="post">
 	<input type="hidden" name="r_num" value="${param.r_num }">
-    <input type="hidden" name="id" value="test">
+	<input type="hidden" name="page" value="${param.page }">
+    <input type="hidden" name="id" value="admin">
     <textarea rows="5" cols="100" name="rc_content"></textarea>
     <input type="submit" value="댓글">
 </form>
