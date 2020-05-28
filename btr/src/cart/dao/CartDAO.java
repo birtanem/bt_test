@@ -114,8 +114,8 @@ public class CartDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Vector vector = new Vector();
-		List cartList = new ArrayList();
-		List productList = new ArrayList();
+		ArrayList cartList = new ArrayList();
+		ArrayList productList = new ArrayList();
 		
 		try {
 			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where c_member_id = ?";
