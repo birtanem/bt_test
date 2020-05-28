@@ -13,7 +13,7 @@ import suggestion.vo.SuggestionBean;
 public class SuggestionListService {
 
 	public int	 getListCount() {
-		System.out.println("ReviewListService - getListCount()");
+		System.out.println("SuggestionListService - getListCount()");
 		int listCount = 0;
 		
 		Connection con = getConnection();
@@ -28,12 +28,46 @@ public class SuggestionListService {
 		
 		return listCount;
 	}
+	
+	public int	 getListCount1() {
+		System.out.println("SuggestionListService - getListCount2()");
+		int listCount1 = 0;
+		
+		Connection con = getConnection();
+		
+		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
+		
+		suggestionDAO.setConnection(con);
+		
+		listCount1 = suggestionDAO.selectListCount1();
+		
+		close(con);
+		
+		return listCount1;
+	}
+	
+	public int	 getListCount2() {
+		System.out.println("SuggestionListService - getListCount2()");
+		int listCount2 = 0;
+		
+		Connection con = getConnection();
+		
+		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
+		
+		suggestionDAO.setConnection(con);
+		
+		listCount2 = suggestionDAO.selectListCount2();
+		
+		close(con);
+		
+		return listCount2;
+	}
 
 	public ArrayList<SuggestionBean> getArticleList(String id) {
 		
 		ArrayList<SuggestionBean> articleList = null;
 		
-		System.out.println("ReviewListService -getArticleList()");
+		System.out.println("SuggestionListService -getArticleList()");
 		
 		Connection con = getConnection();
 		
@@ -50,23 +84,25 @@ public class SuggestionListService {
 		
 	}
 	
-	public ArrayList<SuggestionBean> adminGetArticleList() {
+	public ArrayList<SuggestionBean> adminGetArticleList(String showStyle) {
 		
 		ArrayList<SuggestionBean> articleList = null;
-		
-		System.out.println("ReviewListService -getArticleList()");
-		
+		System.out.println("SuggestionListService -adminArticleList()");
 		Connection con = getConnection();
-		
 		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
-		
 		suggestionDAO.setConnection(con);
 		
-//		articleList = suggestionDAO.selectArticleList(page,limit);
-		articleList = suggestionDAO.adminselectArticleList();
+		if(showStyle.equals("전체")) {
+			articleList = suggestionDAO.adminselectArticleList();
+		} else if(showStyle.equals("미완료")) {
+			articleList = suggestionDAO.adminselectArticleList2();
+		} else {
+			articleList = suggestionDAO.adminselectArticleList();
+		}
 		
 		close(con);
 		
 		return articleList;
 	}
+	
 }

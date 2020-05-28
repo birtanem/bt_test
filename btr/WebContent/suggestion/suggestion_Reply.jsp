@@ -3,11 +3,7 @@
     pageEncoding="UTF-8"%>
 <%
 SuggestionBean article = (SuggestionBean)request.getAttribute("article");
-String id = "admin111";
-String email = "lkj0511kr@naver.com";       //테스트용 임시 !!!!!!!수정필요
-
-
-
+String showStyle = (String)request.getParameter("showStyle");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +53,7 @@ function checkValue(){
 
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Contact</h1>
+        <h1>건의사항 답글(관리자 페이지)</h1>
     </div>
 
 
@@ -67,7 +63,7 @@ function checkValue(){
             
 				<h3 style="text-align: center;"><건의사항 답변></h3>
 					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
-						<form action="Suggestion_ReplyPro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
+						<form action="Suggestion_ReplyPro.su?showStyle=<%=showStyle%>" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
 							<input type="hidden" value="<%= article.getNum()%>" name="num">
 							<input type="hidden" value="<%= article.getId()%>" name="id">
 							<input type="hidden" value="<%= article.getEmail()%>" name="email">
@@ -77,7 +73,7 @@ function checkValue(){
 								<tr><td colspan="4" style="height: 300px"><textarea name="content" id="content" rows="10" cols="20" style="margin: 5px; width: 575px; height: 270px;"></textarea></td></tr>
 							</table>
 							<div style="width: 600px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="건의사항 목록" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
+								<input type="button" value="건의사항 목록" style="float: left; background-color: gray; color: white;" onclick="location.href='adminSuggestion_List.su?showStyle=<%=showStyle%>'">
 								<input type="reset" value="취소" style="float: right; background-color: gray; color: white;">
 								<input type="submit" value="답변하기" style="float: right; margin-right: 5px; background-color: gray; color: white;">
 							</div>
@@ -88,40 +84,6 @@ function checkValue(){
         </div>
         <!--/.container-->
     </section>
-    
-    <!--/#partner-->
-    
-    
-<!--     <section id="partner"> -->
-<!--         <div class="container"> -->
-<!--             <div class="center fadeInDown"> -->
-<!--                 <h2>Our Partners</h2> -->
-<!--                 <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p> -->
-<!--             </div> -->
-
-<!--             <div class="partners"> -->
-<!--                 <ul> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/partners/brand-1.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="images/partners/brand-2.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="images/partners/brand-3.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" src="images/partners/brand-4.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="images/partners/brand-5.png"></a> -->
-<!--                     </li> -->
-<!--                 </ul> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--         /.container -->
-<!--     </section> -->
-<!--     /#partner -->
 
     <section id="bottom">
         <div class="container fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">

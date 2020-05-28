@@ -33,10 +33,14 @@ public class SuggestionDetailAction implements Action {
 		
 		request.setAttribute("article", article);
 		request.setAttribute("id", id);
-
-		forward = new ActionForward();
-		forward.setPath("/suggestion/suggestion_Detail.jsp");
 		
+		if(id.equals("admin")) {
+			forward = new ActionForward();
+			forward.setPath("/suggestion/adminSuggestion_Detail.jsp");
+		} else {
+			forward = new ActionForward();
+			forward.setPath("/suggestion/suggestion_Detail.jsp");
+		}
 		return forward;
 	}
 
