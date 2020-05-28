@@ -34,7 +34,20 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     
+    <script src="../js/jquery-3.5.0.js"></script>
+	<script type="text/javascript">
     
+		$(document).ready(function(){
+			
+			$('#btn').click(function(){
+				
+				
+				
+			});
+			
+		});
+	
+    </script>
 </head>
 <body>
     
@@ -53,28 +66,25 @@
                         <tr>
                             <td>제 목</td>
                             <td style="width: 90%;">${article.r_subject }</td>
-                            <td><a href="Review_Content.re?r_num=${article.r_num }">like</a> </td>
+                            <td><a href="Review_ContentLike.re?r_num=${article.r_num }">like</a><a>${pageInfo.commentCount }</a> </td>
                         </tr>
                         <tr>
                             <td>내용</td>
                             <td style="width: 90%; height: 400px;">${article.r_content }</td>
                         </tr>
                     </table>
-                    <form action="Comment_WritePro.re?r_num=${article.r_num }" method="post">
-                    	<input type="hidden" name="id" value="test">
-                    	<textarea rows="5" cols="100" name="rc_content"></textarea>
-                    <input type="submit" value="댓글">
-                    </form>
+                    <input type="button" value="댓글" onclick="location.href='Comment_WriteForm.re?r_num=${article.r_num }&page=${nowPage }'">
                     <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=${article.r_num }'">
                     <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=${article.r_num }'">
                     <input type="button" value="목록" onclick="location.href='Review_List.re?page=${nowPage }'">
                     <table>
 
                     <c:forEach var="articleList" items="${articleList }">
-                    	<tr>
+                    	<tr onclick="location.href='Comment_ReplyForm.re?&r_num=${article.r_num }&rc_num=${articleList.rc_num}&rc_ref=${articleList.rc_ref }&rc_lev=${articleList.rc_lev }&rc_seq=${articleList.rc_seq }&page=${nowPage }'">
+	                    	<td>${articleList.rc_num }</td>
 	                    	<td>${articleList.rc_id }</td>
-	                    	<td>${articleList.rc_date }</td>
 	                    	<td>${articleList.rc_content }</td>
+	                    	<td>${articleList.rc_date }</td>
 	                    </tr>
                     </c:forEach>
                     </table>

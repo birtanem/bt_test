@@ -21,6 +21,11 @@ public class ReviewPageInfo {
 		this.commentCount = commentCount;
 	}
 	
+	public ReviewPageInfo(int commentCount) {
+		super();
+		this.commentCount = commentCount;
+	}
+
 	public int getPage() {
 		return page;
 	}

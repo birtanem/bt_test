@@ -73,10 +73,12 @@ public class SuggestionReplyProAction implements Action{
 			e.printStackTrace();
 		}
 		//==============email 전송 끝===============================================
-		
+		String showStyle = (String)request.getParameter("showStyle");
+		if(showStyle == null) {
+			showStyle = "전체";
+		}
 		SuggestionReplyProService  suggestionReplyProService = new SuggestionReplyProService();
 		boolean isReplySucces = suggestionReplyProService.updateCheck(suggestionBean);
-
 		
 		if (!isReplySucces) {
 			response.setContentType("text/html:charset=UTF-8");
@@ -87,9 +89,10 @@ public class SuggestionReplyProAction implements Action{
 			out.println("</script>"); 
 		}else {
 			System.out.println("답변 등록 성공");
+			System.out.println(showStyle);
 			forward = new ActionForward();
-			forward.setRedirect(true);
-			forward.setPath("Suggestion_List.su");
+//			forward.setRedirect(true);
+			forward.setPath("adminSuggestion_List.su?showStyle="+showStyle+"");
 		}
 		return forward;
 	}

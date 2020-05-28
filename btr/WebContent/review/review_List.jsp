@@ -60,7 +60,7 @@
 									</div>
 									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
 										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											[카테고리]&nbsp;${article.r_subject }(${pageInfo.commentCount })
+											[카테고리]&nbsp;${article.r_subject }(&nbsp;like&nbsp;${article.r_likecount })
 										</div>
 										<div style="width: 100%; height: 25px; font-size: 14px">
 											${article.r_id }&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }

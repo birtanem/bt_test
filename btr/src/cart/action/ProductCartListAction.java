@@ -13,6 +13,8 @@ import cart.dao.CartDAO;
 import cart.vo.CartBean;
 import common.action.Action;
 import common.vo.ActionForward;
+import product.vo.ProductBean;
+
 import static common.db.JdbcUtil.*;
 
 public class ProductCartListAction implements Action {
@@ -44,9 +46,9 @@ public class ProductCartListAction implements Action {
 		// Vector vector 메서드 호출 getList(String id)
 		Vector vector = cdao.getList(id); // ==> 로그인 완료되면 파라미터 id 추가하기 !!
 		// List cartList = vector 첫번째 데이터
-		List cartList = (List)vector.get(0);
+		ArrayList<CartBean> cartList = (ArrayList<CartBean>)vector.get(0);
 		// List productList = vecotr 두번째 데이터
-		List productList = (List)vector.get(1);
+		ArrayList<ProductBean> productList = (ArrayList<ProductBean>)vector.get(1);
 		// 저장
 		close(con);
 		

@@ -73,13 +73,11 @@ public class SuggestionWriteProAction implements Action{
 			e.printStackTrace();
 		}
 		//==============email 전송 끝===============================================
-		
-		
 		SuggestionWriteProService suggestionWriteProService = new SuggestionWriteProService();
 		boolean isWriteSucces = suggestionWriteProService.registSuggestion(suggestionBean);//수정필요22222222222222
 		
 		if (!isWriteSucces) {
-			response.setContentType("text/html;charset=UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>"); 
 			out.println("alert('건의사항 등록 실패!')");
@@ -87,7 +85,7 @@ public class SuggestionWriteProAction implements Action{
 			out.println("</script>"); 
 		} else {
 			System.out.println("건의사항 등록 성공");
-			response.setContentType("text/html;charset=UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			String resultMsg = ""; 
 			resultMsg += "<script type='text/javascript'>"; 

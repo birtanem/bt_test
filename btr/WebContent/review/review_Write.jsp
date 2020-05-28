@@ -60,7 +60,7 @@
 		                    <td>내용</td>
 		                    <td><textarea name="r_content" cols="120" rows="15" style="resize: none; width: 100%;"></textarea></td>
 		                	<td><input type="file" name="r_image"></td>
-		                	<td><input type="text" name="r_id" value="test"></td>
+		                	<td><input type="text" name="r_id" value="admin"></td>
 		                </tr>
 		            </table>
 		                <input type="submit" value="등록">

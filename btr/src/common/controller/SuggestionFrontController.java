@@ -25,7 +25,7 @@ public class SuggestionFrontController extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		String command = request.getServletPath();
-		System.out.println(command + "11");
+		System.out.println(command);
 		
 		Action action = null;
 		ActionForward forward = null;
@@ -40,6 +40,11 @@ public class SuggestionFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 //-----------------------------------------------------------------------------------------------------------------			
+		} else if(command.equals("/Suggestion_Menu.su")) {
+			
+			forward = new ActionForward();
+			forward.setPath("/suggestion/suggestion_Menu.jsp"); // 이동할 view 페이지 경로 지정
+			
 		} else if(command.equals("/Suggestion_WritePro.su")) {
 			
 			action = new SuggestionWriteProAction();

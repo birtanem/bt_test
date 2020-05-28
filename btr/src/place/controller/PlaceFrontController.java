@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import place.action.PlaceDeleteProAction;
 import place.action.PlaceDetailAction;
 import place.action.PlaceListAction;
 import place.action.PlaceWriteProAction;
@@ -64,7 +65,16 @@ public class PlaceFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+		 else if(command.equals("/PlaceDeletePro.pl")) {
+			// 글 삭제를 위해 BoardDeleteProAction 클래스 인스턴스 생성
+			action = new PlaceDeleteProAction();
+			// 공통 메서드인 execute() 메서드를 호출하여 request, response 객체 전달
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		 }
 		
 		
 		
@@ -86,6 +96,7 @@ public class PlaceFrontController extends HttpServlet {
 				}
 			}
 		}
+	
 		
 	
 	

@@ -24,18 +24,30 @@ public class adminSuggestionListAction implements Action {
 		SuggestionListService suggestionListService = new SuggestionListService();
 		
 		int listCount = suggestionListService.getListCount();
-		
+		int listCount1 = suggestionListService.getListCount1();
+		int listCount2 = suggestionListService.getListCount2();
 		System.out.println("전체 게시물 수 : " + listCount); //게시물수 
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
+		
+		String showStyle = (String)request.getParameter("showStyle");
+		System.out.println(showStyle);
+		System.out.println(listCount2);
+		if(showStyle == null) {
+			showStyle = "전체";
+		}
+		System.out.println(showStyle);
 		if(id.equals("admin")) {
-			ArrayList<SuggestionBean> articleList = suggestionListService.adminGetArticleList();
-			
-			request.setAttribute("articleList", articleList);
-			
+
 			forward = new ActionForward();
-			forward.setPath("/suggestion/suggestion_List.jsp");
+			ArrayList<SuggestionBean> articleList = suggestionListService.adminGetArticleList(showStyle);
+			request.setAttribute("articleList", articleList);
+			request.setAttribute("showStyle", showStyle);
+			request.setAttribute("listCount1", listCount1);
+			request.setAttribute("listCount2", listCount2);
+			forward.setPath("/suggestion/adminSuggestion_List.jsp");
+			
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
