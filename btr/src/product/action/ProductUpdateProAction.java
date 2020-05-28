@@ -1,4 +1,4 @@
-package product.controller;
+package product.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ public class ProductUpdateProAction implements Action {
 		boolean isUpdate=false;
 		
 		productUpdateService productUpdateServie=new productUpdateService();
-		String p_num=request.getParameter("p_num");
+		int p_num=Integer.parseInt(request.getParameter("p_num"));
 		int region_region_code=Integer.parseInt(request.getParameter("region_region_code")) ;
 		String p_category=request.getParameter("p_category");
 		String p_name=request.getParameter("p_name");

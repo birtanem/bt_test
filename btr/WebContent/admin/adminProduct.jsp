@@ -40,7 +40,6 @@
 function changeRegionCode(p_num, regionCode){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;
 }
-
 function changeCategory(p_num, category){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&p_category="+category;
 }
@@ -66,6 +65,7 @@ function changeCategory(p_num, amount){
 			<c:when test="${ListCount>0 && productList !=null}">
 				<table>
 					<tr>
+						<td><input type="checkbox"></td>
 						<td>번호</td>
 						<td>지역코드</td>
 						<td>카테고리</td>
@@ -77,6 +77,7 @@ function changeCategory(p_num, amount){
 					</tr>
 					<c:forEach var="list" items="${productList }" varStatus="vs">
 						<tr>
+						<td><input type="checkbox" name="check"></td>
 							<td>${list.p_num}</td>
 							<td><select name="regionCode" onchange="changeRegionCode('${list.p_num }',this.value);">
 									<option selected value="${list.region_region_code }">${list.region_name }</option>
