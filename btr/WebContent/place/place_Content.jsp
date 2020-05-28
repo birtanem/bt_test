@@ -7,7 +7,8 @@
     <c:set var="article" value="${article }" />
     <c:set var="nowPage" value="${page }" />
     <%String id = (String)session.getAttribute("id");
-      String nowPage = request.getParameter("page");%>
+      String nowPage = request.getParameter("page");
+      String adminid = "admin";%>
     
 
     
@@ -59,27 +60,30 @@
                         <tr>
                             <td>제 목</td>
                             <td style="width: 90%;">${article.pl_name }</td>
-                            <td><a href="Review_Content.re?r_num=${article.pl_num }">like</a> </td>
+                            <td> 주소 </td><td>${article.pl_address }</td>
                         </tr>
                         <tr>
                             <td>사진</td>
                                                      
-                            <td style="width: 90%; height: 400px;"><img src="placeUpload/${article.pl_image }" width="400px"></td>
+                            <td colspan='3' style="width: 90%; height: 400px;"><img src="placeUpload/${article.pl_image }" width="400px"></td>
                         </tr>
                         <tr>
                             <td>내용</td>
-                            <td style="width: 90%; height: 400px;">${article.pl_content }</td>
+                            <td colspan='3' style="width: 90%; height: 400px;">${article.pl_content }</td>
                         </tr>
                     </table>
-                    <form action="Comment_WritePro.re?r_num=${article.pl_num }" method="post">
+                    
+                    <form action="PC_WritePro.pl?r_num=${article.pl_num }" method="post">
                     	<input type="hidden" name="id" value="test">
-                    	<textarea rows="5" cols="100" name="rc_content"></textarea>
+                    	<textarea rows="5" cols="100" name="pc_content"></textarea>
                     <input type="submit" value="댓글">
                     </form>
                     
-                    <input type="button" value="수정" onclick="location.href='PlaceUpdateForm.pl?r_num=${article.pl_num }'">
-                    <input type="button" value="삭제" onclick="location.href='PlaceDeleteForm.pl?r_num=${article.pl_num }'">
-                    
+                   
+					<c:if test="${id != adminid}" >
+                    <input type="button" value="수정" onclick="location.href='PlaceUpdateForm.pl?pl_num=${article.pl_num }&page=<%=nowPage%>'">
+                    <input type="button" value="삭제" onclick="location.href='PlaceDeletePro.pl?pl_num=${article.pl_num }&page=<%=nowPage%>'">
+					</c:if>
                     				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
                   	
                     

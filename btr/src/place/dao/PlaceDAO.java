@@ -2,7 +2,6 @@ package place.dao;
 
 import static common.db.JdbcUtil.*;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,7 +58,7 @@ public class PlaceDAO {
 				int num = 1; // 새 게시물 번호를 저장할 변수(초기값으로 초기번호 1번 설정)
 				
 				// 현재 게시물의 번호 중 가장 큰 번호(최대값)를 조회하여 다음 새 글 번호 결정(+1)
-				String sql = "SELECT MAX(pl_num) FROM place order"; // 최대값 조회 쿼리문
+				String sql = "SELECT MAX(pl_num) FROM place"; // 최대값 조회 쿼리문
 				
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
@@ -238,6 +237,25 @@ public class PlaceDAO {
 			}
 			
 			return updateCount;
+		}
+
+		public int deleteArticle(int pl_num) {
+			int deleteCount = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "DELETE FROM place WHERE pl_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				deleteCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - deleteArticle() 오류 - " + e.getMessage());
+			} finally {
+				close(pstmt);
+			}
+			
+			return deleteCount;
 		}
 	
 }
