@@ -33,9 +33,10 @@ public class ReviewListAction implements Action {
 		
 		CommentListService commentListService = new CommentListService();
 				
-		int commentCount = commentListService.getArticle();
 		
 		ArrayList<ReviewBean> articleList = reviewListService.getArticleList(page, limit);
+		
+		int commentCount = commentListService.getArticle();
 		
 		int maxPage = (int)((double)listCount/limit+0.95);
 		int startPage = (((int)((double)page/10+0.9))-1)*10+1;

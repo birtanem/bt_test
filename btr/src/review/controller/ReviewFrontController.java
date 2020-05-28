@@ -92,6 +92,12 @@ public class ReviewFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/Comment_WriteForm.re")){
+			
+			forward = new ActionForward();
+			
+			forward.setPath("/review/commentForm.jsp");
+			
 		}else if(command.equals("/Comment_WritePro.re")) {
 			
 			action = new CommentWriteProAction();
@@ -112,12 +118,23 @@ public class ReviewFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/Comment_ReplyForm.re")) {
+			
+			forward = new ActionForward();
+			
+			forward.setPath("/review/replyForm.jsp");
+			
+		}else if (command.equals("/Comment_ReplyPro.re")) {
+			
+			action = new CommentReplyPro();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
-		
-		
-		
-		
-		
 		
 		if (forward != null) {
 			

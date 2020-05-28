@@ -60,7 +60,7 @@ public class CommentDAO {
 			pstmt.setInt(2, article.getR_num());
 			pstmt.setString(3, article.getRc_id());
 			pstmt.setString(4, article.getRc_content());
-			pstmt.setInt(5, 0);
+			pstmt.setInt(5, rc_num);
 			pstmt.setInt(6, 0);
 			pstmt.setInt(7, 0);
 			
@@ -113,7 +113,7 @@ public class CommentDAO {
 		
 		try {
 			String sql = "select * from review_comment where review_review_num = ?"
-					+ " order by rc_num desc";
+					+ " order by rc_ref desc, rc_seq asc";
 			
 			pstmt = con.prepareStatement(sql);
 
@@ -131,8 +131,8 @@ public class CommentDAO {
 				article.setRc_content(rs.getString("rc_content"));
 				article.setRc_date(rs.getDate("rc_date"));
 				article.setRc_ref(rs.getInt("rc_ref"));
+				article.setRc_seq(rs.getInt("rc_lev"));
 				article.setRc_lev(rs.getInt("rc_seq"));
-				article.setRc_seq(rs.getInt("rct_lev"));
 				
 				articleList.add(article);
 			}
@@ -145,6 +145,53 @@ public class CommentDAO {
 		}
 		
 		return articleList;
+	}
+
+	public int ReplyArticl(CommentBean article) {
+
+		int replyCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int rc_num = 0;
+		
+		try {
+			
+			String sql = "select max(rc_num) from review_comment";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				rc_num = rs.getInt(1)+1;
+			}
+			
+			sql = "update review_comment set rc_ref = rc_ref+1 where rc_ref = ? and rc_seq > ? ";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			sql = "insert into review_comment values(?,?,?,?,now(),?,?,?)";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rc_num);
+			pstmt.setInt(2, article.getR_num());
+			pstmt.setString(3, article.getRc_id());
+			pstmt.setString(4, article.getRc_content());
+			pstmt.setInt(5, article.getRc_ref());
+			pstmt.setInt(6, article.getRc_lev()+1);
+			pstmt.setInt(7, article.getRc_seq()+1);
+			
+			replyCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return replyCount;
 	}
 	
 }
