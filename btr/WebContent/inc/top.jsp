@@ -50,9 +50,10 @@ if(session.getAttribute("id") != null) {
 		<a href="MemberJoinForm.me">회원가입</a>
 	<%} else { %>
 		<%=id %>님 | <a href="MemberLogout.me">로그아웃</a>
-	<%} %>
+	<%} %>|
+	<a href="adminPage.ad">관리자메뉴</a>
 	</section>
-                    	<a href="adminPage.ad">관리자메뉴</a>
+                    	
                     	</div>
                     </div>
                 </div>
