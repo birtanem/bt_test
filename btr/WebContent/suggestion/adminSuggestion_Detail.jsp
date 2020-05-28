@@ -5,6 +5,10 @@
 <%
 SuggestionBean article = (SuggestionBean)request.getAttribute("article");
 int su_num  = Integer.parseInt(request.getParameter("su_num"));
+String showStyle=(String)request.getParameter("showStyle");
+if(showStyle == null){
+	showStyle = "전체";	
+}
 String id = (String)request.getAttribute("id");
 %>
 <!DOCTYPE html>
@@ -43,7 +47,7 @@ String id = (String)request.getAttribute("id");
 
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Contact</h1>
+        <h1>건의사항(관리자 페이지)</h1>
     </div>
 
 
@@ -100,7 +104,7 @@ String id = (String)request.getAttribute("id");
             			<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
 							<table border="1" style="width: 610px; position: relative;">
 								<tr>
-								<td style="width: 80px;">작성 아이디</td>
+								<td style="width: 80px;">작성자 아이디</td>
 								<td style="width: 140px;"><%=article.getId()%></td>
 								<td style="width: 90px;">답변 받을 이메일</td>
 								<td><%=article.getEmail()%></td>
@@ -127,15 +131,22 @@ String id = (String)request.getAttribute("id");
             }
             %>
           					    <div style="width: 610px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="내 건의사항" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
-								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
+								<input type="button" value="목록" style="float: left; background-color: gray; color: white;" onclick="location.href='adminSuggestion_List.su?showStyle=<%=showStyle%>'">
+								<%
+								if(article.getCheck().equals("답변완료")){}
+								else{
+										%>
+										<input type="button" value="답변하기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_ReplyForm.su?su_num=<%=su_num%>&&showStyle=<%=showStyle%>'">
+										<%
+									}
+								%>
 							</div>
 					</article>
             </div>
         </div>
         <!--/.container-->
     </section>
-
+    
     <section id="bottom">
         <div class="container fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
             <div class="row">
