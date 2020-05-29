@@ -80,25 +80,25 @@ $('.fun-btn').on('click', function(event) {
 	});
 	
 	
- function minuscount(num,idx){
+//  function minuscount(num,idx){
 
-	var count = Number(document.getElementById("product_count"+idx).value) + num;
+// 	var count = Number(document.getElementById("product_count"+idx).value) + num;
 	
-	if(count<1){
-		count=1;
-		alert("최소 1개이상 구매할 수 있는 상품입니다.");
-		return false;
-	}
-	document.getElementById("product_count"+idx).value = count;
+// 	if(count<1){
+// 		count=1;
+// 		alert("최소 1개이상 구매할 수 있는 상품입니다.");
+// 		return false;
+// 	}
+// 	document.getElementById("product_count"+idx).value = count;
 
-}
+// }
 
-function pluscount(num,idx){
+// function pluscount(num,idx){
 	
-	var count = Number(document.getElementById("product_count"+idx).value) + num;
+// 	var count = Number(document.getElementById("product_count"+idx).value) + num;
 	
-	document.getElementById("product_count"+idx).value = count;
-}	
+// 	document.getElementById("product_count"+idx).value = count;
+// }	
 
 // function addAmount(num, idx){
 // 	   var amount=document.getElementById("amount"+idx).value();
@@ -111,7 +111,30 @@ function pluscount(num,idx){
 // 	   amount=count;
 // 	   location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
 // 	}
+// $(document).ready(function() {
+// 	$(document).ready(function() {
+// alert("dd")
+
+	function minuscount(num, a) {
+
+		var amount = document.getElementById("amount"+num).value
+		var price = document.getElementById("price"+num).value
+		var count = Number(amount) + a;
+		var total = 0;
+		
+		document.getElementById("amount"+num).value = count
+		
+		document.getElementById("td"+num).innerText = count * price
+
+		total = Number(document.getElementById("span").innerText) + a*price	
+		document.getElementById("span").innerText = total
+		
+		}
 	
+// })
+	
+// });
+
 </script>
 
 <style type="text/css">
@@ -237,20 +260,26 @@ table.type10 .even {
     background: #fdf3f5;
 }
 
+.font {
+	font-family: 'Noto Serif KR', serif;
+}
+
 </style>
 
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Insert title here</title>
 </head>
 <body>
 
 
-	<div class="center">    
-<h2 style="text-align: center; color: #f7238a">장바구니 목록</h2>
+	<div class="center font">    
+<h2 class="font" style="text-align: center; color: #f7238a;" >장바구니 목록</h2>
 
 <form method="post" name="fr" id="fr" style="text-align: center">
-<table border="1" class="w3-table-all w3-card-4 center" style="width:800px; text-align: center; border: 3px solid pink;" > 
+<table border="1" class="w3-table-all w3-card-4 center font" style="width:1000px; 
+text-align: center; border: 3px solid pink;" > 
 	<tr>
 		<td><input type="checkbox" id="allCheck" onclick="checkAll(this)"/></td>
 		<td>번호</td>
@@ -283,22 +312,20 @@ table.type10 .even {
 			${p.p_price }
 		</td>
 	 	<td>
-<%-- 			<a href="CartAmountUp.ca?c_num=${cartList[status.index].c_num }"> --%>
-<!-- 			<img src="images/up.png" id ="upImage" width="25" height="25" border=0/> -->
-<!-- 			</a><br> -->
-<%-- 			${cartList[status.index].c_p_amount }<br> --%>
-<!-- 			<a href="#"> -->
-<!-- 			<img src="images/down.png" id ="downImage" width="25" height="25" border=0/> -->
-<!-- 			</a> -->
-				<button class="btnCalc minus" onclick="minuscount(-1,${status.index });">-</button>
-				<input type="text" id="product_count${status.index }" name="product_count" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
-				<button class="btnCalc plus" onclick="pluscount(1,${status.index });">+</button>
-<%-- <button class="btnCalc minus" id="plus" onclick="addAmount(-1,${status.index})">-</button> --%>
+			
+				<input type="button" value="-" onclick="minuscount(${status.count },-1)">
+				<input type="text" id="amount${status.count }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
+				<input type="button" value="+" onclick="minuscount(${status.count },1)">
+				<input type="hidden" id="price${status.count }" value="${p.p_price}">
+				
+<%-- 	<button class="btnCalc minus" id="plus" onclick="addAmount(-1,${status.index})">-</button> --%>
 <%--       <input type="text" id="amount${status.index }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량"> --%>
 <%--       <button class="btnCalc plus" id="minus" onclick="addAmount(1,${status.index})">+</button> --%>
+		
 		</td> 
-		<td>
+		<td id="td${status.count }">
 			${cartList[status.index].c_p_amount * p.p_price}
+<%-- 			<input type="text" value="${cartList[status.index].c_p_amount * p.p_price}" id="money${status.count }"> --%>
 		</td>
 	</tr>
 </c:forEach>
@@ -311,11 +338,11 @@ table.type10 .even {
 			<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
 				<c:set var="totalmoney" value="${totalmoney + money }"/>
 			</c:forEach>
-			<h3><c:out value="${totalmoney }"/>원</h3>
+			<h3 class="h3"><span id="span"><c:out value="${totalmoney }"/></span>원</h3>
 		</div>
 </form>
 <c:if test="${productList == null }">
-	<section>
+	<section style="font-family: 'Gamja Flower', cursive;">
 	장바구니에 추가된 상품이 없습니다.
 	</section>
 </c:if>
