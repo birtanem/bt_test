@@ -306,7 +306,7 @@
 				var icon = item.weather[0].icon;
 				var hour = today.getHours();
 				
-				$('.time').append("<div style='border:1px solid;float:left; width: 60px; height: 100px; text-align: center;'>"
+				$('.time').append("<div style='float:left; width: 65px; height: 100px; text-align: center; color: white;'>"
 						+hour+'시'+'<br>'
 						+'<img src="icon/'+icon+'.png" width = "50" height = "50" />'
 						+item.main.temp.toFixed(0)+"˚C"+"</div>");
@@ -316,7 +316,7 @@
 		});
    
 		var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric';
-		var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
+		var week = new Array('일', '월', '화', '수', '목', '금', '토');
 		
 		$.getJSON(apiURL, function(rdata){
 			
@@ -330,7 +330,7 @@
 					var date = new Date(item.dt_txt).getDay();
 					var label = week[date];
 					
-					$('.day').append("<div style='border:1px solid;float:left; width: 96px; height: 100px; text-align: center;'>"
+					$('.day').append("<div style='float:left; width: 104px; height: 100px; text-align: center; color: white;'>"
 										+label+"<br>"
 										+'<img src="icon/'+icon+'.png" width = "50" height = "50" />'+'<br>'+item.main.temp.toFixed(0)+"˚C"+"</div>");
 				}
@@ -355,16 +355,16 @@
     	<div class="carousel slide">
         	<div class="carousel-inner" >
   				<div class="item active" style="background-image: url('images/banner_bg.png'); text-align: center;">
-					<div class="weather-map" style="margin-left: 250px;  width: 600px;">
+					<div class="weather-map" style="margin-left: 280px;  width: 600px;">
 
-						<div class="weather" style="position: relative; text-align: left; ">
-							<h2>시간별 날씨</h2>
+						<div class="weather" style=" position: relative; text-align: left; margin-top: -50px; ">
+							<h2 style="color: white;">오늘</h2>
 							<div class="time"></div>
-							<h2 style="clear: both;">요일별 날씨</h2>
+							<h2 style="clear: both; color: white; margin-top: 50px;">주간</h2>
 							<div class="day"></div>
 						</div>
 							
-						<div class="map" style=" width: 500px; margin-top:-80px; margin-left:500px; position: relative; z-idex:-1;">
+						<div class="map" style="width: 500px; height: 500px; margin-top:-100px; margin-left:550px; position: relative; z-idex:-1;">
 
   							<svg xmlns="http://www.w3.org/2000/svg" id="Busan" 
 viewBox="0 0 500 500" x="" y="" width="" height="" 
