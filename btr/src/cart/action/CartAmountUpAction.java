@@ -1,11 +1,16 @@
 package cart.action;
 
+import static common.db.JdbcUtil.getConnection;
+
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cart.dao.CartDAO;
 import cart.svc.CartAmountUpService;
 import cart.vo.CartBean;
 import common.action.Action;
@@ -33,11 +38,12 @@ public class CartAmountUpAction implements Action {
 		} 
 		
 		// 장바구니 이름 가져오기
-		String p_name = request.getParameter("p_name");
+		String p_name = request.getParameter("p_name");	
+		int c_num = Integer.parseInt(request.getParameter("c_num"));
 		
 		// 서비스
 		CartAmountUpService cartAmountUpService = new CartAmountUpService();
-		cartAmountUpService.upCart(p_name,request);
+		cartAmountUpService.upCart(id,c_num);
 		
 		forward = new ActionForward();
 		// 포워딩 방식 지정

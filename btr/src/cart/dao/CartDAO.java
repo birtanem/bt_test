@@ -55,11 +55,11 @@ public class CartDAO {
 			// c_amount 업데이트 
 			if(rs.next()) {
 				check = 1;
-				sql = "update cart set c_p_amount = c_p_amount+1 where c_member_id=? and c_p_num=?";
+				sql = "update cart set c_p_amount = c_p_amount+? where c_member_id=? and c_p_num=?";
 				pstmt = con.prepareStatement(sql);
-//				pstmt.setInt(1, cb.getC_p_amount());
-				pstmt.setString(1, cb.getC_member_id());
-				pstmt.setInt(2, cb.getC_p_num());
+				pstmt.setInt(1, cb.getC_p_amount());
+				pstmt.setString(2, cb.getC_member_id());
+				pstmt.setInt(3, cb.getC_p_num());
 				pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -175,7 +175,7 @@ public class CartDAO {
 		
 	} // 장바구니 부분삭제 메서드 끝
 	
-
+	
 
 	
 }// 클래스 끝
