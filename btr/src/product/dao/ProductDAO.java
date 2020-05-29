@@ -166,7 +166,37 @@ public class ProductDAO {
 			close(pstmt);
 		}
 		return productBean;
+	}//getProductDetail
+	
+	
+	public int productUpdate(ProductBean pb) {
+		PreparedStatement pstmt=null;
+		int updateCount=0;
+		try {
+			String sql="update product set p_name=?, p_content=?, p_image=?, p_price=?,p_amount=?,"
+					+ "p_category=?, region_region_code=? where p_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, pb.getP_name());
+			pstmt.setString(2, pb.getP_content());
+			pstmt.setString(3, pb.getP_image());
+			pstmt.setInt(4, pb.getP_price());
+			pstmt.setInt(5, pb.getP_amount());
+			pstmt.setString(6, pb.getP_category());
+			pstmt.setInt(7, pb.getRegion_region_code());
+			pstmt.setInt(8, pb.getP_num());
+			updateCount=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("DAO:productUPdate에러: "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}return updateCount;
+		
+		
+		
+		
 	}
+	
 	
 	
 
