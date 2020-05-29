@@ -8,12 +8,24 @@ import product.vo.ProductBean;
 
 public class productUpdateService {
 
-	public boolean productUpdate(String p_num, int region_region_code, String p_category, String p_name, int p_price,
-			int p_amount) {
+	public boolean productUpdate(ProductBean productBean) {
+		System.out.println("productUpdateService도착!");
 		boolean isUpdate=false;
 		
+		Connection con=getConnection();
+		ProductDAO productDAO=ProductDAO.getInstance();
+		productDAO.setConnection(con);
 		
+		int updateCount=productDAO.productUpdate(productBean);
 		
+		if(updateCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+
 		return isUpdate;
 	}
 	

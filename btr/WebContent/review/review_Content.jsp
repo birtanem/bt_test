@@ -78,12 +78,11 @@
                     <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=${article.r_num }'">
                     <input type="button" value="목록" onclick="location.href='Review_List.re?page=${nowPage }'">
                     <table>
-
                     <c:forEach var="articleList" items="${articleList }">
-                    	<tr onclick="location.href='Comment_ReplyForm.re?&r_num=${article.r_num }&rc_num=${articleList.rc_num}&rc_ref=${articleList.rc_ref }&rc_lev=${articleList.rc_lev }&rc_seq=${articleList.rc_seq }&page=${nowPage }'">
+                    	<tr>
 	                    	<td>${articleList.rc_num }</td>
 	                    	<td>${articleList.rc_id }</td>
-	                    	<td>${articleList.rc_content }</td>
+	                    	<td ><a href="Comment_ReplyForm.re?&rc_num=${articleList.rc_num }&r_num${article.r_num	}&page=${nowPage }">${articleList.rc_content }</a></td>
 	                    	<td>${articleList.rc_date }</td>
 	                    </tr>
                     </c:forEach>

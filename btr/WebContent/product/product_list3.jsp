@@ -3,7 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%
+	int ListCount = (int) request.getAttribute("ListCount");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +41,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 
 </head>
 <!--/head-->
@@ -80,43 +81,14 @@
 							<c:choose>
 								<c:when test="${ListCount>0 && productList !=null}">
 									<c:forEach var="list" items="${productList }" varStatus="vs">
-										<li
-											class="portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
-											<img src="product/productUpload/${list.p_image }"
-											alt="product">
-											<h5>${list.p_name }</h5>
-											<p>${list.p_price }</p> <%-- 	<input type="hidden" value="${list.p_num }" name="p_num">  --%>
-											<%-- 											<input type="hidden" value="${list.p_amount }" name="p_amount"> --%>
-											<!-- 											<input type="submit" class="btn" value="장바구니담기" > -->
-											<input type="button" class="btn" value="장바구니담기"
-											onclick="location.href='ProductCartAdd.ca?p_num=${list.p_num}&p_amount=${list.p_amount+1}'">
-
-											<!-- modal trigger --> <input type="button"
-											id="myBtn" class="btn" value="구매하기" onclick="openModal()">
+										<a href="productDetail.pr?p_num=${list.p_num }" >
+										<li class="portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
+												<img src="product/productUpload/${list.p_image }"
+												alt="product">
+												<h5>${list.p_name }</h5>
+												<p>${list.p_price }</p>
 										</li>
-										
-										<!--modal -->
-			<div id="modal${vs.index }" class="mymodal">
-				<!-- Modal content -->
-				<div class="modal-content">
-					<div class="modal-header">
-						<span class="close">&times;</span>
-						<h2>${list.p_name }</h2>
-					</div>
-
-					<div class="modal-body">${list.p_content }</div>
-					<div class="modal-footer">
-						<h3>
-							${list.p_price } <input type="button" value="-"> <input
-								type="text" value="1"> <input type="button" value="+">
-							<input type="button" value="장바구니담기" onclick="#"> <input
-								type="button" value="바로결제" onclick="#">
-						</h3>
-					</div>
-				</div>
-			</div>
-										
-										
+										</a>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
@@ -131,14 +103,6 @@
 				</form>
 
 			</div>
-			<c:forEach var="list" items="${productList }" varStatus="vs">
-			
-			</c:forEach>
-
-
-
-
-
 
 		</section>
 		<!-- 			</section> -->
@@ -236,7 +200,6 @@
 		</div>
 	</footer>
 	<!--/#footer-->
-
 	<script src="js/product_modal.js"></script>
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>

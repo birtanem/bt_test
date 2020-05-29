@@ -10,7 +10,7 @@ import common.vo.ActionForward;
 import review.svc.CommentReplyService;
 import review.vo.CommentBean;
 
-public class CommentReplyPro implements Action {
+public class CommentReplyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import product.action.ProductDetailAction;
 import product.action.ProductListAction;
 import product.action.ProductRegistProAction;
+import product.action.ProductUpdateProAction;
 
 /**
  * Servlet implementation class ProductFrontController
@@ -67,7 +69,20 @@ public class ProductFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(command.equals("/productDetail.pr")) {
+			action=new ProductDetailAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
+		
+		
 					
 		// 포워딩
 		if(forward != null) {
