@@ -76,7 +76,7 @@ public class CommentDAO {
 		return insertCount;
 	}
 
-	public int getArticle() {
+	public int getCountArticle() {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -95,7 +95,7 @@ public class CommentDAO {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("CommentDAO - getArticle() 실패! : " + e.getMessage());
+			System.out.println("CommentDAO - getCountArticle() 실패! : " + e.getMessage());
 		}finally {
 			close(rs);
 			close(pstmt);
@@ -168,12 +168,25 @@ public class CommentDAO {
 				rc_num = rs.getInt(1)+1;
 			}
 			
-			sql = "update review_comment set rc_ref = rc_ref+1 where rc_ref = ? and rct_lev > ? ";
+			int re_ref = article.getRc_ref();
+			int re_seq = article.getRc_seq();
+			int re_lev = article.getRc_lev();
+			
+			sql = "update review_comment set rct_lev = rct_lev+1 where rc_ref = ? and rct_lev > ?";
 			
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, article.getRc_ref());
-			pstmt.setInt(2, article.getRc_lev());
+			pstmt.setInt(1, re_ref);
+			pstmt.setInt(2, re_lev);
+			
+			int updateCount = pstmt.executeUpdate();
+			
+			if (updateCount > 0) {
+				commit(con);
+			}
+			
+			re_seq++;
+			re_lev++;
 			
 			sql = "insert into review_comment values(?,?,?,?,now(),?,?,?)";
 			
@@ -183,18 +196,63 @@ public class CommentDAO {
 			pstmt.setInt(2, article.getR_num());
 			pstmt.setString(3, article.getRc_id());
 			pstmt.setString(4, article.getRc_content());
-			pstmt.setInt(5, article.getRc_ref());
-			pstmt.setInt(7, article.getRc_seq()+1);
-			pstmt.setInt(6, article.getRc_lev()+1);
+			pstmt.setInt(5, re_ref);
+			pstmt.setInt(6, re_seq);
+			pstmt.setInt(7, re_lev);
 			
 			replyCount = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("CommentDAO - ReplyArticl() 실패! : " + e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		
 		
 		return replyCount;
+	}
+
+	public CommentBean getArticle(int rc_num) {
+
+		CommentBean article = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			String sql = "select * from review_comment where rc_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rc_num);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				
+				article = new CommentBean();
+				
+				article.setRc_num(rs.getInt("rc_num"));
+				article.setR_num(rs.getInt("review_review_num"));
+				article.setRc_id(rs.getString("review_member_member_id"));
+				article.setRc_content(rs.getString("rc_content"));
+				article.setRc_date(rs.getDate("rc_date"));
+				article.setRc_ref(rs.getInt("rc_ref"));
+				article.setRc_seq(rs.getInt("rc_seq"));
+				article.setRc_lev(rs.getInt("rct_lev"));
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("CommentDAO - getArticle() 실패! : " + e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return article;
 	}
 	
 }
