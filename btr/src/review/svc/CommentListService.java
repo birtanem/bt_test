@@ -22,7 +22,7 @@ public class CommentListService {
 		
 		commentDAO.setConnection(con);
 		
-		listCount = commentDAO.getArticle();
+		listCount = commentDAO.getCountArticle();
 		
 		close(con);
 		

@@ -120,13 +120,17 @@ public class ReviewFrontController extends HttpServlet {
 			
 		}else if(command.equals("/Comment_ReplyForm.re")) {
 			
-			forward = new ActionForward();
+			action = new CommentReplyFormAction();
 			
-			forward.setPath("/review/replyForm.jsp");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 		}else if (command.equals("/Comment_ReplyPro.re")) {
 			
-			action = new CommentReplyPro();
+			action = new CommentReplyProAction();
 			
 			try {
 				forward = action.execute(request, response);
