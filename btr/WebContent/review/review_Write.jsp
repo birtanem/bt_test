@@ -47,9 +47,24 @@
 		          
 		            	<select name="r_code">
 		            			<option value="0">지역 선택하세요</option>
-		            			<option value="1">진구</option>
-		            			<option value="2">사상구</option>
-		            	</select>
+		            			<option value="1">강서구</option>
+		            			<option value="2">금정구</option>
+		            			<option value="3">기장군</option>
+		            			<option value="4">남구</option>
+		            			<option value="5">동구</option>
+		            			<option value="6">동래구</option>
+		            			<option value="7">부산진구</option>
+		            			<option value="8">북구</option>
+		            			<option value="9">사상구</option>
+		            			<option value="10">사하구</option>
+		            			<option value="11">서구</option>
+		            			<option value="12">수영구</option>
+		            			<option value="13">연제구</option>
+		            			<option value="14">영도구</option>
+		            			<option value="15">중구</option>
+		            			<option value="16">해운대구</option>
+		            			<option value="17">기타지역(부산외)</option>
+		                 	</select>
 		             
 		            <table>
 		                <tr>

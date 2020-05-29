@@ -35,4 +35,23 @@ public class CommentReplyService {
 		return isReply;
 	}
 
+	public CommentBean getReplyArticle(int rc_num) {
+
+		CommentBean article = null;
+		
+		System.out.println("CommentReplyService - getArticle");
+		
+		Connection con = getConnection();
+		
+		CommentDAO commentDAO = CommentDAO.getInstance();
+		
+		commentDAO.setConnection(con);
+		
+		article = commentDAO.getArticle(rc_num);
+		
+		close(con);
+		
+		return article;
+	}
+
 }

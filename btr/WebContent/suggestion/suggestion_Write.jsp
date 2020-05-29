@@ -62,7 +62,7 @@ function checkValue(){
 	<jsp:include page="/inc/top.jsp" />
 	
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Contact</h1>
+        <h1>건의하기</h1>
     </div>
 
 

@@ -1,4 +1,4 @@
-package cart.action;
+ package cart.action;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -45,12 +45,15 @@ public class ProductCartListAction implements Action {
 		cdao.setConnection(con);
 		// Vector vector 메서드 호출 getList(String id)
 		Vector vector = cdao.getList(id); // ==> 로그인 완료되면 파라미터 id 추가하기 !!
+		
 		// List cartList = vector 첫번째 데이터
 		ArrayList<CartBean> cartList = (ArrayList<CartBean>)vector.get(0);
 		// List productList = vecotr 두번째 데이터
 		ArrayList<ProductBean> productList = (ArrayList<ProductBean>)vector.get(1);
+		
 		// 저장
 		close(con);
+		
 		
 		request.setAttribute("cartList", cartList);
 		request.setAttribute("productList", productList);

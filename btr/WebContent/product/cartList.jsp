@@ -80,58 +80,221 @@ $(document).ready(function(){
 	});
 });
 
-/* function minuscount(num){
+$('.fun-btn').on('click', function(event) {
+	  $(this).toggleClass('start-fun');
+	  var $page = $('.page');
+	  $page.toggleClass('color-bg-start')
+	    .toggleClass('bg-animate-color');
 
-	var count = Number(document.getElementById("product_count").value) + num;
+	  //change text when when button is clicked
+
+	  $(this).hasClass('start-fun') ?
+	    $(this).text('stop the fun') :
+	    $(this).text('start the fun');
+
+	});
 	
-	if(count<1){
-		count=1;
-		alert("최소 1개이상 구매할 수 있는 상품입니다.");
-	}
-	document.getElementById("product_count").value = count;
+	
+//  function minuscount(num,idx){
+
+// 	var count = Number(document.getElementById("product_count"+idx).value) + num;
+	
+// 	if(count<1){
+// 		count=1;
+// 		alert("최소 1개이상 구매할 수 있는 상품입니다.");
+// 		return false;
+// 	}
+// 	document.getElementById("product_count"+idx).value = count;
+
+// }
+
+// function pluscount(num,idx){
+	
+// 	var count = Number(document.getElementById("product_count"+idx).value) + num;
+	
+// 	document.getElementById("product_count"+idx).value = count;
+// }	
+
+// function addAmount(num, idx){
+// 	   var amount=document.getElementById("amount"+idx).value();
+// 	   var count=Number(document.getElementById("amount"+idx).value())+num;
+// 	   if(count<1){
+// 	      count=1;
+// 	      alert("최소수량1개입니다");
+// 	      return false
+// 	   }
+// 	   amount=count;
+// 	   location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
+// 	}
+// $(document).ready(function() {
+// 	$(document).ready(function() {
+// alert("dd")
+
+	function minuscount(num, a) {
+
+		var amount = document.getElementById("amount"+num).value
+		var price = document.getElementById("price"+num).value
+		var count = Number(amount) + a;
+		var total = 0;
+		
+		document.getElementById("amount"+num).value = count
+		
+		document.getElementById("td"+num).innerText = count * price
+
+		total = Number(document.getElementById("span").innerText) + a*price	
+		document.getElementById("span").innerText = total
+		
+		}
+	
+// })
+	
+// });
+
+</script>
+
+<style type="text/css">
+
+.center {
+
+    margin: auto;
+
+    width: 50%;
+
+    padding: 10px;
 
 }
 
-function pluscount(num){
+.page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
 
-	var count = Number(document.getElementById("product_count").value) + num;
-	
-	document.getElementById("product_count").value = count;
 
-} */
+/* add default color for animation start  */
 
-/* $(document).ready(function(){
-	   $('#minus').click(function(){
-	      var count=Number(document.getElementById("amount"+${status.index }).value)-1;
-	      var meg="주문가능한 최소 수량은 1 입니다."
-	      if(count<1){
-	         count=1;
-	         $(".detailCheck").html(meg);
-	         return false;
-	      }
-	      document.getElementById("amount"+${status.index }).value=count;
-	   });
-	   $('#plus').click(function(){
-	      var count=Number(document.getElementById("amount"+${status.index }).value)+1;
-	      var max=${productDetail.p_amount};
-	      var meg="주문수량이 상품 수량보다 많습니다.";
-	      if(count>max){
-	         $(".detailCheck").html(meg);
-	         return false;
-	      }
-	      document.getElementById("amount"+${status.index }).value=count;
-	   });
-	});
- */
-</script>
+
+/* toggle this class */
+
+.color-bg-start {
+  background-color: salmon;
+}
+
+
+/* toggle class bg-animate-color */
+
+.bg-animate-color {
+  animation: random-bg .5s linear infinite;
+}
+
+
+/* add animation to bg color  */
+
+@keyframes random-bg {
+  from {
+    filter: hue-rotate(0);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.fun-btn {
+  /* change bg color to get different hues    */
+  background-color: salmon;
+  color: white;
+  padding: 2em 3em;
+  border: none;
+  transition: all .3s ease;
+  border-radius: 5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  outline: none;
+  align-self: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.fun-btn:hover {
+  animation: random-bg .5s linear infinite, grow 1300ms ease infinite;
+}
+
+.start-fun {
+  background-color: #fff !important;
+  /* change color of button text when fun is started   */
+  color: salmon !important;
+}
+
+/* pulsating effect on button */
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+table.type10 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 20px 10px;
+}
+table.type10 thead th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #fff;
+    background: #e7708d;
+    margin: 20px 10px;
+}
+table.type10 tbody th {
+    width: 150px;
+    padding: 10px;
+}
+table.type10 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+}
+table.type10 .even {
+    background: #fdf3f5;
+}
+
+.font {
+	font-family: 'Noto Serif KR', serif;
+}
+
+</style>
+
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Insert title here</title>
 </head>
 <body>
-장바구니 목록
 
-<form method="post" name="fr" id="fr">
-<table border="1">
+
+	<div class="center font">    
+<h2 class="font" style="text-align: center; color: #f7238a;" >장바구니 목록</h2>
+
+<form method="post" name="fr" id="fr" style="text-align: center">
+<table border="1" class="w3-table-all w3-card-4 center font" style="width:1000px; 
+text-align: center; border: 3px solid pink;" > 
 	<tr>
 		<td><input type="checkbox" id="allCheck" onclick="checkAll(this)"/></td>
 		<td>번호</td>
@@ -164,43 +327,45 @@ function pluscount(num){
 			${p.p_price }
 		</td>
 	 	<td>
-			<a href="CartAmountUp.ca?p_name=${p.p_name }">
-			<img src="images/up.png" id ="upImage" width="25" height="25" border=0/>
-			</a><br>
-			${cartList[status.index].c_p_amount }<br>
-			<a href="#">
-			<img src="images/down.png" id ="downImage" width="25" height="25" border=0/>
-			</a>
+			
+				<input type="button" value="-" onclick="minuscount(${status.count },-1)">
+				<input type="text" id="amount${status.count }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
+				<input type="button" value="+" onclick="minuscount(${status.count },1)">
+				<input type="hidden" id="price${status.count }" value="${p.p_price}">
+				
+<%-- 	<button class="btnCalc minus" id="plus" onclick="addAmount(-1,${status.index})">-</button> --%>
+<%--       <input type="text" id="amount${status.index }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량"> --%>
+<%--       <button class="btnCalc plus" id="minus" onclick="addAmount(1,${status.index})">+</button> --%>
+		
 		</td> 
- 		<td>
-		<button class="btnCalc minus" id="plus" onclick="addAmount(-1,${status.index})">-</button>
-		<input type="text" id="amount${status.index }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
-		<button class="btnCalc plus" id="minus" onclick="addAmount(1,${status.index})">+</button>
-		<p class="detailCheck"></p>
-		</td> 
-		<td>
-			${cartList[status.index].c_p_amount * p.p_price}
+<%-- 			<input type="text" value="${cartList[status.index].c_p_amount * p.p_price}" id="money${status.count }"> --%>
 		</td>
 	</tr>
 </c:forEach>
 </table>
-	
-			총 금액 :
+		<br>
+		총 금액 :
+		<div style="color:#f42735;">
 			<c:set var="totalmoney" value="0" />
 			<c:forEach var="p" items="${productList }" varStatus="status">
 			<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
 				<c:set var="totalmoney" value="${totalmoney + money }"/>
 			</c:forEach>
-			<c:out value="${totalmoney }"/> 원
-	<input type="button" value="취소" id="deleteButton" onclick="return deleteCart()">
+			<h3 class="h3"><span id="span"><c:out value="${totalmoney }"/></span>원</h3>
+		</div>
 </form>
 <c:if test="${productList == null }">
-	<section>
+	<section style="font-family: 'Gamja Flower', cursive;">
 	장바구니에 추가된 상품이 없습니다.
 	</section>
 </c:if>
-<nav>
-	<a href="productList.pr">쇼핑 계속하기</a>
-</nav>
+<div class="center">
+	<nav style="text-align: center">
+		<input type="button" class="fun-btn" style="text-align: center" value="취소" id="deleteButton" onclick="return deleteCart()">
+		<input type="button" class="fun-btn" style="text-align: center" value="쇼핑 계속하기" onclick="location.href='productList.pr'">
+	</nav>
+</div>
+	</div>
+
 </body>
 </html>

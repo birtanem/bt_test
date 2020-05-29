@@ -51,6 +51,7 @@ public class ProductCartAddAction implements Action {
 		// 파라미터 : CartBean 객체, 리턴타입 boolean
 		ProductCartAddService productCartAddService = new ProductCartAddService();
 		boolean isAddSuccess = productCartAddService.AddArticle(cb);
+	
 		
 		// response 객체를 사용하여 문서 타입 및 인코딩 설정
 		response.setContentType("text/html;charset=UTF-8");

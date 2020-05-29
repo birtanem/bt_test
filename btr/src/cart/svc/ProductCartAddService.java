@@ -6,6 +6,10 @@ import cart.vo.CartBean;
 import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class ProductCartAddService {
 
@@ -23,6 +27,7 @@ public class ProductCartAddService {
 		
 		// 공통작업 3. CartCAO 객체에 Connection 객체 전달
 		cdao.setConnection(con);
+		
 		
 
 		// CartDAO 객체의 cartAdd() 메서드 호출하여 장바구니 추가 처리
