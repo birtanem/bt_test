@@ -45,7 +45,7 @@
 		                	    <section id="writeForm">
 		        <form action="Review_WritePro.re" method="post" enctype="multipart/form-data">
 		          
-		            	<select name="region_code">
+		            	<select name="r_code">
 		            			<option value="0">지역 선택하세요</option>
 		            			<option value="1">강서구</option>
 		            			<option value="2">금정구</option>
