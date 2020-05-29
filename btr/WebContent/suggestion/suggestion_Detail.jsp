@@ -43,7 +43,7 @@ String id = (String)request.getAttribute("id");
 
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Contact</h1>
+        <h1>내 건의사항</h1>
     </div>
 
 
@@ -127,7 +127,7 @@ String id = (String)request.getAttribute("id");
             }
             %>
           					    <div style="width: 610px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="내 건의사항" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
+								<input type="button" value="목록" style="float: left; background-color: gray; color: white;" onclick="location.href='Suggestion_List.su'">
 								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
 							</div>
 					</article>

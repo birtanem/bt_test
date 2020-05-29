@@ -40,7 +40,7 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 	<!--/header-->
 	
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Contact</h1>
+        <h1>내 건의사항</h1>
     </div>
 
 

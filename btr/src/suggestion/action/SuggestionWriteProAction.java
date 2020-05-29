@@ -94,7 +94,7 @@ public class SuggestionWriteProAction implements Action{
 			out.print(resultMsg);
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("Suggestion_WriteForm.su");
+			forward.setPath("Suggestion_Menu.su");
 		}
 		
 		return forward;
