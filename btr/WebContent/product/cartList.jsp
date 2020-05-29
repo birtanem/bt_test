@@ -8,6 +8,21 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
+function addAmount(num, idx){
+	var amount=document.getElementById("amount"+idx).value();
+	var count=Number(document.getElementById("amount"+idx).value())+num;
+	if(count<1){
+		count=1;
+		alert("최소수량1개입니다");
+		return false
+	}
+	amount=count;
+	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
+}
+
+
+
+
  function checkAll(obj) {
 	 
 	 var chkObj = document.getElementsByName("rowCheck");
@@ -157,12 +172,12 @@ function pluscount(num){
 			<img src="images/down.png" id ="downImage" width="25" height="25" border=0/>
 			</a>
 		</td> 
-<%-- 		<td>
-		<button class="btnCalc minus" id="plus">-</button>
-		<input type="text" id="amount${status.index }" name="amount" value="1" class="tx_num" title="구매수량">
-		<button class="btnCalc plus" id="minus">+</button>
+ 		<td>
+		<button class="btnCalc minus" id="plus" onclick="addAmount(-1,${status.index})">-</button>
+		<input type="text" id="amount${status.index }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
+		<button class="btnCalc plus" id="minus" onclick="addAmount(1,${status.index})">+</button>
 		<p class="detailCheck"></p>
-		</td> --%>
+		</td> 
 		<td>
 			${cartList[status.index].c_p_amount * p.p_price}
 		</td>

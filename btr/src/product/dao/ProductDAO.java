@@ -78,7 +78,6 @@ public class ProductDAO {
 	public ArrayList<ProductBean> getList() {
 		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
 
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -157,6 +156,7 @@ public class ProductDAO {
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
 				productBean.setP_category(rs.getString(7));
+				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
 			}
 		} catch (SQLException e) {
@@ -179,20 +179,18 @@ public class ProductDAO {
 			pstmt.setString(1, pb.getP_name());
 			pstmt.setString(2, pb.getP_content());
 			pstmt.setString(3, pb.getP_image());
+			System.out.println("daoprice:"+pb.getP_price());
 			pstmt.setInt(4, pb.getP_price());
 			pstmt.setInt(5, pb.getP_amount());
 			pstmt.setString(6, pb.getP_category());
 			pstmt.setInt(7, pb.getRegion_region_code());
 			pstmt.setInt(8, pb.getP_num());
 			updateCount=pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
-			System.out.println("DAO:productUPdate에러: "+e.getMessage());
+			System.out.println("DAO-productUPdate에러: "+e.getMessage());
 		}finally {
 			close(pstmt);
 		}return updateCount;
-		
-		
 		
 		
 	}

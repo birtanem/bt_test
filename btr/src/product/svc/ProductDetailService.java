@@ -9,7 +9,6 @@ import product.vo.ProductBean;
 public class ProductDetailService {
 
 	public ProductBean getProductDetail(int p_num) {
-		System.out.println("svo pnum"+p_num);
 		
 		Connection con=getConnection();
 		ProductBean productBean=new ProductBean();
