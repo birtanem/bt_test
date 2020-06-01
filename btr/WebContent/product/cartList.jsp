@@ -8,6 +8,21 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
+function addAmount(num, idx){
+	var amount=document.getElementById("amount"+idx).value();
+	var count=Number(document.getElementById("amount"+idx).value())+num;
+	if(count<1){
+		count=1;
+		alert("최소수량1개입니다");
+		return false
+	}
+	amount=count;
+	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
+}
+
+
+
+
  function checkAll(obj) {
 	 
 	 var chkObj = document.getElementsByName("rowCheck");
@@ -318,8 +333,12 @@ text-align: center; border: 3px solid pink;" >
 				<input type="button" value="+" onclick="minuscount(${status.count },1)">
 				<input type="hidden" id="price${status.count }" value="${p.p_price}">
 		</td> 
+<<<<<<< HEAD
 		<td id="td${status.count }">
 			${cartList[status.index].c_p_amount * p.p_price}
+=======
+<%-- 			<input type="text" value="${cartList[status.index].c_p_amount * p.p_price}" id="money${status.count }"> --%>
+>>>>>>> refs/remotes/origin/master
 		</td>
 	</tr>
 </c:forEach>
