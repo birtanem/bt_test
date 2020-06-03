@@ -74,7 +74,7 @@
                         </tr>
                     </table>
                     <input type="button" value="댓글" onclick="location.href='Comment_WriteForm.re?r_num=${article.r_num }&page=${nowPage }'">
-                    <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=${article.r_num }'">
+                    <input type="button" value="수정" onclick="location.href='Review_UpdateForm.re?r_num=${article.r_num }&page=${nowPage }'">
                     <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=${article.r_num }'">
                     <input type="button" value="목록" onclick="location.href='Review_List.re?page=${nowPage }'">
                     <table>
@@ -82,7 +82,11 @@
                     	<tr>
 	                    	<td>${articleList.rc_num }</td>
 	                    	<td>${articleList.rc_id }</td>
-	                    	<td ><a href="Comment_ReplyForm.re?&rc_num=${articleList.rc_num }&r_num${article.r_num	}&page=${nowPage }">${articleList.rc_content }</a></td>
+	                    	<td>
+	                    		<a href="Comment_ReplyForm.re?&rc_num=${articleList.rc_num }&r_num${article.r_num }&page=${nowPage }">${articleList.rc_content }</a>
+	                    		<input type="button" value="수정" onclick="location.href='Comment_UpdateForm.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
+	                    		<input type="button" value="삭제" onclick="location.href='Comment_Delete.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
+	                    	</td>
 	                    	<td>${articleList.rc_date }</td>
 	                    </tr>
                     </c:forEach>
@@ -100,11 +104,11 @@
     
     <!--/#footer-->
 
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.prettyPhoto.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.isotope.min.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

@@ -113,10 +113,15 @@ public class ReviewDAO {
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
 		try {
-			String sql = "select * from review order by r_num desc";
-			
+			String sql = "select *, (select count(*) from review_comment where review_review_num = r_num) as r_cnt,"
+					+ "(select region_name from region where region_code = region_region_code) as r_name "
+					+ "from review order by r_num desc limit ?,?";
+						// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
 			pstmt = con.prepareStatement(sql);
 
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -132,6 +137,8 @@ public class ReviewDAO {
 				reviewBean.setR_date(rs.getDate("r_date"));
 				reviewBean.setR_image(rs.getString("r_image"));
 				reviewBean.setR_code(rs.getInt("region_region_code"));
+				reviewBean.setR_name(rs.getString("r_name"));
+				reviewBean.setR_cnt(rs.getInt("r_cnt"));
 				
 				articleList.add(reviewBean);
 				
