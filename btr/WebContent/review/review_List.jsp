@@ -49,7 +49,6 @@
         <div class="blog container">
             <div class="row">
                 <div class="col-md-8">
-
                 	<table>
                 		<c:forEach var="article" items="${articleList }" >
                 			
@@ -101,16 +100,16 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="blog_archieve">
-                                	<li><a href="Review_Content.re">전체 글</a></li>
-                                    <li><a href="#">강서구</a> <span><a href="#">사상구</a></span></li>
-                                    <li><a href="#">금정구</a> <span><a href="#">사하구</a></span></li>
-                                    <li><a href="#">기장군</a> <span><a href="#">서구</a></span></li>
-                                    <li><a href="#">남구</a> <span><a href="#">수영구</a></span></li>
-                                    <li><a href="#">동구</a> <span><a href="#">연제구</a></span></li>
-                                    <li><a href="#">동래구</a> <span><a href="#">영도구</a></span></li>
-                                    <li><a href="#">부산진구</a> <span><a href="#">중구</a></span></li>
-                                    <li><a href="#">북구</a> <span><a href="#">해운대구</a></span></li>
-                                    <li><a href="#">기타지역(부산외)</a></li>
+                                	<li><a href="Review_List.re">전체 글</a></li>
+                                    <li><a href="Review_List.re?r_code=1">강서구</a> <span><a href="Review_List.re?r_code=9">사상구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=2">금정구</a> <span><a href="Review_List.re?r_code=10">사하구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=3">기장군</a> <span><a href="Review_List.re?r_code=11">서구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=4">남구</a> <span><a href="Review_List.re?r_code=12">수영구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=5">동구</a> <span><a href="Review_List.re?r_code=13">연제구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=6">동래구</a> <span><a href="Review_List.re?r_code=14">영도구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=7">부산진구</a> <span><a href="Review_List.re?r_code=15">중구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=8">북구</a> <span><a href="Review_List.re?r_code=16">해운대구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=17">기타지역(부산외)</a></li>
                                     
                                 </ul>
                             </div>
