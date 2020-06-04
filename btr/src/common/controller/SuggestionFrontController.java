@@ -65,7 +65,12 @@ public class SuggestionFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		} else if(command.equals("/Suggestion_Detail.su")) {
+		} else if(command.equals("/Suggestion_Info.su")) {
+			
+			forward = new ActionForward();
+			forward.setPath("/suggestion/suggestion_Info.jsp"); // 이동할 view 페이지 경로 지정
+			
+		}	else if(command.equals("/Suggestion_Detail.su")) {
 			
 			action = new SuggestionDetailAction();
 			

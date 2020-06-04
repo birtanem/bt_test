@@ -1,5 +1,6 @@
 package suggestion.action;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.*;
 
@@ -29,14 +30,19 @@ public class SuggestionListAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
-		ArrayList<SuggestionBean> articleList = suggestionListService.getArticleList(id);
-		
-		request.setAttribute("articleList", articleList);
-		
-		forward = new ActionForward();
-		forward.setPath("/suggestion/suggestion_List.jsp");
-		
+		if(id == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>"); 
+			out.println("alert('로그인이 필요한 페이지입니다!')");
+			out.println("history.back()");
+			out.println("</script>"); 
+		} else {
+			ArrayList<SuggestionBean> articleList = suggestionListService.getArticleList(id);
+			request.setAttribute("articleList", articleList);
+			forward = new ActionForward();
+			forward.setPath("/suggestion/suggestion_List.jsp");
+		}
 		return forward;
 	}
-
 }
