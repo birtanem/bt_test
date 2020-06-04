@@ -79,8 +79,8 @@
 
                 <aside class="col-md-4">
                     <div class="widget search">
-                        <form action="Review_Search.re" role="form">
-                            <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
+                        <form action="Review_List.re" role="form">
+                            <input type="text" name="r_search" class="form-control search_box" autocomplete="off" placeholder="Search Here">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>

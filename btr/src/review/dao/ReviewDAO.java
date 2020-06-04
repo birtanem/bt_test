@@ -102,6 +102,7 @@ public class ReviewDAO {
 		
 		return selectCount;
 	}
+	
 	// 게시글 가져오기
 	public ArrayList<ReviewBean> selectArticleList(int page, int limit) {
 
@@ -152,7 +153,7 @@ public class ReviewDAO {
 		}
 		return articleList;
 	}
-	
+	//============================================================================================================
 	// 지역 코드로 게시글 가져오기
 	public ArrayList<ReviewBean> selectArticleList(int page, int limit, int r_code) {
 
@@ -204,7 +205,58 @@ public class ReviewDAO {
 		}
 		return articleList;
 	}
+	//============================================================================================================
+	// Search로 게시글 가져오기
+	public ArrayList<ReviewBean> selectArticleList(int page, int limit, String r_search) {
 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (page-1)*limit;
+		
+		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
+		
+		try {
+			String sql = "select *, (select count(*) from review_comment where review_review_num = r_num) as r_cnt,"
+					+ "(select region_name from region where region_code = region_region_code) as r_name "
+					+ "from review where r_subject like ? order by r_num desc limit ?,?";
+						// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, "%"+r_search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+
+				ReviewBean reviewBean = new ReviewBean();
+				
+				reviewBean.setR_num(rs.getInt("r_num"));
+				reviewBean.setR_id(rs.getString("member_member_id"));
+				reviewBean.setR_subject(rs.getString("r_subject"));
+				reviewBean.setR_content(rs.getString("r_content"));
+				reviewBean.setR_readcount(rs.getInt("r_readcount"));
+				reviewBean.setR_likecount(rs.getInt("r_likecount"));
+				reviewBean.setR_date(rs.getDate("r_date"));
+				reviewBean.setR_image(rs.getString("r_image"));
+				reviewBean.setR_code(rs.getInt("region_region_code"));
+				reviewBean.setR_name(rs.getString("r_name"));
+				reviewBean.setR_cnt(rs.getInt("r_cnt"));
+				
+				articleList.add(reviewBean);
+				
+			}
+		
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - selectArticleList() 실패! : " + e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return articleList;
+	}
 	public ReviewBean selectArticle(int r_num) {
 
 		ReviewBean article = null;

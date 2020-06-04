@@ -48,6 +48,15 @@ public class ReviewListAction implements Action {
 			request.setAttribute("pageinfo", pageinfo);
 			request.setAttribute("articleList", articleList);
 			
+		}else if(request.getParameter("r_search") != null) {
+			
+			String r_search = request.getParameter("r_search");
+			
+			ArrayList<ReviewBean> articleList = reviewListService.getArticleList(page, limit, r_search);
+			
+			request.setAttribute("pageinfo", pageinfo);
+			request.setAttribute("articleList", articleList);
+			
 		}else {
 			ArrayList<ReviewBean> articleList = reviewListService.getArticleList(page, limit);
 

@@ -168,16 +168,6 @@ public class ReviewFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if (command.equals("/Review_Search.re")) {
-			
-			action = new ReviewSearchAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
 		}else if (command.equals("/Review_ListRegion.re")) {
 			
 			action = new ReviewRegionAction();
