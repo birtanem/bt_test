@@ -96,7 +96,7 @@
                     
 					<!--카테고리-->
                     <div class="widget archieve">
-                        <h3>Kategories</h3>
+                        <h3>Categories</h3>
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="blog_archieve">

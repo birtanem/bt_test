@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,10 +42,22 @@
 		
 		        <div class="blog container">
 		            <div class="row" style="padding-left: 100px; padding-right: 100px;">
-		                	    <section id="writeForm">
-		        <form action="Review_WritePro.re" method="post" enctype="multipart/form-data">
-		          
-		            	<select name="r_code">
+		              <section id="writeForm">
+		                
+			        <form action="Review_WritePro.re" method="post" enctype="multipart/form-data">
+		               <div style="width: 400px; height: 450px; float: left;">
+		               
+		               	<img src="" width="400px" height="450px">
+		               
+		               <input type="file" name="r_image">
+		               
+		               </div>	   
+						
+			
+						<table style="width: 500px; float: right; ">
+					          <tr><td>작성자</td><td colspan="2"><input type="text" name="r_id" value="admin"></td></tr>
+					          <tr><td style="float: left;">지역선택 </td><td>
+		            		<select name="r_code">
 		            			<option value="0">지역 선택하세요</option>
 		            			<option value="1">강서구</option>
 		            			<option value="2">금정구</option>
@@ -64,23 +76,17 @@
 		            			<option value="15">중구</option>
 		            			<option value="16">해운대구</option>
 		            			<option value="17">기타지역(부산외)</option>
-		                 	</select>
-		             
-		            <table>
-		                <tr>
-		                    <td>제 목</td>
-		                    <td><input type="text" name="r_subject" style="width: 100%;" /></td>
-		                </tr>
-		                <tr>
-		                    <td>내용</td>
-		                    <td><textarea name="r_content" cols="120" rows="15" style="resize: none; width: 100%;"></textarea></td>
-		                	<td><input type="file" name="r_image"></td>
-		                	<td><input type="text" name="r_id" value="admin"></td>
-		                </tr>
-		            </table>
+		                 	</select> 
+				        		 </td></tr>
+					          <tr><td>제목 </td><td colspan="2"><input type="text" name="r_subject" style="width: 100%;"/></td></tr>
+					          <tr><td>내용 </td><td colspan="2"><textarea name="r_contnet" style="width: 100%; height: 300px; resize: none;"></textarea></td></tr>
+		          		</table>
+		               
+						<div style="float: right;">
 		                <input type="submit" value="등록">
 		                <input type="reset" value="다시쓰기" />
-		        </form>
+		            </div>   
+			        </form>
 		   	 </section>
                     
           </div>      

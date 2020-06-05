@@ -113,9 +113,11 @@ public class ReviewDAO {
 		
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
+		String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+		String r_name = "(select region_name from region where region_code = region_region_code)";
+		
 		try {
-			String sql = "select *, (select count(*) from review_comment where review_review_num = r_num) as r_cnt,"
-					+ "(select region_name from region where region_code = region_region_code) as r_name "
+			String sql = "select *, "+r_cnt+" as r_cnt,"+r_name+" as r_name "
 					+ "from review order by r_num desc limit ?,?";
 						// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
 			pstmt = con.prepareStatement(sql);
@@ -164,9 +166,11 @@ public class ReviewDAO {
 		
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
+		String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+		String r_name = "(select region_name from region where region_code = region_region_code)";
+		
 		try {
-			String sql = "select *, (select count(*) from review_comment where review_review_num = r_num) as r_cnt,"
-					+ "(select region_name from region where region_code = region_region_code) as r_name "
+			String sql = "select *, "+r_cnt+" as r_cnt,"+r_name+" as r_name "
 					+ "from review where region_region_code = ? order by r_num desc limit ?,?";
 						// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
 			pstmt = con.prepareStatement(sql);
@@ -216,16 +220,24 @@ public class ReviewDAO {
 		
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
+		String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+		String r_name = "(select region_name from region where region_code = region_region_code)";
+		
 		try {
-			String sql = "select *, (select count(*) from review_comment where review_review_num = r_num) as r_cnt,"
-					+ "(select region_name from region where region_code = region_region_code) as r_name "
-					+ "from review where r_subject like ? order by r_num desc limit ?,?";
-						// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
+			String sql = "select *, "+r_cnt+" as r_cnt,"+r_name+" as r_name "
+					+ "from review where r_subject like ? or r_content like ? or member_member_id like ? "
+					+ "or "+r_name+" like ?"
+					+ "order by r_num desc limit ?,?";
+					// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
+					// 리뷰 게시판 검색
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, "%"+r_search+"%");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, limit);
+			pstmt.setString(2, "%"+r_search+"%");
+			pstmt.setString(3, "%"+r_search+"%");
+			pstmt.setString(4, "%"+r_search+"%"); // r_name 추가시 Unknown column 'r_name' in 'where clause'
+			pstmt.setInt(5, startRow);
+			pstmt.setInt(6, limit);
 			
 			rs = pstmt.executeQuery();
 			
@@ -257,6 +269,7 @@ public class ReviewDAO {
 		}
 		return articleList;
 	}
+	
 	public ReviewBean selectArticle(int r_num) {
 
 		ReviewBean article = null;
