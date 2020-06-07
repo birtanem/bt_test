@@ -3,7 +3,11 @@
 /*************************
 *******Typography******
 **************************/
+body, html {
+	
+	height: 100%;
 
+}
 body {
     background: #fff;
     font-family: 'Open Sans', sans-serif;
@@ -1297,6 +1301,7 @@ a.accordion-toggle i {
 }
 
 .footer {
+
     background: none repeat scroll 0 0 #2E2E2E;
     border-top: 5px solid #EC5538;
     height: 84px;
@@ -2320,6 +2325,7 @@ shortcodes page css
 }
 
 #footer {
+
     padding-top: 30px;
     padding-bottom: 30px;
     color: #fff;

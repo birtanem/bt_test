@@ -6,50 +6,83 @@ import static common.db.JdbcUtil.*;
 
 import common.dao.MemberDAO;
 import member.vo.JoinException;
+import member.vo.MemberBean;
 
 public class MemberJoinProService {
 
-	public boolean isJoinMember(String id) throws Exception {
-		// TODO Auto-generated method stub
-		boolean isMember = false;
+	public boolean registMember(MemberBean memberBean) {
 		
+		System.out.println("MemberJoinProService - registMember()");
 		
-		//서비스의 기본작업?? 
-		//커넥션, dao 가져오고  전달하고?
+		boolean isJoinSuccess = false;
 		
+		// 커넥션 생성
 		Connection con = getConnection();
+		// MeberDAO 생성
 		MemberDAO memberDAO = MemberDAO.getInstance();
+		// MemberDAO 커넥션 연결
 		memberDAO.setConnection(con);
 		
+		int insertCount = memberDAO.insertMember(memberBean);
 		
-		
-		//member가 있는지 기존에 확인
-	
-		isMember = memberDAO.selectJoinMember(id);
-		
-		
-		
-		
-		
-		
-		
-		
+		if(insertCount > 0) {
+			isJoinSuccess = true;
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
-		
-		return isMember;
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		return isJoinSuccess;
 	}
 
-	private Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean duplicateIdCheck(String id) {
+		System.out.println("MemberJoinProService - duplicateCheckMember()");
+		
+		// 커넥션 생성
+		Connection con = getConnection();
+		// MeberDAO 생성
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		// MemberDAO 커넥션 연결
+		memberDAO.setConnection(con);
+		
+		boolean isDuplicateIdCheck = memberDAO.duplicateIdCheck(id);
+
+		close(con);
+		
+		return isDuplicateIdCheck;
+	}
+	
+	public boolean duplicateEmailCheck(String id) {
+		System.out.println("MemberJoinProService - duplicateEmailCheckMember()");
+		
+		// 커넥션 생성
+		Connection con = getConnection();
+		// MeberDAO 생성
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		// MemberDAO 커넥션 연결
+		memberDAO.setConnection(con);
+		
+		boolean isDuplicateEmailCheck = memberDAO.duplicateEmailCheck(id);
+
+		close(con);
+		
+		return isDuplicateEmailCheck;
+	}
+	
+	public boolean duplicatePhoneCheck(String id) {
+		System.out.println("MemberJoinProService - duplicatePhoneCheckMember()");
+		
+		// 커넥션 생성
+		Connection con = getConnection();
+		// MeberDAO 생성
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		// MemberDAO 커넥션 연결
+		memberDAO.setConnection(con);
+		
+		boolean isDuplicatePhoneCheck = memberDAO.duplicatePhoneCheck(id);
+
+		close(con);
+		
+		return isDuplicatePhoneCheck;
 	}
 }

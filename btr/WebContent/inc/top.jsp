@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-// 세션 객체에 저장된 아이디 가져오기
-String id = null;
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-if(session.getAttribute("id") != null) { 
-	
-	id = (String)session.getAttribute("id");
-}
-	
-// 	out.println(id);
-%>   
 
         <header id="header">
         <div class="top-bar">
@@ -45,13 +35,29 @@ if(session.getAttribute("id") != null) {
 	<!-- 세션에 저장된 ID 가 있을 경우 "로그아웃"(MemberLogout.me) 페이지 링크 -->
 	<!-- 세션에 저장된 ID 가 없을 경우 "로그인"(MemberLoginForm.me) 페이지 링크
 	해야한다. -->
-	<%if(id == null) {%>
-		<a href="MemberLoginForm.me">로그인</a> | 
-		<a href="MemberJoinForm.me">회원가입</a>
-	<%} else { %>
-		<%=id %>님 | <a href="MemberLogout.me">로그아웃</a>
-	<%} %>|
-	<a href="adminPage.ad">관리자메뉴</a>
+
+	<c:choose>
+	    <c:when test="${empty sessionScope.id}">
+	    	<a href="MemberLoginForm.me">로그인</a> | 
+			<a href="MemberJoinForm.me">회원가입</a>
+	    </c:when>
+	
+	    <c:otherwise>
+	        <span style="color: white;">${sessionScope.id}&nbsp;&nbsp;님</span> |
+			<a href="MemberMypage.me">마이페이지</a> l 
+			<a href="MemberLogout.me">로그아웃</a>
+	    </c:otherwise>
+	</c:choose>
+	
+	<!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
+<%-- 	<c:if test="${sessionScope.id == 'admin'}">	l	 --%>
+<!-- 	<a href="adminPage.ad"> 관리자메뉴</a> -->
+<%-- 	</c:if> --%>
+	
+	<!-- 편의상 일단 그냥 -->
+	ㅣ<a href="adminPage.ad"> 관리자메뉴</a>
+
+
 	</section>
                     	
                     	</div>

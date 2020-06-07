@@ -11,11 +11,11 @@ import common.dao.MemberDAO;
 
 public class MemberLoginProService {
 
-	public boolean isLoginMember(String id, String pass) throws LoginException {
-		// TODO Auto-generated method stu
+	public int isLoginMember(String id, String pass) {
+		// 
 		
 		System.out.println("MemberLoginProService");
-		boolean isMember = false;
+		int isMember = 0;
 		
 		
 		//서비스의 기본작업?? 
@@ -26,32 +26,16 @@ public class MemberLoginProService {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		
 		memberDAO.setConnection(con);
-		
-		
-		
+				
 		// MemberDAO 클래스의 selectLoginMember() 메서드를 호출하여 로그인 수행
 		// => 파라미터 : 아이디, 패스워드    리턴타입 boolean(isMember)
 	
 		isMember = memberDAO.selectLoginMember(id, pass);
-		
-		
-		
-		
-		
-		
-		
+	
 		close(con);
 		
 		return isMember;
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 

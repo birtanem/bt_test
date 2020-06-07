@@ -1,167 +1,344 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | Corlate</title>
 
-<style>
-table {
-	margin: 0 auto;
+    <!-- core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/icomoon.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <script src="js/jquery-3.5.0.js"></script>
+
+
+<style type="text/css">
+#loginWrap {
+	min-height: 100%;
+	position: relative;
+}
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box}
+
+/* Full-width input fields */
+.joinContainer input, .joinContainer select {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 3px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.joinContainer input:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: black;
+  color: white;
+  padding: 14px 20px;
+  margin: 50px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: gray;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+/* Add padding to container elements */
+.joinContainer {
+
+  	position: absolute;
+	top: 50%;
+	left: 50%;
+  padding: 16px;
+  width: 450px;
+  height: 1200px;
+  margin: -500px 0 0 -225px;
+  text-align: center;
+
+}
+.joinContainer label {
+	text-align: left;
+	width: 100%;
+	margin-top: 20px;
 	
 }
-
-h2 {
- 	text-align: center;
+.joinContainer span {
+	display: block;
+	text-align: left;
+	color: red;
 }
 
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
 </style>
+<script type="text/javascript">
 
+function idCheck() {
+
+	if(joinForm.id.value=="") {
+		$("#idChk").html("í•„ìˆ˜ ì…ë ¥");
+		return false;
+	}else {
+		return true;
+	}	
+}
+function passCheck() {
+	if(joinForm.pass.value=="") {
+		$("#passChk").html("í•„ìˆ˜ ì…ë ¥");
+		return false;
+	}else{
+		
+		return true;
+	}	
+}
+function repassCheck() {
+	if(joinForm.repass.value != joinForm.pass.value) {
+		$("#repassChk").html("ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
+		return false;
+	}else{
+		
+		return true;
+	}	
+}
+function nameCheck() {
+	if(joinForm.name.value=="") {
+		$("#nameChk").html("í•„ìˆ˜ ì…ë ¥");
+		return false;
+	}else{
+		
+		return true;
+	}	
+}
+function genderCheck() {
+	if($("#gender option:selected").val() == "ì„±ë³„") {
+		$("#genderChk").html("í•„ìˆ˜ ì„ íƒ");
+		return false;
+	}else{
+		
+		return true;
+	}	
+}
+
+function ageCheck() {
+	if(joinForm.age.value=="") {
+		$("#ageChk").html("í•„ìˆ˜ ì…ë ¥");
+		return false;
+	}else{
+		
+		return true;
+	}	
+}
+function emailCheck() {
+	if(joinForm.email.value=="") {
+		$("#emailChk").html("í•„ìˆ˜ ì…ë ¥");
+		return false;
+	}else{
+		
+		return true;
+	}	
+}
+function phoneCheck() {
+	if(joinForm.phone.value=="") {
+		$("#phoneChk").html("í•„ìˆ˜ ì…ë ¥");
+		return false;
+	}else{
+		
+		return true;
+	}
+}
+function typeCheck() {
+	if($("#type option:selected").val() == "ê´€ì‹¬ì‚¬") {
+		$("#typeChk").html("í•„ìˆ˜ ì„ íƒ");
+		return false;
+	}else{
+		
+		return true;
+	}
+}
+
+function joinCheck() {
+
+	if(idCheck() && 
+	   passCheck() &&
+	   repassCheck() &&
+	   nameCheck() &&
+	   genderCheck() &&
+	   ageCheck() &&
+	   emailCheck() &&
+	   phoneCheck() &&
+	   typeCheck()) {
+		
+		var formData = $("form[name=joinForm]").serialize() ;
+
+		$.ajax({
+            type : 'post',
+            url : 'MemberJoinPro.me',
+            data : formData,
+            success : function(re){
+        		
+        		var rdata = re.trim();
+        		
+        		$(".joinContainer span").html("");
+        		
+            	if(rdata == "id") {
+            		
+            		$("#idChk").html("ì•„ì´ë”” ì¤‘ë³µ");     		
+            	}else if(rdata == "email") {
+            		$("#emailChk").html("ì´ë©”ì¼ ì¤‘ë³µ");
+            	}else if(rdata == "phone") {
+            		$("#phoneChk").html("íœ´ëŒ€ì „í™” ì¤‘ë³µ");
+            	}else if(rdata == "1"){
+            		location.href= "./"
+            	}else {
+            		alert("íšŒì›ê°€ì… ì‹¤íŒ¨")
+            	}
+            },
+            error: function(xhr, status, error){
+                alert(error);
+            }
+        });
+		
+	}else{
+		alert("ì‹¤íŒ¨")
+		return false;
+	}
+}
+</script>
 </head>
-
 <body>
-	<h2>È¸¿ø°¡ÀÔ ¾ç½Ä</h2>
-	
-	
-	<form action="MemberJoinPro.me" method="post">  <!--
-	
-	 action¿¡ ¼­ºí¸´¸ÅÇÎÁÖ¼Ò 
-	 
-	 proc.do?gubun=1 ¶ó°í ÇØ¼­ 
-	 
-	 sevlet °¡¼­ ±¸ºĞ ¿¡ µû¶ó ¹¹ 2¿¡µû¶ó ¹¹ ÀÌ·¸°Ô °¡´É
-	 
-	 -->
-	
-		<table width="500" border="1" bordercolor="black">
-		
-			
-			
-			<tr height="50">
-			
-				<td width="150" align="center">¾ÆÀÌµğ</td>
-				<td width="150" align="center">
-					<input type="text" name="id" size="40" placeholder="¾ÆÀÌµğ ³ÖÀ¸¼¼¿ä">
-				</td>
-				
-			</tr>
-			
-			<tr height="50">
-			
-				<td width="150" align="center">ÆĞ½º¿öµå</td>
-				<td width="150" align="center">
-					<input type="password" name="pass" size="40" placeholder="ºñ¹Ğ¹øÈ£¸¦ ³ÖÀ¸¼¼¿ä">
-				</td>
-				
-			</tr>
-			
-			<tr height="50">
-			
-				<td width="150" align="center">ÀÌ¸§</td>
-				<td width="150" align="center">
-					<input type="text" name="name" size="40" placeholder="ÀÌ¸§ ³ÖÀ¸¼¼¿ä">
-				</td>
-				
-			</tr>
-			
-			
-			<tr height="50">
-			
-				<td width="150" align="center">³ªÀÌ</td>
-				<td width="150" align="center">
-					<input type="text" name="age" size="40" >
-				</td>
-				
-			</tr>
-			
-			<tr height="50">
-			
-				<td width="150" align="center">¼ºº°</td>
-				<td width="150" align="center">
-					<select name="gender" >
-						<option value="³²">³²</option>
-						<option value="¿©">¿©</option>
-					
-					</select>
-				</td>
-				
-			</tr>
-			
-			
-			<tr height="50">
-			
-				<td width="150" align="center">ÀÌ¸ŞÀÏ</td>
-				<td width="150" align="center">
-					<input type="email" name="email" size="40" >
-				</td>
-				
-			</tr>
-			
-			<tr height="50">
-			
-				<td width="150" align="center">ÀüÈ­¹øÈ£</td>
-				<td width="150" align="center">
-					<input type="tel" name="phone" size="40" >
-				</td>
-				
-			</tr>
-			
-			<tr height="50">
-			
-				<td width="150" align="center">¼±È£¿©Çà</td>
-				<td width="150" align="center">
-				
-					<select name="type" >
-					
-						<option value="¸ÀÁı">¸ÀÁı</option>
-						<option value="¿ª»ç">¿ª»ç</option>
-						<option value="¹®È­">¹®È­</option>
-						<option value="¼îÇÎ">¼îÇÎ</option>
-					
-					</select>
-				</td>
-				
-			</tr>
-		
-			
-	
-	
-			
-			<tr height="50">
-				<td align="center" colspan="2">
-					<input type="submit" value="È¸¿ø°¡ÀÔ">
-					<input type="reset" value="Ãë¼Ò">
-				</td>
-			</tr>
-			
-		
-		
-		</table>
-	
-	
-	</form>
+<div id="loginWrap">
+<jsp:include page="../inc/top.jsp"></jsp:include>
+
+    <div class="page-title" style="background-image: url(images/page-title.png)">
+        <h1>íšŒì›ê°€ì…</h1>
+    </div>
+
+    <section id="contact-page" style="height: 1500px;">
+
+<form action="MemberJoinPro.me" method="POST" name="joinForm">
+  <div class="joinContainer">
+
+    <label for="id"><b>ì•„ì´ë””</b></label>
+    <input type="text" placeholder="ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”" name="id">
+    <span id="idChk"></span>
+    
+    <label for="pass"><b>ë¹„ë°€ë²ˆí˜¸</b></label>
+    <input type="password" placeholder="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”" name="pass">
+    <span id="passChk"></span>
+    
+    <label for="repass"><b>ë¹„ë°€ë²ˆí˜¸ ì¬í™•ì¸</b></label>
+    <input type="password" placeholder="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”" name="repass">
+    <span id="repassChk"></span>
+    
+    <label for="name"><b>ì´ë¦„</b></label>
+    <input type="text" placeholder="ì´ë¦„ë¥¼ ì…ë ¥í•˜ì„¸ìš”" name="name">
+    <span id="nameChk"></span>
+    
+    <label for="gender"><b>ì„±ë³„</b></label>
+    <select name="gender" id="gender">
+       <option value="ì„±ë³„">ì„±ë³„</option>
+   	   <option value="ë‚¨">ë‚¨ì</option>
+	   <option value="ì—¬">ì—¬ì</option>
+    </select>
+    <span id="genderChk"></span>
+    
+    <label for="age"><b>ë‚˜ì´</b></label>
+    <input type="text" placeholder="ë‚˜ì´ë¥¼ ì…ë ¥í•˜ì„¸ìš”" name="age">
+    <span id="ageChk"></span>
+    
+    <label for="email"><b>ì´ë©”ì¼</b></label>
+    <input type="text" placeholder="ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”" name="email" >
+    <span id="emailChk"></span>
+    
+    <label for="phone"><b>íœ´ëŒ€ì „í™”</b></label>
+    <input type="text" placeholder="íœ´ëŒ€ì „í™”ë¥¼ ì…ë ¥í•˜ì„¸ìš”" name="phone">
+    <span id="phoneChk"></span>
+    
+    <label for="type"><b>ê´€ì‹¬ì‚¬</b></label>
+    <select name="type" id="type">
+   	   <option value="ê´€ì‹¬ì‚¬">ê´€ì‹¬ì‚¬</option>
+	   <option value="ì—¬í–‰">ì—¬í–‰</option>
+	   <option value="ë§›ì§‘">ë§›ì§‘</option>
+    </select>
+	<span id="typeChk"></span>
 
 
+    <div class="clearfix">
+      <button type="button" class="signupbtn" onclick="return joinCheck()">íšŒì›ê°€ì…</button>
+      <button type="button" class="cancelbtn">ì·¨ì†Œ</button> 
+    </div>
+  </div>
+</form>
 
+</section>
+    <!--/#bottom-->
+	<jsp:include page="../inc/bottom.jsp"></jsp:include>
+    <!--/#footer-->
+</div>
 
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>

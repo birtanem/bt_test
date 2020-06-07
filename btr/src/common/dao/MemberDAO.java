@@ -1,16 +1,11 @@
 package common.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.security.auth.login.LoginException;
-import javax.sql.DataSource;
-
-import com.mysql.jdbc.Connection;
 
 import member.vo.JoinException;
 import member.vo.MemberBean;
@@ -23,76 +18,76 @@ public class MemberDAO {
 		
 		private static MemberDAO instance;
 		
-		private Connection getConnection() throws Exception{
-			// 예외처리를 메서드호출한 곳에서 처리하겠다
-			
-//			// 1단계 드라이버로더
-//			 Class.forName("com.mysql.jdbc.Driver");
-//			 // 2단계 디비연결
-//			 String dbUrl="jdbc:mysql://localhost:3306/jspdb1";
-//			 String dbUser="jspid";
-//			 String dbPass="jsppass";
-//			 Connection con=DriverManager.getConnection(dbUrl, dbUser, dbPass);
-//			 return con;
-			
-			Context init=new InitialContext();
-			DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
-			Connection con=(Connection) ds.getConnection();
-			return con;
+//		private Connection getConnection() throws Exception{
+//			// 예외처리를 메서드호출한 곳에서 처리하겠다
+//			
+////			// 1단계 드라이버로더
+////			 Class.forName("com.mysql.jdbc.Driver");
+////			 // 2단계 디비연결
+////			 String dbUrl="jdbc:mysql://localhost:3306/jspdb1";
+////			 String dbUser="jspid";
+////			 String dbPass="jsppass";
+////			 Connection con=DriverManager.getConnection(dbUrl, dbUser, dbPass);
+////			 return con;
+//			
+//			Context init=new InitialContext();
+//			DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
+//			Connection con=(Connection) ds.getConnection();
+//			return con;
+//		}
+		
+		public static MemberDAO getInstance() {
+			// BoardDAO 객체가 없을 경우에만 생성
+			if(instance == null) {
+				instance = new MemberDAO();
+			}	
+			return instance;
 		}
 		
 	
 		Connection con;
-	
+		
 		public void setConnection(Connection con) {
 			this.con = con;
-		}
-		
-		
-		
-		
-		public void insertMember(MemberBean bean) {
 			
-			Connection con = null;	
+		}
+		public int insertMember(MemberBean memberBean) {
+			
 			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+			int insertCount = 0;
 			
 			try {
+							
+				String sql = "insert into member(id,pass,name,age,gender,email,phone,date,point,type) values(?,?,?,?,?,?,?,now(),0,?)";
 				
+				pstmt = con.prepareStatement(sql);
 				
-				String sql = "insert into member(id,pass,name,age,gender,email,phone,date,point,type) values(?,?,?,?,?,?,?,?,?,?)";
-				//���������� ��ü
-				
-				pstmt = con.clientPrepareStatement(sql);
-				
-				
-				pstmt.setString(1,bean.getId());
-				pstmt.setString(2,bean.getPass());
-				pstmt.setString(3,bean.getName());
-				pstmt.setInt(4,bean.getAge());
-				pstmt.setString(5,bean.getGender());
-				pstmt.setString(6,bean.getEmail());
-				pstmt.setString(7,bean.getPhone());
-				pstmt.setTimestamp(8,bean.getDate());
-				pstmt.setInt(9,bean.getPoint());
-				pstmt.setString(10,bean.getType());
-			
-				//sql문 실행
-				pstmt.executeUpdate();
-				con.close();
+				pstmt.setString(1,memberBean.getId());
+				pstmt.setString(2,memberBean.getPass());
+				pstmt.setString(3,memberBean.getName());
+				pstmt.setInt(4,memberBean.getAge());
+				pstmt.setString(5,memberBean.getGender());
+				pstmt.setString(6,memberBean.getEmail());
+				pstmt.setString(7,memberBean.getPhone());
+				pstmt.setString(8,memberBean.getType());
+
+				insertCount = pstmt.executeUpdate();
 				
 			}catch(Exception e) {
 				
 				e.printStackTrace();
+			}finally {
+				close(pstmt);
 			}
 		
+			return insertCount;
 			
 		}
 
-		public boolean selectLoginMember(String id, String pass) throws LoginException {
+		public int selectLoginMember(String id, String pass) {
 			// TODO Auto-generated method stub
 			
-			boolean loginResult = false;
+			int loginResult = 0;
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -105,13 +100,7 @@ public class MemberDAO {
 			// 1. 아이디와 패스워드가 일치하는 레코드 검색.
 			
 		    //_ 비교대상필요
-			
-			
-
-			try {
-				
-				
-				
+		
 				//  1. 아이디와 패스워드가 일치하는 레코드 검색
 				// => 아이디, 패스워드 중 틀린 항목에 대한 구분이 불가능
 				
@@ -121,34 +110,25 @@ public class MemberDAO {
 				// 아이디만 바로 판별가능
 				
 				
-				String sql = "SELECT pass FROM member WHERE id=?";
+
 				
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, id);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) { // 아이디가 존재하는 경우(패스워드가 조회되는 경우)
-					// 패스워드 일치 여부 판별
-					if(pass.equals(rs.getString(1))) { // 패스워드가 일치할 경우
-						loginResult = true;
-					} else {
-						//예외객체 직접 발생시켜서 예외메세지에
-					//패스워드 오류 메세지 전달.
+				try {
+					
+					String sql = "SELECT pass FROM member WHERE id=?";
+					
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, id);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) { // 아이디가 존재하는 경우(패스워드가 조회되는 경우)
+						// 패스워드 일치 여부 판별
+						if(pass.equals(rs.getString(1))) { // 패스워드가 일치할 경우
+							loginResult = 1;
+						}else {
+							loginResult = -1;
+						}
 						
-						throw new LoginException("패스워드 틀림");//예외클래스 꼭대기 exception 쓰거나 우리가 만들거나, 
-						//   이 과정이 예외 객체 생성
-						// 정상적인 리턴이면 결과값 나오는데
-						// 정상적 로그인이 안된다면, ? ? 트라이캐치하면 또,, 
-						// 예외강제 throw ,,고 밖으로 던지는건 throws
 					}
-					
-					
-				}else {
-					
-					throw new LoginException("존재하지 않는 아이디");
-				}
-				
-				
 				
 				} catch (SQLException e) { //조심해야하는데 sql 이 틀려도 튀어나감.. 
 					
@@ -159,8 +139,8 @@ public class MemberDAO {
 					close(pstmt);
 				}
 				
-				return loginResult;
-			}
+			return loginResult;
+		}
 
 
 
@@ -222,33 +202,80 @@ public class MemberDAO {
 				return JoinResult;
 		}
 
+		public boolean duplicateIdCheck(String id) {
 			
-		
-
-
-		public void setConnection(java.sql.Connection con2) {
-			// TODO Auto-generated method stub
+			boolean isDuplicateMember = false;	
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 			
-			
-			
+			// board_num 에 해당하는 게시물을 조회하여 패스워드(board_pass) 일치 여부 확인
+			try {
+				String sql = "SELECT id FROM member WHERE id = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) { 			
+					isDuplicateMember = true;				
+				}	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return isDuplicateMember;
 		}
-
-
-
-
-		public static MemberDAO getInstance() {
-			// TODO Auto-generated method stub
-			return null;
+		public boolean duplicateEmailCheck(String email) {
+			
+			boolean isDuplicateEmailCheck = false;	
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			// board_num 에 해당하는 게시물을 조회하여 패스워드(board_pass) 일치 여부 확인
+			try {
+				String sql = "SELECT email FROM member WHERE email = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, email);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) { 			
+					isDuplicateEmailCheck = true;				
+				}	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return isDuplicateEmailCheck;
 		}
-
-
-
-
 		
-
-
-
-		
+		public boolean duplicatePhoneCheck(String phone) {
+			
+			boolean isDuplicatePhoneCheck = false;	
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			// board_num 에 해당하는 게시물을 조회하여 패스워드(board_pass) 일치 여부 확인
+			try {
+				String sql = "SELECT phone FROM member WHERE phone = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, phone);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) { 			
+					isDuplicatePhoneCheck = true;				
+				}	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return isDuplicatePhoneCheck;
+		}
+	
 }
 
 			

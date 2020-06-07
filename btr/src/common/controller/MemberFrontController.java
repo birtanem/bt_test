@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import common.action.Action;
 import common.dao.MemberDAO;
 import common.vo.ActionForward;
+import member.action.MemberJoinProAction;
+import member.action.MemberLoginProAction;
 import member.action.MemberLogoutProAction;
 import member.vo.MemberBean;
 import suggestion.action.SuggestionWriteFormAction;
@@ -77,13 +79,13 @@ public class MemberFrontController extends HttpServlet {
 			}
 			else if(command.equals("/MemberLoginPro.me")) {
 				
-				HttpSession session = request.getSession();
-				String id =request.getParameter("id");
-				
-				session.setAttribute("id", id);
-				
-				forward = new ActionForward();
-				forward.setPath("index.jsp");
+				action = new MemberLoginProAction();
+
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			
 				
 			}
@@ -91,8 +93,14 @@ public class MemberFrontController extends HttpServlet {
 			
 			else if(command.equals("/MemberJoinPro.me")){
 				
-			forward = new ActionForward();
-			forward.setPath("index.jsp");
+				action = new MemberJoinProAction();
+				
+				try {
+					forward = action.execute(request, response);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 			} 
 			//민건 수정 로그아웃 시작
