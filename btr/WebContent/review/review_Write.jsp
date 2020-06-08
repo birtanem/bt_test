@@ -29,6 +29,22 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script type="text/javascript">
+    
+    function readURL(input) {
+		
+    	if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$('#reader').attr('src',e.target.result);
+			}
+			  reader.readAsDataURL(input.files[0]);
+		}
+    	
+	}
+    
+    </script>
+    
 </head>
 <body>
     
@@ -47,9 +63,9 @@
 			        <form action="Review_WritePro.re" method="post" enctype="multipart/form-data">
 		               <div style="width: 400px; height: 450px; float: left;">
 		               
-		               	<img src="" width="400px" height="450px">
+		               	<img id="reader" src="" width="400px" height="450px">
 		               
-		               <input type="file" name="r_image">
+		               <input type="file" name="r_image" onchange="readURL(this);">
 		               
 		               </div>	   
 						
@@ -79,7 +95,7 @@
 		                 	</select> 
 				        		 </td></tr>
 					          <tr><td>제목 </td><td colspan="2"><input type="text" name="r_subject" style="width: 100%;"/></td></tr>
-					          <tr><td>내용 </td><td colspan="2"><textarea name="r_contnet" style="width: 100%; height: 300px; resize: none;"></textarea></td></tr>
+					          <tr><td>내용 </td><td colspan="2"><textarea name="r_content" style="width: 100%; height: 300px; resize: none;"></textarea></td></tr>
 		          		</table>
 		               
 						<div style="float: right;">
