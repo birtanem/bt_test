@@ -257,7 +257,7 @@ function joinCheck() {
         });
 		
 	}else{
-		alert("실패")
+	
 		return false;
 	}
 }

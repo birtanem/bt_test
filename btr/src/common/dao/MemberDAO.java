@@ -58,7 +58,7 @@ public class MemberDAO {
 			
 			try {
 							
-				String sql = "insert into member(id,pass,name,age,gender,email,phone,date,point,type) values(?,?,?,?,?,?,?,now(),0,?)";
+				String sql = "insert into member(id,pass,name,age,gender,email,phone,date,point,type,cp_3,cp_5,cp_10) values(?,?,?,?,?,?,?,now(),0,?,0,0,0)";
 				
 				pstmt = con.prepareStatement(sql);
 				
