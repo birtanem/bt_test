@@ -3,9 +3,11 @@ package place.svc;
 import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import place.dao.PlaceDAO;
 import place.vo.PlaceBean;
+import place.vo.PlaceCommentBean;
 
 
 public class PlaceDetailService {
@@ -45,5 +47,43 @@ public class PlaceDetailService {
 		
 		return article;
 	}
+
+	public int getCommentListCount(int pl_num) {
+		int listCount = 0;
+		
+		// 공통작업-1. DB 작업에 필요한 Connection 객체 가져오기
+		Connection con = getConnection();
+		
+		// 공통작업-2. DB 작업을 위한 BoardDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
+		PlaceDAO placeDAO = PlaceDAO.getInstance();
+		
+		// 공통작업-3. BoardDAO 객체에 Connection 객체 전달
+		placeDAO.setConnection(con);
+		
+		// 4. BoardDAO 클래스의 selectListCount() 메서드를 호출하여 전체 게시물 수 가져오기
+		listCount = placeDAO.selectCommentCount(pl_num);
+		
+		// 공통작업-5. Connection 객체 반환
+		close(con);
+		
+		// 6. 작업 결과 리턴
+		return listCount;
+	}
+
+	public ArrayList<PlaceCommentBean> getCommentList(int pl_num, int page, int limit) {
+		
+		ArrayList<PlaceCommentBean> commentList = null;
+		
+		Connection con = getConnection();
+		PlaceDAO placeDAO = PlaceDAO.getInstance();
+		placeDAO.setConnection(con);
+		commentList=placeDAO.selectCommentList(pl_num, page, limit);
+		close(con);
+		
+		return commentList;
+			
+	}
+
+	
 
 }

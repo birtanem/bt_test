@@ -52,7 +52,7 @@
                 	<table>
                 		<c:forEach var="article" items="${articleList }" >
                 			
-							<ul style="width: 100%; height: 150px; " onclick="location.href='PlaceDetail.pl?&pl_num=${article.pl_num }&page=${pageInfo.page }'">
+							<ul style="width: 100%; height: 150px; " onclick="location.href='PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }'">
 								<li style="list-style: none;">
 									<div style="float: left;">
 										<img src="placeUpload/${article.pl_image }" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
@@ -103,7 +103,7 @@
                     			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
                     		<c:otherwise>
-                    			<li><a href="Place_List.pl?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a href="PlaceList.pl?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
                     
@@ -112,10 +112,10 @@
                     		<c:choose>
                     		
                     			<c:when test="${pageInfo.page <= 1 }">
-                    				<li class="active"><a href="Place_List.pl?page=${a }">${a }</a></li>
+                    				<li class="active"><a href="PlaceList.pl?page=${a }">${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
-									<li><a href="Place_List.pl?page=${a }">${a }</a></li>
+									<li><a href="PlaceList.pl?page=${a }">${a }</a></li>
                     			</c:otherwise>
                     		</c:choose>
                     	
@@ -127,7 +127,7 @@
                     				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li><a href="Place_List.pl?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    				<li><a href="PlaceList.pl?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:otherwise>
                     		</c:choose>
                     </ul>

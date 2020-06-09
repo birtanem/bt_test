@@ -1,12 +1,16 @@
 package place.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
 import place.svc.PlaceDetailService;
+import place.vo.PCpageInfo;
 import place.vo.PlaceBean;
+import place.vo.PlaceCommentBean;
 
 public class PlaceDetailAction implements Action {
 
@@ -21,16 +25,36 @@ public class PlaceDetailAction implements Action {
 		
 		// BoardDetailService 인스턴스 생성 후 getArticle() 메서드 호출하여 상세내용 가져오기
 		// => 파라미터 : 게시물 번호(board_num), 리턴타입 : BoardBean(article)
-		PlaceDetailService boardDetailService = new PlaceDetailService();
-		PlaceBean article = boardDetailService.getArticle(pl_num);
+		PlaceDetailService placeDetailService = new PlaceDetailService();
+		PlaceBean article = placeDetailService.getArticle(pl_num);
 		
-		// request 객체에 BoardBean 객체 저장
+		//PlaceComment_List 가져오는 코드
+		int page = 1; // 현재 페이지 번호를 저장할 변수
+		int limit = 10; // 한 페이지 당 출력할 게시물 수 지정
+		
+		// 파라미터로 전달받은 페이지 번호가 있을 경우 가져와서 page 변수에 저장
+		if(request.getParameter("cpage") != null) {
+			page = Integer.parseInt(request.getParameter("cpage")); // String -> int 변환
+		}
+		int listCount = placeDetailService.getCommentListCount(pl_num);
+		ArrayList<PlaceCommentBean> commentList = placeDetailService.getCommentList(pl_num,page,limit);
+		int maxPage = (int)((double)listCount / limit + 0.95);
+		// 2. 현재 페이지에서 표시할 시작 페이지 번호 계산(1, 11, 21 등)
+		int startPage = (((int)((double)page / 10 + 0.9)) - 1) * 10 + 1;
+		// 3. 현재 페이지에서 표시할 끝 페이지 번호 계산(10, 20, 30 등)
+		int endPage = startPage + 10 - 1;
+		// 단, 끝 페이지 번호가 최대 페이지 번호보다 클 경우 
+		// => 최대 페이지 번호를 끝 페이지 번호로 사용
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		PCpageInfo pageInfo = new PCpageInfo(page, maxPage, startPage, endPage, listCount);
+		
+		request.setAttribute("cpageInfo", pageInfo);
+		request.setAttribute("commentList", commentList);
 		request.setAttribute("article", article);
-		// page 파라미터는 setAttribute() 메서드로 전달하지 않아도 URL 이 유지되므로 생략 가능
-//		request.setAttribute("page", request.getParameter("page"));
 		
-		// board 폴더 내의 qna_board_view.jsp 페이지로 포워딩
-		// => 요청된 서블릿 주소가 유지되므로 Dispatcher 방식으로 포워딩
+		
 		forward = new ActionForward();
 		forward.setPath("/place/place_Content.jsp");
 		

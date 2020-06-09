@@ -309,5 +309,83 @@ public class PlaceDAO {
 			
 			return insertCount;
 		}
+
+		public int selectCommentCount(int pl_num) {
+			int listCount = 0;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
+				String sql = "SELECT COUNT(pc_num) FROM place_comment WHERE pl_num = ?"; // COUNT() 함수 사용
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - selectCommentCount() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return listCount;
+		}
+
+		public ArrayList<PlaceCommentBean> selectCommentList(int pl_num, int page, int limit) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page - 1) * limit; // 가져올 게시물에 대한 시작 행 번호 계산
+			
+			// 전체 게시물을 저장할 ArrayList 객체 생성 => 제네릭 타입 BoardBean 타입 지정
+			ArrayList<PlaceCommentBean> articleList = new ArrayList<PlaceCommentBean>();
+			
+			try {
+				// 게시물 갯수 조회할 SQL 구문 작성
+				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
+				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
+				
+				String sql = "SELECT * FROM place_comment WHERE pl_num=? ORDER BY pc_date desc LIMIT ?,? ";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
+				rs = pstmt.executeQuery();
+				
+				// 조회된 레코드 만큼 반복
+				while(rs.next()) {
+					// 1개 레코드(게시물)를 저장할 BoardBean 객체 생성
+					PlaceCommentBean article = new PlaceCommentBean();
+					// BoardBean 객체에 조회된 레코드(게시물) 정보를 저장
+					article.setPc_num(rs.getInt("pc_num"));
+					article.setPc_content(rs.getString("pc_content"));
+					article.setPc_date(rs.getDate("pc_date"));
+					article.setMember_id(rs.getString("member_id"));
+					article.setPc_rank(rs.getInt("pc_rank"));
+					article.setPl_num(rs.getInt("pl_num"));
+										
+					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
+					articleList.add(article);
+					
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - selectCommentList() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return articleList;
+		}
 	
 }
