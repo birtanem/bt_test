@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import place.vo.PlaceBean;
+import place.vo.PlaceCommentBean;
 
 
 
@@ -256,6 +257,57 @@ public class PlaceDAO {
 			}
 			
 			return deleteCount;
+		}
+
+		public int insertComment(PlaceCommentBean pcb) {
+			int insertCount = 0;
+			
+			// DB 작업에 필요한 변수 선언(Connection 객체는 이미 외부로부터 전달받음)
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				
+				int pc_num = 1; // 새 게시물 번호를 저장할 변수(초기값으로 초기번호 1번 설정)
+				
+				// 현재 게시물의 번호 중 가장 큰 번호(최대값)를 조회하여 다음 새 글 번호 결정(+1)
+				String sql = "SELECT MAX(pc_num) FROM place_comment"; // 최대값 조회 쿼리문
+				
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) { // 등록된 게시물이 하나라도 존재할 경우 게시물 번호 조회 성공
+					// 조회된 번호 + 1 을 수행하여 새 글 번호로 저장
+					pc_num = rs.getInt(1) + 1;
+				} 
+				
+				sql = "INSERT INTO place_comment VALUES (?,?,now(),?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pc_num); // 계산된 새 글 번호 사용
+				pstmt.setString(2, pcb.getPc_content());
+				pstmt.setString(3, pcb.getMember_id());
+				pstmt.setInt(4,0); //pc_rank
+				pstmt.setInt(5, pcb.getPl_num()); 
+				 
+			
+				
+				// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
+				insertCount = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+//							e.printStackTrace();
+				System.out.println("PlaceDAO - insertComment() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				// => 주의! Connection 객체는 Service 클래스에서 별도로 사용해야하므로 닫으면 안됨!
+//							JdbcUtil.close(rs);
+//							JdbcUtil.close(pstmt);
+				// => static import 기능을 사용하여 db.JdbcUtil 클래스 내의 모든 static 멤버 import
+				close(rs);
+				close(pstmt);
+			}
+			
+			return insertCount;
 		}
 	
 }

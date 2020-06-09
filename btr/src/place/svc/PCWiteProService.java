@@ -1,14 +1,16 @@
 package place.svc;
 
+import static common.db.JdbcUtil.*;
+
 import java.sql.Connection;
 
 import place.dao.PlaceDAO;
-import place.vo.PlaceBean;
-import static common.db.JdbcUtil.*;
-public class PlaceWriteProService {
+import place.vo.PlaceCommentBean;
 
-	public boolean registArticle(PlaceBean pb) {
-		System.out.println("PlaceWriteProService - registArticle()");
+public class PCWiteProService {
+
+	public boolean registComment(PlaceCommentBean pcb) {
+		System.out.println("PCWriteProService - registArticle()");
 		
 		boolean isWriteSucces = false; // 글 등록 성공 여부를 리턴할 변수
 		
@@ -25,7 +27,7 @@ public class PlaceWriteProService {
 		
 		// 4. BoardDAO 객체의 insertArticle() 메서드를 호출하여 글 등록 처리
 		// => 파라미터 : BoardBean 객체, 리턴타입 : int(insertCount)
-		int insertCount = placeDAO.insertArticle(pb);
+		int insertCount = placeDAO.insertComment(pcb);
 		
 		// 5. 리턴받은 작업 결과 판별
 		// => insertCount 가 0보다 크면 commit() 실행, isWriteSuccess 를 true 로 변경

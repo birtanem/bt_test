@@ -60,6 +60,8 @@
                         <tr>
                             <td>제 목</td>
                             <td style="width: 90%;">${article.pl_name }</td>
+                        </tr>
+                        <tr>
                             <td> 주소 </td><td>${article.pl_address }</td>
                         </tr>
                         <tr>
@@ -72,15 +74,17 @@
                             <td colspan='3' style="width: 90%; height: 400px;">${article.pl_content }</td>
                         </tr>
                     </table>
-                    
-                    <form action="PC_WritePro.pl?r_num=${article.pl_num }" method="post">
-                    	<input type="hidden" name="id" value="test">
+                    <c:if test="${id != null}" >
+                    <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post">
+                    	<input type="hidden" name="id" value="${id }">
+                    	<input type="hidden" name="page" value="<%=nowPage%>">
                     	<textarea rows="5" cols="100" name="pc_content"></textarea>
                     <input type="submit" value="댓글">
                     </form>
+                    </c:if>
                     
                    
-					<c:if test="${id != adminid}" >
+					<c:if test="${id == adminid}" >
                     <input type="button" value="수정" onclick="location.href='PlaceUpdateForm.pl?pl_num=${article.pl_num }&page=<%=nowPage%>'">
                     <input type="button" value="삭제" onclick="location.href='PlaceDeletePro.pl?pl_num=${article.pl_num }&page=<%=nowPage%>'">
 					</c:if>
