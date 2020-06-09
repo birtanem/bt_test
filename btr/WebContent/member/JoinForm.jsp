@@ -129,20 +129,25 @@ button:hover {
 	width: 100%;
 }
 </style>
+
 <script type="text/javascript">
+
+
 
 function idCheck() {
 
 	if(joinForm.id.value=="") {
-		$("#idChk").html("필수 입력");
+		$("#user_id").focus();
+		alert("아이디를 입력해주세요");
 		return false;
-	}else {
+	} else {
 		return true;
-	}	
+	}
 }
 function passCheck() {
 	if(joinForm.pass.value=="") {
-		$("#passChk").html("필수 입력");
+		$("#pass").focus();
+		alert("비밀번호를 입력해주세요");
 		return false;
 	}else{
 		
@@ -151,7 +156,8 @@ function passCheck() {
 }
 function repassCheck() {
 	if(joinForm.repass.value != joinForm.pass.value) {
-		$("#repassChk").html("비밀번호 불일치");
+		$("#repass").focus();
+		alert("비밀번호 확인 오류!");
 		return false;
 	}else{
 		
@@ -160,7 +166,8 @@ function repassCheck() {
 }
 function nameCheck() {
 	if(joinForm.name.value=="") {
-		$("#nameChk").html("필수 입력");
+		$("#name").focus();
+		alert("이름을 입력해주세요");
 		return false;
 	}else{
 		
@@ -169,7 +176,8 @@ function nameCheck() {
 }
 function genderCheck() {
 	if($("#gender option:selected").val() == "성별") {
-		$("#genderChk").html("필수 선택");
+		$("#gender").focus();
+		alert("성별을 선택해주세요");
 		return false;
 	}else{
 		
@@ -179,7 +187,8 @@ function genderCheck() {
 
 function ageCheck() {
 	if(joinForm.age.value=="") {
-		$("#ageChk").html("필수 입력");
+		$("#age").focus();
+		alert("나이를 입력해주세요");
 		return false;
 	}else{
 		
@@ -188,7 +197,8 @@ function ageCheck() {
 }
 function emailCheck() {
 	if(joinForm.email.value=="") {
-		$("#emailChk").html("필수 입력");
+		$("#email").focus();
+		alert("이메일을 입력해주세요");
 		return false;
 	}else{
 		
@@ -197,7 +207,8 @@ function emailCheck() {
 }
 function phoneCheck() {
 	if(joinForm.phone.value=="") {
-		$("#phoneChk").html("필수 입력");
+		$("#phone").focus();
+		alert("휴대폰 번호를 입력해주세요");
 		return false;
 	}else{
 		
@@ -206,7 +217,8 @@ function phoneCheck() {
 }
 function typeCheck() {
 	if($("#type option:selected").val() == "관심사") {
-		$("#typeChk").html("필수 선택");
+		$("#type").focus();
+		alert("관심사를 선택해주세요");
 		return false;
 	}else{
 		
@@ -227,34 +239,35 @@ function joinCheck() {
 	   typeCheck()) {
 		
 		var formData = $("form[name=joinForm]").serialize() ;
-
-		$.ajax({
-            type : 'post',
-            url : 'MemberJoinPro.me',
-            data : formData,
-            success : function(re){
+// MemberJoinPro 에서 ajax 판별용 코드 뺴기  0609/ 0610에 수정할거임
+// --------------------------------수정중이라 회원가입 막아놓음--------------------------
+// 		$.ajax({
+//             type : 'post',
+//             url : 'MemberJoinPro.me',
+//             data : formData,
+//             success : function(re){
         		
-        		var rdata = re.trim();
+//         		var rdata = re.trim();
         		
-        		$(".joinContainer span").html("");
+//         		$(".joinContainer span").html("");
         		
-            	if(rdata == "id") {
+//             	if(rdata == "id") {
             		
-            		$("#idChk").html("아이디 중복");     		
-            	}else if(rdata == "email") {
-            		$("#emailChk").html("이메일 중복");
-            	}else if(rdata == "phone") {
-            		$("#phoneChk").html("휴대전화 중복");
-            	}else if(rdata == "1"){
-            		location.href= "./"
-            	}else {
-            		alert("회원가입 실패")
-            	}
-            },
-            error: function(xhr, status, error){
-                alert(error);
-            }
-        });
+//             		$("#idChk").html("아이디 중복");     		
+//             	}else if(rdata == "email") {
+//             		$("#emailChk").html("이메일 중복");
+//             	}else if(rdata == "phone") {
+//             		$("#phoneChk").html("휴대전화 중복");
+//             	}else if(rdata == "1"){
+//             		location.href= "./"
+//             	}else {
+//             		alert("회원가입 실패")
+//             	}
+//             },
+//             error: function(xhr, status, error){
+//                 alert(error);
+//             }
+//         });
 		
 	}else{
 	
@@ -275,21 +288,21 @@ function joinCheck() {
 
 <form action="MemberJoinPro.me" method="POST" name="joinForm">
   <div class="joinContainer">
-
+	
     <label for="id"><b>아이디</b></label>
-    <input type="text" placeholder="아이디를 입력하세요" name="id">
-    <span id="idChk"></span>
+    <input type="text" placeholder="아이디를 입력하세요" name="id" id="user_id"><%//수정 name id -> user_id %>
+    <div class="check_font" id="id_check"></div>
     
     <label for="pass"><b>비밀번호</b></label>
-    <input type="password" placeholder="비밀번호를 입력하세요" name="pass">
+    <input type="password" placeholder="비밀번호를 입력하세요" name="pass" id="pass">
     <span id="passChk"></span>
     
     <label for="repass"><b>비밀번호 재확인</b></label>
-    <input type="password" placeholder="비밀번호를 입력하세요" name="repass">
+    <input type="password" placeholder="비밀번호를 입력하세요" name="repass" id="repass">
     <span id="repassChk"></span>
     
     <label for="name"><b>이름</b></label>
-    <input type="text" placeholder="이름를 입력하세요" name="name">
+    <input type="text" placeholder="이름를 입력하세요" name="name" id="name">
     <span id="nameChk"></span>
     
     <label for="gender"><b>성별</b></label>
@@ -301,15 +314,15 @@ function joinCheck() {
     <span id="genderChk"></span>
     
     <label for="age"><b>나이</b></label>
-    <input type="text" placeholder="나이를 입력하세요" name="age">
+    <input type="text" placeholder="나이를 입력하세요" name="age" id="age">
     <span id="ageChk"></span>
     
     <label for="email"><b>이메일</b></label>
-    <input type="text" placeholder="이메일을 입력하세요" name="email" >
+    <input type="text" placeholder="이메일을 입력하세요" name="email" id="email">
     <span id="emailChk"></span>
     
     <label for="phone"><b>휴대전화</b></label>
-    <input type="text" placeholder="휴대전화를 입력하세요" name="phone">
+    <input type="text" placeholder="휴대전화를 입력하세요" name="phone" id="phone">
     <span id="phoneChk"></span>
     
     <label for="type"><b>관심사</b></label>
@@ -341,4 +354,55 @@ function joinCheck() {
     <script src="js/main.js"></script>
 
 </body>
+<script>
+
+$("#user_id").blur(function() {
+	var formData = $("#user_id").serialize() ;
+	if(!/^[A-za-z0-9]{5,12}$/.test($('#user_id').val())) {
+		$("#id_check").text("5~12자 영문의 아이디 입력하세요");
+		$("#id_check").css("color","red");
+		
+	} else {
+		
+		$.ajax({
+		url : 'MemberJoinCheck.me',
+		type : 'post',
+		data : formData,
+		success : function(data) {
+			if(data == 1) {
+				$("#id_check").text("사용중인 아이디입니다.");
+				$("#id_check").css("color","red");
+				$("#reg_submit").attr("disabled", true);
+			} else {
+				$("#id_check").text("사용 가능한 아이디입니다.");
+				$("#id_check").css("color","blue");
+				$("#reg_submit").attr("disabled", false);
+			}
+		}, error : function() {
+				console.log("실패");
+		}
+	});	
+	}
+});
+
+$("#pass").blur(function() {                                 //blur 를 바로 동작하는걸로 바꾸기 ##########
+	if(!/^[A-za-z0-9]{5,12}$/.test($('#pass').val())) {
+		passChk
+		$("#passChk").text("5~12자 영문, 숫자의 비밀번호를 입력해주세요");
+		$("#passChk").css("color","red");
+	} else {
+		$("#passChk").text("");
+	}
+});
+
+//이름 제어
+
+//나이제어
+
+//이메일제어
+
+//휴대전화제어
+
+
+</script>
 </html>

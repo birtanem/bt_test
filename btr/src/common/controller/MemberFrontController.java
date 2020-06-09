@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import common.action.Action;
 import common.dao.MemberDAO;
 import common.vo.ActionForward;
+import member.action.MemberJoinCheckAction;
 import member.action.MemberJoinProAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutProAction;
@@ -102,7 +103,19 @@ public class MemberFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 				
+			} else if(command.equals("/MemberJoinCheck.me")){              //수정중 추가 민건
+				
+				action = new MemberJoinCheckAction();
+				
+				try {
+					forward = action.execute(request, response);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			} 
+			
 			//민건 수정 로그아웃 시작
 			else if(command.equals("/MemberLogout.me")) {
 				
