@@ -110,6 +110,13 @@ button:hover {
 	color: red;
 }
 
+#div1 {
+	text-align: end;
+    color: gray;
+    font-size: 11px;
+    float: right;
+}
+
 /* Clear floats */
 .clearfix::after {
   content: "";
@@ -331,7 +338,7 @@ function joinCheck() {
     <input type="text" placeholder="이메일을 입력하세요" name="email" id="email">
     <span id="emailChk"></span>
     
-    <label for="phone"><b>휴대전화</b></label>
+    <label for="phone"><b>휴대전화</b></label><div id="div1">※   하이픈 ( ‐ )을 생략한 번호를 기입해주세요.</div>
     <input type="text" placeholder="휴대전화를 입력하세요" name="phone" id="phone">
     <span id="phoneChk"></span>
     
@@ -482,7 +489,7 @@ $("#email").blur(function() {
 $("#phone").blur(function() {                                
 	var formData3 = $("#phone").serialize() ;
 	
-	if(!/^(?:(010-?\d{4})|(01[1|6|7|8|9]-?\d{3,4}))-?\d{4}$/.test($('#phone').val())) {
+	if(!/^(?:(010\d{4})|(01[1|6|7|8|9]\d{3,4}))\d{4}$/.test($('#phone').val())) {
 		$("#phoneChk").text("올바른 휴대폰번호를 입력해주세요");
 		$("#phoneChk").css("color","red");
 		$("#phoneCheck").attr("value", "denied");
