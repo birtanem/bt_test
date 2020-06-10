@@ -1,24 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>Home | AdminPage</title>
 <!-- core CSS -->
 <link href="css/product_modal.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/animate.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
 <link href="css/owl.carousel.min.css" rel="stylesheet">
 <link href="css/icomoon.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
-<link href="css/review.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
+
+
+<script src="js/product_modal.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.isotope.min.js"></script>
+<script src="js/main.js"></script>
+	
+	
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 
 <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -34,6 +45,7 @@
 <!--/head-->
 <body>
 	<jsp:include page="/inc/top.jsp" />
+	
 	<!--/header-->
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
@@ -45,7 +57,7 @@
 		<form action="PlaceWritePro.pl" method="post" enctype="multipart/form-data" name="placeForm">
 			<table>
 			<tr><td>장소명 :</td><td> <input type="text" name="pl_name" required="required"/></td></tr>
-			<tr><td>장소 소개 내용 </td><td><textarea name="pl_content" cols="40" rows="15" required="required" style="resize: none;"></textarea></td></tr>
+			<tr><td>장소 소개 내용 </td><td><textarea id="summernote" name="pl_content" required="required" >소개글을 등록해주세요</textarea></td></tr>
 			<tr><td>주소 : </td><td><input type="text" name="pl_address" required="required"/></td></tr>
 			<tr><td>사진파일 : </td><td><input type="file" name="pl_image" required="required"/></td></tr>
 			<tr><td>주제 : </td><td><input type="text" name="pl_theme" required="required"/></td></tr>
@@ -99,13 +111,26 @@
 		</div>
 	</footer>
 	<!--/#footer-->
-	<script src="js/product_modal.js"></script>
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.isotope.min.js"></script>
-	<script src="js/main.js"></script>
+
+
+	<script>
+	    $(document).ready(function() {
+	        $('#summernote').summernote({
+	            tabsize: 1,
+	            height: 350,
+	            toolbar: [
+	                // [groupName, [list of button]]
+	                ['style', ['bold', 'italic', 'underline', 'clear']],
+	                ['font', ['strikethrough', 'superscript', 'subscript']],
+	                ['fontsize', ['fontsize']],
+	                ['color', ['color']],
+	                ['para', ['ul', 'ol', 'paragraph']],
+	                ['height', ['height']],
+	                ['insert', ['link', 'video']]
+	              ]
+	          });
+	    });
+	  </script>
 
 </body>
 </html>

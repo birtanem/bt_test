@@ -81,7 +81,7 @@ public class PlaceDAO {
 				pstmt.setInt(8, 0); // likeCount
 				pstmt.setString(9, pb.getPl_theme()); 
 			
-				
+				System.out.println(pb.getPl_content());
 				// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
 				insertCount = pstmt.executeUpdate();
 				
@@ -246,10 +246,16 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "DELETE FROM place WHERE pl_num=?";
+				String sql = "DELETE FROM place_comment WHERE pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
+				
+				sql = "DELETE FROM place WHERE pl_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				deleteCount = pstmt.executeUpdate();
+				
 			} catch (SQLException e) {
 				System.out.println("PlaceDAO - deleteArticle() 오류 - " + e.getMessage());
 			} finally {
