@@ -138,7 +138,38 @@ public class ReviewFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if (command.equals("/Comment_UpdateForm.re")) {
+			
+			action = new CommentUpdateFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if (command.equals("/Comment_UpdatePro.re")) {
+			
+			action = new CommentUpdateProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if (command.equals("/Comment_Delete.re")) {
+			
+			action = new CommentDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 		
 		if (forward != null) {
 			

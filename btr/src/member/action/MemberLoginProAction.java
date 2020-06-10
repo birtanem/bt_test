@@ -16,15 +16,11 @@ public class MemberLoginProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
 	
-		
 			System.out.println("MemberLoginProAction");
-			
-			
+					
 			ActionForward forward = null;
-			
-			
+					
 			 // 아이디와 비밀번호를 가져온다.
 	        String id = request.getParameter("id");
 	        String pass = request.getParameter("pass");
@@ -32,50 +28,41 @@ public class MemberLoginProAction implements Action {
 	        System.out.println(id+pass);
 	        
 	        
-	        
 	        // MemberLoginProService 클래스 인스턴스 생성 
 	        MemberLoginProService mlps = new MemberLoginProService();
 	        
-	        try {
-				boolean isMember = mlps.isLoginMember(id, pass);
-				
 
+	        	
+				int isMember = mlps.isLoginMember(id, pass);
+				
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
 				// LoginException 예외가 발생하지 않으면 로그인 성공 처리
-				if(isMember) {
+				// ajax =>  출력된 값을 리턴으로 가져감
+				
+				if(isMember == 1) {
 					
 					// 세션 객체를 사용하여 로그인에 성공한 아이디를 저장
 					// => request 객체로부터 HttpSession 객체 가져와서 setAttribute() 호출하여 저장
 					HttpSession session = request.getSession();
-					session.setAttribute("id", id);
+					session.setAttribute("id", id);					
+					out.println("1");
+				}else if(isMember == -1) {					
+					// 비밀번호 틀림
+					out.println("-1");
 					
-					forward = new ActionForward();
-					forward.setRedirect(true);
-					forward.setPath("./");
-					
+				}else {					
+					// 아이디 없음
+					out.println("0");				
 				}
 				
 				
-				
-				
-				
-			} catch (LoginException e) {
-				
+			
 				// LoginException 예외가 발생하여 전달되면 catch 구문 실행됨
 				// => 전달받은 예외 객체의 메세지를 자바스크립트로 출력하면
 				//    로그인 실패에 대한 결과 메세지 출력 구분 가능
 				
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('로그인 실패! - "+e.getMessage() +"')");
-				out.println("history.back()");
-				out.println("</script>");
-			}		
-	        
-	        
-	        
-	      
-	        
 	        return forward;
 	        
 	        

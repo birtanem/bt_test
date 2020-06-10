@@ -49,7 +49,6 @@
         <div class="blog container">
             <div class="row">
                 <div class="col-md-8">
-
                 	<table>
                 		<c:forEach var="article" items="${articleList }" >
                 			
@@ -60,9 +59,9 @@
 									</div>
 									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
 										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											[카테고리]&nbsp;${article.r_subject }(&nbsp;like&nbsp;${article.r_likecount })
+											[${article.r_name }]&nbsp;${article.r_subject }&nbsp;<img src="review/love.png" width="25px" height="25px">&nbsp;${article.r_likecount } (${article.r_cnt })
 										</div>
-										<div style="width: 100%; height: 25px; font-size: 14px">
+										<div style="min-width: 200px; height: 25px; font-size: 14px">
 											${article.r_id }&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }
 										</div>
 										<p style="font-size: 20px;">
@@ -80,8 +79,8 @@
 
                 <aside class="col-md-4">
                     <div class="widget search">
-                        <form role="form">
-                            <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
+                        <form action="Review_List.re" role="form">
+                            <input type="text" name="r_search" class="form-control search_box" autocomplete="off" placeholder="Search Here">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -89,22 +88,29 @@
  
                     <!--글 쓰기-->
                     <div>
-                    
-                    <input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
-                    
+                    <c:if test="${sessionScope.id != null}">
+                    	<input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
+                    </c:if>
                     </div>
                     <!--글 쓰기-->
                     
 					<!--카테고리-->
                     <div class="widget archieve">
-                        <h3>Kategories</h3>
+                        <h3>Categories</h3>
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="blog_archieve">
-                                    <li><a href="#">December 2013 <span class="pull-right">(97)</span></a></li>
-                                    <li><a href="#">November 2013 <span class="pull-right">(32)</span></a></li>
-                                    <li><a href="#">October 2013 <span class="pull-right">(19)</span></a></li>
-                                    <li><a href="#">September 2013 <span class="pull-right">(08)</span></a></li>
+                                	<li><a href="Review_List.re">전체 글</a></li>
+                                    <li><a href="Review_List.re?r_code=1">강서구</a> <span><a href="Review_List.re?r_code=9">사상구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=2">금정구</a> <span><a href="Review_List.re?r_code=10">사하구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=3">기장군</a> <span><a href="Review_List.re?r_code=11">서구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=4">남구</a> <span><a href="Review_List.re?r_code=12">수영구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=5">동구</a> <span><a href="Review_List.re?r_code=13">연제구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=6">동래구</a> <span><a href="Review_List.re?r_code=14">영도구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=7">부산진구</a> <span><a href="Review_List.re?r_code=15">중구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=8">북구</a> <span><a href="Review_List.re?r_code=16">해운대구</a></span></li>
+                                    <li><a href="Review_List.re?r_code=17">기타지역(부산외)</a></li>
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -130,12 +136,12 @@
                     		</c:otherwise>
                     	</c:choose>
                     
-                    	<c:forEach var="a" begin="${pageInfo.page }" end="${pageInfo.endPage }" step="1">
+                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
                     		
                     		<c:choose>
                     		
-                    			<c:when test="${pageInfo.page <= 1 }">
-                    				<li class="active"><a href="Review_List.re?page=${a }">${a }</a></li>
+                    			<c:when test="${a == pageInfo.page }">
+                    				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
 									<li><a href="Review_List.re?page=${a }">${a }</a></li>
@@ -166,11 +172,11 @@
     <!--/#bottom-->
 <jsp:include page="/inc/bottom.jsp"/>
     <!--/#footer-->
-    <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.prettyPhoto.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/jquery.isotope.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import place.vo.PlaceBean;
+import place.vo.PlaceCommentBean;
 
 
 
@@ -80,7 +81,7 @@ public class PlaceDAO {
 				pstmt.setInt(8, 0); // likeCount
 				pstmt.setString(9, pb.getPl_theme()); 
 			
-				
+				System.out.println(pb.getPl_content());
 				// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
 				insertCount = pstmt.executeUpdate();
 				
@@ -245,10 +246,16 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "DELETE FROM place WHERE pl_num=?";
+				String sql = "DELETE FROM place_comment WHERE pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
+				
+				sql = "DELETE FROM place WHERE pl_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				deleteCount = pstmt.executeUpdate();
+				
 			} catch (SQLException e) {
 				System.out.println("PlaceDAO - deleteArticle() 오류 - " + e.getMessage());
 			} finally {
@@ -256,6 +263,135 @@ public class PlaceDAO {
 			}
 			
 			return deleteCount;
+		}
+
+		public int insertComment(PlaceCommentBean pcb) {
+			int insertCount = 0;
+			
+			// DB 작업에 필요한 변수 선언(Connection 객체는 이미 외부로부터 전달받음)
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				
+				int pc_num = 1; // 새 게시물 번호를 저장할 변수(초기값으로 초기번호 1번 설정)
+				
+				// 현재 게시물의 번호 중 가장 큰 번호(최대값)를 조회하여 다음 새 글 번호 결정(+1)
+				String sql = "SELECT MAX(pc_num) FROM place_comment"; // 최대값 조회 쿼리문
+				
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) { // 등록된 게시물이 하나라도 존재할 경우 게시물 번호 조회 성공
+					// 조회된 번호 + 1 을 수행하여 새 글 번호로 저장
+					pc_num = rs.getInt(1) + 1;
+				} 
+				
+				sql = "INSERT INTO place_comment VALUES (?,?,now(),?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pc_num); // 계산된 새 글 번호 사용
+				pstmt.setString(2, pcb.getPc_content());
+				pstmt.setString(3, pcb.getMember_id());
+				pstmt.setInt(4,0); //pc_rank
+				pstmt.setInt(5, pcb.getPl_num()); 
+				 
+			
+				
+				// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
+				insertCount = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+//							e.printStackTrace();
+				System.out.println("PlaceDAO - insertComment() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				// => 주의! Connection 객체는 Service 클래스에서 별도로 사용해야하므로 닫으면 안됨!
+//							JdbcUtil.close(rs);
+//							JdbcUtil.close(pstmt);
+				// => static import 기능을 사용하여 db.JdbcUtil 클래스 내의 모든 static 멤버 import
+				close(rs);
+				close(pstmt);
+			}
+			
+			return insertCount;
+		}
+
+		public int selectCommentCount(int pl_num) {
+			int listCount = 0;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
+				String sql = "SELECT COUNT(pc_num) FROM place_comment WHERE pl_num = ?"; // COUNT() 함수 사용
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - selectCommentCount() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return listCount;
+		}
+
+		public ArrayList<PlaceCommentBean> selectCommentList(int pl_num, int page, int limit) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page - 1) * limit; // 가져올 게시물에 대한 시작 행 번호 계산
+			
+			// 전체 게시물을 저장할 ArrayList 객체 생성 => 제네릭 타입 BoardBean 타입 지정
+			ArrayList<PlaceCommentBean> articleList = new ArrayList<PlaceCommentBean>();
+			
+			try {
+				// 게시물 갯수 조회할 SQL 구문 작성
+				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
+				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
+				
+				String sql = "SELECT * FROM place_comment WHERE pl_num=? ORDER BY pc_date desc LIMIT ?,? ";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
+				rs = pstmt.executeQuery();
+				
+				// 조회된 레코드 만큼 반복
+				while(rs.next()) {
+					// 1개 레코드(게시물)를 저장할 BoardBean 객체 생성
+					PlaceCommentBean article = new PlaceCommentBean();
+					// BoardBean 객체에 조회된 레코드(게시물) 정보를 저장
+					article.setPc_num(rs.getInt("pc_num"));
+					article.setPc_content(rs.getString("pc_content"));
+					article.setPc_date(rs.getDate("pc_date"));
+					article.setMember_id(rs.getString("member_id"));
+					article.setPc_rank(rs.getInt("pc_rank"));
+					article.setPl_num(rs.getInt("pl_num"));
+										
+					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
+					articleList.add(article);
+					
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - selectCommentList() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return articleList;
 		}
 	
 }

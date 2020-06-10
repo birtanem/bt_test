@@ -2,6 +2,7 @@ package review.action;
 
 import java.io.*;
 
+import javax.mail.Session;
 import javax.servlet.http.*;
 
 import common.action.*;
@@ -18,10 +19,16 @@ public class ReviewDeleteProAction implements Action {
 		System.out.println("ReviewDeleteProAction");
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
-		System.out.println(r_num);
+		String page = request.getParameter("page");
 		ReviewDeleteService reviewDeleteService = new ReviewDeleteService();
 		
-		boolean article = reviewDeleteService.DeleteArticle(r_num);
+		HttpSession session = request.getSession();
+		
+		String r_id = (String) session.getAttribute("id");
+		
+		System.out.println(r_id);
+		
+		boolean article = reviewDeleteService.DeleteArticle(r_num,r_id);
 		
 		if (!article) {
 			response.setContentType("text/html;charset=UTF-8");
@@ -32,7 +39,8 @@ public class ReviewDeleteProAction implements Action {
 			out.println("</script>");
 		}else {
 			forward = new ActionForward();
-			forward.setPath("Review_List.re");
+			forward.setRedirect(true);
+			forward.setPath("Review_List.re?page="+page);
 		}
 		
 		return forward;

@@ -75,7 +75,7 @@
 					</a>	
 				</label>
 				<label id="label3">
-					<a href="#" style="display: block;"> 
+					<a href="Suggestion_Info.su" style="display: block;"> 
 						<span>
 							<img alt="c" src="${pageContext.request.contextPath}/images/suggestion/c.png" 
 										 onmouseover="this.src='${pageContext.request.contextPath}/images/suggestion/c1.png'" 

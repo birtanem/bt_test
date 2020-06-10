@@ -332,13 +332,13 @@ text-align: center; border: 3px solid pink;" >
 				<input type="text" id="amount${status.count }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
 				<input type="button" value="+" onclick="minuscount(${status.count },1)">
 				<input type="hidden" id="price${status.count }" value="${p.p_price}">
-				
-<%-- 	<button class="btnCalc minus" id="plus" onclick="addAmount(-1,${status.index})">-</button> --%>
-<%--       <input type="text" id="amount${status.index }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량"> --%>
-<%--       <button class="btnCalc plus" id="minus" onclick="addAmount(1,${status.index})">+</button> --%>
-		
 		</td> 
+<<<<<<< HEAD
+		<td id="td${status.count }">
+			${cartList[status.index].c_p_amount * p.p_price}
+=======
 <%-- 			<input type="text" value="${cartList[status.index].c_p_amount * p.p_price}" id="money${status.count }"> --%>
+>>>>>>> refs/remotes/origin/master
 		</td>
 	</tr>
 </c:forEach>

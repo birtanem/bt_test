@@ -18,14 +18,14 @@ public class PlaceWriteProService {
 		Connection con = getConnection(); // static import 로 지정된 메서드 호출
 		
 		// 공통작업-2. DB 작업을 위한 BoardDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
-		PlaceDAO boardDAO = PlaceDAO.getInstance();
+		PlaceDAO placeDAO = PlaceDAO.getInstance();
 		
 		// 공통작업-3. BoardDAO 객체에 Connection 객체 전달
-		boardDAO.setConnection(con);
+		placeDAO.setConnection(con);
 		
 		// 4. BoardDAO 객체의 insertArticle() 메서드를 호출하여 글 등록 처리
 		// => 파라미터 : BoardBean 객체, 리턴타입 : int(insertCount)
-		int insertCount = boardDAO.insertArticle(pb);
+		int insertCount = placeDAO.insertArticle(pb);
 		
 		// 5. 리턴받은 작업 결과 판별
 		// => insertCount 가 0보다 크면 commit() 실행, isWriteSuccess 를 true 로 변경

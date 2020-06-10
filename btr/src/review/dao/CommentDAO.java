@@ -254,5 +254,53 @@ public class CommentDAO {
 		
 		return article;
 	}
+
+	public int updateArticle(CommentBean article) {
+
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update review_comment set rc_content = ? where rc_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, article.getRc_content());
+			pstmt.setInt(2, article.getRc_num());
+			
+			updateCount = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("CommentDAO - updateArticle() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return updateCount;
+	}
+
+	public int deleteArticle(int rc_num) {
+
+		int deleteCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "delete from review_comment where rc_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rc_num);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("CommentDAO - deleteArticle() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
 	
 }

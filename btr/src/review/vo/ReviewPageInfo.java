@@ -7,25 +7,18 @@ public class ReviewPageInfo {
 	private int startPage;
 	private int endPage;
 	private int listCount;
-	private int commentCount;
 	
 	public ReviewPageInfo() {}
 
-	public ReviewPageInfo(int page, int maxPage, int startPage, int endPage, int listCount, int commentCount) {
+	public ReviewPageInfo(int page, int maxPage, int startPage, int endPage, int listCount) {
 		super();
 		this.page = page;
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
 		this.listCount = listCount;
-		this.commentCount = commentCount;
 	}
 	
-	public ReviewPageInfo(int commentCount) {
-		super();
-		this.commentCount = commentCount;
-	}
-
 	public int getPage() {
 		return page;
 	}
@@ -66,12 +59,4 @@ public class ReviewPageInfo {
 		this.listCount = listCount;
 	}
 
-	public int getCommentCount() {
-		return commentCount;
-	}
-
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
-	}
-	
 }
