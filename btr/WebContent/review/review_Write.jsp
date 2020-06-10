@@ -1,6 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,9 @@
     
 </head>
 <body>
-    
+    <c:if test="${sessionScope.id == null}">
+    	<c:redirect url="MemberLoginForm.me" />
+    </c:if>
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
@@ -71,7 +74,7 @@
 						
 			
 						<table style="width: 500px; float: right; ">
-					          <tr><td>작성자</td><td colspan="2"><input type="text" name="r_id" value="admin"></td></tr>
+					          <tr><td>작성자</td><td colspan="2"><input type="text" name="r_id" value="${sessionScope.id }"></td></tr>
 					          <tr><td style="float: left;">지역선택 </td><td>
 		            		<select name="r_code">
 		            			<option value="0">지역 선택하세요</option>

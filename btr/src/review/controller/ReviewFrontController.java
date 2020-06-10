@@ -167,17 +167,6 @@ public class ReviewFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-		}else if (command.equals("/Review_ListRegion.re")) {
-			
-			action = new ReviewRegionAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
 		}
 		
 		

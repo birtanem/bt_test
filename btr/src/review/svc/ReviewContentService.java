@@ -35,9 +35,9 @@ public class ReviewContentService {
 		
 	}
 
-	public int getLikeArticle(int r_num) {
+	public boolean getLikeArticle(int r_num) {
 
-		int likeCount = 0;
+		boolean likeArticle = false;
 		System.out.println("ReviewContentService - getLikeArticle");
 		Connection con = getConnection();
 		
@@ -45,16 +45,17 @@ public class ReviewContentService {
 		
 		reviewDAO.setConnection(con);
 		
-		likeCount = reviewDAO.UpdateLikeCount(r_num);
+		int likeCount = reviewDAO.UpdateLikeCount(r_num);
 		
 		if (likeCount > 0) {
 			commit(con);
+			likeArticle = true;
 		}else {
 			rollback(con);
 		}
 		close(con);
 		
-		return likeCount;
+		return likeArticle;
 	}
 	
 }

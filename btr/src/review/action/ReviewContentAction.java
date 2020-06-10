@@ -25,7 +25,7 @@ public class ReviewContentAction implements Action{
 		ReviewContentService reviewContentService = new ReviewContentService();
 		
 		ReviewBean article = reviewContentService.getArticle(r_num);
-		
+
 		CommentListService commentListService = new CommentListService();
 		
 		int commentCount = commentListService.getArticle();

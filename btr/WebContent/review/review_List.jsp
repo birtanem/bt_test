@@ -59,7 +59,7 @@
 									</div>
 									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
 										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											[${article.r_name }]&nbsp;${article.r_subject }(&nbsp;like&nbsp;${article.r_likecount }) (${article.r_cnt })
+											[${article.r_name }]&nbsp;${article.r_subject }&nbsp;<img src="review/love.png" width="25px" height="25px">&nbsp;${article.r_likecount } (${article.r_cnt })
 										</div>
 										<div style="min-width: 200px; height: 25px; font-size: 14px">
 											${article.r_id }&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }
@@ -88,9 +88,9 @@
  
                     <!--글 쓰기-->
                     <div>
-                    
-                    <input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
-                    
+                    <c:if test="${sessionScope.id != null}">
+                    	<input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
+                    </c:if>
                     </div>
                     <!--글 쓰기-->
                     
@@ -172,11 +172,11 @@
     <!--/#bottom-->
 <jsp:include page="/inc/bottom.jsp"/>
     <!--/#footer-->
-    <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.prettyPhoto.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/jquery.isotope.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
