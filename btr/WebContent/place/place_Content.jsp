@@ -7,6 +7,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="article" value="${article }" />
     <c:set var="commentList" value="${commentList }" />
+    <c:set var="pageInfo" value="${cpageInfo }"  /> 
 <%
 ArrayList<PlaceCommentBean> articleList = (ArrayList<PlaceCommentBean>)request.getAttribute("commentList");
 PCpageInfo pageInfo = (PCpageInfo)request.getAttribute("cpageInfo");
@@ -78,102 +79,144 @@ String plPage = request.getParameter("page");
             <section id="blog">
         
                 <div class="blog container">
-                    <div class="row" style="padding-left: 100px; padding-right: 100px;">
-                                <section id="writeForm">
-                    <table>
-                        <tr>
-                            <td>제 목</td>
-                            <td style="width: 90%;">${article.pl_name }</td>
-                        </tr>
-                        <tr>
-                            <td> 주 소 </td><td>${article.pl_address }</td>
-                        </tr>
-                        <tr>
-                            <td>사${pl_num }진</td>
-                                                     
-                            <td colspan='3' style="width: 90%; height: 400px;"><img src="placeUpload/${article.pl_image }" width="400px"></td>
-                        </tr>
-                        <tr>
-                            <td>내용</td>
-                            <td colspan='3' style="width: 90%; height: 400px;">${article.pl_content }</td>
-                        </tr>
-                    </table>
-                    <c:if test="${id != null}" >
-                    <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post">
-                    	<input type="hidden" name="id" value="${id }">
-                    	<input type="hidden" name="page" value="<%=plPage%>">
-                    	<textarea rows="5" cols="100" name="pc_content"></textarea>
-                    <input type="submit" value="댓글">
-                    </form>
-                    </c:if>
-                    
-                   
-					<c:if test="${sessionScope.id == 'admin'}" >
-                    <input type="button" value="수정" onclick="location.href='PlaceUpdateForm.pl?pl_num=${article.pl_num }&page=<%=plPage%>'">
-                    <input type="button" value="삭제" onclick="location.href='PlaceDeletePro.pl?pl_num=${article.pl_num }&page=<%=plPage%>'">
-					</c:if>
-                    				
-                  	
-                    
-                    
-                    <input type="button" value="목록" onclick="location.href='PlaceList.pl?page=<%=plPage%>'">
-                    
-                    <%
-			if(articleList != null && listCount > 0) {
-			%>
-                    
-                    <table> 
+            <div class="row">
+                <div class="col-md-8">
 
-                    <c:forEach var="commentList" items="${commentList }">
-                    	<tr>
-	                    	<td>${commentList.pc_content }</td>
-	                    	<td>${commentList.member_id }</td>
-	                    	<td>${commentList.pc_date }</td>
-	                    	<td>${commentList.pc_rank }</td>
-	                    	
-	                    	
-	                    </tr>
-                    </c:forEach>
-                    </table>
+                    <div class="blog-item">
+                        <a href="#"><img class="img-responsive img-blog" src="placeUpload/${article.pl_image }" width="100%" alt="" /></a>
+                        <div class="blog-content">
+                            <a href="#" class="blog_cat">테 마(주제) : ${article.pl_theme} / 주 소 : ${article.pl_address }</a>
+                            <h2>장소 명 : ${article.pl_name }</h2>
+                            <div class="post-meta">
+                                <p>주 소 : ${article.pl_address }</p>
+                                <p><i class="fa fa-clock-o"></i> ${article.pl_date }</p>
+                                <p><i class="fa fa-comment"></i> ${article.pl_readcount }</p>
+                                <p>
+                                    share:
+                                    <a href="#" class="fa fa-facebook"></a>
+                                    <a href="#" class="fa fa-twitter"></a>
+                                    <a href="#" class="fa fa-linkedin"></a>
+                                    <a href="#" class="fa fa-pinterest"></a>
+                                </p>
+                            </div>
+                            ${article.pl_content }
+                            
+                            <div class="inner-meta">
+                            <c:if test="${sessionScope.id == 'admin'}" >
+                                <ul class="tags">
+                                    <li><a href="PlaceUpdateForm.pl?pl_num=${article.pl_num }&page=<%=plPage%>">수정</a></li>
+                                    <li><a href="PlaceDeletePro.pl?pl_num=${article.pl_num }&page=<%=plPage%>">삭제</a></li>
+                                </ul>
+                            </c:if>
+
+                                <div class="social-btns">
+                                    <a href="#"> <i class="fa fa-heart"></i> Like</a>
+                                    <a href="#" class="tweet-bg"> <i class="fa fa-twitter"></i> tweet</a>
+                                    <a href="#" class="facebook-bg"> <i class="fa fa-facebook"></i> facebook</a>
+                                </div>
+                            </div>
+                            
+                            <div class="comments">
+                                <h2>Comments</h2>
+                                <c:if test="${id != null}" >
+                                <div class="single-comment">
+                                    <div class="comment-img">
+                                        <img src="images/graverter.jpg" alt="author">
+                                    </div>
+                                    <div class="comment-content comment-form">
+                                        <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post">
+                                            <input type="hidden" name="id" value="${id }">
+                    						<input type="hidden" name="page" value="<%=plPage%>">
+                                            <textarea name="pc_content"></textarea>
+                                            <input type="submit" value="Comment">
+                                        </form>
+                                    </div>
+                                </div>
+                                </c:if>
+                                      
+                  
+                                      
+                                <c:forEach var="commentList" items="${commentList }">                                 
+                                <div class="single-comment">
+                                    <div class="comment-img">
+                                        <img src="images/graverter.jpg" alt="author">
+                                    </div>
+                                    <div class="comment-content">
+                                        <h5>${commentList.member_id }</h5>
+                                        <p>${commentList.pc_content }</p>
+                                    </div>
+                                    <div class="comment-count">
+                                        <a href="#"><i class="fa fa-reply"></i> ${commentList.pc_date }</a>
+                                        <a href="#"><i class="fa fa-heart"></i> ${commentList.pc_rank }</a>
+                                    </div>
+                                </div>
+                               
+                               
+                               </c:forEach>
+                                                     
+						<!--/.row   페이징 처리-->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg">
                     
-             <section id="pageList">
-	<%if(nowPage <= 1) {%>
-			<input type="button" value="이전">&nbsp;
-	<%} else {%>
-			<input type="button" value="이전" onclick="location.href='PlaceDetail.pl?cpage=<%=nowPage - 1 %>&pl_num=${article.pl_num }&page=<%=plPage%>'">&nbsp;
-	<%} %>
-	
-	<%for(int i = startPage; i <= endPage; i++) { 
-			if(i == nowPage) { %>
-				[<%=i %>]&nbsp;
-			<%} else { %>
-					<a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=<%=i %>">[<%=i %>]</a>&nbsp;
-			<%} %>
-	<%} %>
-	
-	<%if(nowPage >= maxPage) { %>
-			<input type="button" value="다음">
-	<%} else { %>
-			<input type="button" value="다음" onclick="location.href='BoardList.bo?cpage=<%=nowPage + 1 %>&pl_num=${article.pl_num }&page=<%=plPage%>'">
-	<%} %>
-	</section>
-	<%
-	} else {
-	%>
-	<section id="emptyArea">등록된 댓글이 없습니다</section>
-	<%
-	}
-	%>
-             
-             
-             </section>
+                    	<c:choose>
+                    	
+                    		<c:when test="${pageInfo.page <= 1 }">
+                    			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:otherwise>
+                    	</c:choose>
                     
-          </div>      
+                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page <= 1 }">
+                    				<li class="active"><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>
+                    			</c:when>
+                    			<c:otherwise>
+									<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    	
+                    	</c:forEach>
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+                    				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    </ul>
+                    <!--/.pagination-->
+                </div>
+            </div>
+            <!--/.row   페이징 처리-->
+    
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.blog-item-->
+
+
+                </div>
                 <!--/.col-md-8-->
+       <aside class="col-md-4">
+                     <jsp:include page="/inc/includePlace.jsp" />   
+
+                </aside>
+            </div>
+            <!--/.row-->
         </div>
     </section>
     <!--/#blog-->
-
+    
     <!--/#bottom-->
 <jsp:include page="/inc/bottom.jsp" />
     
