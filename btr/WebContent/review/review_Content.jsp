@@ -113,6 +113,7 @@
 			                    <input type="button" value="삭제" onclick="location.href='Review_DeleteForm.re?r_num=${article.r_num }&page=${nowPage }'">
 		                    </c:if>
 	                    <input type="button" value="목록" onclick="location.href='Review_List.re?page=${nowPage }'">
+	                    <img src="review/love.png" width="30px" height="30px" onclick="location.href='Review_ContentLike.re?r_num=${article.r_num }&page=${nowPage }'">
                     	</div>
 
                     </c:if>
@@ -143,6 +144,7 @@
 		                    		<input type="button" value="답글" onclick="location.href='Comment_ReplyForm.re?rc_num=${articleList.rc_num }&r_num${article.r_num }&page=${nowPage }'">
 		                    		<input type="button" value="수정" onclick="location.href='Comment_UpdateForm.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
 		                    		<input type="button" value="삭제" onclick="location.href='Comment_Delete.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
+			                    	
 		                    	</td>
 		                    	<td>${articleList.rc_date }</td>
 		                    </tr>
