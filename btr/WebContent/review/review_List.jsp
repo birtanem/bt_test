@@ -88,9 +88,9 @@
  
                     <!--글 쓰기-->
                     <div>
-                    
-                    <input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
-                    
+                    <c:if test="${sessionScope.id != null}">
+                    	<input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
+                    </c:if>
                     </div>
                     <!--글 쓰기-->
                     
