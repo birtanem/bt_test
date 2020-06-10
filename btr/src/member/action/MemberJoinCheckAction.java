@@ -22,21 +22,16 @@ public class MemberJoinCheckAction implements Action {
 		System.out.println("MemberJoinCheckAction");
 		
 		ActionForward forward =null;
-		    	
-		// 폼에서 입력받은 데이터  MemberBean 저장
-		MemberBean memberBean = new MemberBean();
 
+		String id = request.getParameter("id");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		System.out.println(id);
+		System.out.println(email);
+		System.out.println(phone);
 		
-		memberBean.setId(request.getParameter("id"));
-//		memberBean.setPass(request.getParameter("pass"));
-//		memberBean.setName(request.getParameter("name"));
-//		memberBean.setAge(Integer.parseInt(request.getParameter("age")));
-//		memberBean.setGender(request.getParameter("gender"));
-//		memberBean.setEmail(request.getParameter("email"));
-//		memberBean.setPhone(request.getParameter("phone"));
-//		memberBean.setType(request.getParameter("type"));
 
-		
+
 		// 회원가입 서비스 MemberJoinProService 생성하고
 		// 회원가입 처리할 registMember() 메서드 실행
 		MemberJoinCheckService memberJoinCheckService = new MemberJoinCheckService();
@@ -45,11 +40,23 @@ public class MemberJoinCheckAction implements Action {
 		PrintWriter out = response.getWriter();
 		
 		// dupCheck
+		boolean isDuplicateCheck = false;
 		
-		boolean isDuplicateIdCheck = memberJoinCheckService.duplicateIdCheck(request.getParameter("id"));
+		if(request.getParameter("id") != null) {
+			isDuplicateCheck = memberJoinCheckService.duplicateIdCheck(id);
+		} 
 		
-		if(!isDuplicateIdCheck) { //false 인 경우
-			out.println(request.getParameter("id"));
+		if (request.getParameter("email") != null) {
+			isDuplicateCheck = memberJoinCheckService.duplicateEmailCheck(email);
+		} 
+		
+		if (request.getParameter("phone") != null) {
+			isDuplicateCheck = memberJoinCheckService.duplicatePhoneCheck(phone);
+		}
+
+		if(!isDuplicateCheck) { //false 인 경우
+//			out.println(request.getParameter("id"));
+			out.println(0);
 		}else { // id 중복 true 인 경우
 			out.println(1);						
 		}  

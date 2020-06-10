@@ -47,7 +47,7 @@ public class MemberLoginProAction implements Action {
 					// => request 객체로부터 HttpSession 객체 가져와서 setAttribute() 호출하여 저장
 					HttpSession session = request.getSession();
 					session.setAttribute("id", id);					
-					out.println("1");					
+					out.println("1");
 				}else if(isMember == -1) {					
 					// 비밀번호 틀림
 					out.println("-1");

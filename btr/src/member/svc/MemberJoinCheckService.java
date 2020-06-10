@@ -25,30 +25,24 @@ public class MemberJoinCheckService {
 	}
 	
 	public boolean duplicateEmailCheck(String id) {
-		System.out.println("MemberJoinProService - duplicateEmailCheckMember()");
+		System.out.println("MemberJoinCheckService - duplicateEmailCheckMember()");
 		
-		// 커넥션 생성
 		Connection con = getConnection();
-		// MeberDAO 생성
 		MemberDAO memberDAO = MemberDAO.getInstance();
-		// MemberDAO 커넥션 연결
 		memberDAO.setConnection(con);
 		
 		boolean isDuplicateEmailCheck = memberDAO.duplicateEmailCheck(id);
-
+		
 		close(con);
 		
 		return isDuplicateEmailCheck;
 	}
 	
 	public boolean duplicatePhoneCheck(String id) {
-		System.out.println("MemberJoinProService - duplicatePhoneCheckMember()");
+		System.out.println("MemberJoinCheckService - duplicatePhoneCheckMember()");
 		
-		// 커넥션 생성
 		Connection con = getConnection();
-		// MeberDAO 생성
 		MemberDAO memberDAO = MemberDAO.getInstance();
-		// MemberDAO 커넥션 연결
 		memberDAO.setConnection(con);
 		
 		boolean isDuplicatePhoneCheck = memberDAO.duplicatePhoneCheck(id);

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.action.Action;
 import common.vo.ActionForward;
@@ -42,56 +43,34 @@ public class MemberJoinProAction implements Action {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		// dupCheck
-		
-		boolean isDuplicateIdCheck = memberJoinProService.duplicateIdCheck(request.getParameter("id"));
-		
-		if(!isDuplicateIdCheck) { 
-			
-			boolean isDuplicateEmailSuccess = memberJoinProService.duplicateEmailCheck(request.getParameter("email"));
-			
-			if(!isDuplicateEmailSuccess) {
-				
-				boolean isDuplicatePhoneSuccess = memberJoinProService.duplicatePhoneCheck(request.getParameter("phone"));
-				
-				if(!isDuplicatePhoneSuccess) {
-					
-					// 중복 없음
-					// 회원가입 진행
-					
-					boolean isJoinSuccess = memberJoinProService.registMember(memberBean);
-									
-					if(!isJoinSuccess) { // 회원가입 실패
-						
 
-						out.println("0");
-						
-						
+					boolean isJoinSuccess = memberJoinProService.registMember(memberBean);
+					
+					if(!isJoinSuccess) { // 회원가입 실패
+						out.println("<script>"); 
+						out.println("alert('회원가입 실패!')");
+						out.println("history.back()");
+						out.println("</script>"); 
 					}else { // 회원가입 성공
 						
 						// 회원가입 성공하면 바로 로그인처리
 						
-						request.setAttribute("id", request.getParameter("id"));
-						request.setAttribute("pass", request.getParameter("passwd"));
+						//loginAcion은 loginForm <-> ajax 로 반응하기 때문에  joinAction 에서 바로 날리면 페이지 이동이 안뎀.
+//						request.setAttribute("id", request.getParameter("id"));
+//						request.setAttribute("pass", request.getParameter("passwd"));
+//						forward = new ActionForward();
+////						forward.setRedirect(true);
+//						forward.setPath("MemberLoginPro.me");
+						
+						//바로 세션값주고 로그인시킴
+						HttpSession session = request.getSession();
+						session.setAttribute("id", request.getParameter("id"));
 						forward = new ActionForward();
-//						forward.setRedirect(true);
-						forward.setPath("MemberLoginPro.me");
+						forward.setPath("./");
 					}
 					
 					
-				}else { // phone 중복					
-					out.println("phone");				
-				}
-				
-			}else { // email 중복			
-				out.println("email");
-			}
-			
-		}else { // id 중복			
-			out.println("id");						
-		}  
-		
+
         return forward;
 
 	}
