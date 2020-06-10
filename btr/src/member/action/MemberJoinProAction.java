@@ -62,11 +62,18 @@ public class MemberJoinProAction implements Action {
 ////						forward.setRedirect(true);
 //						forward.setPath("MemberLoginPro.me");
 						
-						//바로 세션값주고 로그인시킴
+//						//바로 세션값주고 로그인시킴######## 회원가입 완료라는 창을 띄우기 위해 자동 로그인 해제함
+//						HttpSession session = request.getSession();
+//						session.setAttribute("id", request.getParameter("id"));
+//						forward = new ActionForward();
+//						forward.setPath("./");
+						
+						//alert 창 띄우기위해 세션값 주고 로그인 페이지로 전송
 						HttpSession session = request.getSession();
-						session.setAttribute("id", request.getParameter("id"));
+						session.setAttribute("alertOn", "true");
 						forward = new ActionForward();
-						forward.setPath("./");
+						forward.setPath("./MemberLoginForm.me");
+						
 					}
 					
 					

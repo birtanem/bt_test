@@ -24,12 +24,12 @@
 <script src="js/jquery.isotope.min.js"></script>
 <script src="js/main.js"></script>
 	
-	
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="js/summernote-ko-KR.js"></script>	
 
 
 <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -41,6 +41,27 @@
 	href="images/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
+	
+	<script type="text/javascript">
+        /* summernote에서 이미지 업로드시 실행할 함수 */
+	 	function sendFile(file, editor) {
+            // 파일 전송을 위한 폼생성
+	 		data = new FormData();
+	 	    data.append("uploadFile", file);
+	 	    $.ajax({ // ajax를 통해 파일 업로드 처리
+	 	        data : data,
+	 	        type : "POST",
+	 	        url : "ImageCallback.pl",
+	 	        cache : false,
+	 	        contentType : false,
+	 	        processData : false,
+	 	        success : function(data) { // 처리가 성공할 경우
+                    // 에디터에 이미지 출력
+	 	        	$(editor).summernote('editor.insertImage', data.url);
+	 	        }
+	 	    });
+	 	}
+	</script>
 </head>
 <!--/head-->
 <body>
@@ -55,11 +76,11 @@
  	<div class="blog container">
 		<h1>장소 소개 글 등록</h1>
 		<form action="PlaceWritePro.pl" method="post" enctype="multipart/form-data" name="placeForm">
-			<table>
+			<table style="border : 1px solid">
 			<tr><td>장소명 :</td><td> <input type="text" name="pl_name" required="required"/></td></tr>
-			<tr><td>장소 소개 내용 </td><td><textarea id="summernote" name="pl_content" required="required" >소개글을 등록해주세요</textarea></td></tr>
+			<tr><td>장소<br>소개<br>내용 </td><td><textarea id="summernote" name="pl_content" required="required" >소개글을 등록해주세요</textarea></td></tr>
 			<tr><td>주소 : </td><td><input type="text" name="pl_address" required="required"/></td></tr>
-			<tr><td>사진파일 : </td><td><input type="file" name="pl_image" required="required"/></td></tr>
+			<tr><td>대표 사진 : </td><td><input type="file" name="pl_image" required="required"/></td></tr>
 			<tr><td>주제 : </td><td><input type="text" name="pl_theme" required="required"/></td></tr>
 			<tr><td>지역 : </td><td>
 						<select name="region_code">
@@ -113,24 +134,19 @@
 	<!--/#footer-->
 
 
-	<script>
-	    $(document).ready(function() {
-	        $('#summernote').summernote({
-	            tabsize: 1,
-	            height: 350,
-	            toolbar: [
-	                // [groupName, [list of button]]
-	                ['style', ['bold', 'italic', 'underline', 'clear']],
-	                ['font', ['strikethrough', 'superscript', 'subscript']],
-	                ['fontsize', ['fontsize']],
-	                ['color', ['color']],
-	                ['para', ['ul', 'ol', 'paragraph']],
-	                ['height', ['height']],
-	                ['insert', ['link', 'video']]
-	              ]
-	          });
-	    });
-	  </script>
-
+	  <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({ // summernote를 사용하기 위한 선언
+                    height: 400,lang: 'ko-KR',
+					callbacks: { // 콜백을 사용
+                        // 이미지를 업로드할 경우 이벤트를 발생
+					    onImageUpload: function(files, editor, welEditable) {
+						    sendFile(files[0], this);
+						    
+						}
+					}
+				});
+			});
+		</script>
 </body>
 </html>
