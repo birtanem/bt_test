@@ -84,18 +84,9 @@
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="PlaceList.pl">Place(부산 명소 소개)</a></li>
-                        <li><a href="services.html">Services</a></li>
+                        <li><a href="PlaceList.pl">Place</a></li>
                         <li><a href="Review_List.re">Review</a></li>
                         <li><a href="productList.pr">여행상품</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="blog-item.html">Blog Single</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li><a href="404.html">404</a></li>
-                            </ul>
-                        </li>
                         <li><a href="Suggestion_Menu.su">고객센터</a></li>
                         <li><a href="event.ev">이벤트</a></li>
                     </ul>

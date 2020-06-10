@@ -274,10 +274,6 @@ $(function() {
                 <div class="item active" style="background-image: url('images/Busan-main01.jpg'); background-size: cover;">
                 
 
-				
-                
-
-
                     <div class="container" style="clear: both;">
                         <div class="row">
                             <div class="col-md-7">
@@ -503,11 +499,10 @@ $(function() {
             </div>
             
 
-
-
-
-            
     </section>
+
+    <!--/#bottom-->
+
 	<jsp:include page="inc/bottom.jsp"></jsp:include>
     <!--/#footer-->
 
