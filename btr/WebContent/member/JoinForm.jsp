@@ -273,7 +273,11 @@ function joinCheck() {
 		
 // 		var formData = $("form[name=joinForm]").serialize() ;
 //     index에서 띄워줘야하는데 alert 하나때문에 action페이지 하나 생성해야해서 일단 여기서 처리
-	   alert("회원가입 완료!");
+	   if(confirm("입력하신 정보로 가입하시겠습니까?")){
+		   return true;
+	   } else {
+		   return false;
+	   }
 		
 	}else{
 	

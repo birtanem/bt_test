@@ -107,7 +107,23 @@ span.psw {
 	width: 100%;
 }
 </style>
+<%
+//회원가입 완료후 -> 로그인폼 페이지이동 -> 회원가입완료 알람창 띄우기
+String alertOn = "false";                             //alertOn 값 기본 false 설정
+if(session.getAttribute("alertOn") != null){          //회원가입 완료후 페이지 이동시 alertOn에 세션 true 가져옴
+	alertOn = (String)session.getAttribute("alertOn");
+	}
+if(alertOn.equals("true")){                           //alertOn 세션 true 일 경우 "회원가입 완료!" 알람 띄우기
+	%>
+	<script>
+	alert("회원가입 완료!")
+	</script>
+	<%
+	session.removeAttribute("alertOn");               //alertOn 세션 값 제거 
+}
+%>
 <script type="text/javascript">
+
 function idCheck() {
 	
 	if(loginForm.id.value =="") {
