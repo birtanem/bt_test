@@ -14,7 +14,7 @@ import static common.db.JdbcUtil.*;
 
 public class MemberDAO {
 	
-		private MemberDAO() {}
+		public MemberDAO() {}
 		
 		private static MemberDAO instance;
 		

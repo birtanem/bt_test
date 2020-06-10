@@ -8,19 +8,17 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
-function addAmount(num, idx){
-	var amount=document.getElementById("amount"+idx).value();
-	var count=Number(document.getElementById("amount"+idx).value())+num;
-	if(count<1){
-		count=1;
-		alert("최소수량1개입니다");
-		return false
-	}
-	amount=count;
-	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
-}
-
-
+// function addAmount(num, idx){
+// 	var amount=document.getElementById("amount"+idx).value();
+// 	var count=Number(document.getElementById("amount"+idx).value())+num;
+// 	if(count<1){
+// 		count=1;
+// 		alert("최소 수량 1개입니다");
+// 		return false;
+// 	}
+// 	amount=count;
+// 	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
+// }
 
 
  function checkAll(obj) {
@@ -96,21 +94,20 @@ $('.fun-btn').on('click', function(event) {
 
  function minuscount(num, a) {
 
-		var amount = document.getElementById("amount"+num).value
-		var price = document.getElementById("price"+num).value
+		var amount = document.getElementById("amount"+num).value;
+		var price = document.getElementById("price"+num).value;
 		var count = Number(amount) + a;
 		var total = 0;
 		
-		document.getElementById("amount"+num).value = count
+		document.getElementById("amount"+num).value = count;
 		
-		document.getElementById("td"+num).innerText = count * price
+		document.getElementById("td"+num).innerText = count * price;
 
-		total = Number(document.getElementById("span").innerText) + a*price	
-		document.getElementById("span").innerText = total
+		total = Number(document.getElementById("span").innerText) + a*price	;
+		document.getElementById("span").innerText = total;
 		
 		}
 	
-
 </script>
 
 <style type="text/css">
@@ -247,6 +244,7 @@ table.type10 .even {
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Insert title here</title>
 </head>
+
 <body>
 
 
@@ -319,8 +317,9 @@ text-align: center; border: 3px solid pink;" >
 </c:if>
 <div class="center">
 	<nav style="text-align: center">
-		<input type="button" class="fun-btn" style="text-align: center" value="취소" id="deleteButton" onclick="return deleteCart()">
 		<input type="button" class="fun-btn" style="text-align: center" value="쇼핑 계속하기" onclick="location.href='productList.pr'">
+		<input type="button" class="fun-btn" style="text-align: center" value="주문하기" onclick="location.href='orderFront.or'"><br><br>
+		<input type="button" class="fun-btn" style="text-align: center" value="취소" id="deleteButton" onclick="return deleteCart()">
 	</nav>
 </div>
 	</div>
