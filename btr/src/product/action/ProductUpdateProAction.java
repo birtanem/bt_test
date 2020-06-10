@@ -67,7 +67,17 @@ public class ProductUpdateProAction implements Action {
 			productBean.setP_image(request.getParameter("image"));
 		}
 
-		isUpdate = productUpdateServie.productUpdate(productBean);
+		
+		
+		
+		try {
+			isUpdate = productUpdateServie.productUpdate(productBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+		}
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -77,11 +87,14 @@ public class ProductUpdateProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
+			out.println("<script>");
+			out.println("alert('내용수정됨')");
+			out.println("</script>");
 			forward = new ActionForward();
 			forward.setRedirect(true);
 			forward.setPath("adminProduct.ad");
 		}
-
+		
 		return forward;
 	}
 

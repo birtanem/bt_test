@@ -90,7 +90,7 @@ function goCart(){
 	<div id="product_detail">
 	<div>
 	
-		<p>#${productDetail.p_category}, #${productDetail.region_name }</p>
+		<p>#${productDetail.p_category}&nbsp; #${productDetail.region_name }</p>
 		<p>${productDetail.p_name }</p>
 		<p>${productDetail.p_price }</p>
 		<br>

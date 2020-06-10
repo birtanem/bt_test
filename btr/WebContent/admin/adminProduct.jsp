@@ -4,10 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	//ArrayList<ProductBean> productList = (ArrayList<ProductBean>) request.getAttribute("productList");
-	//int ListCount = (int) request.getAttribute("ListCount");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -36,29 +32,32 @@
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 <script src="js/jquery-3.5.0.js"></script>
+<style type="text/css">
+.p_file{
+display:none;
+}
+</style>
 <script type="text/javascript">
 
-function changeRegionCode(p_num, regionCode){
+function changeRegionCode(p_num, regionCode,idx){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;
+	alert("내용 변경됨");
 }
 function changeCategory(p_num, category){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&p_category="+category;
+	alert("내용 변경됨");
 }
 function popImg(idx){
 	alert("yeah");
-	document.getElementById('myModal'+idx).style.display = "block";
+	document.getElementById('fileModal'+idx).style.display="block";
 }
-
-
-// $(document).ready(function(){
-// 	$('#p_img').select(function(){
-// 		$('#p_img').val().css('color','red');
-// 	});
-// });
-	
+function closepop(idx){
+	document.getElementById('fileModal'+idx).style.display = "none";
+}
 
 </script>
 
+<!-- 	document.getElementById('myModal'+idx).style.display = "block"; -->
 </head>
 
 <body>
@@ -85,8 +84,8 @@ function popImg(idx){
 								<td><input type="checkbox" name="check"></td>
 								<td>${list.p_num}</td>
 								
-								<td><select name="regionCode"
-									onchange="changeRegionCode('${list.p_num }',this.value);">
+								<td><select name="regionCode" id="regionCode${vs.count }"
+									onchange="changeRegionCode('${list.p_num }',this.value,${vs.count });">
 										<option selected value="${list.region_region_code }">${list.region_name }</option>
 										<option value="1">부산진구</option>
 										<option value="2">남포동</option>
@@ -114,13 +113,31 @@ function popImg(idx){
 									class="btn"></td>
 							</form>
 							</tr>
-
+					
+							
 							<!-- 	The Modal -->
-							<div id="myModal${vs.count }" class="modal">
+							<div id="fileModal${vs.count }" class="modal">
+								<!-- Modal content -->
+								<div class="modal-content">
+								<div class="modal-header">
+								<span class="close" onclick="closepop(${vs.count})">&times;</span>
+									<input type="file" name="p_file" id="p_file">
+									</div>
+									<div class="modal-footer">
+										<h3>
+											<input type="button" value="수정" class="btn"onclick="#"> <input
+												type="button" value="취소" class="btn"onclick="closepop(${vs.count})">
+										</h3>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div id="cModal${vs.count }" class="modal">
 								<!-- Modal content -->
 								<div class="modal-content">
 									<div class="modal-header">
-										<span class="close">&times;</span>
+										<span class="close" onclick="closepop(${vs.count})">&times;</span>
 										<h2>
 											<input type="text" class="text" value="${list.p_name}">
 										</h2>
@@ -131,12 +148,20 @@ function popImg(idx){
 									</div>
 									<div class="modal-footer">
 										<h3>
-											<input type="button" value="수정" onclick="#"> <input
-												type="button" value="취소" onclick="#">
+											<input type="button" value="수정" class="btn"onclick="#"> <input
+												type="button" value="취소" class="btn"onclick="closepop(${vs.count})">
 										</h3>
 									</div>
 								</div>
 							</div>
+							
+							
+							
+							
+							
+							
+							
+						
 						</c:forEach>
 					</table>
 			</c:when>
@@ -173,7 +198,7 @@ function popImg(idx){
 		</div>
 	</footer>
 	<!--/#footer-->
-	<script src="js/product_modal.js"></script>
+	
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.prettyPhoto.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
