@@ -65,7 +65,7 @@
 											&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount }
 										</div>
 										<p style="font-size: 20px;">
-											${article.pl_content }
+											
 										</p>
 									</div>
 								</li>
