@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import member.vo.JoinException;
 import member.vo.MemberBean;
+import suggestion.vo.SuggestionBean;
 
 import static common.db.JdbcUtil.*;
 
@@ -275,8 +276,64 @@ public class MemberDAO {
 			}
 			return isDuplicatePhoneCheck;
 		}
-	
+		
+		
+		public MemberBean getMemberInfo(String id) {
+			
+			MemberBean memberInfo = new MemberBean();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+				String sql = "select * from member where id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+
+				while(rs.next()) {
+					// SuggestionBean 객체에 조회된 레코드(게시물) 정보를 저장
+					memberInfo.setId(rs.getString("id"));
+					memberInfo.setPass(rs.getString("pass"));
+					memberInfo.setName(rs.getString("name"));
+					memberInfo.setAge(rs.getInt("age"));
+					memberInfo.setGender(rs.getString("gender"));
+					memberInfo.setEmail(rs.getString("email"));
+					memberInfo.setPhone(rs.getString("phone"));
+					memberInfo.setDate(rs.getDate("date"));
+					memberInfo.setPoint(rs.getInt("point"));
+					memberInfo.setType(rs.getString("type"));					
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - getMemberInfo() 실패! : " + e.getMessage());
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return memberInfo;
+		}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			
 		
