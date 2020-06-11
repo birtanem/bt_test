@@ -36,11 +36,23 @@ enctype="multipart/form-data">
 	<tr>
 		<td>지역코드</td>
 		<td><select name="region_region_code">
-		<option value="1">부산진구</option>
-		<option value="2">남포동</option>
-		<option value="3">용호동</option>
-		<option value="4">기장</option>
-		<option value="5">영도</option>
+		<option value="1">강서구</option>
+		<option value="2">금정구</option>
+		<option value="3">기장군</option>
+		<option value="4">남구</option>
+		<option value="5">동구</option>
+		<option value="6">동래구</option>
+		<option value="7">부산진구</option>
+		<option value="8">북구</option>
+		<option value="9">사상구</option>
+		<option value="10">사하구</option>
+		<option value="11">서구</option>
+		<option value="12">수영구</option>
+		<option value="13">연제구</option>
+		<option value="14">영도구</option>
+		<option value="15">중구</option>
+		<option value="16">해운대구</option>
+		<option value="17">기타지역(부산 외)</option>
 		</select></td>
 	</tr>
 	
@@ -48,6 +60,10 @@ enctype="multipart/form-data">
 	<tr>
 		<td>가격</td>
 		<td><input type="text" name="p_price" id="p_price"></td>
+	</tr>
+	<tr>
+	<td>상품수량</td>
+		<td><input type="text" name="p_amount" id="p_amount"></td>
 	</tr>
 	<tr>
 		<td>상품설명</td>

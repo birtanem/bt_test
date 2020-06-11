@@ -141,7 +141,8 @@ $('.fun-btn').on('click', function(event) {
 		
 		document.getElementById("td"+num).innerText = count * price
 
-		total = Number(document.getElementById("span").innerText) + a*price	
+		total = Number(document.getElementById("span").innerText) + a*price
+		
 		document.getElementById("span").innerText = total
 		
 		}
@@ -333,12 +334,9 @@ text-align: center; border: 3px solid pink;" >
 				<input type="button" value="+" onclick="minuscount(${status.count },1)">
 				<input type="hidden" id="price${status.count }" value="${p.p_price}">
 		</td> 
-<<<<<<< HEAD
 		<td id="td${status.count }">
 			${cartList[status.index].c_p_amount * p.p_price}
-=======
-<%-- 			<input type="text" value="${cartList[status.index].c_p_amount * p.p_price}" id="money${status.count }"> --%>
->>>>>>> refs/remotes/origin/master
+
 		</td>
 	</tr>
 </c:forEach>

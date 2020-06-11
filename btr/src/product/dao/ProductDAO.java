@@ -191,8 +191,26 @@ public class ProductDAO {
 		}finally {
 			close(pstmt);
 		}return updateCount;
-		
-		
+	}
+
+	public int productImgUpdate(ProductBean pb) {
+		System.out.println("imgupdateDAO도착?");
+		System.out.println("img:"+pb.getP_image());
+		System.out.println("int:"+pb.getP_num());
+		PreparedStatement pstmt=null;
+		int updateCount=0;
+		try {
+			String sql="update product set p_image=? where p_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, pb.getP_image());
+			pstmt.setInt(2, pb.getP_num());
+			updateCount=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("DAO-productImgUPdate에러: "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return updateCount;
 	}
 	
 	

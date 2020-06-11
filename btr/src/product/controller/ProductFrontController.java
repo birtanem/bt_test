@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.action.Action;
 import common.vo.ActionForward;
 import product.action.ProductDetailAction;
+import product.action.ProductImgUpdateProAction;
 import product.action.ProductListAction;
 import product.action.ProductRegistProAction;
 import product.action.ProductUpdateProAction;
@@ -71,6 +72,17 @@ public class ProductFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/productDetail.pr")) {
 			action=new ProductDetailAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/productimage.pr")) {
+			forward = new ActionForward();
+			forward.setPath("/product/productimage.jsp");
+		}else if(command.equals("/productImgUpdatePro.pr")) {
+			action=new ProductImgUpdateProAction();
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
