@@ -3,8 +3,7 @@ package member.svc;
 import java.sql.Connection;
 import static common.db.JdbcUtil.*;
 
-
-import common.dao.MemberDAO;
+import member.dao.MemberDAO;
 import member.vo.JoinException;
 import member.vo.MemberBean;
 

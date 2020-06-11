@@ -8,19 +8,17 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
-function addAmount(num, idx){
-	var amount=document.getElementById("amount"+idx).value();
-	var count=Number(document.getElementById("amount"+idx).value())+num;
-	if(count<1){
-		count=1;
-		alert("최소수량1개입니다");
-		return false
-	}
-	amount=count;
-	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
-}
-
-
+// function addAmount(num, idx){
+// 	var amount=document.getElementById("amount"+idx).value();
+// 	var count=Number(document.getElementById("amount"+idx).value())+num;
+// 	if(count<1){
+// 		count=1;
+// 		alert("최소 수량 1개입니다");
+// 		return false;
+// 	}
+// 	amount=count;
+// 	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
+// }
 
 
  function checkAll(obj) {
@@ -42,6 +40,7 @@ function addAmount(num, idx){
 	      }
 	  }
 } 
+ 
  function deleteCart() {
 
 		var message = "";
@@ -86,71 +85,35 @@ $('.fun-btn').on('click', function(event) {
 	  $page.toggleClass('color-bg-start')
 	    .toggleClass('bg-animate-color');
 
-	  //change text when when button is clicked
-
 	  $(this).hasClass('start-fun') ?
 	    $(this).text('stop the fun') :
 	    $(this).text('start the fun');
 
 	});
 	
-	
-//  function minuscount(num,idx){
 
-// 	var count = Number(document.getElementById("product_count"+idx).value) + num;
-	
-// 	if(count<1){
-// 		count=1;
-// 		alert("최소 1개이상 구매할 수 있는 상품입니다.");
-// 		return false;
-// 	}
-// 	document.getElementById("product_count"+idx).value = count;
+ function minuscount(num, a) {
 
-// }
-
-// function pluscount(num,idx){
-	
-// 	var count = Number(document.getElementById("product_count"+idx).value) + num;
-	
-// 	document.getElementById("product_count"+idx).value = count;
-// }	
-
-// function addAmount(num, idx){
-// 	   var amount=document.getElementById("amount"+idx).value();
-// 	   var count=Number(document.getElementById("amount"+idx).value())+num;
-// 	   if(count<1){
-// 	      count=1;
-// 	      alert("최소수량1개입니다");
-// 	      return false
-// 	   }
-// 	   amount=count;
-// 	   location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
-// 	}
-// $(document).ready(function() {
-// 	$(document).ready(function() {
-// alert("dd")
-
-	function minuscount(num, a) {
-
-		var amount = document.getElementById("amount"+num).value
-		var price = document.getElementById("price"+num).value
+		var amount = document.getElementById("amount"+num).value;
+		var price = document.getElementById("price"+num).value;
 		var count = Number(amount) + a;
 		var total = 0;
 		
-		document.getElementById("amount"+num).value = count
+		document.getElementById("amount"+num).value = count;
 		
-		document.getElementById("td"+num).innerText = count * price
+		document.getElementById("td"+num).innerText = count * price;
 
+<<<<<<< HEAD
 		total = Number(document.getElementById("span").innerText) + a*price
 		
 		document.getElementById("span").innerText = total
+=======
+		total = Number(document.getElementById("span").innerText) + a*price	;
+		document.getElementById("span").innerText = total;
+>>>>>>> refs/remotes/origin/master
 		
 		}
 	
-// })
-	
-// });
-
 </script>
 
 <style type="text/css">
@@ -287,6 +250,7 @@ table.type10 .even {
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Insert title here</title>
 </head>
+
 <body>
 
 
@@ -333,10 +297,19 @@ text-align: center; border: 3px solid pink;" >
 				<input type="text" id="amount${status.count }" name="amount" value="${cartList[status.index].c_p_amount }" class="tx_num" title="구매수량">
 				<input type="button" value="+" onclick="minuscount(${status.count },1)">
 				<input type="hidden" id="price${status.count }" value="${p.p_price}">
+<<<<<<< HEAD
 		</td> 
+=======
+		</td> 
+
+>>>>>>> refs/remotes/origin/master
 		<td id="td${status.count }">
+<<<<<<< HEAD
 			${cartList[status.index].c_p_amount * p.p_price}
 
+=======
+			${cartList[status.index].c_p_amount * p.p_price}
+>>>>>>> refs/remotes/origin/master
 		</td>
 	</tr>
 </c:forEach>
@@ -359,8 +332,9 @@ text-align: center; border: 3px solid pink;" >
 </c:if>
 <div class="center">
 	<nav style="text-align: center">
-		<input type="button" class="fun-btn" style="text-align: center" value="취소" id="deleteButton" onclick="return deleteCart()">
 		<input type="button" class="fun-btn" style="text-align: center" value="쇼핑 계속하기" onclick="location.href='productList.pr'">
+		<input type="button" class="fun-btn" style="text-align: center" value="주문하기" onclick="location.href='orderFront.or'"><br><br>
+		<input type="button" class="fun-btn" style="text-align: center" value="취소" id="deleteButton" onclick="return deleteCart()">
 	</nav>
 </div>
 	</div>

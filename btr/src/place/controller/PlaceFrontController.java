@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import place.action.ImageCallbackAction;
 import place.action.PCWriteProAction;
 import place.action.PlaceDeleteProAction;
 import place.action.PlaceDetailAction;
 import place.action.PlaceListAction;
 import place.action.PlaceWriteProAction;
+
 
 
 @WebServlet("*.pl") // 서블릿 주소 중 XXX.pl 주소에 대한 요청을 전달받음
@@ -85,6 +87,15 @@ public class PlaceFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			 }
+		
+		 else if (command.equals("/ImageCallback.pl")) {
+				action = new ImageCallbackAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		 }
 		
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행

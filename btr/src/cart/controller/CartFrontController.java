@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cart.action.CartAmountUpAction;
+
 import cart.action.ProductCartAddAction;
 import cart.action.ProductCartListAction;
 import cart.action.ProductCartRemoveAction;
@@ -50,13 +50,6 @@ public class CartFrontController extends HttpServlet {
 			}
 		} else if (command.equals("/ProductCartRemove.ca")) { // 장바구니 삭제
 			action = new ProductCartRemoveAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if (command.equals("/CartAmountUp.ca")) { // 장바구니 수량 증가
-			action = new CartAmountUpAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

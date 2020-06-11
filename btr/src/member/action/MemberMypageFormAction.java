@@ -1,4 +1,4 @@
-package suggestion.action;
+package member.action;
 
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -9,15 +9,17 @@ import javax.servlet.http.*;
 import static common.db.JdbcUtil.*;
 import common.action.*;
 import common.vo.*;
+import member.svc.MemberMypageFormService;
+import member.vo.MemberBean;
 import suggestion.dao.SuggestionDAO;
 import suggestion.svc.*;
 import suggestion.vo.*;
 
-public class SuggestionWriteFormAction implements Action {
+public class MemberMypageFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("SuggestionWriteFormAction");	
+		System.out.println("MemberMypageFormAction");	
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
@@ -32,13 +34,14 @@ public class SuggestionWriteFormAction implements Action {
 			out.println("</script>"); 
 			
 		} else {
-			SuggestionWriteFormService suggestionWriteFormService = new SuggestionWriteFormService();
-			String email = suggestionWriteFormService.getEmail(id);
+			MemberMypageFormService memberMypageFormService = new MemberMypageFormService();
 			
-			request.setAttribute("email", email);
+			MemberBean memberInfo = memberMypageFormService.getMemberInfo(id);
+			
+			request.setAttribute("memberInfo", memberInfo);
 			
 			forward = new ActionForward();
-			forward.setPath("/suggestion/suggestion_Write.jsp");
+			forward.setPath("/member/member_Mypage.jsp");
 		}
 		
 		return forward;

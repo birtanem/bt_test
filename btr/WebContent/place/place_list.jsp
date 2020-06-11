@@ -40,7 +40,8 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Place(부산 명소 소개)</h1>
+        <h1>Place</h1>
+        
     </div>
     
     <section id="blog">
@@ -48,45 +49,29 @@
         <div class="blog container">
             <div class="row">
                 <div class="col-md-8">
-
-                	<table>
                 		<c:forEach var="article" items="${articleList }" >
-                			
-							<ul style="width: 100%; height: 150px; " onclick="location.href='PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }'">
-								<li style="list-style: none;">
-									<div style="float: left;">
-										<img src="placeUpload/${article.pl_image }" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
-									</div>
-									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
-										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											${article.pl_theme}&nbsp;${article.pl_name}
-										</div>
-										<div style="width: 100%; height: 25px; font-size: 14px">
-											&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount }
-										</div>
-										<p style="font-size: 20px;">
-											${article.pl_content }
-										</p>
-									</div>
-								</li>
-							</ul>
 
+
+						<div class="blog-item">
+                        <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }"><img class="img-responsive img-blog" src="placeUpload/${article.pl_image }" width="100%" alt="" /></a>
+                        <div class="blog-content">
+                            <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }" class="blog_cat">테마(주제) : ${article.pl_theme}</a>
+                            <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }">
+                            <h2> 장소명 : ${article.pl_name} </h2>
+                            <h3>&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount }&nbsp;&nbsp;좋아요&nbsp;${article.pl_likecount }</h3></a>
+                            <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }"> 주 소 : ${article.pl_address }<br>Read More (자세히 보기 / 클릭)<i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                		
                 		</c:forEach>
-				</table>
+				
                     
                 </div>
                 <!--/.col-md-8-->
 
                 <aside class="col-md-4">
-                    <div class="widget search">
-                        <form role="form">
-                            <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-                    <!--/.search-->
- 
-                                        
+                    
+                <jsp:include page="/inc/includePlace.jsp" />                        
 					
                     
                 </aside>
@@ -107,7 +92,7 @@
                     		</c:otherwise>
                     	</c:choose>
                     
-                    	<c:forEach var="a" begin="${pageInfo.page }" end="${pageInfo.endPage }" step="1">
+                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
                     		
                     		<c:choose>
                     		

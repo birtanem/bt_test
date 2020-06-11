@@ -8,8 +8,8 @@ import javax.servlet.http.*;
 
 import static common.db.JdbcUtil.*;
 import common.action.*;
-import common.dao.SuggestionDAO;
 import common.vo.*;
+import suggestion.dao.SuggestionDAO;
 import suggestion.svc.*;
 import suggestion.vo.*;
 
@@ -29,17 +29,28 @@ public class adminSuggestionListAction implements Action {
 		System.out.println("전체 게시물 수 : " + listCount); //게시물수 
 		
 		HttpSession session = request.getSession();
+		
 		String id = (String)session.getAttribute("id");
 		
 		String showStyle = (String)request.getParameter("showStyle");
 		System.out.println(showStyle);
 		System.out.println(listCount2);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		if(showStyle == null) {
 			showStyle = "전체";
 		}
 		System.out.println(showStyle);
+		if(id == null) {
+			out.println("<script>"); 
+			out.println("alert('관리자전용 페이지입니다')");
+			out.println("history.back()");
+			out.println("</script>"); 
+		}
 		if(id.equals("admin")) {
-
+			
 			forward = new ActionForward();
 			ArrayList<SuggestionBean> articleList = suggestionListService.adminGetArticleList(showStyle);
 			request.setAttribute("articleList", articleList);
@@ -49,8 +60,6 @@ public class adminSuggestionListAction implements Action {
 			forward.setPath("/suggestion/adminSuggestion_List.jsp");
 			
 		} else {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
 			out.println("<script>"); 
 			out.println("alert('관리자전용 페이지입니다')");
 			out.println("history.back()");
