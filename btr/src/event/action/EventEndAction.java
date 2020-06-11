@@ -22,12 +22,8 @@ public class EventEndAction implements Action {
 		
 		// EventListService 클래스 인스턴스 생성
 		EventEndService eventEndService = new EventEndService();
-		
-		HttpSession session = request.getSession();
-		
-		session.setAttribute("id", "imumdae");
-		
-		if(session != null) {
+
+
 			
 			boolean isSetDate = eventEndService.setEventEndDate();
 			
@@ -52,8 +48,7 @@ public class EventEndAction implements Action {
 //			
 				
 			}
-			
-		}
+
 		
 		
 		return forward;

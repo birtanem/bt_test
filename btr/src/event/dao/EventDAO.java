@@ -166,6 +166,7 @@ public class EventDAO {
 			e.printStackTrace();
 			System.out.println("EventDAO - selectDate() 실패! : "+e.getMessage());
 		}
+		System.out.println("DAO date: "+date);
 		return date;
 	}
 	
@@ -204,17 +205,19 @@ public class EventDAO {
 		return checkPull;
 	}
 	public int setPull2(int num) {
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		int checkPull = 0;
 		
 		try {			
 				String sql = "UPDATE event_box SET eb_pull = 1 WHERE eb_num = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, num);			
-				checkPull = pstmt.executeUpdate(); // 30001 50001 100001	당첨, 1 꽝				
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1, num);			
+				checkPull = pstmt2.executeUpdate(); // 30001 50001 100001	당첨, 1 꽝				
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("EventDAO - setPull2() 실패! : "+e.getMessage());
+		}finally {
+			close(pstmt2);
 		}
 		
 		return checkPull;

@@ -25,15 +25,7 @@ public class EventStartAction implements Action {
 	
 		// EventListService 클래스 인스턴스 생성
 		EventStartService eventStartService = new EventStartService();
-		
-		HttpSession session = request.getSession();
-		
-		session.setAttribute("id", "imumdae");
-		
-	
-		
-		if(session != null) {
-			
+
 			boolean isSetDate = eventStartService.setEventSatrtDate(date);
 			
 			if(!isSetDate) {
@@ -56,9 +48,7 @@ public class EventStartAction implements Action {
 //			
 				
 			}
-			
-		}
-		
+
 		
 		return forward;
 	}

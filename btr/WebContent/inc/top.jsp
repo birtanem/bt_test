@@ -50,13 +50,9 @@
 	</c:choose>
 	
 	<!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
-<%-- 	<c:if test="${sessionScope.id == 'admin'}">	l	 --%>
-<!-- 	<a href="adminPage.ad"> 관리자메뉴</a> -->
-<%-- 	</c:if> --%>
-	
-	<!-- 편의상 일단 그냥 -->
-	ㅣ<a href="adminPage.ad"> 관리자메뉴</a>
-
+	<c:if test="${sessionScope.id == 'admin'}">	l	
+	<a href="adminPage.ad"> 관리자메뉴</a>
+	</c:if>
 
 	</section>
                     	

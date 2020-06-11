@@ -22,14 +22,9 @@ public class EventExchangeAction implements Action {
 		EventExchangeService eventExchangeService = new EventExchangeService();
 		
 		HttpSession session = request.getSession();
-		
-		session.setAttribute("id", "test");
-		
+	
 		int point = Integer.parseInt(request.getParameter("point"));
-		
 
-		
-		if(session != null) {
 			
 			String id = (String)session.getAttribute("id");
 			boolean isExchageSuccess =  eventExchangeService.exchangePoint(point, id);
@@ -52,7 +47,7 @@ public class EventExchangeAction implements Action {
 				forward.setRedirect(true);
 				forward.setPath("event.ev");
 			}		
-		}	
+
 		return forward;
 	}
 

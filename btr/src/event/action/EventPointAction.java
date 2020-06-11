@@ -19,31 +19,29 @@ public class EventPointAction implements Action {
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
-		
-		session.setAttribute("id", "test");
-		
-		if(session != null) {
+
 			
 			String id = (String)session.getAttribute("id");
 			EventPointService eventPointService = new EventPointService();
 			
 			boolean isMinusPointSuccess =  eventPointService.minusPoint(id);
 			
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
 			if(!isMinusPointSuccess) {
 				
-				
+				out.println("0");
 				
 			}else {
-				response.setContentType("text/html;charset=UTF-8");
+				
 				EventPageService eventPageService = new EventPageService();
-				PrintWriter out = response.getWriter();
+				
 				
 				out.println(eventPageService.getPoint(id));
 						
 			}
-			
-			
-		}
+
 	
 		return forward;
 	}
