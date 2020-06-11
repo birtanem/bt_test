@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import common.action.Action;
 import common.vo.ActionForward;
 public class OrderFrontAction implements Action {
@@ -13,6 +17,14 @@ public class OrderFrontAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("OrderFrontAction");
+		JSONParser parser = new JSONParser();
+		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
+		for(int i=0;i<jsonObj.size();i++) {
+			JSONObject obj = (JSONObject)jsonObj.get(i);
+			System.out.println(obj.get("num"));
+			System.out.println(obj.get("amount"));
+		}
+System.out.println(request.getParameter("total"));
 
 		// 리턴 잊지 않도록 미리 선언 해주기
 		ActionForward forward = null;
