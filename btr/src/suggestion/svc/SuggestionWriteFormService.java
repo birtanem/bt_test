@@ -13,14 +13,14 @@ import suggestion.vo.SuggestionBean;
 
 public class SuggestionWriteFormService {
 
-	public String getEmail(String id) { //수정필요
+	public String getEmail(String id) { 
 		String email = null;
 		
 		Connection con = getConnection();
 		SuggestionDAO suggestionDAO = SuggestionDAO.getInstance();
 		suggestionDAO.setConnection(con);
 		
-		email = suggestionDAO.getEmail(id); //답변 완료인지 확인  
+		email = suggestionDAO.getEmail(id); 
 		
 		close(con);
 		
