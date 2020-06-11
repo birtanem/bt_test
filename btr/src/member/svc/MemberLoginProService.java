@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 import javax.security.auth.login.LoginException;
 
-import common.dao.MemberDAO;
+import member.dao.MemberDAO;
 
 public class MemberLoginProService {
 

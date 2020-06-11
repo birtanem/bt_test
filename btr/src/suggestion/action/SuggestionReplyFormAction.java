@@ -7,8 +7,8 @@ import javax.servlet.http.*;
 
 import static common.db.JdbcUtil.*;
 import common.action.*;
-import common.dao.SuggestionDAO;
 import common.vo.*;
+import suggestion.dao.SuggestionDAO;
 import suggestion.svc.*;
 import suggestion.vo.*;
 

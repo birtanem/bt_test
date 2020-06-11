@@ -7,6 +7,7 @@ import java.util.*;
 
 import common.dao.*;
 import common.vo.*;
+import suggestion.dao.SuggestionDAO;
 import suggestion.vo.SuggestionBean;
 
 

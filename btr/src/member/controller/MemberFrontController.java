@@ -1,4 +1,4 @@
-package common.controller;
+package member.controller;
 
 import java.io.IOException;
 
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import common.action.Action;
-import common.dao.MemberDAO;
 import common.vo.ActionForward;
 import member.action.MemberJoinCheckAction;
 import member.action.MemberJoinProAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutProAction;
+import member.dao.MemberDAO;
 import member.vo.MemberBean;
 import suggestion.action.SuggestionWriteFormAction;
 

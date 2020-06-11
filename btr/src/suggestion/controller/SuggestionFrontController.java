@@ -1,4 +1,4 @@
-package common.controller;
+package suggestion.controller;
 
 import java.io.IOException;
 

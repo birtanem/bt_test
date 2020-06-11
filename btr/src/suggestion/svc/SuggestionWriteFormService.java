@@ -8,6 +8,7 @@ import static common.db.JdbcUtil.*;
 
 import common.dao.*;
 import common.vo.*;
+import suggestion.dao.SuggestionDAO;
 import suggestion.vo.SuggestionBean;
 
 

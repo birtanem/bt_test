@@ -1,4 +1,4 @@
-package common.dao;
+package suggestion.dao;
 
 import java.sql.*;
 import java.util.*;
