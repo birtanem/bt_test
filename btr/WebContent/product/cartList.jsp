@@ -114,6 +114,17 @@ $('.fun-btn').on('click', function(event) {
 		
 		}
 	
+ function goOrder(){
+		var id='admin'; 
+		var amount=Number(document.getElementById("amount").value);
+		if(id==null || id=="null"){
+			alert("로그인 후 이용해주세요");
+			location.href="MemberLoginForm.me";
+			return false;
+		}
+		location.href="orderAdd.or?o_p_num="+c_num+"&o_p_amount="+amount;
+	}
+
 </script>
 
 <style type="text/css">
@@ -333,7 +344,7 @@ text-align: center; border: 3px solid pink;" >
 <div class="center">
 	<nav style="text-align: center">
 		<input type="button" class="fun-btn" style="text-align: center" value="쇼핑 계속하기" onclick="location.href='productList.pr'">
-		<input type="button" class="fun-btn" style="text-align: center" value="주문하기" onclick="location.href='orderFront.or'"><br><br>
+		<input type="button" class="fun-btn" style="text-align: center" value="주문하기" onclick="goOrder()"><br><br>
 		<input type="button" class="fun-btn" style="text-align: center" value="취소" id="deleteButton" onclick="return deleteCart()">
 	</nav>
 </div>
