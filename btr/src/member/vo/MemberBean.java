@@ -1,7 +1,6 @@
 package member.vo;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.*;
 
 public class MemberBean {
 	
