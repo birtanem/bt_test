@@ -50,9 +50,23 @@
 	</c:choose>
 	
 	<!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
-	<c:if test="${sessionScope.id == 'admin'}">	l	
-	<a href="adminPage.ad"> 관리자메뉴</a>
+	<c:if test="${sessionScope.id == 'admin'}">	l  <a href="adminPage.ad">관리자 페이지</a> 	
+	<li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
+         <ol class="dropdown-menu">
+             <li><a href="adminPage.ad">관리자 페이지</a></li>
+             <li><a href="adminProduct.ad">상품 관리</a></li>
+             <li><a href="PlaceWriteForm.pl">Place 글 등록</a></li>
+             <li><a href="#">여행지 관리</a></li>
+             <li><a href="adminSuggestion_List.su">문의 게시판</a></li>
+             <li><a href="adminEvent.ad">이벤트 관리</a></li>
+         </ol>
+     </li>
 	</c:if>
+
+	
+                        
+                        
 
 	</section>
                     	
@@ -79,6 +93,21 @@
 
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
+                    <!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
+                    
+						<c:if test="${sessionScope.id == 'admin'}">	 	
+						<li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
+						        <ol class="dropdown-menu">
+						            <li><a href="adminPage.ad">관리자 페이지</a></li>
+						            <li><a href="adminProduct.ad">상품 관리</a></li>
+						            <li><a href="PlaceWriteForm.pl">Place 글 등록</a></li>
+						            <li><a href="#">여행지 관리</a></li>
+						            <li><a href="adminSuggestion_List.su">문의 게시판</a></li>
+						            <li><a href="adminEvent.ad">이벤트 관리</a></li>
+						        </ol>
+						    </li>
+						</c:if>
                         <li class="active"><a href="index.html">Home</a></li>
                         <li><a href="PlaceList.pl">Place</a></li>
                         <li><a href="Review_List.re">Review</a></li>

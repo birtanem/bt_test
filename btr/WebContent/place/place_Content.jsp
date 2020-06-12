@@ -25,15 +25,14 @@ String plPage = request.getParameter("page");
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Home | Corlate</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>WithTrip | Place | Place_Content</title>
 
-    <!-- core CSS -->
-<link href="css/product_modal.css" rel="stylesheet">
-
+<!-- core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/animate.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -41,7 +40,7 @@ String plPage = request.getParameter("page");
 <link href="css/icomoon.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
-
+<link href="css/review.css" rel="stylesheet">
 
 <script src="js/product_modal.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
@@ -49,12 +48,11 @@ String plPage = request.getParameter("page");
 <script src="js/jquery.isotope.min.js"></script>
 <script src="js/main.js"></script>
 	
-	
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="js/summernote-ko-KR.js"></script>	
+<!-- 썸머노트 필수 스크립트 링크 코드 -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 
 <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -73,7 +71,7 @@ String plPage = request.getParameter("page");
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Place(부산 명소 소개)</h1>
+        <h1>Place</h1>
     </div>
     
             <section id="blog">
@@ -121,7 +119,7 @@ String plPage = request.getParameter("page");
                                 <c:if test="${id != null}" >
                                 <div class="single-comment">
                                     <div class="comment-img">
-                                        <img src="images/graverter.jpg" alt="author">
+                                        <img src="images/octocat.png" alt="author">
                                     </div>
                                     <div class="comment-content comment-form">
                                         <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post">
@@ -139,7 +137,7 @@ String plPage = request.getParameter("page");
                                 <c:forEach var="commentList" items="${commentList }">                                 
                                 <div class="single-comment">
                                     <div class="comment-img">
-                                        <img src="images/graverter.jpg" alt="author">
+                                        <img src="images/ananimous.png" alt="author">
                                     </div>
                                     <div class="comment-content">
                                         <h5>${commentList.member_id }</h5>
