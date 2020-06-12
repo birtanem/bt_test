@@ -42,7 +42,13 @@ public class CommentDAO {
 		
 		try {
 			
-			String sql = "select max(rc_num) from review_comment";
+			String sql = "set foreign_key_checks=0";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.executeUpdate();
+			
+			sql = "select max(rc_num) from review_comment";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -65,6 +71,12 @@ public class CommentDAO {
 			pstmt.setInt(7, 0);
 			
 			insertCount = pstmt.executeUpdate();
+			
+			sql = "set foreign_key_checks=1";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println("CommentDAO - InsertArticle() 실패! : " + e.getMessage());

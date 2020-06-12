@@ -350,14 +350,15 @@ public class ReviewDAO {
 		
 		try {
 		
-			String sql = "update review set r_subject = ? , r_content = ?, region_region_code = ? where r_num = ?";
+			String sql = "update review set r_subject = ? , r_content = ?, r_image = ?, region_region_code = ? where r_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, reviewBean.getR_subject());
 			pstmt.setString(2, reviewBean.getR_content());
-			pstmt.setInt(3, reviewBean.getR_code());
-			pstmt.setInt(4, reviewBean.getR_num());
+			pstmt.setString(3, reviewBean.getR_image());
+			pstmt.setInt(4, reviewBean.getR_code());
+			pstmt.setInt(5, reviewBean.getR_num());
 			
 			updateCount = pstmt.executeUpdate();
 			
