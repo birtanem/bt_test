@@ -70,14 +70,18 @@ MemberBean memberInfo = (MemberBean)request.getAttribute("memberInfo");
 
 #infocontent {
     display: inline-block;
-    margin-left: 30px;
+/*     margin-left: 30px; */
+	font-size: 15px;
+    margin-left: 15px;
     color: green;
 }
 
 #S_infocontent {
     display: inline-block;
-    margin-left: 30px;
-    font-size: 14px;
+/*     margin-left: 30px; */
+/*     font-size: 14px; */
+    margin-left: 15px;
+    font-size: 12px;
     color: green;
 }
 
@@ -88,6 +92,7 @@ MemberBean memberInfo = (MemberBean)request.getAttribute("memberInfo");
 /*     margin-top: 85px; */
 	float: left;
     margin-top: 50px;
+    margin-top: 93px;
 }
 
 #infoChangeBtn {
@@ -165,41 +170,50 @@ MemberBean memberInfo = (MemberBean)request.getAttribute("memberInfo");
                         </div>
                     </div>
                 </div>
-
+				
+				
                 <div class="col-sm-6 col-md-4">
+                <a href="./">
                     <div class="media mypage-wrap fadeInDown">
                         <div class="pull-left">
                             <img id="img" src="images/services/mypageIcon1.jpeg">
                         </div>
-                            <h3 class="media-heading">나의 작성 댓글</h3>
+                            <h3 class="media-heading">나의 작성 글</h3>
                     </div>
+				</a>
                 </div>
-
+                
                 <div class="col-sm-6 col-md-4">
+				<a href="./">
                     <div class="media mypage-wrap fadeInDown">
                         <div class="pull-left">
                             <img id="img" src="images/services/mypageIcon2.jpeg">
                         </div>
-                            <h3 class="media-heading">나의 작성 글</h3>
+                            <h3 class="media-heading">나의 작성 댓글</h3>
                     </div>
+                </a>
                 </div>
-
+                
                 <div class="col-sm-6 col-md-4">
+				<a href="./">
                     <div class="media mypage-wrap fadeInDown">
                         <div class="pull-left">
                             <img id="img" src="images/services/mypageIcon4.jpeg">
                         </div>
                             <h3 class="media-heading">이벤트 내역</h3>
                     </div>
+                </a>
                 </div>
-
+                
                 <div class="col-sm-6 col-md-4">
+				<a href="./">
                     <div class="media mypage-wrap fadeInDown">
                         <div class="pull-left">
                             <img id="img" src="images/services/mypageIcon3.jpeg">
                         </div>
                             <h3 class="media-heading">결제 내역</h3>
                     </div>
+                </a>
                 </div>
 
             </div>
