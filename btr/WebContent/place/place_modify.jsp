@@ -6,6 +6,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="article" value="${article }" />
     <c:set var="nowPage" value="${page }" />
+    <c:set var="region_code" value="${article.region_code }"/>
     <%String id = (String)session.getAttribute("id");
       String nowPage = request.getParameter("page");
       String adminid = "admin";%>
@@ -46,7 +47,7 @@
 	
 <script src="js/summernote-ko-KR.js"></script>	
 <!-- 썸머노트 필수 스크립트 링크 코드 -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
@@ -80,54 +81,6 @@
 		style="background-image: url(images/page-title.png)">
 		<h1>Place</h1>
 	</div>
-	<section id="writeForm"">
- 	<div class="blog container">
-		<h1>장소 소개 글 등록</h1>
-		<form action="PlaceWritePro.pl" method="post" enctype="multipart/form-data" name="placeForm">
-			<input type="hidden" name="pl_num" value=${article.pl_num }>
-			<table>
-			<tr><td>장소명 :</td><td> <input type="text" name="pl_name" value="${article.pl_name } required="required" /></td></tr>
-			<tr><td>장소 소개 내용 </td><td><textarea name="pl_content" cols="40" rows="15" value="${article.pl_content } required="required" style="resize: none;"></textarea></td></tr>
-			<tr><td>주소 : </td><td><input type="text" name="pl_address" value="${article.pl_address } required="required"/></td></tr>
-			<tr><td>사진파일 : </td><td>
-				<input type="file" name="pl_image"><c:out value="${article.pl_image }"/>
-		    	<input type="hidden" name="oldfile" value="${article.pl_image }">
-			
-			
-			<tr><td>주제 : </td><td><input type="text" name="pl_theme" value="${article.pl_theme } required="required"/></td></tr>
-			<tr><td>지역 : </td><td>
-						<select name="region_code">
-		            			<option value="0">지역 선택하세요</option>
-		            			<option value="1">강서구</option>
-		            			<option value="2">금정구</option>
-		            			<option value="3">기장군</option>
-		            			<option value="4">남구</option>
-		            			<option value="5">동구</option>
-		            			<option value="6">동래구</option>
-		            			<option value="7">부산진구</option>
-		            			<option value="8">북구</option>
-		            			<option value="9">사상구</option>
-		            			<option value="10">사하구</option>
-		            			<option value="11">서구</option>
-		            			<option value="12">수영구</option>
-		            			<option value="13">연제구</option>
-		            			<option value="14">영도구</option>
-		            			<option value="15">중구</option>
-		            			<option value="16">해운대구</option>
-		            			<option value="17">기타지역(부산외)</option>
-		                 	</select></td></tr>
-				
-				<tr><td colspan=2><input type="submit" value="등록">
-								<input type="reset" value="다시쓰기"></td></tr>
-			</table>
-		</form>
-		</div>
-	</section>
-	
-	
-	
-	
-
 	<section id="contact-page">
         <div class="container">
             <div class="large-title text-center">        
@@ -147,24 +100,24 @@
                         <div class="form-group">
                             <label>지역 : </label>
                             <select name="region_code" class="form-control" required="required">
-		            			<option value="0" <c:if test="${article.region_code } == 0">selected</c:if>>지역 선택하세요</option>
-		            			<option value="1" <c:if test="${article.region_code } == 1">selected</c:if>>강서구</option>
-		            			<option value="2" <c:if test="${article.region_code } == 2">selected</c:if>>금정구</option>
-		            			<option value="3" <c:if test="${article.region_code } == 3">selected</c:if>>기장군</option>
-		            			<option value="4" <c:if test="${article.region_code } == 4">selected</c:if>>남구</option>
-		            			<option value="5" <c:if test="${article.region_code } == 5">selected</c:if>>동구</option>
-		            			<option value="6" <c:if test="${article.region_code } == 6">selected</c:if>>동래구</option>
-		            			<option value="7" <c:if test="${article.region_code } == 7">selected</c:if>>부산진구</option>
-		            			<option value="8" <c:if test="${article.region_code } == 8">selected</c:if>>북구</option>
-		            			<option value="9" <c:if test="${article.region_code } == 9">selected</c:if>>사상구</option>
-		            			<option value="10" <c:if test="${article.region_code } == 10">selected</c:if>>사하구</option>
-		            			<option value="11" <c:if test="${article.region_code } == 11">selected</c:if>>서구</option>
-		            			<option value="12" <c:if test="${article.region_code } == 12">selected</c:if>>수영구</option>
-		            			<option value="13" <c:if test="${article.region_code } == 13">selected</c:if>>연제구</option>
-		            			<option value="14" <c:if test="${article.region_code } == 14">selected</c:if>>영도구</option>
-		            			<option value="15" <c:if test="${article.region_code } == 15">selected</c:if>>중구</option>
-		            			<option value="16" selected>해운대구</option>
-		            			<option value="17" <c:if test="${article.region_code } == 17">selected</c:if>>기타지역(부산외)</option>
+		            			<option value="0" <c:if test="${article.region_code  == 0}">selected</c:if>>지역 선택하세요</option>
+		            			<option value="1" <c:if test="${article.region_code  == 1}">selected</c:if>>강서구</option>
+		            			<option value="2" <c:if test="${article.region_code  == 2}">selected</c:if>>금정구</option>
+		            			<option value="3" <c:if test="${article.region_code  == 3}">selected</c:if>>기장군</option>
+		            			<option value="4" <c:if test="${article.region_code  == 4}">selected</c:if>>남구</option>
+		            			<option value="5" <c:if test="${article.region_code  == 5}">selected</c:if>>동구</option>
+		            			<option value="6" <c:if test="${article.region_code  == 6}">selected</c:if>>동래구</option>
+		            			<option value="7" <c:if test="${article.region_code  == 7}">selected</c:if>>부산진구</option>
+		            			<option value="8" <c:if test="${article.region_code  == 8}">selected</c:if>>북구</option>
+		            			<option value="9" <c:if test="${article.region_code  == 9}">selected</c:if>>사상구</option>
+		            			<option value="10" <c:if test="${article.region_code == 10}">selected</c:if>>사하구</option>
+		            			<option value="11" <c:if test="${article.region_code  == 11}">selected</c:if>>서구</option>
+		            			<option value="12" <c:if test="${article.region_code  == 12}">selected</c:if>>수영구</option>
+		            			<option value="13" <c:if test="${article.region_code  == 13}">selected</c:if>>연제구</option>
+		            			<option value="14" <c:if test="${article.region_code  == 14}">selected</c:if>>영도구</option>
+		            			<option value="15" <c:if test="${article.region_code  == 15}">selected</c:if>>중구</option>
+		            			<option value="16" <c:if test="${article.region_code  == 16}">selected</c:if>>해운대구</option>
+		            			<option value="17" <c:if test="${article.region_code == 17}">selected</c:if>>기타지역(부산외)</option>
 		                 	</select>
                         </div>
                         </div>
@@ -184,15 +137,9 @@
                      
                       <div class="col-sm-10 ">
                       <div class="form-group ">
-                            <label>대<c:out value="${article.region_code }"/>
-                            <c:if test="${article.region_code } = '13'">selected</c:if>표 사진 : </label>
-                            <input type="file" name="pl_image" class="form-control"><c:out value="${article.pl_image }"/>
-                            
-                            
-                        
-		    				
-		    				
-		    				<input type="hidden" name="oldfile" value="${article.pl_image }">
+                            <label>대표 사진 : </label>
+                            <c:out value="${article.pl_image }"/><input type="file" name="pl_image" class="form-control" >
+                            <input type="hidden" name="oldfile" value="${article.pl_image }">
                         </div>
                             <label>장소 소개 글</label>
                             <textarea id="summernote" name="pl_content" required="required" >${article.pl_content }</textarea>
