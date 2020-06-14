@@ -168,11 +168,9 @@ String plPage = request.getParameter("page");
                     	</c:choose>
                     
                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                    		
-                    		<c:choose>
-                    		
-                    			<c:when test="${pageInfo.page <= 1 }">
-                    				<li class="active"><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>
+                    	<c:choose>
+                   			<c:when test="${a == pageInfo.page }">
+                    				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
 									<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>
