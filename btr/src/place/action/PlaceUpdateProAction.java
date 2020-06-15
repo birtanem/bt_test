@@ -15,11 +15,12 @@ import place.svc.PlaceUpdateProService;
 import place.svc.PlaceWriteProService;
 import place.vo.PlaceBean;
 
-public class PlaceWriteProAction implements Action {
-	
+public class PlaceUpdateProAction implements Action {
+
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("PlaceWriteProAction");
+		System.out.println("PlaceUpdateProAction");
+		
 		
 		ActionForward forward = null;
 		
@@ -40,17 +41,32 @@ public class PlaceWriteProAction implements Action {
 				new DefaultFileRenamePolicy()); // 파일명 중복 시 중복 파일명을 처리할 객체
 		
 		PlaceBean pb = new PlaceBean();
+		pb.setPl_num(Integer.parseInt(multi.getParameter("pl_num")));
+		int pl_num = Integer.parseInt(multi.getParameter("pl_num"));
 		pb.setPl_name(multi.getParameter("pl_name"));
 		pb.setPl_content(multi.getParameter("pl_content"));
 		pb.setPl_address(multi.getParameter("pl_address"));
 		pb.setPl_theme(multi.getParameter("pl_theme"));
 		pb.setRegion_code(Integer.parseInt(multi.getParameter("region_code")));
 		
-		pb.setPl_image(
-				multi.getOriginalFileName( (String)multi.getFileNames().nextElement() ));
+		System.out.println(multi.getFilesystemName("pl_image"));
+		String page = multi.getParameter("page");
+		System.out.println("page : "+page);
 		
-		PlaceWriteProService prps = new PlaceWriteProService();
-		boolean isWriteSuccess = prps.registArticle(pb);
+		
+		if(multi.getFilesystemName("pl_image")==null) {
+			pb.setPl_image(multi.getParameter("oldfile"));
+		}else {
+				pb.setPl_image(
+				multi.getOriginalFileName( (String)multi.getFileNames().nextElement() ));
+		}
+		
+		
+		PlaceUpdateProService pups = new PlaceUpdateProService();
+		boolean isWriteSuccess = pups.registArticle(pb);
+		
+		
+	
 		
 		
 		// 리턴받은 결과를 사용하여 글 등록 결과 판별
@@ -65,11 +81,11 @@ public class PlaceWriteProAction implements Action {
 			// 3. PrintWriter 객체의 println() 메서드를 호출하여
 			//    웹에서 수행할 작업(자바스크립트 출력 등)을 기술
 			out.println("<script>"); // 자바스크립트 시작 태그
-			out.println("alert('글 등록 실패!')"); // 다이얼로그 메세지 출력
+			out.println("alert('글 수정 실패!')"); // 다이얼로그 메세지 출력
 			out.println("history.back()"); // 이전 페이지로 돌아가기
 			out.println("</script>"); // 자바스크립트 끝 태그
 		} else {
-			System.out.println("글 등록 성공!");
+			System.out.println("글 수정 성공!");
 			
 			// 현재 BoardWritePro.bo 에서 BoardList.bo 서블릿 주소를 요청하여 Redirect 방식으로 포워딩
 			// 1. ActionForward 객체 생성
@@ -77,7 +93,7 @@ public class PlaceWriteProAction implements Action {
 			// 2. 포워딩 방식 지정 => Redirect 방식이므로 파라미터에 true 전달(필수)
 			forward.setRedirect(true);
 			// 3. 포워딩 할 주소 지정 => 서블릿 주소 BoardList.bo 요청
-			forward.setPath("PlaceList.pl");
+			forward.setPath("PlaceDetail.pl?pl_num="+pl_num+"&page="+page);
 		}
 		
 		

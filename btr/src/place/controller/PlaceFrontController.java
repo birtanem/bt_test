@@ -18,6 +18,7 @@ import place.action.PlaceDeleteProAction;
 import place.action.PlaceDetailAction;
 import place.action.PlaceListAction;
 import place.action.PlaceUpdateFormAction;
+import place.action.PlaceUpdateProAction;
 import place.action.PlaceWriteProAction;
 
 
@@ -100,6 +101,16 @@ public class PlaceFrontController extends HttpServlet {
 		
 		 else if (command.equals("/PlaceUpdateForm.pl")) {
 				action = new PlaceUpdateFormAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		 }
+		
+		 else if (command.equals("/PlaceUpdatePro.pl")) {
+				action = new PlaceUpdateProAction();
 				
 				try {
 					forward = action.execute(request, response);

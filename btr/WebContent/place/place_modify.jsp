@@ -89,8 +89,9 @@
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
                 
-                <form action="PlaceWritePro.pl" method="post" enctype="multipart/form-data" name="placeForm">
+                <form action="PlaceUpdatePro.pl" method="post" enctype="multipart/form-data" name="placeForm">
                     <input type="hidden" name="pl_num" value="${article.pl_num }">
+                    <input type="hidden" name="page" value="<%=nowPage %>">
                     <div class="col-sm-offset-1">
                     <div class="col-sm-5">
                         <div class="form-group">
