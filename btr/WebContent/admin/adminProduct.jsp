@@ -1,4 +1,3 @@
-
 <%@page import="product.vo.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -38,7 +37,6 @@
 }
 </style>
 <script type="text/javascript">
-
 function changeRegionCode(p_num, regionCode,idx){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;
 	alert("내용 변경됨");
@@ -51,19 +49,19 @@ function popImg(p_num){
 	window.open("productimage.pr?p_num="+p_num,"","width=400,height=150,left=200,top=300,scrollbars=yes,resizable=yes");
 }
 function popContent(idx){
- 	document.getElementById('myModal'+idx).style.display = "block";
+	document.getElementById('myModal'+idx).style.display = "block";
 }
 function closepop(idx){
 	document.getElementById('myModal'+idx).style.display = "none";
 }
-function updateContent(){
-	location.href="productUpdatePro.pr?p_num="+p_num+"&p_category="+category;
+function updateContent(p_num){
+	window.open("productContentUpdate.pr?p_num="+p_num,"","width=500,height=500,left=200,top=300,scrollbars=yes,resizable=yes");
 }
 function reload(){
 	location.reload();
 }
-
 </script>
+
 
 </head>
 
@@ -121,56 +119,42 @@ function reload(){
 									<option value="요트">요트</option>
 									<option value="체험">체험</option>
 							</select></td>
-							<form action="productUpdatePro.pr" enctype="multipart/form-data"  method="post" name="fr">
+							<form action="productUpdatePro.pr" method="post" name="fr">
 								<td><input type="hidden" name="p_num"
 									value="${list.p_num }"> <input type="text" name="name"
 									value="${list.p_name }"></td>
 								<td><input type="text" name="img" value="${list.p_image }"
 									id="p_img${vs.count }" readonly="readonly"
 									onclick="popImg(${list.p_num})"></td>
-								<td><input type="text" name="p_content"
+								<td><input type="text" name="p_content" id="p_content"
 									value="${list.p_content }" onclick="popContent(${vs.count})"></td>
 								<td><input type="text" name="price"
 									value="${list.p_price }"></td>
 								<td><input type="text" name="amount"
 									value="${list.p_amount }"></td>
-								<td><input type="submit" value="내용수정하기" id="myBtn"
-									class="btn"></td>
+								<td><input type="submit" value="수정" id="myBtn" class="btn"></td>
 							</form>
 						</tr>
-
-
-							<!-- Modal content -->
+						<!-- Modal content -->
 						<div id="myModal${vs.count }" class="modal">
 							<div class="modal-content">
 								<div class="modal-header">
 									<span class="close" onclick="closepop(${vs.count})">&times;</span>
-									<h2>
-										${list.p_name}
-									</h2>
+									<h2>${list.p_name}</h2>
 								</div>
-								<form action="productUpdatePro.pr" enctype="multipart/form-data"  method="post" name="fr">
-								<div class="modal-body">
-									<textarea rows="20" cols="120" name="content">${list.p_content}</textarea>
-								</div>
-								</form>
+									<div class="modal-body">
+										${list.p_content}
+									</div>
 								<div class="modal-footer">
 									<h3>
-										<input type="submit" value="수정" class="btn" onclick="updateContent(${p_num})">
-										<input type="button" value="취소" class="btn"
+										<input type="button" value="수정" class="btn"
+											onclick="updateContent(${list.p_num})"> <input
+											type="button" value="취소" class="btn"
 											onclick="closepop(${vs.count})">
 									</h3>
 								</div>
 							</div>
 						</div>
-
-
-
-
-
-
-
-
 					</c:forEach>
 				</table>
 			</c:when>

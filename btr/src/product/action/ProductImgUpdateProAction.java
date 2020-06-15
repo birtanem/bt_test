@@ -54,9 +54,10 @@ public class ProductImgUpdateProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			forward = new ActionForward();
-			forward.setRedirect(true);
-			forward.setPath("adminProduct.ad");
+			out.println("<script>");
+			out.println("window.opener.reload()");
+			out.println("window.close()");
+			out.println("</script>");
 		}
 
 		

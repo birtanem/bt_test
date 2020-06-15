@@ -11,16 +11,16 @@ import product.svc.ProductDetailService;
 import product.svc.productUpdateService;
 import product.vo.ProductBean;
 
-public class ProductUpdateProAction implements Action {
+public class productContentUpdateProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("productUpdateAction도착!");
+		System.out.println("productContentUpdateAction도착!");
 
 		ActionForward forward = null;
 
 		boolean isUpdate = false;
-
+		
 		ProductBean productBean = new ProductBean();
 		ProductDetailService productDetailService = new ProductDetailService();
 		int p_num = Integer.parseInt(request.getParameter("p_num"));
@@ -57,10 +57,9 @@ public class ProductUpdateProAction implements Action {
 
 			productBean.setP_amount(Integer.parseInt(request.getParameter("amount")));
 		}
+		productBean.setP_content(request.getParameter("content"));
 		
-
 		isUpdate = productUpdateServie.productUpdate(productBean);
-
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (!isUpdate) {
@@ -69,9 +68,10 @@ public class ProductUpdateProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			forward = new ActionForward();
-			forward.setRedirect(true);
-			forward.setPath("adminProduct.ad");
+			out.println("<script>");
+			out.println("window.opener.reload()");
+			out.println("window.close()");
+			out.println("</script>");
 		}
 
 		return forward;

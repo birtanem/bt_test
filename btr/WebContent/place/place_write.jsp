@@ -72,7 +72,7 @@
 		style="background-image: url(images/page-title.png)">
 		<h1>Place(부산 명소 소개)</h1>
 	</div>
-	<section id="writeForm"">
+	<section id="writeForm">
  	<div class="blog container">
 		<h1>장소 소개 글 등록</h1>
 		<form action="PlaceWritePro.pl" method="post" enctype="multipart/form-data" name="placeForm">

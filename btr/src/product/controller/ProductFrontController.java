@@ -16,6 +16,7 @@ import product.action.ProductImgUpdateProAction;
 import product.action.ProductListAction;
 import product.action.ProductRegistProAction;
 import product.action.ProductUpdateProAction;
+import product.action.productContentUpdateProAction;
 
 /**
  * Servlet implementation class ProductFrontController
@@ -70,14 +71,6 @@ public class ProductFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(command.equals("/productDetail.pr")) {
-			action=new ProductDetailAction();
-			try {
-				forward=action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}else if(command.equals("/productimage.pr")) {
 			forward = new ActionForward();
 			forward.setPath("/product/productimage.jsp");
@@ -89,7 +82,19 @@ public class ProductFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}else if(command.equals("/productContentUpdate.pr")) {
+			forward = new ActionForward();
+			forward.setPath("/product/productContentUpdate.jsp");
+			}
+		else if(command.equals("/productContentUpdatePro.pr")) {
+			action = new productContentUpdateProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
 		
 		
 		
