@@ -17,6 +17,9 @@ import member.action.MemberJoinProAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutProAction;
 import member.action.MemberMypageFormAction;
+import member.action.MemberUpdateFormAction;
+import member.action.MemberUpdateProAction;
+import member.action.MemberWriteListAction;
 import member.dao.MemberDAO;
 import member.vo.MemberBean;
 import suggestion.action.SuggestionWriteFormAction;
@@ -121,8 +124,43 @@ public class MemberFrontController extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}		
-		
+			} else if(command.equals("/UpdateForm.me")) { 
+				
+				action = new MemberUpdateFormAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if(command.equals("/MemberUpdatePro.me")) { 
+				
+				action = new MemberUpdateProAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if(command.equals("/UpdatePassForm.me")) { 
+				
+				action = new MemberUpdateFormAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}						
+			} else if(command.equals("/MemberWriteList.me")) { 
+				
+				action = new MemberWriteListAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}						
+			} 
 		
 
 			if(forward != null) {

@@ -5,7 +5,32 @@
 <%
 // String id = (String)session.getAttribute("id");
 MemberBean memberInfo = (MemberBean)request.getAttribute("memberInfo");
+
+//정부수정 완료후 -> 마이페이지이동 -> 수정완료 알람창 띄우기
+String alertOn = "false";                             //alertOn 값 기본 false 설정
+if(session.getAttribute("alertOn") != null){          //회원가입 완료후 페이지 이동시 alertOn에 세션 true 가져옴
+	alertOn = (String)session.getAttribute("alertOn");
+	}
+if(alertOn.equals("true")){                           //alertOn 세션 true 일 경우 "회원가입 완료!" 알람 띄우기
+	%>
+	<script>
+	alert("수정 완료!")
+	</script>
+	<%
+	session.removeAttribute("alertOn");               //alertOn 세션 값 제거 
+}
+
+if(alertOn.equals("pass")){                           //alertOn 세션 true 일 경우 "회원가입 완료!" 알람 띄우기
+	%>
+	<script>
+	alert("비밀번호 변경 완료!")
+	</script>
+	<%
+	session.removeAttribute("alertOn");               //alertOn 세션 값 제거 
+}
+
 %>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -164,8 +189,8 @@ MemberBean memberInfo = (MemberBean)request.getAttribute("memberInfo");
 								<span id="infocontent1">가입날짜</span><span id="S_infocontent"><%=memberInfo.getDate() %></span><br>
 								</div>
 							<div id="btndiv">
-								<input type="button" value="회원정보 변경" onclick="#" id="infoChangeBtn">
-								<input type="button" value="비밀번호 변경" onclick="#" id="passChangeBtn">
+								<input type="button" value="회원정보 변경" onclick="location.href='UpdateForm.me?where=1'" id="infoChangeBtn">
+								<input type="button" value="비밀번호 변경" onclick="location.href='UpdatePassForm.me?where=2'" id="passChangeBtn">
 							</div>
                         </div>
                     </div>
@@ -173,7 +198,7 @@ MemberBean memberInfo = (MemberBean)request.getAttribute("memberInfo");
 				
 				
                 <div class="col-sm-6 col-md-4">
-                <a href="./">
+                <a href="./MemberWriteList.me">
                     <div class="media mypage-wrap fadeInDown">
                         <div class="pull-left">
                             <img id="img" src="images/services/mypageIcon1.jpeg">
