@@ -64,7 +64,26 @@ String plPage = request.getParameter("page");
 	href="images/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">    
-    
+
+
+<script type="text/javascript">
+$("#radioTest:radio[value='orange']").is(":checked") ;
+
+function validCheck() {
+	if($('#p1').is(":checked")==false  && $('#p2').is(":checked")==false 
+			&& $('#p3').is(":checked")==false && $('#p4').is(":checked")==false && $('#p5').is(":checked")==false ){
+		alert("하트 추천 갯수를 선택해 주세요!");
+		$("#p3").focus();
+		return false;
+	}
+
+
+}
+
+
+</script>
+
+
 </head>
 <body>
     
@@ -89,13 +108,7 @@ String plPage = request.getParameter("page");
                                 <p>주 소 : ${article.pl_address }</p>
                                 <p><i class="fa fa-clock-o"></i> ${article.pl_date }</p>
                                 <p><i class="fa fa-comment"></i> ${article.pl_readcount }</p>
-                                <p>
-                                    share:
-                                    <a href="#" class="fa fa-facebook"></a>
-                                    <a href="#" class="fa fa-twitter"></a>
-                                    <a href="#" class="fa fa-linkedin"></a>
-                                    <a href="#" class="fa fa-pinterest"></a>
-                                </p>
+                                
                             </div>
                             ${article.pl_content }
                             
@@ -107,11 +120,7 @@ String plPage = request.getParameter("page");
                                 </ul>
                             </c:if>
 
-                                <div class="social-btns">
-                                    <a href="#"> <i class="fa fa-heart"></i> Like</a>
-                                    <a href="#" class="tweet-bg"> <i class="fa fa-twitter"></i> tweet</a>
-                                    <a href="#" class="facebook-bg"> <i class="fa fa-facebook"></i> facebook</a>
-                                </div>
+                                
                             </div>
                             
                             <div class="comments">
@@ -122,9 +131,17 @@ String plPage = request.getParameter("page");
                                         <img src="images/octocat.png" alt="author">
                                     </div>
                                     <div class="comment-content comment-form">
-                                        <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post">
+                                        <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post" onsubmit="return validCheck()">
+                                        	
                                             <input type="hidden" name="id" value="${id }">
                     						<input type="hidden" name="page" value="<%=plPage%>">
+                    						하트 추천 : 
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p5" value="5"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p4" value="4"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p3" value="3"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p2" value="2"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i> 
+                    						&nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p1" value="1"><i class="fa fa-heart" style="color:red;"></i>
+                                           
                                             <textarea name="pc_content"></textarea>
                                             <input type="submit" value="Comment">
                                         </form>
@@ -144,7 +161,7 @@ String plPage = request.getParameter("page");
                                         <p>${commentList.pc_content }</p>
                                     </div>
                                     <div class="comment-count">
-                                        <a href="#"><i class="fa fa-reply"></i> ${commentList.pc_date }</a>
+                                        <a href="#"><i class="fa fa"></i> ${commentList.pc_date }</a>
                                         <a href="#"><i class="fa fa-heart"></i> ${commentList.pc_rank }</a>
                                     </div>
                                 </div>

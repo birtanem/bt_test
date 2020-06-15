@@ -292,7 +292,7 @@ public class PlaceDAO {
 				pstmt.setInt(1, pc_num); // 계산된 새 글 번호 사용
 				pstmt.setString(2, pcb.getPc_content());
 				pstmt.setString(3, pcb.getMember_id());
-				pstmt.setInt(4,0); //pc_rank
+				pstmt.setInt(4,pcb.getPc_rank()); //pc_rank
 				pstmt.setInt(5, pcb.getPl_num()); 
 				 
 			
