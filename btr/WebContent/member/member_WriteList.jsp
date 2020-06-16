@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageInfo" value="${pageInfo }"  /> 
+<c:set var="pageInfo" value="${pageinfo }"  /> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +35,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     
 </head>
-<body>
-    
+<body>    
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
@@ -49,14 +48,31 @@
         <div class="blog container">
             <div class="row">
                 <div class="col-md-8">
-                		<c:forEach var="article" items="${articleList }" >
-
-
-						<div class="blog-item">
-                        <a href="PlaceDetail.pl?r_num=${article.r_num }&page=${pageInfo.page }"></a>
+                <c:forEach var="article" items="${articleList }" >
+					<div class="blog-item">
                         <div class="blog-content">
-                            <a href="#">
-                           	 <h3>제목 : ${article.r_subject }&nbsp;&nbsp; 장소명 : ${article.r_name}&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }&nbsp;&nbsp;좋아요&nbsp;bb</h3>
+                            <a href="Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }">
+                            	<table border="3">
+	                            	<tr>
+	                            		<td>제목 : </td>
+	                            		<td>${article.r_subject }</td>
+	                            		<td id="td1">좋아요 : </td>
+	                            		<td id="td2">${article.r_likecount }</td>
+	                            		<td id="td3">조회수 </td>
+	                            		<td id="td4">${article.r_readcount }</td>
+	                            	</tr>
+	                            	<tr>
+	                            		<td>지역 이름</td>
+	                            		<td colspan="2">${article.r_name}</td>
+	                            		<td>작성날짜</td>
+	                            		<td>${article.r_date }</td>
+	                            	</tr>
+                            	</table>
+                            	<span>제목 : </span><span>${article.r_subject }</span>
+                            	<span>좋아요 : </span><span>${article.r_likecount }</span>
+                            	<span>조회수 : </span><span>${article.r_readcount }</span><br>
+                            	<span>지역 이름 : </span><span>${article.r_name}</span>
+                            	<span>작성날짜 : </span><span>${article.r_date }</span>
                             </a>
                         </div>
                     </div>
@@ -74,7 +90,7 @@
                     
                 </aside>
             </div>
-            
+           
             <!--/.row   페이징 처리-->
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -86,18 +102,19 @@
                     			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
                     		<c:otherwise>
-                    			<li><a href="PlaceList.pl?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a href="Review_List.re?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
                     
                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
                     		
                     		<c:choose>
-                   			<c:when test="${a == pageInfo.page }">
+                    		
+                    			<c:when test="${a == pageInfo.page }">
                     				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
-									<li><a href="PlaceList.pl?page=${a }">${a }</a></li>
+									<li><a href="Review_List.re?page=${a }">${a }</a></li>
                     			</c:otherwise>
                     		</c:choose>
                     	
@@ -109,7 +126,7 @@
                     				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li><a href="PlaceList.pl?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    				<li><a href="Review_List.re?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:otherwise>
                     		</c:choose>
                     </ul>

@@ -66,7 +66,7 @@ public class MemberWriteListAction implements Action {
 		}
 		
 		forward = new ActionForward();
-		forward.setPath("/member/a.jsp");
+		forward.setPath("/member/member_WriteList.jsp");
 		
 		System.out.println("1");
 		return forward;
