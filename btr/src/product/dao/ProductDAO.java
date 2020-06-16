@@ -214,10 +214,16 @@ public class ProductDAO {
 		int deleteCount=0;
 		PreparedStatement pstmt=null;
 		try {
-			String sql="delete from product where p_num=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1,p_num);
-			deleteCount=pstmt.executeUpdate();
+			String sql = "set foreign_key_checks=0";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			sql = "delete from product where p_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, p_num);
+			deleteCount = pstmt.executeUpdate();
+			sql = "set foreign_key_checks=1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("DAO-productDelete에러: "+e.getMessage());
 		}finally {
