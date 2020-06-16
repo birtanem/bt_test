@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | Place | Place_Content</title>
+    <title>나의 작성글</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Place</h1>
+        <h1>나의 작성글</h1>
         
     </div>
     
@@ -53,13 +53,11 @@
 
 
 						<div class="blog-item">
-                        <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }"><img class="img-responsive img-blog" src="placeUpload/${article.pl_image }" width="100%" alt="" /></a>
+                        <a href="PlaceDetail.pl?r_num=${article.r_num }&page=${pageInfo.page }"></a>
                         <div class="blog-content">
-                            <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }" class="blog_cat">테마(주제) : ${article.pl_theme}</a>
-                            <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }">
-                            <h2> 장소명 : ${article.pl_name} </h2>
-                            <h3>&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount }&nbsp;&nbsp;좋아요&nbsp;${article.pl_likecount }</h3></a>
-                            <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }"> 주 소 : ${article.pl_address }<br>Read More (자세히 보기 / 클릭)<i class="fa fa-long-arrow-right"></i></a>
+                            <a href="#">
+                           	 <h3>제목 : ${article.r_subject }&nbsp;&nbsp; 장소명 : ${article.r_name}&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }&nbsp;&nbsp;좋아요&nbsp;bb</h3>
+                            </a>
                         </div>
                     </div>
                 		

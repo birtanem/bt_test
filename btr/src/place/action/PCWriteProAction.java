@@ -20,16 +20,20 @@ public class PCWriteProAction implements Action {
 		int nowPage=Integer.parseInt(request.getParameter("page"));
 		String id = request.getParameter("id");
 		String pc_content = request.getParameter("pc_content");
+		int pc_rank=Integer.parseInt(request.getParameter("pc_rank"));
 		
-		System.out.println("작성자 : "+id);
-		System.out.println("게시글번 : "+pl_num);
-		System.out.println("내용 : "+pc_content);
-		System.out.println("페이지 : "+nowPage);
+//		System.out.println("작성자 : "+id);
+//		System.out.println("게시글번 : "+pl_num);
+//		System.out.println("내용 : "+pc_content);
+//		System.out.println("페이지 : "+nowPage);
+		System.out.println("점수입력 : "+pc_rank);
+		
 
 		PlaceCommentBean pcb = new PlaceCommentBean();
 		pcb.setMember_id(id);
 		pcb.setPc_content(pc_content);
 		pcb.setPl_num(pl_num);
+		pcb.setPc_rank(pc_rank);
 		
 		PCWiteProService pcws = new PCWiteProService();
 		boolean isWriteSuccess = pcws.registComment(pcb);

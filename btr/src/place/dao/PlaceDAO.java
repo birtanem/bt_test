@@ -292,7 +292,7 @@ public class PlaceDAO {
 				pstmt.setInt(1, pc_num); // 계산된 새 글 번호 사용
 				pstmt.setString(2, pcb.getPc_content());
 				pstmt.setString(3, pcb.getMember_id());
-				pstmt.setInt(4,0); //pc_rank
+				pstmt.setInt(4,pcb.getPc_rank()); //pc_rank
 				pstmt.setInt(5, pcb.getPl_num()); 
 				 
 			
@@ -392,6 +392,45 @@ public class PlaceDAO {
 			}
 			
 			return articleList;
+		}
+
+		public int updateArticle(PlaceBean pb) {
+						int insertCount = 0;
+						PreparedStatement pstmt = null;
+						String sql;
+						try {
+														
+							sql = "UPDATE place SET region_code=?, pl_name=?, pl_content=?,pl_address=?,pl_image=?,pl_readcount=pl_readcount,pl_likecount=pl_likecount,pl_theme=? WHERE pl_num=?";
+									
+							pstmt = con.prepareStatement(sql);
+							
+							pstmt.setInt(1, pb.getRegion_code());
+							pstmt.setString(2, pb.getPl_name());
+							pstmt.setString(3, pb.getPl_content());
+							pstmt.setString(4, pb.getPl_address());
+							pstmt.setString(5, pb.getPl_image());
+							pstmt.setString(6, pb.getPl_theme());
+							pstmt.setInt(7, pb.getPl_num());
+						
+//							System.out.println("1 - pb.getRegion_code() : "+pb.getRegion_code());
+//							System.out.println("2 - pb.getPl_name() : " + pb.getPl_name());
+//							System.out.println("3 - pb.getPl_content() : " + pb.getPl_content());
+//							System.out.println("4 - pb.getPl_address() : " + pb.getPl_address());
+//							System.out.println("5 - pb.getPl_image() : " + pb.getPl_image());
+//							System.out.println("6 - 6 pb.getPl_theme() : " + pb.getPl_theme());
+//							System.out.println("7 - pb.getPl_num() : "+pb.getPl_num());
+							
+							insertCount = pstmt.executeUpdate();
+							System.out.println(pb.getPl_image());
+						} catch (SQLException e) {
+							System.out.println("PlaceDAO - updateArticle() 실패! : " + e.getMessage());
+						} finally {
+							
+						
+							close(pstmt);
+						}
+						
+						return insertCount;
 		}
 	
 }

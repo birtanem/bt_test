@@ -25,15 +25,14 @@ String plPage = request.getParameter("page");
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Home | Corlate</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>WithTrip | Place | Place_Content</title>
 
-    <!-- core CSS -->
-<link href="css/product_modal.css" rel="stylesheet">
-
+<!-- core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/animate.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -41,7 +40,7 @@ String plPage = request.getParameter("page");
 <link href="css/icomoon.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
-
+<link href="css/review.css" rel="stylesheet">
 
 <script src="js/product_modal.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
@@ -49,12 +48,11 @@ String plPage = request.getParameter("page");
 <script src="js/jquery.isotope.min.js"></script>
 <script src="js/main.js"></script>
 	
-	
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="js/summernote-ko-KR.js"></script>	
+<!-- 썸머노트 필수 스크립트 링크 코드 -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 
 <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -66,14 +64,33 @@ String plPage = request.getParameter("page");
 	href="images/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">    
-    
+
+
+<script type="text/javascript">
+$("#radioTest:radio[value='orange']").is(":checked") ;
+
+function validCheck() {
+	if($('#p1').is(":checked")==false  && $('#p2').is(":checked")==false 
+			&& $('#p3').is(":checked")==false && $('#p4').is(":checked")==false && $('#p5').is(":checked")==false ){
+		alert("하트 추천 갯수를 선택해 주세요!");
+		$("#p3").focus();
+		return false;
+	}
+
+
+}
+
+
+</script>
+
+
 </head>
 <body>
     
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Place(부산 명소 소개)</h1>
+        <h1>Place</h1>
     </div>
     
             <section id="blog">
@@ -91,13 +108,7 @@ String plPage = request.getParameter("page");
                                 <p>주 소 : ${article.pl_address }</p>
                                 <p><i class="fa fa-clock-o"></i> ${article.pl_date }</p>
                                 <p><i class="fa fa-comment"></i> ${article.pl_readcount }</p>
-                                <p>
-                                    share:
-                                    <a href="#" class="fa fa-facebook"></a>
-                                    <a href="#" class="fa fa-twitter"></a>
-                                    <a href="#" class="fa fa-linkedin"></a>
-                                    <a href="#" class="fa fa-pinterest"></a>
-                                </p>
+                                
                             </div>
                             ${article.pl_content }
                             
@@ -109,11 +120,7 @@ String plPage = request.getParameter("page");
                                 </ul>
                             </c:if>
 
-                                <div class="social-btns">
-                                    <a href="#"> <i class="fa fa-heart"></i> Like</a>
-                                    <a href="#" class="tweet-bg"> <i class="fa fa-twitter"></i> tweet</a>
-                                    <a href="#" class="facebook-bg"> <i class="fa fa-facebook"></i> facebook</a>
-                                </div>
+                                
                             </div>
                             
                             <div class="comments">
@@ -121,12 +128,20 @@ String plPage = request.getParameter("page");
                                 <c:if test="${id != null}" >
                                 <div class="single-comment">
                                     <div class="comment-img">
-                                        <img src="images/graverter.jpg" alt="author">
+                                        <img src="images/octocat.png" alt="author">
                                     </div>
                                     <div class="comment-content comment-form">
-                                        <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post">
+                                        <form action="PC_WritePro.pl?pl_num=${article.pl_num }" method="post" onsubmit="return validCheck()">
+                                        	
                                             <input type="hidden" name="id" value="${id }">
                     						<input type="hidden" name="page" value="<%=plPage%>">
+                    						하트 추천 : 
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p5" value="5"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p4" value="4"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p3" value="3"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p2" value="2"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i> 
+                    						&nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p1" value="1"><i class="fa fa-heart" style="color:red;"></i>
+                                           
                                             <textarea name="pc_content"></textarea>
                                             <input type="submit" value="Comment">
                                         </form>
@@ -139,14 +154,14 @@ String plPage = request.getParameter("page");
                                 <c:forEach var="commentList" items="${commentList }">                                 
                                 <div class="single-comment">
                                     <div class="comment-img">
-                                        <img src="images/graverter.jpg" alt="author">
+                                        <img src="images/ananimous.png" alt="author">
                                     </div>
                                     <div class="comment-content">
                                         <h5>${commentList.member_id }</h5>
                                         <p>${commentList.pc_content }</p>
                                     </div>
                                     <div class="comment-count">
-                                        <a href="#"><i class="fa fa-reply"></i> ${commentList.pc_date }</a>
+                                        <a href="#"><i class="fa fa"></i> ${commentList.pc_date }</a>
                                         <a href="#"><i class="fa fa-heart"></i> ${commentList.pc_rank }</a>
                                     </div>
                                 </div>
@@ -170,11 +185,9 @@ String plPage = request.getParameter("page");
                     	</c:choose>
                     
                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                    		
-                    		<c:choose>
-                    		
-                    			<c:when test="${pageInfo.page <= 1 }">
-                    				<li class="active"><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>
+                    	<c:choose>
+                   			<c:when test="${a == pageInfo.page }">
+                    				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
 									<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>

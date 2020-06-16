@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.*;
 
 import common.action.*;
-import common.dao.*;
 import common.vo.*;
 import review.svc.*;
 import review.vo.*;
