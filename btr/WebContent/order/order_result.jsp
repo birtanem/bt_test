@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 </head>
 <body>
-주문완료
-주문번호: 
+<h1>주문완료</h1>
+주문번호: ${sessionScope.orderNum }
 </body>
 </html>

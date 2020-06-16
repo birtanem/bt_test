@@ -1,7 +1,6 @@
 package order.action;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +21,18 @@ public class OrderFrontAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("OrderFrontAction");
-		
+
+				
 		// 상품번호(num), 수량(amount), 합계(price) 를 JSON 형태로 가져와서 파싱
 		JSONParser parser = new JSONParser();
 		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
 		
+		
+		
 		OrderFrontService orderFrontService = new OrderFrontService();
 		
 		ArrayList<ProductBean> arrayList = new ArrayList<ProductBean>();
+		
 		
 		for(int i=0;i<jsonObj.size();i++) {
 			JSONObject obj = (JSONObject)jsonObj.get(i);

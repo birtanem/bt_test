@@ -68,6 +68,61 @@ private static OrderDAO instance;
 					
 		return pb;
 	}
+
+	public String insertOrderList(JSONObject obj, String strDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int insertCount = 0;
+		int num = 0;
+		String date = null;
+		
+		try {
+			String sql = "SELECT MAX(num) num FROM test";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1);
+			}
+			
+			date = strDate + num;
+			
+			sql = "INSERT INTO o_order(o_ordernum, o_p_num, o_p_name, o_p_amount, o_price) VALUES(?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, date);
+			System.out.println(obj.get("name"));
+			pstmt.setInt(2, Integer.parseInt((String)obj.get("num")));
+			pstmt.setString(3,String.valueOf(obj.get("name")));
+			pstmt.setInt(4, Integer.parseInt((String)obj.get("amount")));
+			pstmt.setInt(5, Integer.parseInt((String)obj.get("price")));
+			
+			insertCount = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return date;
+		
+	}
+
+	public void updateSequence() {
+		PreparedStatement pstmt = null;
+			
+		try {
+			String sql = "INSERT INTO test VALUES(null)";
+			pstmt = con.prepareStatement(sql);
+			System.out.println(pstmt.executeUpdate());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}	
+	}
+	
 	
 	
 	
