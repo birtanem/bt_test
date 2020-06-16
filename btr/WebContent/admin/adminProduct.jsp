@@ -72,13 +72,12 @@ function del(p_num){
 <body>
 
 	<jsp:include page="/inc/top.jsp" />
-
+<section id="portfolio">
 	<div class="container">
 		<c:choose>
 			<c:when test="${ListCount>0 && productList !=null}">
 				<table>
 					<tr>
-						<td><input type="checkbox"></td>
 						<td>번호</td>
 						<td>지역코드</td>
 						<td>카테고리</td>
@@ -194,6 +193,7 @@ function del(p_num){
 			</div>
 		</div>
 	</footer>
+	</section>
 	<!--/#footer-->
 
 	<script src="js/bootstrap.min.js"></script>

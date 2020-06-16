@@ -214,7 +214,7 @@ public class ProductDAO {
 		int deleteCount=0;
 		PreparedStatement pstmt=null;
 		try {
-			String sql="delete product where p_num=?";
+			String sql="delete from product where p_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,p_num);
 			deleteCount=pstmt.executeUpdate();

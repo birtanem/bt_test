@@ -17,9 +17,8 @@ public class ProductDetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
 		System.out.println("productDetailAction");
-		
 		int p_num=Integer.parseInt(request.getParameter("p_num"));
-		System.out.println("act pnum"+p_num);
+		System.out.println("action : "+p_num);
 		ProductDetailService productDetilService=new ProductDetailService();
 		ProductBean productDetail=new ProductBean();
 		productDetail=productDetilService.getProductDetail(p_num);
