@@ -60,6 +60,10 @@ function updateContent(p_num){
 function reload(){
 	location.reload();
 }
+function del(p_num){
+	alert("정말 삭제하시겠습니까?");
+	location.href="productDelete.pr?p_num="+p_num;
+}
 </script>
 
 
@@ -83,11 +87,10 @@ function reload(){
 						<td>내용</td>
 						<td>가격</td>
 						<td>수량</td>
-						<td>관리</td>
+						<td colspan="2">관리</td>
 					</tr>
 					<c:forEach var="list" items="${productList }" varStatus="vs">
 						<tr>
-							<td><input type="checkbox" name="check"></td>
 							<td>${list.p_num}</td>
 
 							<td><select name="regionCode" id="regionCode${vs.count }"
@@ -134,6 +137,7 @@ function reload(){
 									value="${list.p_amount }"></td>
 								<td><input type="submit" value="수정" id="myBtn" class="btn"></td>
 							</form>
+							<td><input type="button" value="삭제" class="btn" onclick="del(${list.p_num})"></td>
 						</tr>
 						<!-- Modal content -->
 						<div id="myModal${vs.count }" class="modal">

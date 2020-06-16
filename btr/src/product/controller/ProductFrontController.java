@@ -17,6 +17,7 @@ import product.action.ProductListAction;
 import product.action.ProductRegistProAction;
 import product.action.ProductUpdateProAction;
 import product.action.productContentUpdateProAction;
+import product.action.productDeleteAction;
 
 /**
  * Servlet implementation class ProductFrontController
@@ -94,7 +95,15 @@ public class ProductFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(command.equals("/productDelete.pr")) {
+			action=new productDeleteAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+		}
 		
 		
 		

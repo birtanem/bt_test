@@ -194,9 +194,6 @@ public class ProductDAO {
 	}
 
 	public int productImgUpdate(ProductBean pb) {
-		System.out.println("imgupdateDAO도착?");
-		System.out.println("img:"+pb.getP_image());
-		System.out.println("int:"+pb.getP_num());
 		PreparedStatement pstmt=null;
 		int updateCount=0;
 		try {
@@ -211,6 +208,22 @@ public class ProductDAO {
 			close(pstmt);
 		}
 		return updateCount;
+	}
+
+	public int productDelete(int p_num) {
+		int deleteCount=0;
+		PreparedStatement pstmt=null;
+		try {
+			String sql="delete product where p_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,p_num);
+			deleteCount=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("DAO-productDelete에러: "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return deleteCount;
 	}
 	
 	
