@@ -77,7 +77,7 @@ private static OrderDAO instance;
 		String date = null;
 		
 		try {
-			String sql = "SELECT MAX(num) num FROM test";
+			String sql = "SELECT MAX(num) num FROM order_seq";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -113,7 +113,7 @@ private static OrderDAO instance;
 		PreparedStatement pstmt = null;
 			
 		try {
-			String sql = "INSERT INTO test VALUES(null)";
+			String sql = "INSERT INTO order_seq VALUES(null)";
 			pstmt = con.prepareStatement(sql);
 			System.out.println(pstmt.executeUpdate());
 		} catch (SQLException e) {
