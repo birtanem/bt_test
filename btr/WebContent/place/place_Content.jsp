@@ -76,6 +76,11 @@ function validCheck() {
 		$("#p3").focus();
 		return false;
 	}
+	if($('#pc_content').val()==0){
+		alert("댓글을 입력하여 주세요!");
+		$("#pc_content").focus();
+		return false;
+	}
 
 
 }
@@ -108,7 +113,7 @@ function validCheck() {
                                 <p>주 소 : ${article.pl_address }</p>
                                 <p><i class="fa fa-clock-o"></i> ${article.pl_date }</p>
                                 <p><i class="fa fa-comment"></i> ${article.pl_readcount }</p>
-                                
+                                <p><i class="fa fa-heart"></i> ${article.pl_likecount }</p>
                             </div>
                             ${article.pl_content }
                             
@@ -142,7 +147,7 @@ function validCheck() {
                                             &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p2" value="2"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i> 
                     						&nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p1" value="1"><i class="fa fa-heart" style="color:red;"></i>
                                            
-                                            <textarea name="pc_content"></textarea>
+                                            <textarea id="pc_content" name="pc_content"></textarea>
                                             <input type="submit" value="Comment">
                                         </form>
                                     </div>
