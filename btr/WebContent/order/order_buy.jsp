@@ -38,17 +38,61 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+<script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#orderBtn").click(function() {
+			var num = document.getElementsByName("num");
+			var name = document.getElementsByName("name");
+			var amount = document.getElementsByName("amount");
+			var price = document.getElementsByName("price");
+			var testList = new Array();
+			alert(num.length)
+			for (var i = 0; i < num.length; i++) {
+				// 객체 생성
+				var data = new Object();
+				// 리스트에 생성된 객체 삽입
+				data.num = num[i].value;
+				data.name = name[i].value;
+				data.amount = amount[i].value;
+				data.price = price[i].value;
+				testList.push(data);
+			}
+			//		     // String 형태로 변환
+			var jsonData = JSON.stringify(testList);
+
+			$.ajax("orderAdd.or", {
+				type : "POST",
+				data : {
+					"jsonData" : jsonData
+				},
+				success : function() {
+					location.href = "orderResult.or"
+				}
+			});
+		});
+		
+		var pMethod = $(':radio[name="payMethod"]:checked').val();
+		$('.payMethod:checked')
+
+		
+		
+		
+		
+		
+		
+	});
+</script>
+
 </head>
 <body>
-
 	<jsp:include page="/inc/top.jsp" />
-
-
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
 		<h1>Order</h1>
 	</div>
-
 	<section id="portfolio">
 		<div class="center">
 			<h2>주문/결제</h2>
@@ -61,17 +105,17 @@
 					<tr>
 						<th>주문자명</th>
 						<td><input type="text" name="o_name"
-							value="${sessionScope.info.id}" class="input"></td>
+							value="${sessionScope.info.name}" class="o_input"></td>
 					</tr>
 					<tr>
 						<th>휴대폰</th>
 						<td><input type="text" name="o_phone"
-							value="${sessionScope.info.phone} " class="input"></td>
+							value="${sessionScope.info.phone} " class="o_input"></td>
 					</tr>
 					<tr>
 						<th>이메일</th>
 						<td><input type="text" name="o_name"
-							value="${sessionScope.info.email}" class="input"></td>
+							value="${sessionScope.info.email}" class="o_input"></td>
 					</tr>
 				</table>
 			</div>
@@ -89,18 +133,23 @@
 						<tr>
 							<td><img src="product/productUpload/${p.p_image }"
 								width="200" height="100"></td>
-							<td>${p.p_name }</td>
+							<td>${p.p_name }<input type="hidden" name="name"
+								value="${p.p_name }"><input type="hidden" name="num"
+								value="${p.p_num }"></td>
 							<td><fmt:formatNumber value="${p.p_price/p.p_amount }"
-									pattern="0" /></td>
-							<td>${p.p_amount }</td>
-							<td>${p.p_price}</td>
+									pattern="###,###,###" /><input type="hidden" name="price"
+								value="<fmt:formatNumber value="${p.p_price/p.p_amount }" pattern="0"/>"></td>
+							<td>${p.p_amount }<input type="hidden" name="amount"
+								value="${p.p_amount }"></td>
+							<td><fmt:formatNumber value="${p.p_price}"
+									pattern="###,###,###" /></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 			<div class="o_pay">
-			<h2>결제수단 선택</h2>
-				<table>
+				<h2>결제수단 선택</h2>
+				<table class="ot_pay">
 					<tr>
 						<td><input type="radio" name="payMethod" value="1">신용카드</td>
 						<td><input type="radio" name="payMethod" value="2">계좌이체</td>
@@ -116,7 +165,7 @@
 				</table>
 				<div>
 					<!-- 신용카드 선택시 -->
-					<table class="pm_t_card">
+					<table class="pm t_card">
 						<tr>
 							<th>카드종류</th>
 							<td><select id="pm_card" name="pm_card">
@@ -151,7 +200,7 @@
 					</table>
 
 					<!-- 계좌이체 선택시 -->
-					<table class="pm_t_at">
+					<table class="pm t_at">
 						<tr>
 							<th>결제안내</th>
 							<td><ul>
@@ -169,7 +218,7 @@
 					<c:set var="addDate">
 						<fmt:formatDate value="<%=calDate%>" pattern="yyyy.MM.dd" />
 					</c:set>
-					<table class="pm_t_dps">
+					<table class="pm t_dps">
 						<tr>
 							<th>은행명</th>
 							<td><select id="pm_depositBank" name="pm_depositBank">
@@ -191,7 +240,8 @@
 						</tr>
 						<tr>
 							<th>입금자명</th>
-							<td><input type="text" value="${param.name }" class="input"></td>
+							<td><input type="text" value="${sessionScope.info.name}"
+								class="o_input"></td>
 						<tr>
 							<td><ul>
 									<li>은행별로 입금가능 시간이 다를 수 있습니다.</li>
@@ -200,7 +250,7 @@
 						</tr>
 					</table>
 					<!-- 					휴대폰 결제 선택 -->
-					<table class="pm_t_ph">
+					<table class="pm t_ph">
 						<tr>
 							<th>결제안내</th>
 							<td><ul>
@@ -210,7 +260,7 @@
 						</tr>
 					</table>
 					<!-- 					문화상품권 선택시  -->
-					<table class="pm_t_cul">
+					<table class="pm t_cul">
 						<tr>
 							<td><span><h3>보유하신 컬쳐캐쉬(문화상품권) 내역 조회 후 사용이
 										가능합니다.</h3></span> <input type="button" value="조회" class="btn"></td>
@@ -226,7 +276,7 @@
 						</tr>
 					</table>
 					<!-- 					도서상품권 선택시  -->
-					<table class="pm_t_book">
+					<table class="pm t_book">
 						<tr>
 							<td><span><h3>보유하신 북앤라이프 캐쉬(도서상품권) 내역 조회 후 사용이
 										가능합니다.</h3></span> <input type="button" value="조회" class="btn"></td>
@@ -242,7 +292,7 @@
 						</tr>
 					</table>
 					<!-- 					PAYCO 선택시 -->
-					<table class="pm_t_payco">
+					<table class="pm t_payco">
 						<tr>
 							<td><ul>
 									<li>PAYCO는 NHN엔터테인먼트에서 제공하는 안전한 간편결제 서비스로 withTrip에서는 신용카드
@@ -253,7 +303,7 @@
 						</tr>
 					</table>
 					<!-- 					카카오페이 선택시 -->
-					<table class="pm_t_kakao">
+					<table class="pm t_kakao">
 						<tr>
 							<td><ul>
 									<li>카카오페이는 주식회사 카카오페이에서 제공하는 안전한 간편결제 서비스로 withTrip에서는
@@ -267,14 +317,20 @@
 					</table>
 				</div>
 			</div>
-			<div class="right">
+			<div class="o_right">
 				<h2>최종 결제정보</h2>
 				<ul class="total_pmBox">
-					<li><span class="total_t">총 상품금액</span> <span class="total_tn">6000원</span></li>
-					<li><span class="total_t">할인금액</span> <span class="total_tn">5000원</span></li>
-					<li class="total"><span class="total_t">최종 결제금액</span> <span
-						class="total_tn">10000원</span></li>
-					<li><input type="button" class="btn" value="결제하기"></li>
+						<li><span class="total_t">총 상품금액</span><span
+							class="total_cnt"><span class="total_tn">원</span></span></li>
+						<div class="both"></div>
+						<li><span class="total_t">할인금액</span> <span class="total_cnt"><span
+								class="total_tn">0원</span></span></li>
+						<div class="both"></div>
+						<li class="total"><span class="total_t">최종 결제금액</span><span
+							class="total_cnt"> <span class="total_tn">${p.p_name}원</span></span></li>
+						<div class="both"></div>
+						<li><input type="button" class="btn tpm" value="결제하기"></li>
+				
 				</ul>
 			</div>
 
@@ -293,7 +349,6 @@
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/jquery.isotope.min.js"></script>
 	<script src="js/main.js"></script>
-
 
 </body>
 </html>
