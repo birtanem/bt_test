@@ -24,7 +24,7 @@ public class ProductCartAddAction implements Action {
 		// 요청한 클라이언트의 세션 영역 객체 가져오기
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("id", "nani");
+//		session.setAttribute("id", "nani");
 				
 		String id = (String)session.getAttribute("id"); 
 		// id가 없으면 login 페이지로 돌아가기

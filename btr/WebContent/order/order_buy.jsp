@@ -4,6 +4,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,12 +40,13 @@
 
 </head>
 <body>
+
 	<jsp:include page="/inc/top.jsp" />
 
 
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
-		<h1>Product</h1>
+		<h1>Order</h1>
 	</div>
 
 	<section id="portfolio">
@@ -57,18 +60,18 @@
 				<table class="ot_info">
 					<tr>
 						<th>주문자명</th>
-						<td><input type="text" name="o_name" value="${param.name }"
-							class="input"></td>
+						<td><input type="text" name="o_name"
+							value="${sessionScope.info.id}" class="input"></td>
 					</tr>
 					<tr>
 						<th>휴대폰</th>
-						<td><input type="text" name="o_phone" value="${param.phone }"
-							class="input"></td>
+						<td><input type="text" name="o_phone"
+							value="${sessionScope.info.phone} " class="input"></td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="text" name="o_name" value="${param.email }"
-							class="input"></td>
+						<td><input type="text" name="o_name"
+							value="${sessionScope.info.email}" class="input"></td>
 					</tr>
 				</table>
 			</div>
@@ -76,27 +79,27 @@
 				<h2>배송상품</h2>
 				<table class="ot_list">
 					<tr>
-						<th>상품정보</th>
+						<th colspan="2">상품정보</th>
 						<th>가격</th>
 						<th>수량</th>
-						<th>구매가</th>
+						<th>합계</th>
 					</tr>
-					<tr>
-						<td>
-							<div>
-								<img src="" alt="">
-							</div>
-							<div>
-								<span>상품명</span> <span>상품카테고리</span> <span>지역</span>
-							</div>
-						</td>
-						<td><span><span>10</span>원</span></td>
-						<td>1</td>
-						<td>1000</td>
-					</tr>
+					<c:forEach var="p" items="${sessionScope.arrayList }"
+						varStatus="status">
+						<tr>
+							<td><img src="product/productUpload/${p.p_image }"
+								width="200" height="100"></td>
+							<td>${p.p_name }</td>
+							<td><fmt:formatNumber value="${p.p_price/p.p_amount }"
+									pattern="0" /></td>
+							<td>${p.p_amount }</td>
+							<td>${p.p_price}</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<div class="o_pay">
+			<h2>결제수단 선택</h2>
 				<table>
 					<tr>
 						<td><input type="radio" name="payMethod" value="1">신용카드</td>
@@ -242,7 +245,8 @@
 					<table class="pm_t_payco">
 						<tr>
 							<td><ul>
-									<li>PAYCO는 NHN엔터테인먼트에서 제공하는 안전한 간편결제 서비스로 withTrip에서는 신용카드 결제가 가능합니다.</li>
+									<li>PAYCO는 NHN엔터테인먼트에서 제공하는 안전한 간편결제 서비스로 withTrip에서는 신용카드
+										결제가 가능합니다.</li>
 									<li>신용카드 등록 시 휴대폰과 카드명의자가 동일해야합니다. (모든 신용/체크카드 가능)</li>
 									<li>무이자할부는 PAYCO 결제창에서 확인하실 수 있습니다.</li>
 								</ul></td>
@@ -252,7 +256,8 @@
 					<table class="pm_t_kakao">
 						<tr>
 							<td><ul>
-									<li>카카오페이는 주식회사 카카오페이에서 제공하는 안전한 간편결제 서비스로 withTrip에서는 신용카드 결제가 가능합니다.</li>
+									<li>카카오페이는 주식회사 카카오페이에서 제공하는 안전한 간편결제 서비스로 withTrip에서는
+										신용카드 결제가 가능합니다.</li>
 									<li>무이자할부는 카카오페이 모바일 결제창에서 선택하실 수 있습니다.</li>
 									<li>휴대폰과 카드명의자가 동일해야 결제 가능합니다.</li>
 									<li>결제 증빙내역은 카카오페이 홈페이지에서 확인 가능합니다.(카카오페이 홈 > 설정 > 결제내역)</li>
@@ -263,16 +268,14 @@
 				</div>
 			</div>
 			<div class="right">
-			<h2>최종 결제정보</h2>
-			<ul class="total_pmBox">
-			<li><span class="total_t">총 상품금액</span>
-			<span class="total_tn">6000원</span></li>
-			<li><span class="total_t">할인금액</span>
-			<span class="total_tn">5000원</span></li>
-			<li class="total"><span class="total_t">최종 결제금액</span>
-			<span class="total_tn">10000원</span></li>
-			<li><input type="button" class="btn" value="결제하기"></li>
-			</ul>
+				<h2>최종 결제정보</h2>
+				<ul class="total_pmBox">
+					<li><span class="total_t">총 상품금액</span> <span class="total_tn">6000원</span></li>
+					<li><span class="total_t">할인금액</span> <span class="total_tn">5000원</span></li>
+					<li class="total"><span class="total_t">최종 결제금액</span> <span
+						class="total_tn">10000원</span></li>
+					<li><input type="button" class="btn" value="결제하기"></li>
+				</ul>
 			</div>
 
 
@@ -290,5 +293,7 @@
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/jquery.isotope.min.js"></script>
 	<script src="js/main.js"></script>
+
+
 </body>
 </html>
