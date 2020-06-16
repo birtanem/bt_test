@@ -267,6 +267,7 @@ public class PlaceDAO {
 
 		public int insertComment(PlaceCommentBean pcb) {
 			int insertCount = 0;
+			int updateCount = 0;
 			
 			// DB 작업에 필요한 변수 선언(Connection 객체는 이미 외부로부터 전달받음)
 			PreparedStatement pstmt = null;
@@ -286,6 +287,12 @@ public class PlaceDAO {
 					// 조회된 번호 + 1 을 수행하여 새 글 번호로 저장
 					pc_num = rs.getInt(1) + 1;
 				} 
+				// 코멘트 작성 시 등록한 리뷰 점수 PALCE테이블에 합산 하는 구문
+				sql= "UPDATE place SET pl_likecount=(pl_likecount+?) WHERE pl_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,pcb.getPc_rank()); //pc_rank
+				pstmt.setInt(2, pcb.getPl_num());
+				updateCount = pstmt.executeUpdate();
 				
 				sql = "INSERT INTO place_comment VALUES (?,?,now(),?,?,?)";
 				pstmt = con.prepareStatement(sql);
@@ -294,10 +301,6 @@ public class PlaceDAO {
 				pstmt.setString(3, pcb.getMember_id());
 				pstmt.setInt(4,pcb.getPc_rank()); //pc_rank
 				pstmt.setInt(5, pcb.getPl_num()); 
-				 
-			
-				
-				// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
 				insertCount = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
