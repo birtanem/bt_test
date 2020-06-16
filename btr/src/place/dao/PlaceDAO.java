@@ -267,6 +267,7 @@ public class PlaceDAO {
 
 		public int insertComment(PlaceCommentBean pcb) {
 			int insertCount = 0;
+			int updateCount = 0;
 			
 			// DB 작업에 필요한 변수 선언(Connection 객체는 이미 외부로부터 전달받음)
 			PreparedStatement pstmt = null;
@@ -286,18 +287,20 @@ public class PlaceDAO {
 					// 조회된 번호 + 1 을 수행하여 새 글 번호로 저장
 					pc_num = rs.getInt(1) + 1;
 				} 
+				// 코멘트 작성 시 등록한 리뷰 점수 PALCE테이블에 합산 하는 구문
+				sql= "UPDATE place SET pl_likecount=(pl_likecount+?) WHERE pl_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,pcb.getPc_rank()); //pc_rank
+				pstmt.setInt(2, pcb.getPl_num());
+				updateCount = pstmt.executeUpdate();
 				
 				sql = "INSERT INTO place_comment VALUES (?,?,now(),?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pc_num); // 계산된 새 글 번호 사용
 				pstmt.setString(2, pcb.getPc_content());
 				pstmt.setString(3, pcb.getMember_id());
-				pstmt.setInt(4,0); //pc_rank
+				pstmt.setInt(4,pcb.getPc_rank()); //pc_rank
 				pstmt.setInt(5, pcb.getPl_num()); 
-				 
-			
-				
-				// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
 				insertCount = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -392,6 +395,45 @@ public class PlaceDAO {
 			}
 			
 			return articleList;
+		}
+
+		public int updateArticle(PlaceBean pb) {
+						int insertCount = 0;
+						PreparedStatement pstmt = null;
+						String sql;
+						try {
+														
+							sql = "UPDATE place SET region_code=?, pl_name=?, pl_content=?,pl_address=?,pl_image=?,pl_readcount=pl_readcount,pl_likecount=pl_likecount,pl_theme=? WHERE pl_num=?";
+									
+							pstmt = con.prepareStatement(sql);
+							
+							pstmt.setInt(1, pb.getRegion_code());
+							pstmt.setString(2, pb.getPl_name());
+							pstmt.setString(3, pb.getPl_content());
+							pstmt.setString(4, pb.getPl_address());
+							pstmt.setString(5, pb.getPl_image());
+							pstmt.setString(6, pb.getPl_theme());
+							pstmt.setInt(7, pb.getPl_num());
+						
+//							System.out.println("1 - pb.getRegion_code() : "+pb.getRegion_code());
+//							System.out.println("2 - pb.getPl_name() : " + pb.getPl_name());
+//							System.out.println("3 - pb.getPl_content() : " + pb.getPl_content());
+//							System.out.println("4 - pb.getPl_address() : " + pb.getPl_address());
+//							System.out.println("5 - pb.getPl_image() : " + pb.getPl_image());
+//							System.out.println("6 - 6 pb.getPl_theme() : " + pb.getPl_theme());
+//							System.out.println("7 - pb.getPl_num() : "+pb.getPl_num());
+							
+							insertCount = pstmt.executeUpdate();
+							System.out.println(pb.getPl_image());
+						} catch (SQLException e) {
+							System.out.println("PlaceDAO - updateArticle() 실패! : " + e.getMessage());
+						} finally {
+							
+						
+							close(pstmt);
+						}
+						
+						return insertCount;
 		}
 	
 }

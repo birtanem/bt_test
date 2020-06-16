@@ -41,19 +41,19 @@
 		
 		$('#btn1').click(function(){
 			
-			var div = $('#hid').css("display");
+			var div = $('#hid1').css("display");
 			
 			if (div == "none") {
-				$('#hid').css("display","inline");
+				$('#hid1').css("display","inline");
 			}else {
-				$('#hid').css("display","none");
+				$('#hid1').css("display","none");
 			}
 			
 		});
 		
 		$('#comment').click(function(){
 			
-				var formData = $("form[name=commentForm]").serialize();
+			var formData = $("form[name=commentForm]").serialize();
 				
 			$.ajax({
 					
@@ -61,17 +61,22 @@
 				url : 'Comment_WritePro.re',
 				data : formData,
 				success : function(rdata){
-					alert("글 등록 성공");
+					location.reload();
 				}
 			});
 		});
+// 		$('#btn3').click(function(){
 			
-// 		$('#btn2').click(function(){
+// 			var div = $('#hid2').css("display");
 			
-			
+// 			if (div == "none") {
+// 				$('#hid2').css("display","inline");
+// 			}else {
+// 				$('#hid2').css("display","none");
+// 			}
 			
 // 		});
-			
+		
 	});
 	
     </script>
@@ -126,7 +131,7 @@
     <section id="blog">
     <div class="blog container">
     <div class="row" style="padding-left: 100px; padding-right: 100px;">
-                    	<div id="hid" style="display: none; margin-top: 20px;">
+                    	<div id="hid1" style="display: none; margin-top: 20px;">
                     		<form action="Comment_WritePro.re" name="commentForm" method="post">
 	                    		<textarea rows="5" cols="100" id="rc_content" name="rc_content"></textarea>
 	                    		<input type="hidden"name="id" id="id" value="${sessionScope.id }">
@@ -141,10 +146,9 @@
 		                    	<td>${articleList.rc_num }</td>
 		                    	<td>${articleList.rc_id }</td>
 		                    	<td>${articleList.rc_content }
-		                    		<input type="button" value="답글" onclick="location.href='Comment_ReplyForm.re?rc_num=${articleList.rc_num }&r_num${article.r_num }&page=${nowPage }'">
-		                    		<input type="button" value="수정" onclick="location.href='Comment_UpdateForm.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
+		                    		<input type="button" id="btn3" value="답글" onclick="location.href='Comment_ReplyForm.re?rc_num=${articleList.rc_num }&r_num${article.r_num }&page=${nowPage }'">
+		                    		<input type="button" id="btn4" value="수정" onclick="location.href='Comment_UpdateForm.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
 		                    		<input type="button" value="삭제" onclick="location.href='Comment_Delete.re?rc_num=${articleList.rc_num }&r_num=${article.r_num }&page=${nowPage }'">
-			                    	
 		                    	</td>
 		                    	<td>${articleList.rc_date }</td>
 		                    </tr>

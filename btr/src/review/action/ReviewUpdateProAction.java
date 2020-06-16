@@ -29,6 +29,7 @@ public class ReviewUpdateProAction implements Action {
 		reviewBean.setR_num(r_num);
 		reviewBean.setR_subject(request.getParameter("r_subject"));
 		reviewBean.setR_content(request.getParameter("r_content"));
+		reviewBean.setR_image(request.getParameter("r_image"));
 		reviewBean.setR_code(r_code);
 		
 		ReviewUpdateService reviewUpdateService = new ReviewUpdateService();

@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | Corlate</title>
+    <title>Home | Place | Place_Content</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -95,9 +95,8 @@
                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
                     		
                     		<c:choose>
-                    		
-                    			<c:when test="${pageInfo.page <= 1 }">
-                    				<li class="active"><a href="PlaceList.pl?page=${a }">${a }</a></li>
+                   			<c:when test="${a == pageInfo.page }">
+                    				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
 									<li><a href="PlaceList.pl?page=${a }">${a }</a></li>

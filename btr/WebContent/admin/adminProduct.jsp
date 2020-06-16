@@ -1,13 +1,8 @@
-
 <%@page import="product.vo.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	//ArrayList<ProductBean> productList = (ArrayList<ProductBean>) request.getAttribute("productList");
-	//int ListCount = (int) request.getAttribute("ListCount");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -36,109 +31,135 @@
 <link rel="apple-touch-icon-precomposed"
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 <script src="js/jquery-3.5.0.js"></script>
+<style type="text/css">
+.p_file {
+	display: none;
+}
+</style>
 <script type="text/javascript">
-
-function changeRegionCode(p_num, regionCode){
+function changeRegionCode(p_num, regionCode,idx){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;
+	alert("내용 변경됨");
 }
 function changeCategory(p_num, category){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&p_category="+category;
+	alert("내용 변경됨");
 }
-function popImg(idx){
-	alert("yeah");
+function popImg(p_num){
+	window.open("productimage.pr?p_num="+p_num,"","width=400,height=150,left=200,top=300,scrollbars=yes,resizable=yes");
+}
+function popContent(idx){
 	document.getElementById('myModal'+idx).style.display = "block";
 }
-
-
-// $(document).ready(function(){
-// 	$('#p_img').select(function(){
-// 		$('#p_img').val().css('color','red');
-// 	});
-// });
-	
-
+function closepop(idx){
+	document.getElementById('myModal'+idx).style.display = "none";
+}
+function updateContent(p_num){
+	window.open("productContentUpdate.pr?p_num="+p_num,"","width=500,height=500,left=200,top=300,scrollbars=yes,resizable=yes");
+}
+function reload(){
+	location.reload();
+}
+function del(p_num){
+	alert("정말 삭제하시겠습니까?");
+	location.href="productDelete.pr?p_num="+p_num;
+}
 </script>
+
 
 </head>
 
 <body>
 
 	<jsp:include page="/inc/top.jsp" />
-
+<section id="portfolio">
 	<div class="container">
 		<c:choose>
 			<c:when test="${ListCount>0 && productList !=null}">
-					<table>
+				<table>
+					<tr>
+						<td>번호</td>
+						<td>지역코드</td>
+						<td>카테고리</td>
+						<td>상품명</td>
+						<td>이미지</td>
+						<td>내용</td>
+						<td>가격</td>
+						<td>수량</td>
+						<td colspan="2">관리</td>
+					</tr>
+					<c:forEach var="list" items="${productList }" varStatus="vs">
 						<tr>
-							<td><input type="checkbox"></td>
-							<td>번호</td>
-							<td>지역코드</td>
-							<td>카테고리</td>
-							<td>상품명</td>
-							<td>이미지</td>
-							<td>가격</td>
-							<td>수량</td>
-							<td>관리</td>
-						</tr>
-						<c:forEach var="list" items="${productList }" varStatus="vs">
-							<tr>
-								<td><input type="checkbox" name="check"></td>
-								<td>${list.p_num}</td>
-								
-								<td><select name="regionCode"
-									onchange="changeRegionCode('${list.p_num }',this.value);">
-										<option selected value="${list.region_region_code }">${list.region_name }</option>
-										<option value="1">부산진구</option>
-										<option value="2">남포동</option>
-										<option value="3">용호동</option>
-										<option value="4">기장</option>
-										<option value="5">영도</option>
-								</select></td>
-								<td><select name="category"
-									onchange="changeCategory('${list.p_num }',this.value);">
-										<option selected value=${list.p_category }>${list.p_category }</option>
-										<option value="아쿠아리움">아쿠아리움</option>
-										<option value="전시">전시</option>
-										<option value="요트">요트</option>
-										<option value="체험">체험</option>
-								</select></td>
-								<form action="productUpdatePro.pr" method="post" name="fr">
-								<td><input type="hidden" name="p_num" value="${list.p_num }">
-								<input type="text" name="name" value="${list.p_name }"></td>
-								<td><input type="text" name="img" value="${list.p_image }" id="p_img${vs.count }" readonly="readonly"
-								onclick="popImg(${vs.count})"></td>
-								<td><input type="text" name="price" value="${list.p_price }"></td>
+							<td>${list.p_num}</td>
+
+							<td><select name="regionCode" id="regionCode${vs.count }"
+								onchange="changeRegionCode('${list.p_num }',this.value,${vs.count });">
+									<option selected value="${list.region_region_code }">${list.region_name }</option>
+									<option value="1">강서구</option>
+									<option value="2">금정구</option>
+									<option value="3">기장군</option>
+									<option value="4">남구</option>
+									<option value="5">동구</option>
+									<option value="6">동래구</option>
+									<option value="7">부산진구</option>
+									<option value="8">북구</option>
+									<option value="9">사상구</option>
+									<option value="10">사하구</option>
+									<option value="11">서구</option>
+									<option value="12">수영구</option>
+									<option value="13">연제구</option>
+									<option value="14">영도구</option>
+									<option value="15">중구</option>
+									<option value="16">해운대구</option>
+									<option value="17">기타지역(부산 외)</option>
+							</select></td>
+							<td><select name="category"
+								onchange="changeCategory('${list.p_num }',this.value);">
+									<option selected value=${list.p_category }>${list.p_category }</option>
+									<option value="아쿠아리움">아쿠아리움</option>
+									<option value="전시">전시</option>
+									<option value="요트">요트</option>
+									<option value="체험">체험</option>
+							</select></td>
+							<form action="productUpdatePro.pr" method="post" name="fr">
+								<td><input type="hidden" name="p_num"
+									value="${list.p_num }"> <input type="text" name="name"
+									value="${list.p_name }"></td>
+								<td><input type="text" name="img" value="${list.p_image }"
+									id="p_img${vs.count }" readonly="readonly"
+									onclick="popImg(${list.p_num})"></td>
+								<td><input type="text" name="p_content" id="p_content"
+									value="${list.p_content }" onclick="popContent(${vs.count})"></td>
+								<td><input type="text" name="price"
+									value="${list.p_price }"></td>
 								<td><input type="text" name="amount"
 									value="${list.p_amount }"></td>
-								<td><input type="submit" value="내용수정하기" id="myBtn" 
-									class="btn"></td>
+								<td><input type="submit" value="수정" id="myBtn" class="btn"></td>
 							</form>
-							</tr>
-
-							<!-- 	The Modal -->
-							<div id="myModal${vs.count }" class="modal">
-								<!-- Modal content -->
-								<div class="modal-content">
-									<div class="modal-header">
-										<span class="close">&times;</span>
-										<h2>
-											<input type="text" class="text" value="${list.p_name}">
-										</h2>
-									</div>
-
+							<td><input type="button" value="삭제" class="btn" onclick="del(${list.p_num})"></td>
+						</tr>
+						<!-- Modal content -->
+						<div id="myModal${vs.count }" class="modal">
+							<div class="modal-content">
+								<div class="modal-header">
+									<span class="close" onclick="closepop(${vs.count})">&times;</span>
+									<h2>${list.p_name}</h2>
+								</div>
 									<div class="modal-body">
-										<textarea rows="20" cols="120" name="content">${list.p_content}</textarea>
+										${list.p_content}
 									</div>
-									<div class="modal-footer">
-										<h3>
-											<input type="button" value="수정" onclick="#"> <input
-												type="button" value="취소" onclick="#">
-										</h3>
-									</div>
+								<div class="modal-footer">
+									<h3>
+										<input type="button" value="수정" class="btn"
+											onclick="updateContent(${list.p_num})"> <input
+											type="button" value="취소" class="btn"
+											onclick="closepop(${vs.count})">
+									</h3>
 								</div>
 							</div>
-						</c:forEach>
-					</table>
+						</div>
+					</c:forEach>
+				</table>
 			</c:when>
 			<c:otherwise>
 				<section id="emptyArea">등록된 상품이 없습니다.</section>
@@ -172,8 +193,9 @@ function popImg(idx){
 			</div>
 		</div>
 	</footer>
+	</section>
 	<!--/#footer-->
-	<script src="js/product_modal.js"></script>
+
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.prettyPhoto.js"></script>
 	<script src="js/owl.carousel.min.js"></script>

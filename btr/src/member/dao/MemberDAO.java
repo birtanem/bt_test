@@ -45,24 +45,19 @@ public class MemberDAO {
 			return instance;
 		}
 		
-	
 		Connection con;
 		
 		public void setConnection(Connection con) {
 			this.con = con;
-			
 		}
+		
 		public int insertMember(MemberBean memberBean) {
-			
 			PreparedStatement pstmt = null;
 			int insertCount = 0;
 			
 			try {
-							
 				String sql = "insert into member(id,pass,name,age,gender,email,phone,date,point,type,cp_3,cp_5,cp_10) values(?,?,?,?,?,?,?,now(),0,?,0,0,0)";
-				
 				pstmt = con.prepareStatement(sql);
-				
 				pstmt.setString(1,memberBean.getId());
 				pstmt.setString(2,memberBean.getPass());
 				pstmt.setString(3,memberBean.getName());
@@ -73,20 +68,53 @@ public class MemberDAO {
 				pstmt.setString(8,memberBean.getType());
 
 				insertCount = pstmt.executeUpdate();
-				
 			}catch(Exception e) {
-				
 				e.printStackTrace();
 			}finally {
 				close(pstmt);
 			}
-		
 			return insertCount;
+		}
+		
+		public int updateMember(MemberBean memberBean) {
+			PreparedStatement pstmt = null;
+			int UpdateCount = 0;
 			
+			try {
+				String sql = "UPDATE member SET email=?, phone=?, type=? WHERE id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,memberBean.getEmail());
+				pstmt.setString(2,memberBean.getPhone());
+				pstmt.setString(3,memberBean.getType());
+				pstmt.setString(4,memberBean.getId());
+				UpdateCount = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return UpdateCount;
+		}
+		
+		public int updatePass(MemberBean memberBean) {
+			PreparedStatement pstmt = null;
+			int UpdateCount = 0;
+			
+			try {
+				String sql = "UPDATE member SET pass=? WHERE id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,memberBean.getPass());
+				pstmt.setString(2,memberBean.getId());
+				UpdateCount = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return UpdateCount;
 		}
 
 		public int selectLoginMember(String id, String pass) {
-			// TODO Auto-generated method stub
 			
 			int loginResult = 0;
 			
@@ -110,13 +138,8 @@ public class MemberDAO {
 				// 이렇게 하면 id가 맞아면 pass만 확인하면 되고 아예 id조차틀린경우
 				// 아이디만 바로 판별가능
 				
-				
-
-				
 				try {
-					
 					String sql = "SELECT pass FROM member WHERE id=?";
-					
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, id);
 					rs = pstmt.executeQuery();
@@ -128,42 +151,27 @@ public class MemberDAO {
 						}else {
 							loginResult = -1;
 						}
-						
 					}
 				
 				} catch (SQLException e) { //조심해야하는데 sql 이 틀려도 튀어나감.. 
-					
 					e.printStackTrace();
-					
 				} finally {
 					close(rs);
 					close(pstmt);
 				}
-				
 			return loginResult;
 		}
-
-
 
 		public boolean selectJoinMember(String id) throws Exception {
 			
 			boolean JoinResult = false;
-			
-
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			//그리고 db에서 아이디(고유값) 일치하는 회원이 있는지 확인하면 되잖아?
 			//실제는 반복 가입 막기위해서 핸드폰을 인증하고 해야한
-			
 				try {
-				
-				
-				//기존의 회원 아이디 있는지 확인
-				
-				
-				String sql = "SELECT id FROM member WHERE id=?";
-				
+				String sql = "SELECT id FROM member WHERE id=?"; //기존의 회원 아이디 있는지 확인
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
@@ -182,24 +190,15 @@ public class MemberDAO {
 						// 정상적 로그인이 안된다면, ? ? 트라이캐치하면 또,, 
 						// 예외강제 throw ,,고 밖으로 던지는건 throws
 					}
-					
-					
 				}else {
-					
 					throw new JoinException("회원이 존재하지 않습니다.");
 				}
-				
-				
-				
 				} catch (SQLException e) { //조심해야하는데 sql 이 틀려도 튀어나감.. 
-					
 					e.printStackTrace();
-					
 				} finally {
 					close(rs);
 					close(pstmt);
 				}
-				
 				return JoinResult;
 		}
 
@@ -227,6 +226,7 @@ public class MemberDAO {
 			}
 			return isDuplicateMember;
 		}
+		
 		public boolean duplicateEmailCheck(String email) {
 			
 			boolean isDuplicateEmailCheck = false;	
@@ -313,6 +313,9 @@ public class MemberDAO {
 			return memberInfo;
 		}
 
+		
+		
+		
 }
 
 

@@ -19,7 +19,7 @@ public class CommentWriteProAction implements Action {
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
 		int page = Integer.parseInt(request.getParameter("page"));
-		
+
 		CommentBean article = new CommentBean();
 
 		article.setR_num(r_num);

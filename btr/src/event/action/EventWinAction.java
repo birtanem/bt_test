@@ -18,11 +18,7 @@ public class EventWinAction implements Action {
 		EventWinService eventWinService = new EventWinService();
 		
 		HttpSession session = request.getSession();
-		
-		session.setAttribute("id", "test");
-		
-		if(session != null) {
-			
+
 			String id = (String)session.getAttribute("id");
 			int point = Integer.parseInt(request.getParameter("point"));
 			System.out.println(point);
@@ -35,10 +31,7 @@ public class EventWinAction implements Action {
 				
 				
 			}
-		}
-		
-		
-		
+	
 		return forward;
 	}
 

@@ -11,6 +11,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import place.svc.PlaceUpdateProService;
 import place.svc.PlaceWriteProService;
 import place.vo.PlaceBean;
 
@@ -44,11 +45,13 @@ public class PlaceWriteProAction implements Action {
 		pb.setPl_address(multi.getParameter("pl_address"));
 		pb.setPl_theme(multi.getParameter("pl_theme"));
 		pb.setRegion_code(Integer.parseInt(multi.getParameter("region_code")));
+		
 		pb.setPl_image(
 				multi.getOriginalFileName( (String)multi.getFileNames().nextElement() ));
 		
 		PlaceWriteProService prps = new PlaceWriteProService();
 		boolean isWriteSuccess = prps.registArticle(pb);
+		
 		
 		// 리턴받은 결과를 사용하여 글 등록 결과 판별
 		if(!isWriteSuccess) {

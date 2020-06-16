@@ -40,21 +40,28 @@
 $(document).ready(function(){
 	$('#minus').click(function(){
 		var count=Number(document.getElementById("amount").value)-1;
-		var meg="주문가능한 최소 수량은 1 입니다."
+		var meg="주문가능한 최소 수량은 1 입니다.";
+		var max=${productDetail.p_amount};
 		if(count<1){
 			count=1;
 			$(".detailCheck").css('color','red').html(meg);
 			return false;
+		}else if(count>max){
+			$(".detailCheck").css('color','red').html("주문 가능한 수량을 초과했습니다.");
+		}else{
+			$(".detailCheck").html("");
 		}
 		document.getElementById("amount").value=count;
 	});
 	$('#plus').click(function(){
 		var count=Number(document.getElementById("amount").value)+1;
 		var max=${productDetail.p_amount};
-		var meg="주문수량이 상품 수량보다 많습니다.";
+		var meg="주문 가능한 수량을 초과했습니다.";
 		if(count>max){
 			$(".detailCheck").css('color','red').html(meg);
 			return false;
+		}else{
+			$(".detailCheck").html("");
 		}
 		document.getElementById("amount").value=count;
 	});
@@ -62,9 +69,13 @@ $(document).ready(function(){
 function goCart(){
 	var id='admin'; 
 	var amount=Number(document.getElementById("amount").value);
+	var max=${productDetail.p_amount};
 	if(id==null || id=="null"){
 		alert("로그인 후 이용해주세요");
 		location.href="MemberLoginForm.me";
+		return false;
+	}if(amount>max){
+		document.getElementById("detailCheck").innerText="주문 가능한 수량을 초과했습니다.";
 		return false;
 	}
 	location.href="ProductCartAdd.ca?p_num="+${productDetail.p_num}+"&p_amount="+amount;
@@ -90,7 +101,7 @@ function goCart(){
 	<div id="product_detail">
 	<div>
 	
-		<p>#${productDetail.p_category}, #${productDetail.region_name }</p>
+		<p>#${productDetail.p_category}&nbsp; #${productDetail.region_name }</p>
 		<p>${productDetail.p_name }</p>
 		<p>${productDetail.p_price }</p>
 		<br>
@@ -100,7 +111,7 @@ function goCart(){
 			<input type="button" value="-" class="btn" id="minus" >
 			<input type="text" value="1" id="amount" name="amount" >
 			<input type="button" value="+" class="btn" id="plus">
-			<p class="detailCheck"></p>
+			<p class="detailCheck" id="detailCheck"></p>
 		</div>
 			<div>
 				<input type="button" value="구매하기" class="btn" onclick="#"> <input

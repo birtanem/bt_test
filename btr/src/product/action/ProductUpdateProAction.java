@@ -18,17 +18,18 @@ public class ProductUpdateProAction implements Action {
 		System.out.println("productUpdateAction도착!");
 
 		ActionForward forward = null;
+
 		boolean isUpdate = false;
-		
+
 		ProductBean productBean = new ProductBean();
 		ProductDetailService productDetailService = new ProductDetailService();
-		int p_num=Integer.parseInt(request.getParameter("p_num"));
+		int p_num = Integer.parseInt(request.getParameter("p_num"));
 		productBean = productDetailService.getProductDetail(p_num);
-	
 		productUpdateService productUpdateServie = new productUpdateService();
 		productBean.setP_num(p_num);
-		
-		if (request.getParameter("region_region_code") == null || request.getParameter("region_region_code").equals("0")) {
+
+		if (request.getParameter("region_region_code") == null
+				|| request.getParameter("region_region_code").equals("0")) {
 			productBean.setRegion_region_code(productBean.getRegion_region_code());
 		} else {
 			productBean.setRegion_region_code(Integer.parseInt(request.getParameter("region_region_code")));
@@ -44,9 +45,9 @@ public class ProductUpdateProAction implements Action {
 		} else {
 			productBean.setP_name(request.getParameter("name"));
 		}
-		if(request.getParameter("price")==null||request.getParameter("price")=="") {
+		if (request.getParameter("price") == null || request.getParameter("price") == "") {
 			productBean.setP_price(productBean.getP_price());
-		
+
 		} else {
 			productBean.setP_price(Integer.parseInt(request.getParameter("price")));
 		}
@@ -56,19 +57,10 @@ public class ProductUpdateProAction implements Action {
 
 			productBean.setP_amount(Integer.parseInt(request.getParameter("amount")));
 		}
-		if (request.getParameter("content") == null) {
-			productBean.setP_content(productBean.getP_content());
-		} else {
-			productBean.setP_content(request.getParameter("content"));
-		}
-		if (request.getParameter("image") == null) {
-			productBean.setP_image(productBean.getP_image());
-		} else {
-			productBean.setP_image(request.getParameter("image"));
-		}
+		
 
 		isUpdate = productUpdateServie.productUpdate(productBean);
-		
+
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (!isUpdate) {

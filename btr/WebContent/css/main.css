@@ -679,6 +679,59 @@ input.search-form:hover {
     margin-top: 15px;
 }
 
+
+.mypage-wrap {
+    padding: 40px 30px;
+    background: #fff;
+    border-radius: 4px;
+    margin: 0 0 40px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    color: #707070;
+    font-size: 16px;
+    line-height: 26px;
+    border-right: groove;
+    border-bottom: groove;
+    border-color: #00000024;
+}
+
+.mypage-wrap:hover {
+    background-color: #FAFAFA;
+}
+
+.mypage-wrap h3 {
+    font-size: 20px;
+    margin: 0 0 15px;
+    color: #333333;
+    font-weight: 700;
+}
+
+.mypage-wrap .pull-left {
+    margin-right: 8px;
+    margin-top: 15px;
+}
+
+.h_Mypage-wrap {
+    padding: 40px 30px;
+    background: #fff;
+    border-radius: 4px;
+    margin: 0 0 40px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    color: #707070;
+    font-size: 16px;
+    line-height: 26px;
+    border: groove;
+    border-color: #00000024;
+}
+
+.h_Mypage-wrap h3 {
+    font-size: 20px;
+    margin: 0 0 15px;
+    color: black;
+    font-weight: 700;
+}
+
 #middle {
     background-size: cover;
     background-position: center center;

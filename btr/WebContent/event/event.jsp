@@ -60,10 +60,11 @@ e_edate default 값 설정
 <br>
 
     	<div class="event">
-    	<input type="hidden" id="hid" value="${article.date}">
+    	<input type="hidden" id="hid" value="${date}">
 			<p>나의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
-			<a href="javascript:void(0);" class="getCoupon" onclick="return eventPop()">당첨내역</a>
+			<c:if test="${sessionScope.id == 'admin'}">
 			<a href="javascript:void(0);" class="getCoupon" onclick="return adminPop()">관리자</a>
+			</c:if>
 		</div>
 		
 		<p class="description">* 매일 하루 <b>한번</b> 씩 최대 <b>5번</b> 뽑기 가능하며, 1회당 <b>100포인트</b>가 차감됩니다.</p>
@@ -79,7 +80,9 @@ e_edate default 값 설정
 		
 		<p class="p1"><img src="images/box.png" id="img"></p>
 		<div id="eventBox">
+		<c:if test="${sessionScope.id != null}">
 		<input type="button" value="지금 뽑기" id="btn" width="100" height="100"><br>
+		</c:if>
 		</div>
 		</div>	
 				<div class="couponArea" id="cpArea">
@@ -87,28 +90,32 @@ e_edate default 값 설정
 				<div class="cpStatus ">
 					<ul>
 						<li style="background-image: url('images/event10.png'); background-size: contain;">
-							<a onclick="" class="" >
+						
 								<i class="ico"></i>
 								<strong>포인트 30000</strong>
 								<p>보유쿠폰: <em>${article.cp_3}</em> 장</p>
+								<c:if test="${sessionScope.id != null}">
 								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=3'">
-							</a>
+								</c:if>
+					
 						</li>
 						<li class="review  emth5">
-							<a onclick="" class="">
+							
 								<i class="ico"></i>
 								<strong>포인트 50000</strong>
 								<p>보유쿠폰: <em>${article.cp_5}</em> 장</p>
+								<c:if test="${sessionScope.id != null}">
 								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=5'">
-							</a>
+								</c:if>
 						</li>
 						<li class="ad  emth8">
-							 <a onclick="" class="">
+							
 								<i class="ico"></i>
 								<strong>포인트 100000</strong>
 								<p>보유쿠폰: <em>${article.cp_10}</em> 장</p>
+								<c:if test="${sessionScope.id != null}">
 								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=10'">
-							</a>
+								</c:if>
 						</li>
 					</ul>
 				</div>

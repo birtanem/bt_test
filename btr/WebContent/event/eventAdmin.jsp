@@ -187,7 +187,7 @@ $(document).ready(function() {
 <select id="sel">
 <option value="선택">선택</option>
 
-<c:forEach var="wList" items="${eventWinList}" varStatus="status" step="3">
+<c:forEach var="wList" items="${eventWinList}" varStatus="status" step="1">
 <option>${status.count}</option>
 </c:forEach>
 </select>

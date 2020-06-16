@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import common.action.Action;
 import common.vo.ActionForward;
 import product.action.ProductDetailAction;
+import product.action.ProductImgUpdateProAction;
 import product.action.ProductListAction;
 import product.action.ProductRegistProAction;
 import product.action.ProductUpdateProAction;
+import product.action.productContentUpdateProAction;
+import product.action.productDeleteAction;
 
 /**
  * Servlet implementation class ProductFrontController
@@ -65,6 +68,37 @@ public class ProductFrontController extends HttpServlet {
 			action=new ProductUpdateProAction();
 			try {
 				forward =action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/productimage.pr")) {
+			forward = new ActionForward();
+			forward.setPath("/product/productimage.jsp");
+		}else if(command.equals("/productImgUpdatePro.pr")) {
+			action=new ProductImgUpdateProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/productContentUpdate.pr")) {
+			forward = new ActionForward();
+			forward.setPath("/product/productContentUpdate.jsp");
+			}
+		else if(command.equals("/productContentUpdatePro.pr")) {
+			action = new productContentUpdateProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/productDelete.pr")) {
+			action=new productDeleteAction();
+			try {
+				forward=action.execute(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
