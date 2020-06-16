@@ -131,8 +131,9 @@
 	float: left;
 	border: 1px solid;
 	width: 266px;
+	height: 100px;
 	text-align: center;
-	padding: 10px;
+	padding-top: 10px;
 }
 .warning {
 	border: 1px solid;

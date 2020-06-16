@@ -50,6 +50,12 @@ public class OrderFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/orderForm.or")) { // 주문 추가
+		
+		
+				forward = new ActionForward();
+				forward.setPath("/order/order_buy.jsp");
+
 		}
 		
 		// 포워딩

@@ -56,7 +56,7 @@ e_edate default 값 설정
         <h1>무료 이벤트</h1>
     </div>
 
-    <section id="contact-page">
+    <section id="contact-page" >
 <br>
 
     	<div class="event">
@@ -87,14 +87,16 @@ e_edate default 값 설정
 		</div>	
 				<div class="couponArea" id="cpArea">
 				<h3>이벤트 당첨쿠폰</h3>
-				<div class="cpStatus ">
+				<div class="cpStatus " class="row" >
 					<ul>
 						<li style="background-image: url('images/event10.png'); background-size: contain;">
 						
 								<i class="ico"></i>
 								<strong>포인트 30000</strong>
-								<p>보유쿠폰: <em>${article.cp_3}</em> 장</p>
+			
+								<p>보유쿠폰: <em><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_3}</em> </p>
 								<c:if test="${sessionScope.id != null}">
+								
 								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=3'">
 								</c:if>
 					
@@ -103,8 +105,9 @@ e_edate default 값 설정
 							
 								<i class="ico"></i>
 								<strong>포인트 50000</strong>
-								<p>보유쿠폰: <em>${article.cp_5}</em> 장</p>
-								<c:if test="${sessionScope.id != null}">
+								
+								<p>보유쿠폰: <em><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_5}</em> </p>
+								<c:if test="${sessionScope.id != null}">							
 								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=5'">
 								</c:if>
 						</li>
@@ -112,8 +115,9 @@ e_edate default 값 설정
 							
 								<i class="ico"></i>
 								<strong>포인트 100000</strong>
-								<p>보유쿠폰: <em>${article.cp_10}</em> 장</p>
-								<c:if test="${sessionScope.id != null}">
+								
+								<p>보유쿠폰: <em><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_10}</em> </p>	
+								<c:if test="${sessionScope.id != null}">							
 								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=10'">
 								</c:if>
 						</li>
