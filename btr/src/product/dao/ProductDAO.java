@@ -82,7 +82,7 @@ public class ProductDAO {
 		ResultSet rs = null;
 
 		try {
-			con = getConnection();
+	
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
 					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name"
 					+ " from product p join region r on p.region_region_code = r.region_code order by p_num";
