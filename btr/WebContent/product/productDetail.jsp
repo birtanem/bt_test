@@ -129,8 +129,8 @@ function goCart(){
 	</div>
 	<!-- 본문 -->
 
-
-	<div >
+<section id="portfolio">
+	<div>
 		<div id="product_img">
 			<img src="product/productUpload/${productDetail.p_image }"
 				alt="product">
@@ -238,7 +238,6 @@ function goCart(){
 		</div>
 	</section>
 	<!--/#bottom-->
-	</section>
 	<footer id="footer" class="midnight-blue">
 		<div class="container">
 			<div class="row">
@@ -256,7 +255,9 @@ function goCart(){
 					</ul>
 				</div>
 			</div>
+		
 		</div>
+		
 	</footer>
 	<!--/#footer-->
 	<script src="js/product_modal.js"></script>
