@@ -329,7 +329,7 @@
 						<li class="total"><span class="total_t">최종 결제금액</span><span
 							class="total_cnt"> <span class="total_tn">${p.p_name}원</span></span></li>
 						<div class="both"></div>
-						<li><input type="button" class="btn tpm" value="결제하기"></li>
+						<li><input type="button" class="btn tpm" id="orderBtn" value="결제하기"></li>
 				
 				</ul>
 			</div>
