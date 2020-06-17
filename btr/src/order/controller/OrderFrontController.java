@@ -57,7 +57,15 @@ public class OrderFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/order/order_result.jsp");
 
-	}
+		}else if(command.equals("/orderList.or")) { // 주문 추가
+			forward = new ActionForward();
+			forward.setPath("/order/order_list.jsp");
+
+		}else if(command.equals("/orderListDetail.or")) { // 주문 추가
+			forward = new ActionForward();
+			forward.setPath("/order/order_list_detail.jsp");
+
+		}
 		
 		// 포워딩
 		if(forward != null) {
