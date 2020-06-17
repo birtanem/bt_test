@@ -10,13 +10,17 @@ set GLOBAL event_scheduler = on;
 
 
 이벤트 생성(프로시저 실행)
-create event IF NOT EXISTS reset
+DELIMITER //
+create event reset
 on schedule
 EVERY 1 DAY
 STARTS '2020-06-18 00:00:00'
 DO
+BEGIN
 delete from order_seq;
 alter table order_seq auto_increment=1;
+END
+//
 
 
 이벤트 확인
