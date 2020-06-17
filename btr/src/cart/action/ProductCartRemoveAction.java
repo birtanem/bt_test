@@ -33,9 +33,11 @@ public class ProductCartRemoveAction implements Action {
 		} 
 		
 		 String message = request.getParameter("message"); 
-		 
+		 System.out.println(message);
 		ProductCartRemoveService productCartRemoveSerivce = new ProductCartRemoveService();
-		productCartRemoveSerivce.cartRemove(message);
+
+		productCartRemoveSerivce.cartRemove(message);;
+
 		
 		forward = new ActionForward();
 		forward.setRedirect(true);

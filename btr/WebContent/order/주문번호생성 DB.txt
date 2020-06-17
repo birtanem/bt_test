@@ -19,3 +19,7 @@ delete from order_seq;
 alter table order_seq auto_increment=1;
 
 
+이벤트 확인
+select * from information_schema.events;
+
+

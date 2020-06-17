@@ -162,7 +162,7 @@ public class CartDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "delete from cart where c_num=?";
+			String sql = "delete from cart where c_p_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, c_num);
 			// 실행하기

@@ -87,6 +87,7 @@
 		type:"POST",
 		data: {"message": message},
 		success: function() {
+			location.reload();
 		}
 	});
  }
@@ -103,6 +104,8 @@ $(document).ready(function(){
 		 
 		 	var messageChk = document.getElementsByName("rowCheck");
 		 	var amountChk = document.getElementsByName("amount");
+		 	var priceChk = document.getElementsByName("price");
+		 	var price = 0;
 		 	var indexMessage = false;
 		    var testList = new Array() ;
 	  		     	
@@ -113,30 +116,32 @@ $(document).ready(function(){
 		         
 		     // 리스트에 생성된 객체 삽입
 		        if(messageChk[i].checked) {
-		        	  data.num =  messageChk[i].value;
-				      data.amount = amountChk[i].value;
-				      data.price = document.getElementById("td"+(i+1)).innerText;
-				      testList.push(data) ;
-				      indexMessage = true;
+		        	
+		        	price += Number(priceChk[i].value);
+		        	data.num =  messageChk[i].value;
+				    data.amount = amountChk[i].value;
+				    data.price = document.getElementById("td"+(i+1)).innerText;
+				    testList.push(data) ;
+				    indexMessage = true;
+				    
 		        }
-		   	    	        
-				if(!indexMessage) {
-					alert("주문할 상품을 선택하세요.");
-					return
-				}
-		        
-		        
+	        
 		    }
+		    
+   	        
+			if(!indexMessage) {
+				alert("주문할 상품을 선택하세요.");
+				return
+			}
 
 
 //		     // String 형태로 변환
 		    var jsonData = JSON.stringify(testList) ;
-			var total = document.getElementById("span").innerText;
 		     
 			$.ajax("orderFront.or", {
 				type:"POST",
 				data: {"jsonData": jsonData,
-					   "total": total},
+					   "total": price},
 				success: function() {
 					location.href="orderForm.or"
 				}
@@ -236,7 +241,7 @@ $('.fun-btn').on('click', function(event) {
 									type="hidden" id="price${status.count }" value="${p.p_price}">
 								</td>
 								<td id="td${status.count }">
-									${cartList[status.index].c_p_amount * p.p_price}</td>
+									${cartList[status.index].c_p_amount * p.p_price}<input type="hidden" name="price" value="${cartList[status.index].c_p_amount * p.p_price}"></td>
 							</tr>
 						</c:forEach>
 					</table>

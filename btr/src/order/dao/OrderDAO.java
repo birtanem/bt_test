@@ -1,4 +1,4 @@
-package order.vo;
+package order.dao;
 
 import static common.db.JdbcUtil.*;
 

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import static  common.db.JdbcUtil.*;
 import org.json.simple.JSONObject;
 
-import order.vo.OrderDAO;
+import order.dao.OrderDAO;
 import product.vo.ProductBean;
 
 public class OrderFrontService {

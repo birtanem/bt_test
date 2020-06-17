@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 import org.json.simple.JSONObject;
 
-import order.vo.OrderDAO;
+import order.dao.OrderDAO;
 
 public class OrderAddService {
 

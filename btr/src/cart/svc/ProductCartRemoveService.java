@@ -32,7 +32,7 @@ public class ProductCartRemoveService {
 			// 메서드 호출
 //			cdao.cartRemove(c_num);
 			 for(int i=0;i<messageNumArr.length;i++) {
-					
+					System.out.println("삭제처리: "+messageNumArr[i]);
 				 	cdao.cartRemove(messageNumArr[i]);
 
 			}

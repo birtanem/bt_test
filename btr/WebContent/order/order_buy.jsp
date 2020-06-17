@@ -91,11 +91,38 @@
 		
 		
 		
-		var pMethod = $(':radio[name="payMethod"]:checked').val();
-		$('.payMethod:checked')
+// 		var pMethod = $(':radio[name="payMethod"]:checked').val();
+// 		$('.payMethod:checked')
 
 		
-		
+		$("input:radio[name=payMethod]").click(function(){
+			
+			$(".pm").css("display","none")
+			
+			var payMethod = $("input[name=payMethod]:checked").val();
+			
+	        if(payMethod == "1"){
+	        	
+	        	$(".t_card").css("display","block")
+	        	
+	        }else if(payMethod == "2") {
+	        	$(".t_at").css("display","block")
+	        }else if(payMethod == "3") {
+	        	$(".t_dps").css("display","block")
+	        }else if(payMethod == "4") {
+	        	$(".t_ph").css("display","block")	        	
+	        }else if(payMethod == "5") {
+	        	$(".t_cul").css("display","block")	        	
+	        }else if(payMethod == "6") {
+	        	$(".t_book").css("display","block")	        	
+	        }else if(payMethod == "7") {
+	        	$(".t_payco").css("display","block")	        	
+	        }else if(payMethod == "8") {
+	        	$(".t_kakao").css("display","block")
+	        	
+	        }
+	       
+	    });
 		
 		
 		
@@ -107,13 +134,13 @@
 <body>
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
-		style="background-image: url(images/page-title.png)">
+		style="background-image: url(images/page-title.png);">
 		<h1>Order</h1>
 	</div>
 	<section id="portfolio">
 		<div class="center">
 			<h2>주문/결제</h2>
-			<p class="lead">주문목록~</p>
+			<p class="lead">주문목록123~</p>
 		</div>
 		<div class="container">
 			<div class="o_info">
@@ -167,7 +194,7 @@
 			<div class="o_point">
 			<h2>포인트사용</h2>
 			<table class="ot_point">
-			<tr><th>withTrip 포인트</th><td><input type="text" value=" " class="o_input" id="inPoint">
+			<tr><th>withTrip 포인트</th><td><input type="text" value="${sessionScope.info.point}" class="o_input" id="inPoint">
 			<input type="button" value="전액사용" class="btn btn_point"></td></tr>
 			</table>
 			</div>
@@ -189,7 +216,7 @@
 				</table>
 				<div>
 					<!-- 신용카드 선택시 -->
-					<table class="pm t_card">
+					<table class="pm t_card" style="border: 1ox solid;">
 						<tr>
 							<th>카드종류</th>
 							<td><select id="pm_card" name="pm_card">
@@ -345,13 +372,15 @@
 				<h2>최종 결제정보</h2>
 				<ul class="total_pmBox">
 						<li><span class="total_t">총 상품금액</span><span
-							class="total_cnt"><span class="total_tn">원</span></span></li>
+							class="total_cnt"><span class="total_tn"><fmt:formatNumber value="${sessionScope.total}"
+									pattern="###,###,###" /> 원</span></span></li>
 						<div class="both"></div>
 						<li><span class="total_t">할인금액</span> <span class="total_cnt"><span
 								class="total_tn">0원</span></span></li>
 						<div class="both"></div>
 						<li class="total"><span class="total_t">최종 결제금액</span><span
-							class="total_cnt"> <span class="total_tn">${p.p_name}원</span></span></li>
+							class="total_cnt"> <span class="total_tn"><fmt:formatNumber value="${sessionScope.total}"
+									pattern="###,###,###" />원</span></span></li>
 						<div class="both"></div>
 						<li><input type="button" class="btn tpm" id="orderBtn" value="결제하기"></li>
 				</ul>
