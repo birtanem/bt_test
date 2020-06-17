@@ -76,24 +76,34 @@
 		
 		
 		function comma(x){
-			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 		}	
 		$(document).ready(function(){
 			$('.btn_point').click(function(){
 				var inPoint = ${sessionScope.info.point };
+				var total=${sessionScope.total};
+				var p_total=total-inPoint;
 				document.getElementById("inPoint").value=comma(inPoint);
+				$('#desc_point').html(comma(inPoint));
+				$('#total_tn').html(comma(p_total));
 			});
-			$('#inPoint').keyup(function(){
+			$('#inPoint').on('change',function(){
 				var inPoint=$('#inPoint').val();
+				var total=${sessionScope.total};
+				var p_total=total-inPoint;
 				document.getElementById("inPoint").value=comma(inPoint);
+				if(p_total<0){
+					$('.msg').html("사용한 포인트가 결제 금액을 초과했습니다.").css('color','red');
+					document.getElementById("inPoint").value="";
+				$('#desc_point').html(comma(""));
+					$('#total_tn').html(comma(total));
+				}else{
+					$('.msg').html("");
+					$('#desc_point').html(comma(inPoint));
+					$('#total_tn').html(comma(p_total));
+				}
 			});
 		});
-		
-		
-		
-// 		var pMethod = $(':radio[name="payMethod"]:checked').val();
-// 		$('.payMethod:checked')
-
 		
 		$("input:radio[name=payMethod]").click(function(){
 			
@@ -194,10 +204,11 @@
 			<div class="o_point">
 			<h2>포인트사용</h2>
 			<table class="ot_point">
-			<tr><th>withTrip 포인트</th><td><input type="text" value="${sessionScope.info.point}" class="o_input" id="inPoint">
-			<input type="button" value="전액사용" class="btn btn_point"></td></tr>
+			<tr><th>withTrip 포인트</th><td><input type="text" value="" class="o_input" id="inPoint">
+			<input type="button" value="전액사용" class="btn btn_point"><span class="msg"></span></td></tr>
 			</table>
 			</div>
+			<div class="payment">
 			<div class="o_pay">
 				<h2>결제수단 선택</h2>
 				<table class="ot_pay">
@@ -367,6 +378,7 @@
 						</tr>
 					</table>
 				</div>
+				</div>
 			</div>
 			<div class="o_right">
 				<h2>최종 결제정보</h2>
@@ -376,10 +388,10 @@
 									pattern="###,###,###" /> 원</span></span></li>
 						<div class="both"></div>
 						<li><span class="total_t">할인금액</span> <span class="total_cnt"><span
-								class="total_tn">0원</span></span></li>
+								class="total_tn"><span id="desc_point"></span>원</span></span></li>
 						<div class="both"></div>
 						<li class="total"><span class="total_t">최종 결제금액</span><span
-							class="total_cnt"> <span class="total_tn"><fmt:formatNumber value="${sessionScope.total}"
+							class="total_cnt"> <span class="total_tn" id="total_tn"><fmt:formatNumber value="${sessionScope.total}"
 									pattern="###,###,###" />원</span></span></li>
 						<div class="both"></div>
 						<li><input type="button" class="btn tpm" id="orderBtn" value="결제하기"></li>

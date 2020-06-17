@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	int ListCount = (int) request.getAttribute("ListCount");
 %>
@@ -86,7 +87,8 @@
 												<img src="product/productUpload/${list.p_image }"
 												alt="product">
 												<h5>${list.p_name }</h5>
-												<p>${list.p_price }</p>
+												<p><fmt:formatNumber value="${list.p_price }"
+									pattern="###,###,###" /></p>
 										</li>
 										</a>
 									</c:forEach>

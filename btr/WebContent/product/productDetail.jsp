@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +66,41 @@ $(document).ready(function(){
 		}
 		document.getElementById("amount").value=count;
 	});
+	
+	 $("#orderBtn").click(function() {
+		 
+		 	var messageChk = ${productDetail.p_num};
+		 	var amountChk = document.getElementsByName("amount");
+		 	var priceChk = document.getElementsByName("price");
+		 	var price = 0;
+		    var testList = new Array() ;
+		         
+		        // 객체 생성
+		        var data = new Object() ;
+		         
+		     // 리스트에 생성된 객체 삽입
+		        	price += Number(priceChk[i].value);
+		        	data.num =  messageChk[i].value;
+				    data.amount = amountChk[i].value;
+				    data.price = document.getElementById("td"+(i+1)).innerText;
+				    testList.push(data) ;
+				    
+//		     // String 형태로 변환
+		    var jsonData = JSON.stringify(testList) ;
+		     
+			$.ajax("orderFront.or", {
+				type:"POST",
+				data: {"jsonData": jsonData,
+					   "total": price},
+				success: function() {
+					location.href="orderForm.or"
+				}
+			});
+	});
+	
+	
+	
+	
 });
 function goCart(){
 	var id='admin'; 
@@ -94,37 +130,42 @@ function goCart(){
 	<!-- 본문 -->
 
 
-	<div id="portfolio">
-	<div id="product_img">
-	<img src="product/productUpload/${productDetail.p_image }" alt="product">
-	</div>
-	<div id="product_detail">
-	<div>
-	
-		<p>#${productDetail.p_category}&nbsp; #${productDetail.region_name }</p>
-		<p>${productDetail.p_name }</p>
-		<p>${productDetail.p_price }</p>
-		<br>
+	<div >
+		<div id="product_img">
+			<img src="product/productUpload/${productDetail.p_image }"
+				alt="product">
 		</div>
-		<div>
-			<span>수량 &nbsp; </span>
-			<input type="button" value="-" class="btn" id="minus" >
-			<input type="text" value="1" id="amount" name="amount" >
-			<input type="button" value="+" class="btn" id="plus">
-			<p class="detailCheck" id="detailCheck"></p>
-		</div>
+		<div id="product_detail">
 			<div>
-				<input type="button" value="구매하기" class="btn" onclick="#"> <input
+
+				<p>#${productDetail.p_category}&nbsp;
+					#${productDetail.region_name }</p>
+				<p>${productDetail.p_name }</p>
+				<p>
+					<fmt:formatNumber value="${productDetail.p_price }"
+						pattern="###,###,###" />
+				</p>
+				<br>
+			</div>
+			<div>
+				<span>수량 &nbsp; </span> <input type="button" value="-" class="btn"
+					id="minus"> <input type="text" value="1" id="amount"
+					name="amount"> <input type="button" value="+" class="btn"
+					id="plus">
+				<p class="detailCheck" id="detailCheck"></p>
+			</div>
+			<div>
+				<input type="button" value="구매하기" class="btn" id="orderBtn"> <input
 					type="button" value="장바구니" class="btn" onclick="goCart()">
 			</div>
 		</div>
 		<div id="content">
-		<p>${productDetail.p_content }</p>
+			<p>${productDetail.p_content }</p>
 		</div>
 
 
 
-</div>
+	</div>
 
 	<section id="bottom">
 		<div class="container fadeInDown" data-wow-duration="1000ms"

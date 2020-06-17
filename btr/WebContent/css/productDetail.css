@@ -3,11 +3,17 @@ div#portfolio{
 	margin: 30px 30px;
 }
 #product_img{
-	float: left;
+	max-width: 550px !important; 
+	max-height: 550px !important; 
 	padding: 0 50px 0 0;
+	float: left;
+}
+#product_img>img{
+/* 	max-width: 550px !important;  */
+/* 	max-height: 550px !important;  */
 }
 #product_detail{
-	float: left;
+	float: right;
 	padding: 0 50px 0 0;
 }
 #content{

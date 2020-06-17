@@ -218,7 +218,7 @@ $('.fun-btn').on('click', function(event) {
 							<td>카테고리</td>
 							<td>상품명</td>
 							<td>상품 이미지</td>
-							<td>가격11</td>
+							<td>가격</td>
 							<td>수량</td>
 							<td>합계</td>
 						</tr>
@@ -231,7 +231,9 @@ $('.fun-btn').on('click', function(event) {
 								<td>${p.p_name }</td>
 								<td><img src="product/productUpload/${p.p_image }"
 									width="200" height="100"></td>
-								<td>${p.p_price }</td>
+								<td>
+								<fmt:formatNumber value="${p.p_price }"
+						pattern="###,###,###" /></td>
 								<td><input type="button" value="-"
 									onclick="minuscount(${status.count },-1)"> <input
 									type="text" id="amount${status.count }" name="amount"
@@ -241,8 +243,10 @@ $('.fun-btn').on('click', function(event) {
 									type="hidden" id="price${status.count }" value="${p.p_price}">
 								</td>
 								<td id="td${status.count }">
-									${cartList[status.index].c_p_amount * p.p_price}<input type="hidden" name="price" value="${cartList[status.index].c_p_amount * p.p_price}"></td>
-							</tr>
+								<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}"
+						pattern="###,###,###" />
+									<input type="hidden" name="price" value="${cartList[status.index].c_p_amount * p.p_price}"></td>
+							</tr>s
 						</c:forEach>
 					</table>
 					<br> 총 금액 :
@@ -254,7 +258,10 @@ $('.fun-btn').on('click', function(event) {
 							<c:set var="totalmoney" value="${totalmoney + money }" />
 						</c:forEach>
 						<h3 class="h3">
-							<span id="span"><c:out value="${totalmoney }" /></span>원
+							<span id="span">
+							<fmt:formatNumber value="${totalmoney }"
+						pattern="###,###,###" />
+							</span>원
 						</h3>
 					</div>
 				</form>
