@@ -98,6 +98,50 @@ $(document).ready(function(){
 			location.reload(); // 새로고침
 		}
 	});
+	
+	 $("#orderBtn").click(function() {
+		 
+		 	var messageChk = document.getElementsByName("rowCheck");
+		 	var amountChk = document.getElementsByName("amount");
+		 	var indexMessage = false;
+		    var testList = new Array() ;
+	  		     	
+		    for(var i=0; i<messageChk.length; i++){
+		         
+		        // 객체 생성
+		        var data = new Object() ;
+		         
+		     // 리스트에 생성된 객체 삽입
+		        if(messageChk[i].checked) {
+		        	  data.num =  messageChk[i].value;
+				      data.amount = amountChk[i].value;
+				      data.price = document.getElementById("td"+(i+1)).innerText;
+				      testList.push(data) ;
+				      indexMessage = true;
+		        }
+		   	    	        
+				if(!indexMessage) {
+					alert("주문할 상품을 선택하세요.");
+					return
+				}
+		        
+		        
+		    }
+
+
+//		     // String 형태로 변환
+		    var jsonData = JSON.stringify(testList) ;
+			var total = document.getElementById("span").innerText;
+		     
+			$.ajax("orderFront.or", {
+				type:"POST",
+				data: {"jsonData": jsonData,
+					   "total": total},
+				success: function() {
+					location.href="orderForm.or"
+				}
+			});
+	});
 });
 
 $('.fun-btn').on('click', function(event) {
@@ -131,16 +175,17 @@ $('.fun-btn').on('click', function(event) {
 		
 		}
 	
- function goOrder(){
-		var id=${sessionScope.id}; 
-		var amount=Number(document.getElementById("amount").value);
-		if(id==null || id=="null"){
-			alert("로그인 후 이용해주세요");
-			location.href="MemberLoginForm.me";
-			return false;
-		}
-		location.href="orderAdd.or?o_p_num="+c_num+"&o_p_amount="+amount;
-	}
+//  function goOrder(){
+// 		var id='admin'; 
+// 		var amount=Number(document.getElementById("amount").value);
+// 		if(id==null || id=="null"){
+// 			alert("로그인 후 이용해주세요");
+// 			location.href="MemberLoginForm.me";
+// 			return false;
+// 		}
+// 		location.href="orderAdd.or?o_p_num="+c_num+"&o_p_amount="+amount;
+// 	}
+
 </script>
 
 <meta charset="UTF-8">
@@ -164,11 +209,11 @@ $('.fun-btn').on('click', function(event) {
 						<tr>
 							<td><input type="checkbox" id="allCheck"
 								onclick="checkAll(this)" /></td>
-							<td>번호</td>
+
 							<td>카테고리</td>
 							<td>상품명</td>
 							<td>상품 이미지</td>
-							<td>가격</td>
+							<td>가격11</td>
 							<td>수량</td>
 							<td>합계</td>
 						</tr>
@@ -176,8 +221,7 @@ $('.fun-btn').on('click', function(event) {
 						<c:forEach var="p" items="${productList }" varStatus="status">
 							<tr>
 								<td><input type="checkbox" name="rowCheck" id="rowCheck"
-									value="${cartList[status.index].c_num }" /></td>
-								<td>${cartList[status.index].c_num }</td>
+									value="${cartList[status.index].c_p_num }" /></td>							
 								<td>${p.p_category }</td>
 								<td>${p.p_name }</td>
 								<td><img src="product/productUpload/${p.p_image }"
@@ -217,14 +261,17 @@ $('.fun-btn').on('click', function(event) {
 					<nav style="text-align: center">
 						<input type="button" class="fun-btn" style="text-align: center"
 							value="쇼핑 계속하기" onclick="location.href='productList.pr'">
-						<input type="button" class="fun-btn" style="text-align: center"
-							value="주문하기" onclick="goOrder()"><br> <br> <input
-							type="button" class="fun-btn" style="text-align: center"
+						<input type="button"  id="orderBtn"  class="fun-btn" style="text-align: center"
+							value="주문하기" onclick="goOrder()"><br> <br> 
+							<input type="button" class="fun-btn"style="text-align: center"
 							value="취소" id="deleteButton" onclick="return deleteCart()">
 					</nav>
 				</div>
 			</div>
 		</div>
 	</section>
+
+
+
 </body>
 </html>
