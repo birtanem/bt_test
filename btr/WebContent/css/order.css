@@ -28,20 +28,23 @@ li{
 	list-style: disc;
 }
 
-.ot_info, .ot_list, .ot_pay{
+.ot_info, .ot_list, .ot_pay, .ot_point{
 	border-top: 2px solid #d6d6d6;
 	vertical-align: middle;
 }
-.ot_info, .ot_list, .ot_pay, .pm{
+.ot_info, .ot_list, .ot_pay, .ot_point, .pm{
 	border-spacing: 0;
 	border-collapse: separate;
 }
-.ot_info, .ot_list, .ot_pay, .pm{
+.ot_info, .ot_list, .ot_pay, .ot_point, .pm{
 	width: 100%;
 }
 
-.o_info, .o_list, .o_pay, .o_right{
+.o_info, .o_list, .o_pay, .o_right, .o_point{
 	margin-top: 80px;
+}
+.btn_point{
+	margin-left: 20px;
 }
 th{
 	background: #f4f4f4;

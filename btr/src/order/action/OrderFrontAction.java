@@ -20,6 +20,7 @@ public class OrderFrontAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ActionForward forward=null;
 		System.out.println("OrderFrontAction");
 
 				
@@ -40,14 +41,23 @@ public class OrderFrontAction implements Action {
 		}
 		
 		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id"); 
+		// id가 없으면 login 페이지로 돌아가기
+		if(id == null) {
+		forward=new ActionForward();
+		forward.setRedirect(true);
+		forward.setPath("MemberLogin.me");
+		return forward;
+		} 
 		
+	
 		MemberMypageFormService memberMypageFormService = new MemberMypageFormService();
 		MemberBean mb = memberMypageFormService.getMemberInfo((String)session.getAttribute("id"));
 		System.out.println(mb.getId());
 		session.setAttribute("arrayList", arrayList);
 		session.setAttribute("info", mb);
 
-		return null;
+		return forward;
 	}
 
 }

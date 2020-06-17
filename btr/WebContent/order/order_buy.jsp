@@ -74,6 +74,23 @@
 			});
 		});
 		
+		
+		function comma(x){
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}	
+		$(document).ready(function(){
+			$('.btn_point').click(function(){
+				var inPoint = ${sessionScope.info.point };
+				document.getElementById("inPoint").value=comma(inPoint);
+			});
+			$('#inPoint').keyup(function(){
+				var inPoint=$('#inPoint').val();
+				document.getElementById("inPoint").value=comma(inPoint);
+			});
+		});
+		
+		
+		
 		var pMethod = $(':radio[name="payMethod"]:checked').val();
 		$('.payMethod:checked')
 
@@ -146,6 +163,13 @@
 						</tr>
 					</c:forEach>
 				</table>
+			</div>
+			<div class="o_point">
+			<h2>포인트사용</h2>
+			<table class="ot_point">
+			<tr><th>withTrip 포인트</th><td><input type="text" value=" " class="o_input" id="inPoint">
+			<input type="button" value="전액사용" class="btn btn_point"></td></tr>
+			</table>
 			</div>
 			<div class="o_pay">
 				<h2>결제수단 선택</h2>
@@ -330,11 +354,8 @@
 							class="total_cnt"> <span class="total_tn">${p.p_name}원</span></span></li>
 						<div class="both"></div>
 						<li><input type="button" class="btn tpm" id="orderBtn" value="결제하기"></li>
-				
 				</ul>
 			</div>
-
-
 		</div>
 	</section>
 
