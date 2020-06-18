@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import order.vo.OrderBean;
 import product.vo.ProductBean;
 
 
@@ -74,7 +76,7 @@ private static OrderDAO instance;
 		ResultSet rs = null;
 		int insertCount = 0;
 		String num = "";
-		String date = null;
+		String orderNum = null;
 		
 		try {
 			String sql = "SELECT LPAD(MAX(num),4,0) num FROM order_seq";
@@ -85,12 +87,11 @@ private static OrderDAO instance;
 				num = rs.getString(1);
 			}
 			
-			date = strDate + num;
+			orderNum = strDate + num;
 			
-			sql = "INSERT INTO o_order(o_ordernum, o_p_num, o_p_name, o_p_amount, o_price) VALUES(?,?,?,?,?)";
+			sql = "INSERT INTO o_order(o_num, o_status, o_p_num, o_p_name, o_p_amount, o_sum_money, o_date) VALUES(6,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, date);
-			System.out.println(obj.get("name"));
+			pstmt.setString(1, orderNum);
 			pstmt.setInt(2, Integer.parseInt((String)obj.get("num")));
 			pstmt.setString(3,String.valueOf(obj.get("name")));
 			pstmt.setInt(4, Integer.parseInt((String)obj.get("amount")));
@@ -105,7 +106,7 @@ private static OrderDAO instance;
 		}finally {
 			close(pstmt);
 		}
-		return date;
+		return orderNum;
 		
 	}
 
@@ -121,6 +122,75 @@ private static OrderDAO instance;
 		}finally {
 			close(pstmt);
 		}	
+	}
+
+	public ArrayList<OrderBean> getOrderList(String id) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
+
+		try {
+			// 상품테이블이랑 조인해서 이미지 가져와야됨
+			String sql = "SELECT * FROM o_order WHERE o_m_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				OrderBean ob = new OrderBean();
+				ob.setO_status(rs.getLong("o_status"));
+				ob.setO_p_name(rs.getString("o_p_name"));
+				ob.setO_p_amount(rs.getInt("o_p_amount"));
+				ob.setO_sum_money(rs.getInt("o_sum_money"));
+				ob.setDate(rs.getDate("o_date"));
+				list.add(ob);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {			
+			close(rs);
+			close(pstmt);		
+		}
+					
+		return list;
+	}
+
+	public ArrayList<OrderBean> getOrderSearchList(String id, String date) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
+
+		try {
+
+			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(now()) AND date(?)+1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, date);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				OrderBean ob = new OrderBean();
+				ob.setO_status(rs.getLong("o_status"));
+				ob.setO_p_name(rs.getString("o_p_name"));
+				ob.setO_p_amount(rs.getInt("o_p_amount"));
+				ob.setO_sum_money(rs.getInt("o_sum_money"));
+				ob.setDate(rs.getDate("o_date"));
+				list.add(ob);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {			
+			close(rs);
+			close(pstmt);		
+		}
+					
+		return list;
 	}
 	
 	

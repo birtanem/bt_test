@@ -16,6 +16,8 @@ import common.action.Action;
 import common.vo.ActionForward;
 import order.action.OrderAddAction;
 import order.action.OrderFrontAction;
+import order.action.OrderListAction;
+import order.action.OrderListSearchAction;
 
 
 /**
@@ -53,16 +55,29 @@ public class OrderFrontController extends HttpServlet {
 		}else if(command.equals("/orderForm.or")) { // 주문 추가
 				forward = new ActionForward();
 				forward.setPath("/order/order_buy.jsp");
-		}else if(command.equals("/orderResult.or")) { 
+		}else if(command.equals("/orderResult.or")) { // 주문 추가
 			forward = new ActionForward();
 			forward.setPath("/order/order_result.jsp");
-		}else if(command.equals("/orderList.or")) { // 주문 목록
-			forward = new ActionForward();
-			forward.setPath("/order/order_list.jsp");
 
-		}else if(command.equals("/orderListDetail.or")) { // 주문 목록
+		}else if(command.equals("/orderList.or")) { // 주문 추가
+			action = new OrderListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if(command.equals("/orderListDetail.or")) { // 주문 추가
 			forward = new ActionForward();
 			forward.setPath("/order/order_list_detail.jsp");
+
+		}else if(command.equals("/orderListSearch.or")) { // 주문 추가
+			action = new OrderListSearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 		

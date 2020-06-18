@@ -44,12 +44,13 @@
 	$(document).ready(function() {
 
 		$("#orderBtn").click(function() {
+			
 			var num = document.getElementsByName("num");
 			var name = document.getElementsByName("name");
 			var amount = document.getElementsByName("amount");
 			var price = document.getElementsByName("price");
 			var testList = new Array();
-			alert(num.length);
+			alert(num.length)
 			for (var i = 0; i < num.length; i++) {
 				// 객체 생성
 				var data = new Object();
@@ -106,10 +107,15 @@
 		});
 		
 		$("input:radio[name=payMethod]").click(function(){
+			
 			$(".pm").css("display","none")
+			
 			var payMethod = $("input[name=payMethod]:checked").val();
+			
 	        if(payMethod == "1"){
+	        	
 	        	$(".t_card").css("display","block")
+	        	
 	        }else if(payMethod == "2") {
 	        	$(".t_at").css("display","block")
 	        }else if(payMethod == "3") {
@@ -124,7 +130,9 @@
 	        	$(".t_payco").css("display","block")	        	
 	        }else if(payMethod == "8") {
 	        	$(".t_kakao").css("display","block")
+	        	
 	        }
+	       
 	    });
 		
 		

@@ -55,7 +55,6 @@ public class OrderFrontAction implements Action {
 		MemberBean mb = memberMypageFormService.getMemberInfo((String)session.getAttribute("id"));
 		session.setAttribute("arrayList", arrayList);
 		session.setAttribute("info", mb);
-		System.out.println("확인: "+request.getParameter("total"));
 		session.setAttribute("total", request.getParameter("total"));
 
 		return forward;
