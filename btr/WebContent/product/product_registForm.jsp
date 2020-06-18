@@ -48,14 +48,6 @@ table {
 </style>
 </head>
 <body>
-<jsp:include page="/inc/top.jsp" />
-	<div class="page-title"
-		style="background-image: url(images/page-title.png)">
-		<h1>상품등록</h1>
-	</div>
-
-
-
 
  <section id="contact-page">
         <div class="container">
@@ -140,7 +132,6 @@ table {
             </div><!--/.row-->
         <!--/.container-->
     </section><!--/#contact-page-->
-<jsp:include page="/inc/bottom.jsp" />
   <script>
             $(document).ready(function() {
                 $('#summernote').summernote({

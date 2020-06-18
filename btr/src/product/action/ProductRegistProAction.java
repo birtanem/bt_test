@@ -65,27 +65,21 @@ public class ProductRegistProAction implements Action {
 		
 		
 		// 리턴 받아서 글 등록 결과 판별
+		// response 객체를 사용하여 문서 타입 및 인코딩 설정
+		response.setContentType("text/html;charset=UTF-8");
+		// getWriter() 메서드 호출
+		PrintWriter out = response.getWriter();
 		if(!isRegistSuccess) {
-			
-			// response 객체를 사용하여 문서 타입 및 인코딩 설정
-			response.setContentType("text/html;charset=UTF-8");
-			// getWriter() 메서드 호출
-			PrintWriter out = response.getWriter();
-			
 			out.println("<script>");
 			out.println("alert('글 등록이 실패되었습니다.')");
 			out.println("hilstory.back()");
 			out.println("</script>");
 		} else {
-			System.out.println("글 등록 완료");
-			// 현재에서 PorductList.bo 서블리 요청을 요청하여 Redirect 방식 포워딩
-			forward = new ActionForward();
-			// 포워딩 방식 지정
-			forward.setRedirect(true);
-			// 포워딩 주소
-			forward.setPath("productList.pr");
+			out.println("<script>");
+			out.println("window.opener.reload()");
+			out.println("window.close()");
+			out.println("</script>");
 		}
-		
 		
 		return forward;
 	}

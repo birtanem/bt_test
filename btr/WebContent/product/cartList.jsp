@@ -116,25 +116,18 @@ $(document).ready(function(){
 		         
 		     // 리스트에 생성된 객체 삽입
 		        if(messageChk[i].checked) {
-		        	
 		        	price += Number(priceChk[i].value);
 		        	data.num =  messageChk[i].value;
 				    data.amount = amountChk[i].value;
 				    data.price = document.getElementById("td"+(i+1)).innerText;
 				    testList.push(data) ;
 				    indexMessage = true;
-				    
 		        }
-	        
 		    }
-		    
-   	        
 			if(!indexMessage) {
 				alert("주문할 상품을 선택하세요.");
 				return
 			}
-
-
 //		     // String 형태로 변환
 		    var jsonData = JSON.stringify(testList) ;
 		     
@@ -180,16 +173,6 @@ $('.fun-btn').on('click', function(event) {
 		
 		}
 	
-//  function goOrder(){
-// 		var id='admin'; 
-// 		var amount=Number(document.getElementById("amount").value);
-// 		if(id==null || id=="null"){
-// 			alert("로그인 후 이용해주세요");
-// 			location.href="MemberLoginForm.me";
-// 			return false;
-// 		}
-// 		location.href="orderAdd.or?o_p_num="+c_num+"&o_p_amount="+amount;
-// 	}
 
 </script>
 

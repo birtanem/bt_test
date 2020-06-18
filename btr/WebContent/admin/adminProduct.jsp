@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,7 @@
 <title>상품관리</title>
 
 <!-- core CSS -->
+<link href="css/product.css" rel="stylesheet">
 <link href="css/product_modal.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -36,6 +38,7 @@
 	display: none;
 }
 </style>
+<script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 function changeRegionCode(p_num, regionCode,idx){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;
@@ -64,6 +67,10 @@ function del(p_num){
 	alert("정말 삭제하시겠습니까?");
 	location.href="productDelete.pr?p_num="+p_num;
 }
+function pop(){
+	window.open("productRegistForm.pr","","width=1000,height=800,left=500,top=150,scrollbars=yes,resizable=yes");
+}
+
 </script>
 
 
@@ -74,19 +81,23 @@ function del(p_num){
 	<jsp:include page="/inc/top.jsp" />
 <section id="portfolio">
 	<div class="container">
+	<div class="pt_list">
+	<div>
+	<input type="button" class="btn apBtn" value="관리자:상품등록"onclick="pop()" />
+	</div>
 		<c:choose>
 			<c:when test="${ListCount>0 && productList !=null}">
 				<table>
 					<tr>
-						<td>번호</td>
-						<td>지역코드</td>
-						<td>카테고리</td>
-						<td>상품명</td>
-						<td>이미지</td>
-						<td>내용</td>
-						<td>가격</td>
-						<td>수량</td>
-						<td colspan="2">관리</td>
+						<th>번호</th>
+						<th>지역코드</th>
+						<th>카테고리</th>
+						<th>상품명</th>
+						<th>이미지</th>
+						<th>내용</th>
+						<th>가격</th>
+						<th>수량</th>
+						<th colspan="2">관리</th>
 					</tr>
 					<c:forEach var="list" items="${productList }" varStatus="vs">
 						<tr>
@@ -123,14 +134,14 @@ function del(p_num){
 							</select></td>
 							<form action="productUpdatePro.pr" method="post" name="fr">
 								<td><input type="hidden" name="p_num"
-									value="${list.p_num }"> <input type="text" name="name"
+									value="${list.p_num }"> <input type="text" name="name" id="p_name"
 									value="${list.p_name }"></td>
 								<td><input type="text" name="img" value="${list.p_image }"
 									id="p_img${vs.count }" readonly="readonly"
 									onclick="popImg(${list.p_num})"></td>
 								<td><input type="text" name="p_content" id="p_content"
 									value="${list.p_content }" onclick="popContent(${vs.count})"></td>
-								<td><input type="text" name="price"
+								<td><input type="text" id="inPrice" name="price"
 									value="${list.p_price }"></td>
 								<td><input type="text" name="amount"
 									value="${list.p_amount }"></td>
@@ -165,7 +176,7 @@ function del(p_num){
 				<section id="emptyArea">등록된 상품이 없습니다.</section>
 			</c:otherwise>
 		</c:choose>
-
+</div>
 
 
 

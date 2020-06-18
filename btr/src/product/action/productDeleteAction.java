@@ -31,7 +31,9 @@ public class productDeleteAction implements Action {
 		} else {
 			out.println("<script>");
 			out.println("alert('삭제완료')");
+			out.println("location.href='adminProduct.ad'");
 			out.println("</script>");
+			
 		}
 		
 		return forward;

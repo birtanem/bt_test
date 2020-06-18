@@ -1,21 +1,33 @@
 @charset "UTF-8";
-div#portfolio{
+
+div#portfolio {
 	margin: 30px 30px;
 }
-#product_img{
+
+#product_img {
 	float: left;
-	padding: 0 50px 0 0;
-	max-width: 550px ; 
-	max-height: 550px ; 
+	padding: 0 10px 0 0;
+	max-width: 550px;
+	max-height: 550px;
 }
-#product_img>img{
-/* 	max-width: 550px !important;  */
-/* 	max-height: 550px !important;  */
+
+#product_img>img {
+		max-width: 550px !important; 
+		max-height: 550px !important; 
+	
 }
-#product_detail{
+
+#product_detail {
 	float: right;
 	padding: 0 50px 0 0;
 }
-#content{
+
+#content {
 	clear: both;
+}
+.pn {
+	font-size: 26px;
+	color: #000;
+	line-height: 32px;
+	word-break: break-all
 }

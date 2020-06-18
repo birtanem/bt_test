@@ -130,17 +130,16 @@ function goCart(){
 	<!-- 본문 -->
 
 <section id="portfolio">
-	<div>
+	<div class="container">
 		<div id="product_img">
 			<img src="product/productUpload/${productDetail.p_image }"
 				alt="product">
 		</div>
 		<div id="product_detail">
 			<div>
-
-				<p>#${productDetail.p_category}&nbsp;
+				<p class="pd kw">#${productDetail.p_category}&nbsp;
 					#${productDetail.region_name }</p>
-				<p>${productDetail.p_name }</p>
+				<p class="pd pn">${productDetail.p_name }</p>
 				<p>
 					<fmt:formatNumber value="${productDetail.p_price }"
 						pattern="###,###,###" />
@@ -237,6 +236,7 @@ function goCart(){
 			</div>
 		</div>
 	</section>
+	</section>
 	<!--/#bottom-->
 	<footer id="footer" class="midnight-blue">
 		<div class="container">
@@ -257,7 +257,7 @@ function goCart(){
 			</div>
 		
 		</div>
-		
+	
 	</footer>
 	<!--/#footer-->
 	<script src="js/product_modal.js"></script>

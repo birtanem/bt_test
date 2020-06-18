@@ -73,8 +73,6 @@
 
 		<section id="portfolio">
 			<div class="container">
-				<input type="button" class="btn btn-default active" value="관리자:상품등록"
-					onclick="location.href='productRegistForm.pr'" />
 				<form action="ProductCartAdd.ca" method="post"
 					name="productListForm">
 					<div class="portfolio-items">
