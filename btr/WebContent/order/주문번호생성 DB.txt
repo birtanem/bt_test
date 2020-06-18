@@ -27,3 +27,5 @@ END
 select * from information_schema.events;
 
 
+이벤트 스케쥴러 on/off 확인
+show variables like 'event%'
