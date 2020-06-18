@@ -73,16 +73,16 @@ private static OrderDAO instance;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int insertCount = 0;
-		int num = 0;
+		String num = "";
 		String date = null;
 		
 		try {
-			String sql = "SELECT MAX(num) num FROM order_seq";
+			String sql = "SELECT LPAD(MAX(num),4,0) num FROM order_seq";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				num = rs.getInt(1);
+				num = rs.getString(1);
 			}
 			
 			date = strDate + num;
