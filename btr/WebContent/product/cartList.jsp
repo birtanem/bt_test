@@ -119,7 +119,7 @@ $(document).ready(function(){
 		        	price += Number(priceChk[i].value);
 		        	data.num =  messageChk[i].value;
 				    data.amount = amountChk[i].value;
-				    data.price = document.getElementById("td"+(i+1)).innerText;
+				    data.price = priceChk[i].value;
 				    testList.push(data) ;
 				    indexMessage = true;
 		        }

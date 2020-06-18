@@ -16,7 +16,8 @@ public class OrderBean {
 	private int o_sum_money;
 	private String o_trade_type;
 	private Date date;
-	private int o_status;
+//	private int o_status; // 주문번호 넣을곳이 없어서 잠깐 주석처리
+	private long o_status; // 주문번호 넣을곳으로 임시 사용 
 	
 	public int getO_num() {
 		return o_num;
@@ -96,12 +97,19 @@ public class OrderBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public int getO_status() {
+//	public int getO_status() {
+//		return o_status;
+//	}
+//	public void setO_status(int o_status) {
+//		this.o_status = o_status;
+//	}
+	public long getO_status() {
 		return o_status;
 	}
-	public void setO_status(int o_status) {
+	public void setO_status(long o_status) {
 		this.o_status = o_status;
 	}
+	
 	
 	
 

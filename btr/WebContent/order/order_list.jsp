@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,20 +35,43 @@
  
 }
 </style>
+<script type="text/javascript">
+
+	
+	function listSearch(mon) {
+		
+		$.ajax({
+			url: "orderListSearch.or",
+			data: {"mon" : mon},
+			dataType: "json",
+			success: function(rdata) {
+				$("table tr:not(:first)").empty();
+				
+				$.each(rdata, function(index, item) {
+										
+					$("table").append("<tr><td>"+item.orderNum+"</td><td>이미지</td><td>"+item.name+"</td><td>"+item.amount+"</td><td>"+item.price+"</td></tr>");
+
+				});
+			}
+		});
+	}
+
+
+</script>
 </head>
 <body>
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png);">
-		<h1>Order22</h1>
+		<h1>Order11131231231</h1>
 	</div>
 	<section id="portfolio">
 		<div class="center" style="padding: 0; margin: 0;">
-			<h2>주문내역</h2>
+			<h2>주문내역1</h2>
 		</div>
 		<div class="container" style="margin-top: -50px;">
 			<div class="o_info o_input" style="font-size: 12pt;">
-				<h2>구매기간 <input type="button" value="1개월"><input type="button" value="3개월"><input type="button" value="6개월"></h2><br>
+				<h2>구매기간 <input type="button" value="1개월" onclick="listSearch('1')"><input type="button" value="3개월" onclick="listSearch('3')"><input type="button" value="6개월" onclick="listSearch('6')"></h2><br>
 				<select class="loginInput">
 				<option>2018</option>
 				<option>2019</option>
@@ -86,19 +108,20 @@
 				<h2>주문내역</h2>
 				<table class="ot_list">
 					<tr>
-						<th>주문일자</th>
+						<th>주문번호</th>
 						<th colspan="2">상품정보</th>
 						<th>수량</th>
 						<th>합계</th>
-					</tr>
-					
-					<tr>
-						<td><a href="orderListDetail.or">2020.06.01<br>상세보기</a></td>
-						<td>이미지</td>
-						<td>상품명</td>
-						<td>10</td>
-						<td>100000원</td>
-					</tr>
+					</tr>				
+					<c:forEach var="list" items="${list }">
+						<tr>
+							<td><a href="orderListDetail.or">${list.o_status }<br>상세보기</a></td>
+							<td>이미지</td>
+							<td>${list.o_p_name }</td>
+							<td>${list.o_p_amount }</td>
+							<td>${list.o_sum_money }</td>
+						</tr>				
+					</c:forEach>
 				</table>
 			</div>
 	</div>
