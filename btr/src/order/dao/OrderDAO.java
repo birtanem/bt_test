@@ -124,40 +124,6 @@ private static OrderDAO instance;
 		}	
 	}
 
-//	public ArrayList<OrderBean> getOrderList(String id) {
-//		
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
-//
-//		try {
-//			// 상품테이블이랑 조인해서 이미지 가져와야됨
-//			String sql = "SELECT * FROM o_order WHERE o_m_id = ?";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, id);
-//			rs = pstmt.executeQuery();
-//			
-//			while(rs.next()) {
-//				
-//				OrderBean ob = new OrderBean();
-//				ob.setO_status(rs.getLong("o_status"));
-//				ob.setO_p_name(rs.getString("o_p_name"));
-//				ob.setO_p_amount(rs.getInt("o_p_amount"));
-//				ob.setO_sum_money(rs.getInt("o_sum_money"));
-//				ob.setDate(rs.getDate("o_date"));
-//				list.add(ob);
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {			
-//			close(rs);
-//			close(pstmt);		
-//		}
-//					
-//		return list;
-//	}
-	
 	public ArrayList<OrderBean> getOrderList(String id) {
 		
 		PreparedStatement pstmt = null;
@@ -166,7 +132,7 @@ private static OrderDAO instance;
 
 		try {
 			// 상품테이블이랑 조인해서 이미지 가져와야됨
-			String sql = "SELECT * FROM o_order2 WHERE o_m_id = ?";
+			String sql = "SELECT * FROM o_order WHERE o_m_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -191,20 +157,18 @@ private static OrderDAO instance;
 					
 		return list;
 	}
-
-
-//	public ArrayList<OrderBean> getOrderSearchList(String id, String date) {
+	
+//	public ArrayList<OrderBean> getOrderList(String id) {
 //		
 //		PreparedStatement pstmt = null;
 //		ResultSet rs = null;
 //		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
 //
 //		try {
-//
-//			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(now()) AND date(?)+1";
+//			// 상품테이블이랑 조인해서 이미지 가져와야됨
+//			String sql = "SELECT * FROM o_order2 WHERE o_m_id = ?";
 //			pstmt = con.prepareStatement(sql);
 //			pstmt.setString(1, id);
-//			pstmt.setString(2, date);
 //			rs = pstmt.executeQuery();
 //			
 //			while(rs.next()) {
@@ -228,7 +192,8 @@ private static OrderDAO instance;
 //		return list;
 //	}
 
-	public ArrayList<OrderBean> getOrderSearchList(String id, String day) {
+
+	public ArrayList<OrderBean> getOrderSearchList(String id, String date) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -236,10 +201,10 @@ private static OrderDAO instance;
 
 		try {
 
-			String sql = "SELECT * FROM o_order2 WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(now())+1";
+			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(now()) AND date(?)+1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, day);
+			pstmt.setString(2, date);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -262,6 +227,41 @@ private static OrderDAO instance;
 					
 		return list;
 	}
+
+//	public ArrayList<OrderBean> getOrderSearchList(String id, String day) {
+//		
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
+//
+//		try {
+//
+//			String sql = "SELECT * FROM o_order2 WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(now())+1";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, id);
+//			pstmt.setString(2, day);
+//			rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				
+//				OrderBean ob = new OrderBean();
+//				ob.setO_status(rs.getLong("o_status"));
+//				ob.setO_p_name(rs.getString("o_p_name"));
+//				ob.setO_p_amount(rs.getInt("o_p_amount"));
+//				ob.setO_sum_money(rs.getInt("o_sum_money"));
+//				ob.setDate(rs.getDate("o_date"));
+//				list.add(ob);
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {			
+//			close(rs);
+//			close(pstmt);		
+//		}
+//					
+//		return list;
+//	}
 	
 	
 	
