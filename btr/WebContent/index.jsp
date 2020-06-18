@@ -246,7 +246,6 @@ $(function() {
             step((index + 1) % count);
         });
     }
-
     step(1);
 });
 

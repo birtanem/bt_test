@@ -68,7 +68,6 @@ public class OrderAddAction implements Action {
 		}
 		
 		HttpSession session = request.getSession();
-		
 		session.setAttribute("orderNum", strDate2);
 
 	

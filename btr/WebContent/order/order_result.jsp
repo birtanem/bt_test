@@ -10,6 +10,6 @@
 </head>
 <body>
 <h1>주문완료</h1>
-주문번호: ${sessionScope.orderNum }
+주문번호: ${sessionScope.order_num }
 </body>
 </html>

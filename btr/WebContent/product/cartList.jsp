@@ -119,7 +119,7 @@ $(document).ready(function(){
 		        	price += Number(priceChk[i].value);
 		        	data.num =  messageChk[i].value;
 				    data.amount = amountChk[i].value;
-				    data.price = document.getElementById("td"+(i+1)).innerText;
+				    data.price = priceChk[i].value;
 				    testList.push(data) ;
 				    indexMessage = true;
 		        }
@@ -209,14 +209,13 @@ $('.fun-btn').on('click', function(event) {
 						<c:forEach var="p" items="${productList }" varStatus="status">
 							<tr>
 								<td><input type="checkbox" name="rowCheck" id="rowCheck"
-									value="${cartList[status.index].c_p_num }" /></td>							
+									value="${cartList[status.index].c_p_num }" /></td>
 								<td>${p.p_category }</td>
 								<td>${p.p_name }</td>
 								<td><img src="product/productUpload/${p.p_image }"
 									width="200" height="100"></td>
-								<td>
-								<fmt:formatNumber value="${p.p_price }"
-						pattern="###,###,###" /></td>
+								<td><fmt:formatNumber value="${p.p_price }"
+										pattern="###,###,###" /></td>
 								<td><input type="button" value="-"
 									onclick="minuscount(${status.count },-1)"> <input
 									type="text" id="amount${status.count }" name="amount"
@@ -227,8 +226,9 @@ $('.fun-btn').on('click', function(event) {
 								</td>
 								<td id="td${status.count }">
 								<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}"
-						pattern="###,###,###" />
-									<input type="hidden" name="price" value="${cartList[status.index].c_p_amount * p.p_price}"></td>
+										pattern="###,###,###" />
+										 <input type="hidden" name="price"
+									value="${cartList[status.index].c_p_amount * p.p_price}"></td>
 							</tr>s
 						</c:forEach>
 					</table>
@@ -241,9 +241,8 @@ $('.fun-btn').on('click', function(event) {
 							<c:set var="totalmoney" value="${totalmoney + money }" />
 						</c:forEach>
 						<h3 class="h3">
-							<span id="span">
-							<fmt:formatNumber value="${totalmoney }"
-						pattern="###,###,###" />
+							<span id="span"> <fmt:formatNumber value="${totalmoney }"
+									pattern="###,###,###" />
 							</span>원
 						</h3>
 					</div>
@@ -256,10 +255,11 @@ $('.fun-btn').on('click', function(event) {
 					<nav style="text-align: center">
 						<input type="button" class="fun-btn" style="text-align: center"
 							value="쇼핑 계속하기" onclick="location.href='productList.pr'">
-						<input type="button"  id="orderBtn"  class="fun-btn" style="text-align: center"
-							value="주문하기" onclick="goOrder()"><br> <br> 
-							<input type="button" class="fun-btn"style="text-align: center"
-							value="취소" id="deleteButton" onclick="return deleteCart()">
+						<input type="button" id="orderBtn" class="fun-btn"
+							style="text-align: center" value="주문하기" onclick="goOrder()"><br>
+						<br> <input type="button" class="fun-btn"
+							style="text-align: center" value="취소" id="deleteButton"
+							onclick="return deleteCart()">
 					</nav>
 				</div>
 			</div>

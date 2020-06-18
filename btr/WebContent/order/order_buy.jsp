@@ -185,7 +185,7 @@
 								value="${p.p_num }"></td>
 							<td><fmt:formatNumber value="${p.p_price/p.p_amount }"
 									pattern="###,###,###" /><input type="hidden" name="price"
-								value="<fmt:formatNumber value="${p.p_price/p.p_amount }" pattern="0"/>"></td>
+								value="${p.p_price/p.p_amount }" pattern="0"/>"></td>
 							<td>${p.p_amount }<input type="hidden" name="amount"
 								value="${p.p_amount }"></td>
 							<td><fmt:formatNumber value="${p.p_price}"

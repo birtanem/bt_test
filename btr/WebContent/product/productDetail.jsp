@@ -137,8 +137,8 @@ function goCart(){
 		</div>
 		<div id="product_detail">
 			<div>
-				<p class="pd kw">#${productDetail.p_category}&nbsp;
-					#${productDetail.region_name }</p>
+				<strong class="pd kw">#${productDetail.p_category}&nbsp;
+					#${productDetail.region_name }</strong>
 				<p class="pd pn">${productDetail.p_name }</p>
 				<p>
 					<fmt:formatNumber value="${productDetail.p_price }"
@@ -158,7 +158,7 @@ function goCart(){
 					type="button" value="장바구니" class="btn" onclick="goCart()">
 			</div>
 		</div>
-		<div id="content">
+		<div id="content" class="clear">
 			<p>${productDetail.p_content }</p>
 		</div>
 
