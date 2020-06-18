@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>나의 작성글</title>
+    <title>나의 작성댓글</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -73,6 +73,7 @@
     color: black;
 }
 
+
 </style>
 </head>
 <body>    
@@ -84,15 +85,14 @@
     </div>
     
     <section id="blog">
-
         <div class="blog container">
             <div class="row">
                 <div class="col-md-8">
-                                
+                
                 	<div class="blog-item">
                         <div class="blog-content">
 	                    	<div>
-	                    		<span id="spanCount1">총 작성글 </span>
+	                    		<span id="spanCount1">총 작성 댓글 </span>
 	                    		<span id="spanCount2"> ${pageInfo.listCount }</span>
 	                    	</div>        		   
                         </div>
@@ -101,21 +101,13 @@
                 <c:forEach var="article" items="${articleList }" >
 					<div class="blog-item">
                         <div class="blog-content">
-                            <a href="Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }">
+                            <a href="Review_Content.re?&r_num=${article.r_readcount }&page=1">
                             	<table border="3" id="table1">
 	                            	<tr>
-	                            		<td id="td0">제목 : </td>
-	                            		<td id="td_title">${article.r_subject }</td>
-	                            		<td id="td1">좋아요</td>
-	                            		<td id="td2">${article.r_likecount }</td>
-	                            		<td id="td3">조회수 </td>
-	                            		<td id="td4">${article.r_readcount }</td>
-	                            	</tr>
-	                            	<tr>
-	                            		<td>지역 : </td>
-	                            		<td>${article.r_name}</td>
-	                            		<td colspan="2">작성날짜</td>
-	                            		<td colspan="2">${article.r_date }</td>
+	                            		<td id="td0">내용 : </td>
+	                            		<td id="td_title">${article.r_content }</td>
+	                            		<td id="td3">작성날짜 </td>
+	                            		<td id="td4">${article.r_date }</td>
 	                            	</tr>
                             	</table>
                             </a>

@@ -17,6 +17,7 @@ import member.action.MemberJoinProAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutProAction;
 import member.action.MemberMypageFormAction;
+import member.action.MemberReplyListAction;
 import member.action.MemberUpdateFormAction;
 import member.action.MemberUpdateProAction;
 import member.action.MemberWriteListAction;
@@ -154,6 +155,15 @@ public class MemberFrontController extends HttpServlet {
 			} else if(command.equals("/MemberWriteList.me")) { 
 				
 				action = new MemberWriteListAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}						
+			} else if(command.equals("/MemberReplyList.me")) { 
+				
+				action = new MemberReplyListAction();
 				
 				try {
 					forward = action.execute(request, response);
