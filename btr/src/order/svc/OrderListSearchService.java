@@ -12,7 +12,7 @@ import product.vo.ProductBean;
 
 public class OrderListSearchService {
 
-	public ArrayList<OrderBean> getOrderSearchList(String id, String date) {
+	public ArrayList<OrderBean> getOrderSearchList(String id, String day) {
 		
 		System.out.println("OrderListSearchService");
 		
@@ -22,7 +22,7 @@ public class OrderListSearchService {
 		
 		orderDAO.setConnection(con);
 			
-		ArrayList<OrderBean> list = orderDAO.getOrderSearchList(id, date);
+		ArrayList<OrderBean> list = orderDAO.getOrderSearchList(id, day);
 		
 		close(con);
 		
