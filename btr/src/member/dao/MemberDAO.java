@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 import member.vo.JoinException;
 import member.vo.MemberBean;
+import review.vo.ReviewBean;
 import suggestion.vo.SuggestionBean;
 
 import static common.db.JdbcUtil.*;
@@ -313,7 +314,159 @@ public class MemberDAO {
 			return memberInfo;
 		}
 
+//		내가쓴글 게시물 카운트
 		
+		public int selectListCount(String id) {
+
+			int selectCount = 0;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select count(r_num) from review where member_member_id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					selectCount = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - selectListCount() 실패! : " + e.getMessage());
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return selectCount;
+		}
+		
+		// 내가쓴글 게시물  가져오기
+		public ArrayList<ReviewBean> selectArticleList(int page, int limit, String id) {
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page-1)*limit;
+			
+			ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
+			
+			String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+			String r_name = "(select region_name from region where region_code = region_region_code)";
+			
+			try {
+				String sql = "select *, "+r_cnt+" as r_cnt,"+r_name+" as r_name "
+						+ "from review where member_member_id=? order by r_num desc limit ?,?";
+							// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+
+					ReviewBean reviewBean = new ReviewBean();
+					
+					reviewBean.setR_num(rs.getInt("r_num"));
+					reviewBean.setR_id(rs.getString("member_member_id"));
+					reviewBean.setR_subject(rs.getString("r_subject"));
+					reviewBean.setR_content(rs.getString("r_content"));
+					reviewBean.setR_readcount(rs.getInt("r_readcount"));
+					reviewBean.setR_likecount(rs.getInt("r_likecount"));
+					reviewBean.setR_date(rs.getDate("r_date"));
+					reviewBean.setR_image(rs.getString("r_image"));
+					reviewBean.setR_code(rs.getInt("region_region_code"));
+					reviewBean.setR_name(rs.getString("r_name"));
+					reviewBean.setR_cnt(rs.getInt("r_cnt"));
+					
+					articleList.add(reviewBean);
+					
+				}
+			
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - selectArticleList() 실패! : " + e.getMessage());
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return articleList;
+		}
+		
+//		내가쓴 댓글 카운트
+		
+		public int selectReplyListCount(String id) {
+
+			int selectCount = 0;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select count(rc_num) from review_comment where review_member_member_id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					selectCount = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - selectReplyListCount() 실패! : " + e.getMessage());
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return selectCount;
+		}
+		
+		// 내가쓴 댓글  가져오기
+		public ArrayList<ReviewBean> selectReplyList(int page, int limit, String id) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page-1)*limit;
+			
+			ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
+			
+			try {
+				String sql = "select * from review_comment where review_member_member_id=? order by rc_num desc limit ?,?";
+							// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+
+					ReviewBean reviewBean = new ReviewBean();
+					
+					reviewBean.setR_num(rs.getInt("rc_num"));
+					reviewBean.setR_content(rs.getString("rc_content"));
+					reviewBean.setR_readcount(rs.getInt("review_review_num"));
+					reviewBean.setR_date(rs.getDate("rc_date"));
+
+					articleList.add(reviewBean);
+					
+				}
+			
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - selectArticleList() 실패! : " + e.getMessage());
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return articleList;
+		}
 		
 		
 }
