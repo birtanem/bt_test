@@ -17,6 +17,7 @@ import place.action.PCWriteProAction;
 import place.action.PlaceDeleteProAction;
 import place.action.PlaceDetailAction;
 import place.action.PlaceListAction;
+import place.action.PlaceSearchAction;
 import place.action.PlaceUpdateFormAction;
 import place.action.PlaceUpdateProAction;
 import place.action.PlaceWriteProAction;
@@ -118,7 +119,15 @@ public class PlaceFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 		 }
-		
+		 else if (command.equals("/PlaceSearch.pl")) {
+				action = new PlaceSearchAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		 }
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행
 		if(forward != null) {

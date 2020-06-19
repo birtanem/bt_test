@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="widget search">
-                        <form role="form">
-                            <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
+                        <form role="form" action="PlaceSearch.pl">
+                            <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here" name="search">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -12,10 +12,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="blog_archieve">
-                                    <li><a href="#">맛 집 <span class="pull-right">(97)</span></a></li>
-                                    <li><a href="#">역사 탐방 <span class="pull-right">(32)</span></a></li>
-                                    <li><a href="#">등 산  <span class="pull-right">(19)</span></a></li>
-                                    <li><a href="#">야 경 <span class="pull-right">(08)</span></a></li>
+                                    <li><a href="PlaceSearch.pl?search=맛집">맛 집 <span class="pull-right">(97)</span></a></li>
+                                    <li><a href="PlaceSearch.pl?search=역사">역사 탐방 <span class="pull-right">(32)</span></a></li>
+                                    <li><a href="PlaceSearch.pl?search=등산">등 산  <span class="pull-right">(19)</span></a></li>
+                                    <li><a href="PlaceSearch.pl?search=야경">야 경 <span class="pull-right">(08)</span></a></li>
                                 </ul>
                             </div>
                         </div>

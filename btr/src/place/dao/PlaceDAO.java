@@ -435,5 +435,89 @@ public class PlaceDAO {
 						
 						return insertCount;
 		}
+
+		public int selectSearchListCount(String search) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
+				String sql = "SELECT COUNT(pl_num) FROM place WHERE pl_name like ? or pl_content like ? or pl_address like ? or pl_theme like ?"; // COUNT() 함수 사용
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setString(3, search);
+				pstmt.setString(4, search);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - selectSearchListCount() 실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return listCount;
+		}
+
+		public ArrayList<PlaceBean> selectArticleList(int page, int limit, String search) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page - 1) * limit; // 가져올 게시물에 대한 시작 행 번호 계산
+			
+			// 전체 게시물을 저장할 ArrayList 객체 생성 => 제네릭 타입 BoardBean 타입 지정
+			ArrayList<PlaceBean> articleList = new ArrayList<PlaceBean>();
+			
+			try {
+				// 게시물 갯수 조회할 SQL 구문 작성
+				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
+				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
+				String sql = "SELECT * FROM place WHERE pl_name like ? or pl_content like ? or pl_address like ? or pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setString(3, search);
+				pstmt.setString(4, search);
+				pstmt.setInt(5, startRow);
+				pstmt.setInt(6, limit);
+				rs = pstmt.executeQuery();
+				
+				// 조회된 레코드 만큼 반복
+				while(rs.next()) {
+					// 1개 레코드(게시물)를 저장할 BoardBean 객체 생성
+					PlaceBean article = new PlaceBean();
+					// BoardBean 객체에 조회된 레코드(게시물) 정보를 저장
+					article.setPl_num(rs.getInt("pl_num"));
+					article.setRegion_code(rs.getInt("region_code"));
+					article.setPl_name(rs.getString("pl_name"));
+					article.setPl_content(rs.getString("pl_content"));
+					article.setPl_address(rs.getString("pl_address"));
+					article.setPl_image(rs.getString("pl_image"));
+					article.setPl_readcount(rs.getInt("pl_readcount"));
+					article.setPl_likecount(rs.getInt("pl_likecount"));
+					article.setPl_date(rs.getDate("pl_date"));
+					article.setPl_theme(rs.getString("pl_theme"));
+					
+					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
+					articleList.add(article);
+					
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - selectArticleList() (search)실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return articleList;
+		}
 	
 }
