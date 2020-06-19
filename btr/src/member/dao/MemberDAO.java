@@ -427,7 +427,7 @@ public class MemberDAO {
 			return selectCount;
 		}
 		
-		// 내가쓴 댓글  가져오기
+		// 내가쓴 댓글  가져오기 (review 댓글)
 		public ArrayList<ReviewBean> selectReplyList(int page, int limit, String id) {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -466,6 +466,43 @@ public class MemberDAO {
 				close(pstmt);
 			}
 			return articleList;
+		}
+		
+		// 내가쓴 댓글  가져오기 (review 댓글)
+		public ArrayList<MemberBean> getMemberList(int page, int limit) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page-1)*limit;
+			
+			ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+			
+			try {
+				String sql = "select * from member order by rc_num desc limit ?,?";
+							
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, limit);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+
+					MemberBean memberBean = new MemberBean();
+					
+					memberBean.setId(rs.getString("id"));
+
+					memberList.add(memberBean);
+					
+				}
+			
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - getMemberList() 실패! : " + e.getMessage());
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return memberList;
 		}
 		
 		

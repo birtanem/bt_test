@@ -73,6 +73,11 @@
     color: black;
 }
 
+#btnBack{
+	float: right;
+    margin-right: 5px;
+}
+
 </style>
 </head>
 <body>    
@@ -94,6 +99,7 @@
 	                    	<div>
 	                    		<span id="spanCount1">총 작성글 </span>
 	                    		<span id="spanCount2"> ${pageInfo.listCount }</span>
+	                    		<input type="button" id="btnBack" value="돌아가기" onclick="location.href='./MemberMypage.me'">
 	                    	</div>        		   
                         </div>
                     </div>

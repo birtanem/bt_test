@@ -14,6 +14,7 @@ import common.action.Action;
 import common.vo.ActionForward;
 import member.action.MemberJoinCheckAction;
 import member.action.MemberJoinProAction;
+import member.action.MemberListAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutProAction;
 import member.action.MemberMypageFormAction;
@@ -164,6 +165,15 @@ public class MemberFrontController extends HttpServlet {
 			} else if(command.equals("/MemberReplyList.me")) { 
 				
 				action = new MemberReplyListAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}						
+			} else if(command.equals("/MemberList.me")) {  //admin 관리자 페이지 (회원목록)
+				
+				action = new MemberListAction();
 				
 				try {
 					forward = action.execute(request, response);

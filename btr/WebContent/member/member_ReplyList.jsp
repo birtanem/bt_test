@@ -37,9 +37,6 @@
 }
 
 /* 테이블 td조정 */
-#td0 {
-	width: 56px;
-}
 
 #td_title {
 	color: blue;
@@ -50,17 +47,17 @@
 }
 
 #td2 {
-	width: 36px;
-	color: red;
+	width: 78px;
 }
 
 #td3 {
-	width: 60px;
+	width: 95px;
 }
 
 #td4 {
-	width: 36px;
-	color: red;
+	width: 110px;
+	font-weight: bold;
+	color: grey;
 }
 
 #spanCount1{
@@ -71,6 +68,11 @@
 	font-size: 23px;
     font-weight: bold;
     color: black;
+}
+
+#btnBack{
+	float: right;
+    margin-right: 5px;
 }
 
 
@@ -94,6 +96,7 @@
 	                    	<div>
 	                    		<span id="spanCount1">총 작성 댓글 </span>
 	                    		<span id="spanCount2"> ${pageInfo.listCount }</span>
+	                    		<input type="button" id="btnBack" value="돌아가기" onclick="location.href='./MemberMypage.me'">
 	                    	</div>        		   
                         </div>
                     </div>
@@ -104,10 +107,11 @@
                             <a href="Review_Content.re?&r_num=${article.r_readcount }&page=1">
                             	<table border="3" id="table1">
 	                            	<tr>
-	                            		<td id="td0">내용 : </td>
+	                            		<td id="td4">리뷰 게시판 </td>
+	                            		<td id="td1">내용 : </td>
 	                            		<td id="td_title">${article.r_content }</td>
-	                            		<td id="td3">작성날짜 </td>
-	                            		<td id="td4">${article.r_date }</td>
+	                            		<td id="td2">작성날짜 </td>
+	                            		<td id="td3">${article.r_date }</td>
 	                            	</tr>
                             	</table>
                             </a>
