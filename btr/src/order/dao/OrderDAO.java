@@ -201,7 +201,7 @@ private static OrderDAO instance;
 
 		try {
 
-			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(now()) AND date(?)+1";
+			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(now())+1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, date);
