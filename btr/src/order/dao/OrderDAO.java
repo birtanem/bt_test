@@ -193,7 +193,7 @@ private static OrderDAO instance;
 //	}
 
 
-	public ArrayList<OrderBean> getOrderSearchList(String id, String date) {
+	public ArrayList<OrderBean> getOrderSearchList(String id, String day, String day2) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -201,10 +201,11 @@ private static OrderDAO instance;
 
 		try {
 
-			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(now())+1";
+			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(?)+1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, date);
+			pstmt.setString(2, day);
+			pstmt.setString(3, day2);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

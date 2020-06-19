@@ -31,17 +31,26 @@ public class OrderListSearchAction implements Action {
 		
 		Calendar cal = Calendar.getInstance( );
 		
+		Calendar cal2 = Calendar.getInstance( );
+		
 		int betweenDay = Integer.parseInt(request.getParameter("betweenDay"));
+		int betweenDay2 = Integer.parseInt(request.getParameter("betweenDay2"));
 		
 		cal.add (Calendar.DAY_OF_MONTH, - betweenDay); // 이전 일
-					
+		
 		String day = sdf.format(cal.getTime());
 		
 		System.out.println(day);
 		
+		cal2.add (Calendar.DAY_OF_MONTH, - betweenDay2); // 이전 일
+		
+		String day2 = sdf.format(cal2.getTime());
+		
+		System.out.println(day2);
+		
 		OrderListSearchService  orderListSearchService = new OrderListSearchService();
 		
-		ArrayList<OrderBean> list = orderListSearchService.getOrderSearchList((String)session.getAttribute("id"), day);
+		ArrayList<OrderBean> list = orderListSearchService.getOrderSearchList((String)session.getAttribute("id"), day, day2);
 
 		System.out.println("사이즈:"+list.size());
 		

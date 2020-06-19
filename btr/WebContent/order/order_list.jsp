@@ -41,16 +41,21 @@ form {float: left;}
 	
 	function listSearch(num) {
 		
-		var betweenDay = num; 
+		var betweenDay = num;
+		var betweenDay2 =0;
 		var nowDay2 = new Date(); 		
 		var btTime = 0;
+		var btTime2 = 0;
 		var selectedDay = 0;
+		var selectedDay2 = 0;
 
 		if(betweenDay == 0) {			
 			// 선택 년, 월, 일
 			selectedDay = new Date($("#selYear1 option:selected").val(), $("#selMonth1 option:selected").val()-1, $("#selDay1 option:selected").val());
+			selectedDay2 = new Date($("#selYear2 option:selected").val(), $("#selMonth2 option:selected").val()-1, $("#selDay2 option:selected").val());
 			// 밀리초
 			btTime = nowDay2.getTime() - selectedDay.getTime();
+			btTime2 = nowDay2.getTime() - selectedDay2.getTime();
 		}else if(betweenDay == 1) {		
 			selectedDay = new Date(nowDay2.getFullYear(), nowDay2.getMonth()-1, nowDay2.getDate());
 			btTime = nowDay2.getTime() - selectedDay.getTime();
@@ -63,10 +68,12 @@ form {float: left;}
 		}
 	
 		betweenDay = Math.floor(btTime/(1000*60*60*24));
+		betweenDay2 = Math.floor(btTime2/(1000*60*60*24));
 	
 		$.ajax({
 			url: "orderListSearch.or",
-			data: {"betweenDay" : betweenDay},
+			data: {"betweenDay" : betweenDay,
+					"betweenDay2" : betweenDay2},
 			dataType: "json",
 			success: function(rdata) {
 				$("table tr:not(:first)").empty();

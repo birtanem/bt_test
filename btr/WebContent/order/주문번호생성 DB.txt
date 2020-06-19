@@ -19,6 +19,7 @@ DO
 BEGIN
 delete from order_seq;
 alter table order_seq auto_increment=1;
+insert into order_seq values(null);
 END
 //
 
