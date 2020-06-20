@@ -45,6 +45,11 @@
 
 		$("#orderBtn").click(function() {
 			
+			if($('input[name="payMethod"]:checked').val() == null) {
+				alert("결제수단을 선택해주세요!")
+				return false;
+			}
+			
 			var total = document.getElementById("total").value;
 			var pay = $('input[name="payMethod"]:checked').val();
 			var img = document.getElementsByName("img");

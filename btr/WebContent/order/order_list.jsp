@@ -43,6 +43,7 @@ form {float: left;}
 <style type="text/css">
 .ot_list td, .ot_list th {border-right: 1px solid #ddd;}
 .ot_list tr, .ot_list th  {text-align: center;}
+.ot_list {border-left: 1px solid #ddd;}
 
 
 

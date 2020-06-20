@@ -67,6 +67,30 @@ public class OrderAddService {
 		
 		return InsertSuccess;
 	}
+	
+	public boolean savePoint(String id, int point) {
+		
+		boolean saveSuccess = false;
+		
+		Connection con = getConnection();
+		
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		
+		orderDAO.setConnection(con);
+		
+		int updateCount =  orderDAO.updateSavePonint(id, point);
+		
+		if(updateCount > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);	
+		
+		return saveSuccess;
+		
+	}
 
 	public void updateSequence() {
 		

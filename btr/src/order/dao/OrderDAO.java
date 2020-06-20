@@ -341,6 +341,27 @@ private static OrderDAO instance;
 					
 		return jsonArray;
 	}
+
+	public int updateSavePonint(String id, int point) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+	
+		try {
+			String sql = "UPDATE member SET point = point + ? WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, id);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return updateCount;
+	}
 	
 } 
  

@@ -16,15 +16,8 @@
 <link href="css/main.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
 
-<link rel="shortcut icon" href="images/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-	href="images/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-	href="images/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-	href="images/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-	href="images/ico/apple-touch-icon-57-precomposed.png">
+<link href="css/order.css" rel="stylesheet">
+
 
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
@@ -105,41 +98,44 @@ $(document).ready(function(){
 		 	var messageChk = document.getElementsByName("rowCheck");
 		 	var amountChk = document.getElementsByName("amount");
 		 	var priceChk = document.getElementsByName("price");
-		 	var price = 0;
+		 	var total = 0;
 		 	var indexMessage = false;
 		    var testList = new Array() ;
-	  		     	
-		    for(var i=0; i<messageChk.length; i++){
-		         
+	
 		        // 객체 생성
 		        var data = new Object() ;
-		         
 		     // 리스트에 생성된 객체 삽입
+		   for(var i=0;i<messageChk.length;i++) {
+			   
 		        if(messageChk[i].checked) {
-		        	price += Number(priceChk[i].value);
+		        	
+		        	total += Number(commasWithNumber(priceChk[i].value));
 		        	data.num =  messageChk[i].value;
 				    data.amount = amountChk[i].value;
-				    data.price = priceChk[i].value;
+				    data.price = commasWithNumber(priceChk[i].value);
 				    testList.push(data) ;
 				    indexMessage = true;
 		        }
-		    }
+		   }
+
 			if(!indexMessage) {
 				alert("주문할 상품을 선택하세요.");
 				return
 			}
 //		     // String 형태로 변환
+
 		    var jsonData = JSON.stringify(testList) ;
 		     
 			$.ajax("orderFront.or", {
 				type:"POST",
 				data: {"jsonData": jsonData,
-					   "total": price},
+					"total":total},
 				success: function() {
 					location.href="orderForm.or"
 				}
 			});
 	});
+
 });
 
 $('.fun-btn').on('click', function(event) {
@@ -157,117 +153,181 @@ $('.fun-btn').on('click', function(event) {
 
  function minuscount(num, a) {
 
-		var amount = document.getElementById("amount"+num).value;
-		var price = document.getElementById("price"+num).value;
+		var amount = commasWithNumber(document.getElementById("amount"+num).value);
+		var price = commasWithNumber(document.getElementById("price"+num).value);
 		var count = Number(amount) + a;
 		var total = 0;
 		
 		document.getElementById("amount"+num).value = count;
 		
-		document.getElementById("td"+num).innerText = count * price;
+		document.getElementById("td"+num).value = numberWithCommas(count * price);
 
 
-		total = Number(document.getElementById("span").innerText) + a*price	;
-		document.getElementById("span").innerText = total;
+		total = Number(commasWithNumber(document.getElementById("total").value)) + a*price	;
+		
+		document.getElementById("total").value = numberWithCommas(total);
+
 
 		
 		}
 	
+ // , 넣기
+ function numberWithCommas(x) {
+	 
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+//, 빼기
+ function commasWithNumber(x) {
+	    return x.toString().replace(/\,/g,"");
+	}
 
 </script>
 
 <meta charset="UTF-8">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Insert title here</title>
+<style type="text/css">
+.ot_list td, .ot_list th {border-right: 1px solid #ddd;}
+.ot_list tr, .ot_list th  {text-align: center;}
+.ot_list {border-left: 1px solid #ddd;}
+</style>
 </head>
 
 <body>
 	<jsp:include page="/inc/top.jsp" />
-	<section class="portfolio">
-		<div class="container">
-			<div class="center font">
-				<h2 class="font" style="text-align: center; color: #f7238a;">장바구니
-					목록</h2>
-				<form method="post" name="fr" id="fr" style="text-align: center">
-					<table border="1" class="w3-table-all w3-card-4 center font"
-						style="width: 1000px; text-align: center; border: 3px solid pink;">
-						<tr>
-							<td><input type="checkbox" id="allCheck"
-								onclick="checkAll(this)" /></td>
 
-							<td>카테고리</td>
-							<td>상품명</td>
-							<td>상품 이미지</td>
-							<td>가격</td>
-							<td>수량</td>
-							<td>합계</td>
-						</tr>
-				
-						<c:forEach var="p" items="${productList }" varStatus="status">
-							<tr>
-								<td><input type="checkbox" name="rowCheck" id="rowCheck"
-									value="${cartList[status.index].c_p_num }" /></td>
-								<td>${p.p_category }</td>
-								<td>${p.p_name }</td>
-								<td><img src="product/productUpload/${p.p_image }"
-									width="200" height="100"></td>
-								<td><fmt:formatNumber value="${p.p_price }"
-										pattern="###,###,###" /></td>
-								<td><input type="button" value="-"
-									onclick="minuscount(${status.count },-1)"> <input
-									type="text" id="amount${status.count }" name="amount"
-									value="${cartList[status.index].c_p_amount }" class="tx_num"
-									title="구매수량"> <input type="button" value="+"
+	<div class="page-title"
+		style="background-image: url(images/page-title.png);">
+		<h1>장바구니</h1>
+	</div>
+		<section id="portfolio">
+		<div class="center" style="padding: 0; margin: 0;">
+			<h2>장바구니</h2>
+		</div>
+		<div class="container" style="margin-top: -50px;">
+
+			
+			<div class="o_list" style="clear: both;">
+				<table class="ot_list">
+					<tr>
+						<th style="padding-right: 20px;"><input type="checkbox" id="allCheck" onclick="checkAll(this)" /></th>
+						<th>카테고리</th>
+						<th colspan="2">상품정보</th>
+						<th style="padding-right: 20px;">가격</th>
+						<th style="padding-right: 20px;">수량</th>
+						<th style="padding-right: 20px;">합계</th>
+					</tr>
+					<c:forEach var="p" items="${productList }" varStatus="status">
+					<tr>
+						<td><input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" /></td>
+						<td>${p.p_category }</td>						
+						<td style="border-right: none;"><img src="product/productUpload/${p.p_image }" width="200" height="100"></td>
+						<td style="text-align: left;">${p.p_name }</td>
+						<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>
+						<td><input type="button" value="-" onclick="minuscount(${status.count },-1)"> 
+							<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
+									value="${cartList[status.index].c_p_amount }"
+									title="구매수량" onfocus="this.blur()"> <input type="button" value="+"
 									onclick="minuscount(${status.count },1)"> <input
-									type="hidden" id="price${status.count }" value="${p.p_price}">
-								</td>
-								<td id="td${status.count }">
-								<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}"
-										pattern="###,###,###" />
-										 <input type="hidden" name="price"
-									value="${cartList[status.index].c_p_amount * p.p_price}"></td>
-							</tr>s
-						</c:forEach>
-					</table>
-					<br> 총 금액 :
-					<div style="color: #f42735;">
+									type="hidden" id="price${status.count }" value="${p.p_price}"></td>
+						<td><div style="text-align: center; color: #F77; padding-right: 50px;"><input style="width:130px; color: #F77;text-align: right;outline: 0; " type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원</div></td>
+					</tr>
+					</c:forEach>
+	
+				</table>
+					<div>
+							<input type="button" class="fun-btn btn btn-primary btn-lg"
+							style="text-align: center" value="선택상품 삭제" id="deleteButton"
+							onclick="return deleteCart()">
+					</div>
+			</div>
+
+
+					
+								<div class="o_list">
+				<table class="ot_list">
+
+					
+					<tr style="height: 100px; font-size: 18pt;" >
+						<th colspan="3" style="text-align: right; padding-right: 20px;">총 결제예상금액
 						<c:set var="totalmoney" value="0" />
 						<c:forEach var="p" items="${productList }" varStatus="status">
 							<c:set var="money"
 								value="${cartList[status.index].c_p_amount * p.p_price}" />
 							<c:set var="totalmoney" value="${totalmoney + money }" />
 						</c:forEach>
-						<h3 class="h3">
-							<span id="span"> <fmt:formatNumber value="${totalmoney }"
-									pattern="###,###,###" />
-							</span>원
-						</h3>
-					</div>
-				</form>
-				<c:if test="${productList == null }">
-					<section style="font-family: 'Gamja Flower', cursive;">
-						장바구니에 추가된 상품이 없습니다.</section>
-				</c:if>
-				<div class="center">
+				
+							<span id="span" style="color: red; font-size: 16pt;">	
+							<input type="text" value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />" id="total" onfocus="this.blur()" style=" font-size: 16pt; width:130px; color: red;text-align: right;background-color:  #f4f4f4;">원
+							</span>
+						</th>
+					</tr>				
+				</table>
+			</div>
+			
+					<div class="center" style="margin-top: 50px;">
 					<nav style="text-align: center">
-						<input type="button" class="fun-btn" style="text-align: center"
+						<input type="button" class="fun-btn btn btn-primary btn-lg" style="text-align: center"
 							value="쇼핑 계속하기" onclick="location.href='productList.pr'">
-						<input type="button" id="orderBtn" class="fun-btn"
-							style="text-align: center" value="주문하기" onclick="goOrder()"><br>
-						<br> <input type="button" class="fun-btn"
-							style="text-align: center" value="취소" id="deleteButton"
-							onclick="return deleteCart()">
+						<input type="button" id="orderBtn" class="fun-btn btn btn-primary btn-lg"
+							style="text-align: center" value="주문하기">
+					
 					</nav>
 					
-				</div>
-			</div>
-		</div>
+					</div>
+						
+			            <!--/.row   페이징 처리-->
+<!--             <div class="row"> -->
+<!--                 <div class="col-md-12 text-center"> -->
+<!--                     <ul class="pagination pagination-lg"> -->
+                    			
+<%--                     	<c:choose> --%>
+                    	
+<%--                     		<c:when test="${pageInfo.page <= 1 }"> --%>
+<!--                     			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li> -->
+<%--                     		</c:when> --%>
+<%--                     		<c:otherwise> --%>
+<%--                     			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li> --%>
+<%--                     		</c:otherwise> --%>
+<%--                     	</c:choose> --%>
+                                     	
+<%--                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">                   		 --%>
+<%--                     		<c:choose>      							 --%>
+<%--                    				<c:when test="${a == pageInfo.page }"> --%>
+		
+<%--                     				<li class="active li3"><a>${a }</a></li> --%>
+                				
+<%--                     			</c:when> --%>
+<%--                				<c:otherwise> --%>
+                    			
+<%-- 									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li> --%>
+									
+<%--                     			</c:otherwise> --%>
+  							
+<%--                     		</c:choose> --%>
+                    	
+<%--                     	</c:forEach> --%>
+                    
+<%--                     		<c:choose> --%>
+                    		
+<%--                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }"> --%>
+<!--                     				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li> -->
+<%--                     			</c:when> --%>
+<%--                     			<c:otherwise> --%>
+<%--                     				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li> --%>
+<%--                     			</c:otherwise> --%>
+<%--                     		</c:choose> --%>
+<!--                     </ul> -->
+<!--                     /.pagination -->
+<!--                 </div> -->
+<!--             </div> -->
+            <!--/.row   페이징 처리-->
+
+	</div>
+	
+
 	</section>
 
-
+<jsp:include page="/inc/bottom.jsp" />
 
 </body>
 </html>

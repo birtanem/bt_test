@@ -42,6 +42,22 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style type="text/css">
+
+
+
+</style>
+<script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#product-detail").click(function() {
+		alert("클릭")
+		document.productListForm.submit()
+		
+	});
+});
+</script>
 
 </head>
 <!--/head-->
@@ -58,7 +74,7 @@
 
 		<div class="center">
 			<h2>Product List</h2>
-			<p class="lead">상품 리스트 상품확인 관리자 수정삭제 흑흑흑흑</p>
+			<p class="lead">상품 리스트</p>
 		</div>
 		<!-- 			data-filter 수정해야함 ~ test용 -->
 		<ul class="portfolio-filter text-center">
@@ -69,116 +85,50 @@
 			<li><a class="btn btn-default" href="#" data-filter=".요트">요트</a></li>
 			<li><a class="btn btn-default" href="#" data-filter=".체험">체험</a></li>
 		</ul>
-		<!--/#portfolio-filter-->
 
-		<section id="portfolio">
-			<div class="container">
-				<form action="ProductCartAdd.ca" method="post"
-					name="productListForm">
-					<div class="portfolio-items">
-						<ul class="product-list">
-							<c:choose>
-								<c:when test="${ListCount>0 && productList !=null}">
-									<c:forEach var="list" items="${productList }" varStatus="vs">
-										<a href="productDetail.pr?p_num=${list.p_num }" >
-										<li class="portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
-												<img src="product/productUpload/${list.p_image }"
-												alt="product">
-												<h5>${list.p_name }</h5>
-												<p><fmt:formatNumber value="${list.p_price }"
-									pattern="###,###,###" /></p>
-										</li>
-										</a>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<section
-										class="portfolio-item all col-xs-12 col-sm-4 col-md-3 single-work">
-										<h2>등록된 글이 없습니다.</h2>
-									</section>
-								</c:otherwise>
-							</c:choose>
-						</ul>
+		
+		<section id="team-area">
+        <div class="container">
+        <c:if test="${ListCount<=0}">
+            <div class="center fadeInDown">
+                <h4>등록된 상품이 없습니다</h4>
+                <p class="lead"></p>
+            </div>
+        </c:if>
+            <div class="row">
+
+           <div class="portfolio-items">
+			
+	            <c:choose>
+					<c:when test="${ListCount>0}">
+					<c:forEach var="list" items="${productList }" varStatus="vs">
+	                <div onclick="location.href='productDetail.pr?p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
+	                <input type="hidden" value="${list.p_num }" name="p_num">
+	                    <div class="inner">
+	                        <div class="team-img">
+	                           <img src="product/productUpload/${list.p_image }" width="200px" height="200px">
+	                        </div>
+	                        <div class="team-content">
+	                            <h4>${list.p_name }</h4>
+	                            <span class="desg">${list.p_category }</span>
+	                            <div class="team-social">
+	                               <span style="color: #F76;"><fmt:formatNumber value="${list.p_price }"
+									pattern="###,###,###" /> 원</span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	               
+	                </c:forEach>
+	             </c:when>						
+				</c:choose>
 					</div>
-				</form>
 
-			</div>
-
-		</section>
-		<!-- 			</section> -->
+            </div>
+        </div>
+    </section>
 
 
-		<section id="bottom">
-			<div class="container fadeInDown" data-wow-duration="1000ms"
-				data-wow-delay="600ms">
-				<div class="row">
-					<div class="col-md-3 col-sm-6">
-						<div class="widget">
-							<h3>Company</h3>
-							<ul>
-								<li><a href="#">About us</a></li>
-								<li><a href="#">We are hiring</a></li>
-								<li><a href="#">Meet the team</a></li>
-								<li><a href="#">Copyright</a></li>
-								<li><a href="#">Terms of use</a></li>
-								<li><a href="#">Privacy policy</a></li>
-								<li><a href="#">Contact us</a></li>
-							</ul>
-						</div>
-					</div>
-					<!--/.col-md-3-->
-
-					<div class="col-md-3 col-sm-6">
-						<div class="widget">
-							<h3>Support</h3>
-							<ul>
-								<li><a href="#">Faq</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Forum</a></li>
-								<li><a href="#">Documentation</a></li>
-								<li><a href="#">Refund policy</a></li>
-								<li><a href="#">Ticket system</a></li>
-								<li><a href="#">Billing system</a></li>
-							</ul>
-						</div>
-					</div>
-					<!--/.col-md-3-->
-
-					<div class="col-md-3 col-sm-6">
-						<div class="widget">
-							<h3>Developers</h3>
-							<ul>
-								<li><a href="#">Web Development</a></li>
-								<li><a href="#">SEO Marketing</a></li>
-								<li><a href="#">Theme</a></li>
-								<li><a href="#">Development</a></li>
-								<li><a href="#">Email Marketing</a></li>
-								<li><a href="#">Plugin Development</a></li>
-								<li><a href="#">Article Writing</a></li>
-							</ul>
-						</div>
-					</div>
-					<!--/.col-md-3-->
-
-					<div class="col-md-3 col-sm-6">
-						<div class="widget">
-							<h3>Our Partners</h3>
-							<ul>
-								<li><a href="#">Adipisicing Elit</a></li>
-								<li><a href="#">Eiusmod</a></li>
-								<li><a href="#">Tempor</a></li>
-								<li><a href="#">Veniam</a></li>
-								<li><a href="#">Exercitation</a></li>
-								<li><a href="#">Ullamco</a></li>
-								<li><a href="#">Laboris</a></li>
-							</ul>
-						</div>
-					</div>
-					<!--/.col-md-3-->
-				</div>
-			</div>
-		</section>
-		<!--/#bottom-->
 	</section>
 	<footer id="footer" class="midnight-blue">
 		<div class="container">

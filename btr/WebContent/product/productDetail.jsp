@@ -119,6 +119,10 @@ function goCart(){
 
 
 </script>
+<style type="text/css">
+#portfolio p {font-size: 14pt; height: 40px;}
+#product_detail {width: 500px; height: 450px;}
+</style>
 </head>
 <body>
 	<!-- 탑 -->
@@ -135,108 +139,36 @@ function goCart(){
 			<img src="product/productUpload/${productDetail.p_image }"
 				alt="product">
 		</div>
-		<div id="product_detail">
+		<div id="product_detail" style="margin-bottom: 200px;">
 			<div>
 				<strong class="pd kw">#${productDetail.p_category}&nbsp;
 					#${productDetail.region_name }</strong>
-				<p class="pd pn">${productDetail.p_name }</p>
-				<p>
-					<fmt:formatNumber value="${productDetail.p_price }"
-						pattern="###,###,###" />
-				</p>
-				<br>
+				<p class="pd pn" style="font-size: 20pt; font-weight: 600; margin-top: 20px;">${productDetail.p_name }</p>
+				<p>보유 수량:&nbsp; <span style="color: red;">${productDetail.p_amount }개</span></p>
+				<p>가격: &nbsp; <span style="color: #F77;"><fmt:formatNumber value="${productDetail.p_price }" pattern="###,###,###" />원</span></p>
+				<div style="border: 1px dashed #ddd; height: 200px; padding: 10px;">${productDetail.p_content }</div>
 			</div>
-			<div>
-				<span>수량 &nbsp; </span> <input type="button" value="-" class="btn"
+			<div style="margin-top: 30px;">
+				<span style="font-size: 14pt; margin-top: 100px;">선택 수량 &nbsp; </span> <input type="button" value="-" class="btn"
 					id="minus"> <input type="text" value="1" id="amount"
 					name="amount"> <input type="button" value="+" class="btn"
 					id="plus">
-				<p class="detailCheck" id="detailCheck"></p>
+				<span class="detailCheck" id="detailCheck"></span>
 			</div>
-			<div>
-				<input type="button" value="구매하기" class="btn" id="orderBtn"> <input
-					type="button" value="장바구니" class="btn" onclick="goCart()">
+			<div style="margin: 50px;">
+				<input type="button" class="btn btn-primary btn-lg"  value="구매하기" class="btn" id="orderBtn"> 
+				<input type="button" class="btn btn-primary btn-lg"  value="장바구니" class="btn" onclick="goCart()">
+				<input type="button" class="btn btn-primary btn-lg"  value="목록" onclick="history.back()">
 			</div>
 		</div>
-		<div id="content" class="clear">
-			<p>${productDetail.p_content }</p>
-		</div>
-
-
-
 	</div>
 
-	<section id="bottom">
-		<div class="container fadeInDown" data-wow-duration="1000ms"
-			data-wow-delay="600ms">
-			<div class="row">
-				<div class="col-md-3 col-sm-6">
-					<div class="widget">
-						<h3>Company</h3>
-						<ul>
-							<li><a href="#">About us</a></li>
-							<li><a href="#">We are hiring</a></li>
-							<li><a href="#">Meet the team</a></li>
-							<li><a href="#">Copyright</a></li>
-							<li><a href="#">Terms of use</a></li>
-							<li><a href="#">Privacy policy</a></li>
-							<li><a href="#">Contact us</a></li>
-						</ul>
-					</div>
-				</div>
-				<!--/.col-md-3-->
-
-				<div class="col-md-3 col-sm-6">
-					<div class="widget">
-						<h3>Support</h3>
-						<ul>
-							<li><a href="#">Faq</a></li>
-							<li><a href="#">Blog</a></li>
-							<li><a href="#">Forum</a></li>
-							<li><a href="#">Documentation</a></li>
-							<li><a href="#">Refund policy</a></li>
-							<li><a href="#">Ticket system</a></li>
-							<li><a href="#">Billing system</a></li>
-						</ul>
-					</div>
-				</div>
-				<!--/.col-md-3-->
-
-				<div class="col-md-3 col-sm-6">
-					<div class="widget">
-						<h3>Developers</h3>
-						<ul>
-							<li><a href="#">Web Development</a></li>
-							<li><a href="#">SEO Marketing</a></li>
-							<li><a href="#">Theme</a></li>
-							<li><a href="#">Development</a></li>
-							<li><a href="#">Email Marketing</a></li>
-							<li><a href="#">Plugin Development</a></li>
-							<li><a href="#">Article Writing</a></li>
-						</ul>
-					</div>
-				</div>
-				<!--/.col-md-3-->
-
-				<div class="col-md-3 col-sm-6">
-					<div class="widget">
-						<h3>Our Partners</h3>
-						<ul>
-							<li><a href="#">Adipisicing Elit</a></li>
-							<li><a href="#">Eiusmod</a></li>
-							<li><a href="#">Tempor</a></li>
-							<li><a href="#">Veniam</a></li>
-							<li><a href="#">Exercitation</a></li>
-							<li><a href="#">Ullamco</a></li>
-							<li><a href="#">Laboris</a></li>
-						</ul>
-					</div>
-				</div>
-				<!--/.col-md-3-->
-			</div>
-		</div>
 	</section>
-	</section>
+	
+	
+	   
+                    
+                    
 	<!--/#bottom-->
 	<footer id="footer" class="midnight-blue">
 		<div class="container">

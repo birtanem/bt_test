@@ -71,7 +71,21 @@ public class OrderAddAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		}
-
+		
+		//  구매금액 1퍼 적립
+		int point = (int)(ob.getO_price()*0.01);
+		
+		boolean saveSuccess = orderAddService.savePoint((String)session.getAttribute("id"), point);
+		
+		if(!saveSuccess) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('포인트 적립 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
 		session.setAttribute("orderNum", orderNum);
 
 		return forward;
