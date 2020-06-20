@@ -7,10 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import order.vo.OrderBean;
+import order.vo.OrderDetailBean;
 import product.vo.ProductBean;
 
 
@@ -71,12 +74,12 @@ private static OrderDAO instance;
 		return pb;
 	}
 
-	public String insertOrderList(JSONObject obj, String strDate) {
+	public String insertOrderList(OrderBean ob, int amount) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int insertCount = 0;
 		String num = "";
-		String orderNum = null;
+		String orderNum = "";
 		
 		try {
 			String sql = "SELECT LPAD(MAX(num),4,0) num FROM order_seq";
@@ -87,13 +90,44 @@ private static OrderDAO instance;
 				num = rs.getString(1);
 			}
 			
-			orderNum = strDate + num;
+			orderNum = ob.getO_num() + num;
+			System.out.println("price: "+ob.getO_price());
 			
-			sql = "INSERT INTO o_order(o_num, o_status, o_p_num, o_p_name, o_p_amount, o_sum_money, o_date) VALUES(6,?,?,?,?,?,now())";
+			sql = "INSERT INTO `order` VALUES(?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, orderNum);
-			pstmt.setInt(2, Integer.parseInt((String)obj.get("num")));
-			pstmt.setString(3,String.valueOf(obj.get("name")));
+			pstmt.setLong(1, Long.parseLong(orderNum));
+			pstmt.setString(2, ob.getMember_id());
+			pstmt.setInt(3, amount);
+			pstmt.setInt(4, ob.getO_price());
+			pstmt.setString(5, ob.getO_pay());
+			
+			insertCount = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("앞끝");
+		return orderNum;
+		
+	}
+	
+	public int insertOrderDetailList(JSONObject obj, String orderNum) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		System.out.println("가격: "+obj.get("price"));
+						
+		try {
+			
+			String sql = "INSERT INTO order_detail VALUES(null,?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, Long.parseLong(orderNum));
+			pstmt.setString(2, (String)obj.get("name"));
+			pstmt.setString(3, (String)obj.get("img"));
 			pstmt.setInt(4, Integer.parseInt((String)obj.get("amount")));
 			pstmt.setInt(5, Integer.parseInt((String)obj.get("price")));
 			
@@ -104,9 +138,10 @@ private static OrderDAO instance;
 			
 			e.printStackTrace();
 		}finally {
+
 			close(pstmt);
 		}
-		return orderNum;
+		return insertCount;
 		
 	}
 
@@ -124,28 +159,84 @@ private static OrderDAO instance;
 		}	
 	}
 
-	public ArrayList<OrderBean> getOrderList(String id) {
+	public JSONArray getOrderList(String id, int page, int limit) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
+		JSONArray jsonArray = new JSONArray();
+		
+		int startRow = (page-1)*limit;
 
 		try {
-			// 상품테이블이랑 조인해서 이미지 가져와야됨
-			String sql = "SELECT * FROM o_order WHERE o_m_id = ?";
+			// order, order_detail(이름, 이미지) 조인해서 JSON 에 조합
+			// GROUP BY 절로 주문번호를 중복으로 가져오지 않게 함
+			String sql = "SELECT * FROM `order` o JOIN order_detail od ON o.o_num = od.order_num WHERE member_id = ? GROUP BY od.order_num ORDER BY o.o_date desc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("orderNum", rs.getLong("o.o_num"));
+				obj.put("member_id", rs.getString("o.member_id"));
+				obj.put("amount", rs.getInt("o.o_amount"));
+				obj.put("price", rs.getInt("o.o_price"));
+				obj.put("date", rs.getTimestamp("o.o_date"));
+				obj.put("name", rs.getString("od.od_name"));
+				obj.put("image", rs.getString("od.od_image"));
+				jsonArray.add(obj);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {			
+			close(rs);
+			close(pstmt);		
+		}
+					
+		return jsonArray;
+	}
+	
+
+	public JSONArray getOrderSearchList(String id, String day, String day2, int page, int limit) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONArray jsonArray = new JSONArray();
+		int startRow = (page-1)*limit;
+		
+		try {
+			// BETWEEN END 절로 날짜 범위 조회
+			String sql = "SELECT * "
+						+ "FROM `order` o JOIN order_detail od "
+						+ "ON o.o_num = od.order_num "
+						+ "WHERE member_id = ? AND "
+						+ "o_date BETWEEN date(?) AND date(?)+1 "
+						+ "GROUP BY od.order_num "
+						+ "limit ?,?";
+		
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, day);
+			pstmt.setString(3, day2);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, limit);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				
-				OrderBean ob = new OrderBean();
-				ob.setO_status(rs.getLong("o_status"));
-				ob.setO_p_name(rs.getString("o_p_name"));
-				ob.setO_p_amount(rs.getInt("o_p_amount"));
-				ob.setO_sum_money(rs.getInt("o_sum_money"));
-				ob.setDate(rs.getDate("o_date"));
-				list.add(ob);
+				JSONObject obj = new JSONObject();
+				obj.put("orderNum", rs.getLong("o.o_num"));
+				obj.put("member_id", rs.getString("o.member_id"));
+				obj.put("amount", rs.getInt("o.o_amount"));
+				obj.put("price", rs.getInt("o.o_price"));
+				obj.put("pay", rs.getString("o.o_pay"));
+				obj.put("date", rs.getTimestamp("o.o_date")+"");
+				obj.put("name", rs.getString("od.od_name"));
+				obj.put("image", rs.getString("od.od_image"));
+				jsonArray.add(obj);
 			}
 			
 		} catch (SQLException e) {
@@ -155,68 +246,90 @@ private static OrderDAO instance;
 			close(pstmt);		
 		}
 					
-		return list;
+		return jsonArray;
 	}
-	
-//	public ArrayList<OrderBean> getOrderList(String id) {
-//		
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
-//
-//		try {
-//			// 상품테이블이랑 조인해서 이미지 가져와야됨
-//			String sql = "SELECT * FROM o_order2 WHERE o_m_id = ?";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, id);
-//			rs = pstmt.executeQuery();
-//			
-//			while(rs.next()) {
-//				
-//				OrderBean ob = new OrderBean();
-//				ob.setO_status(rs.getLong("o_status"));
-//				ob.setO_p_name(rs.getString("o_p_name"));
-//				ob.setO_p_amount(rs.getInt("o_p_amount"));
-//				ob.setO_sum_money(rs.getInt("o_sum_money"));
-//				ob.setDate(rs.getDate("o_date"));
-//				list.add(ob);
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {			
-//			close(rs);
-//			close(pstmt);		
-//		}
-//					
-//		return list;
-//	}
 
-
-	public ArrayList<OrderBean> getOrderSearchList(String id, String day, String day2) {
+	public int getListCount(String id) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
+		int listCount = 0;
+		
+		try{
+			String sql = "SELECT COUNT(o_num) FROM `order` WHERE member_id =?";
+			
+			pstmt = con.prepareStatement(sql);		
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}		
+		return listCount;
+	}
 
-		try {
-
-			String sql = "SELECT * FROM o_order WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(?)+1";
-			pstmt = con.prepareStatement(sql);
+	public int getSearchListCount(String id, String day, String day2) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		
+		try{
+			String sql = "SELECT COUNT(o_num) FROM `order` WHERE member_id = ? AND o_date BETWEEN date(?) AND date(?)+1";
+			
+			pstmt = con.prepareStatement(sql);	
 			pstmt.setString(1, id);
 			pstmt.setString(2, day);
 			pstmt.setString(3, day2);
 			rs = pstmt.executeQuery();
 			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}		
+		return listCount;
+	}
+
+	public JSONArray getOrder(long orderNum) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONArray jsonArray = new JSONArray();
+		
+		try {
+			// BETWEEN END 절로 날짜 범위 조회
+			String sql = "SELECT * FROM `order` JOIN order_detail ON o_num = order_num WHERE o_num = ?";
+				
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, orderNum);
+			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				
-				OrderBean ob = new OrderBean();
-				ob.setO_status(rs.getLong("o_status"));
-				ob.setO_p_name(rs.getString("o_p_name"));
-				ob.setO_p_amount(rs.getInt("o_p_amount"));
-				ob.setO_sum_money(rs.getInt("o_sum_money"));
-				ob.setDate(rs.getDate("o_date"));
-				list.add(ob);
+				JSONObject obj = new JSONObject();
+				obj.put("orderNum", rs.getLong("o_num"));
+				obj.put("member_id", rs.getString("member_id"));
+				obj.put("amount", rs.getInt("od_amount"));
+				obj.put("price", rs.getInt("od_price"));
+				obj.put("total", rs.getInt("o_price"));
+				obj.put("pay", rs.getString("o_pay"));
+				obj.put("date", rs.getTimestamp("o_date")+"");
+				obj.put("name", rs.getString("od_name"));
+				obj.put("image", rs.getString("od_image"));
+				System.out.println( rs.getInt("od_amount"));
+				jsonArray.add(obj);
 			}
 			
 		} catch (SQLException e) {
@@ -226,46 +339,8 @@ private static OrderDAO instance;
 			close(pstmt);		
 		}
 					
-		return list;
+		return jsonArray;
 	}
-
-//	public ArrayList<OrderBean> getOrderSearchList(String id, String day) {
-//		
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		ArrayList<OrderBean> list = new ArrayList<OrderBean>();
-//
-//		try {
-//
-//			String sql = "SELECT * FROM o_order2 WHERE o_m_id = ? AND o_date BETWEEN date(?) AND date(now())+1";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, id);
-//			pstmt.setString(2, day);
-//			rs = pstmt.executeQuery();
-//			
-//			while(rs.next()) {
-//				
-//				OrderBean ob = new OrderBean();
-//				ob.setO_status(rs.getLong("o_status"));
-//				ob.setO_p_name(rs.getString("o_p_name"));
-//				ob.setO_p_amount(rs.getInt("o_p_amount"));
-//				ob.setO_sum_money(rs.getInt("o_sum_money"));
-//				ob.setDate(rs.getDate("o_date"));
-//				list.add(ob);
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {			
-//			close(rs);
-//			close(pstmt);		
-//		}
-//					
-//		return list;
-//	}
 	
-	
-	
-	
-} // 클래스 끝
+} 
  

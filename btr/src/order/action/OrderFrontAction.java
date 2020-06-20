@@ -21,6 +21,7 @@ public class OrderFrontAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
+		System.out.println(request.getParameter("amount"));
 		System.out.println("OrderFrontAction");
 
 				

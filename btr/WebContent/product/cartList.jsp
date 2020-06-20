@@ -205,7 +205,7 @@ $('.fun-btn').on('click', function(event) {
 							<td>수량</td>
 							<td>합계</td>
 						</tr>
-
+				
 						<c:forEach var="p" items="${productList }" varStatus="status">
 							<tr>
 								<td><input type="checkbox" name="rowCheck" id="rowCheck"
@@ -261,6 +261,7 @@ $('.fun-btn').on('click', function(event) {
 							style="text-align: center" value="취소" id="deleteButton"
 							onclick="return deleteCart()">
 					</nav>
+					
 				</div>
 			</div>
 		</div>

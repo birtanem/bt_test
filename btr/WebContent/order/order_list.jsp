@@ -36,11 +36,170 @@
 }
 form {float: left;}
 </style>
+
+
+
+
+<style type="text/css">
+.ot_list td, .ot_list th {border-right: 1px solid #ddd;}
+.ot_list tr, .ot_list th  {text-align: center;}
+
+
+
+
+</style>
+</head>
+<body>
+	<jsp:include page="/inc/top.jsp" />
+	<div class="page-title"
+		style="background-image: url(images/page-title.png);">
+		<h1>Order</h1>
+	</div>
+	<section id="portfolio">
+		<div class="center" style="padding: 0; margin: 0;">
+			<h2>주문내역</h2>
+		</div>
+		<div class="container" style="margin-top: -50px;">
+			<div class="o_info o_input" style="font-size: 12pt; padding-right: 0;">
+				<h2>구매기간 <input type="button" value="1개월" onclick='listSearch(1)'><input type="button" value="3개월" onclick="listSearch(3)"><input type="button" value="6개월" onclick="listSearch(6)"></h2><br>
+
+				<form name="mainForm" id="mainForm" method="post">
+				    <select name="dateYear" id="selYear1" class="loginInput" onChange="setDay()"></select>년&nbsp;
+				    <select name="dateMonth" id="selMonth1" class="loginInput" onChange="setDay()"></select>월&nbsp;
+				    <select name="dateDay" id="selDay1" class="loginInput"></select>일&nbsp;&nbsp;~&nbsp;&nbsp;
+
+				</form>
+	
+				<form name="mainForm2" id="mainForm2" method="post">
+				    <select name="dateYear2" id="selYear2" class="loginInput" onChange="setDay2()"></select>년&nbsp;
+				    <select name="dateMonth2" id="selMonth2" class="loginInput" onChange="setDay2()"></select>월&nbsp;
+				    <select name="dateDay2" id="selDay2"class="loginInput"></select>일&nbsp;
+					
+				</form>
+				<div style=" float: right; height:125px; width:130px;margin-top: -85px; margin-left: 180px; padding: 0;" >
+				<input type="button" value="조회"  id="btn" class="btn btn-primary btn-lg" onclick="listSearch(0)" style="width: 130px; height: 125px; margin: 0; padding: 0;">
+				</div>		
+			</div>
+			
+			<div class="o_list" style="clear: both;">
+				<h2>결제내역</h2>
+				<table class="ot_list">
+					<tr>
+						<th>주문번호</th>
+						<th colspan="2" style="">주문정보</th>
+						<th style="padding-right: 20px;">주문금액</th>
+						<th style="padding-right: 20px;">주문일</th>
+					
+					</tr>				
+					<c:forEach var="list" items="${list }">
+						<tr>
+							<td><a href="orderDetail.or?num=${list.orderNum }">${list.orderNum }<br>상세보기</a></td>
+							<td style="border-right: none;"><img src="product/productUpload/${list.image }" width="200" height="100"></td>
+							<td style="text-align: left;">${list.name }
+								<c:if test="${list.amount > 1}" >
+								외 ${list.amount -1}개
+								</c:if>
+							</td>
+							<td class="price"><fmt:formatNumber value="${list.price }" pattern="###,###,###"/>원</td>
+							<td><fmt:formatDate value="${list.date }" pattern="yyyy-MM-dd"/></td>
+				
+						</tr>				
+					</c:forEach>
+				</table>
+			</div>
+			
+			
+			            <!--/.row   페이징 처리-->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg">
+                    			
+                    	<c:choose>
+                    	
+                    		<c:when test="${pageInfo.page <= 1 }">
+                    			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:otherwise>
+                    	</c:choose>
+                                     	
+                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">                   		
+                    		<c:choose>      							
+                   				<c:when test="${a == pageInfo.page }">
+		
+                    				<li class="active li3"><a>${a }</a></li>
+                				
+                    			</c:when>
+               				<c:otherwise>
+                    			
+									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li>
+									
+                    			</c:otherwise>
+  							
+                    		</c:choose>
+                    	
+                    	</c:forEach>
+                    
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+                    				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    </ul>
+                    <!--/.pagination-->
+                </div>
+            </div>
+            <!--/.row   페이징 처리-->
+            
+             <!--   조회 처리용 페이징...-->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination2 pagination-lg">
+                    
+                    
+                    </ul>                  
+                </div>
+            </div>
+            <!--   조회 처리용 페이징...-->
+	</div>
+	
+
+	</section>
+
+
+
+	<jsp:include page="/inc/bottom.jsp" />
+	<!--/#footer-->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.isotope.min.js"></script>
+	<script src="js/main.js"></script>
+	
 <script type="text/javascript">
 
 	
-	function listSearch(num) {
+	function listSearch(num, page) {
 		
+		
+		var page2 = page;
+
+		if(page2 == undefined) {
+			page2 = 1;
+		}
+
+		if(!selCheck()) {
+			alert("올바른 기간을 선택해주세요!")
+			return false;
+		}
+		
+		// 날짜 조회용 변수들 선언하고
 		var betweenDay = num;
 		var betweenDay2 =0;
 		var nowDay2 = new Date(); 		
@@ -48,8 +207,10 @@ form {float: left;}
 		var btTime2 = 0;
 		var selectedDay = 0;
 		var selectedDay2 = 0;
-
-		if(betweenDay == 0) {			
+		
+		// 날짜를 셀렉트박스로 선택했을때(0) , 1달, 3달, 6달 
+		if(betweenDay == 0) {	
+			$(".pagination").css("display","inline-block")
 			// 선택 년, 월, 일
 			selectedDay = new Date($("#selYear1 option:selected").val(), $("#selMonth1 option:selected").val()-1, $("#selDay1 option:selected").val());
 			selectedDay2 = new Date($("#selYear2 option:selected").val(), $("#selMonth2 option:selected").val()-1, $("#selDay2 option:selected").val());
@@ -71,25 +232,103 @@ form {float: left;}
 		betweenDay2 = Math.floor(btTime2/(1000*60*60*24));
 	
 		$.ajax({
-			url: "orderListSearch.or",
+			url: "orderListSearch.or?page="+page2,
 			data: {"betweenDay" : betweenDay,
 					"betweenDay2" : betweenDay2},
 			dataType: "json",
 			success: function(rdata) {
+				
+				// 첫페이지 실행될때 목록들 페이징처리 하는데 검색한거 가져와서 
+				// 페이징 하려니까 잘안됨.. 일단 none 처리하고
+				$(".pagination").css("display","none")
+				// 검색용으로 css 복사했는데 버튼이 달라짐;;;;
+				$(".pagination2").html("")
+				
+				// append 하려니까 기존 테이블에 추가로 행이 생성되므로 타이틀 빼고 삭제 후 append 
 				$("table tr:not(:first)").empty();
 				
+				// 검색결과 + 페이징 숫자 JSON 으로 가져와서 뿌려줌
 				$.each(rdata, function(index, item) {
-										
-					$("table").append("<tr><td><a href='orderListDetail.or'>"+item.orderNum+"<br>상세보기</a></td><td>이미지</td><td>"+item.name+"</td><td>"+item.amount+"</td><td>"+item.price+"</td></tr>");
+					
+					// 검색했을때 페이징 처리
+					if(index == rdata.length-1) {
+						
+						if(item.page <= 1) {
+							
+							 $(".pagination2").append("<li><a><i class='fa fa-long-arrow-left'></i></a></li>");
+						}else {
+ 							
+							 $(".pagination2").append("<li><a onclick='listSearch("+num+","+(item.page-1)+")'><i class='fa fa-long-arrow-left'></i></a></li>");
+						}
+						
+						
+						for(var i=item.startPage;i<=item.endPage;i++) {
+								
+							if(i==item.page) {
+ 								
+								$(".pagination2").append("<li class='active li3'><a>"+i+"</a></li>");
+							}else {
+ 								
+								$(".pagination2").append("<li class='li4'><a onclick='listSearch("+num+","+i+")'>"+i+"</a></li>");
+								
+							}
+
+						}
+			
+						if(item.page >= item.maxPage) {
+							$(".pagination2").append("<li><a><i class='fa fa-long-arrow-right'></i></a></li>");
+						}else {
+							
+							$(".pagination2").append("<li><a onclick='listSearch("+num+","+(item.page+1)+")'><i class='fa fa-long-arrow-right'></i></a></li>");
+						}
+						
+						return;
+					}					
+					
+					// 총 수량이 2개 이상이면 ~ 외 갯수 표기
+					if(item.amount > 1) {
+						
+						item.name = item.name + " 외 " + (item.amount -1) + "개"
+					}					
+					// 검색결과 뿌려줌
+					$("table").append("<tr><td><a href='orderDetail.or?num="+item.orderNum+"'>"+item.orderNum+"<br>상세보기</a></td><td><img src='product/productUpload/"+item.image+"' width='200' height='100'></td><td>"+item.name+"</td><td>"+item.price+"</td><td>"+item.date+"</td></tr>");
+					
+					// 조회 버튼 전체조회로 변경
+					$("#btn").css({
+						"background-color":"green"
+					})
+					$("#btn").attr("value", "전체조회")
 
 				});
+				
+				
 			}
 		});
 	}
-
+	// 날짜 올바르게 선택했는지 체크
+	function selCheck() {
+		
+		if($("#selYear1 option:selected").val() <= $("#selYear2 option:selected").val() &&
+			$("#selMonth1 option:selected").val() <= $("#selMonth2 option:selected").val() &&
+			$("#selDay1 option:selected").val() <= $("#selDay2 option:selected").val()) {
+			
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	$(document).ready(function() {
+		 $("#btn").click(function() {
+			if($("#btn").val() == "전체조회") {
+				location.reload();
+			}
+		})
+	})
 </script>
 <script type="text/javascript">
-
+	// 구현하기에는 아직 무리...
+	// 동적 셀렉트박스 소스 가져옴
     window.onload = function() {
 
         /********************************************
@@ -275,78 +514,6 @@ form {float: left;}
         }
     }
 </script>
-
-<script type="text/javascript">
-
-
-
-</script>
-</head>
-<body>
-	<jsp:include page="/inc/top.jsp" />
-	<div class="page-title"
-		style="background-image: url(images/page-title.png);">
-		<h1>Order</h1>
-	</div>
-	<section id="portfolio">
-		<div class="center" style="padding: 0; margin: 0;">
-			<h2>주문내역</h2>
-		</div>
-		<div class="container" style="margin-top: -50px;">
-			<div class="o_info o_input" style="font-size: 12pt;">
-				<h2>구매기간 <input type="button" value="1개월" onclick="listSearch(1)"><input type="button" value="3개월" onclick="listSearch(3)"><input type="button" value="6개월" onclick="listSearch(6)"></h2><br>
-
-				<form name="mainForm" id="mainForm" method="post">
-				    <select name="dateYear" id="selYear1" class="loginInput" onChange="setDay()"></select>년&nbsp;
-				    <select name="dateMonth" id="selMonth1" class="loginInput" onChange="setDay()"></select>월&nbsp;
-				    <select name="dateDay" id="selDay1" class="loginInput"></select>일&nbsp;&nbsp;~&nbsp;&nbsp;
-
-				</form>
-	
-				<form name="mainForm2" id="mainForm2" method="post">
-				    <select name="dateYear2" id="selYear2" class="loginInput" onChange="setDay2()"></select>년&nbsp;
-				    <select name="dateMonth2" id="selMonth2" class="loginInput" onChange="setDay2()"></select>월&nbsp;
-				    <select name="dateDay2" id="selDay2"class="loginInput"></select>일&nbsp;
-
-				</form>
-				<input type="button" value="조회" onclick="listSearch(0)">
-			</div>
-			
-			<div class="o_list" style="clear: both;">
-				<h2>주문내역</h2>
-				<table class="ot_list">
-					<tr>
-						<th>주문번호</th>
-						<th colspan="2">상품정보</th>
-						<th>수량</th>
-						<th>합계</th>
-					</tr>				
-					<c:forEach var="list" items="${list }">
-						<tr>
-							<td><a href="orderListDetail.or">${list.o_status }<br>상세보기</a></td>
-							<td>이미지</td>
-							<td>${list.o_p_name }</td>
-							<td>${list.o_p_amount }</td>
-							<td>${list.o_sum_money }</td>
-						</tr>				
-					</c:forEach>
-				</table>
-			</div>
-	</div>
-	
-
-	</section>
-
-
-
-	<jsp:include page="/inc/bottom.jsp" />
-	<!--/#footer-->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.isotope.min.js"></script>
-	<script src="js/main.js"></script>
 
 </body>
 </html>

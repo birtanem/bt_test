@@ -45,29 +45,33 @@
 
 		$("#orderBtn").click(function() {
 			
-			var num = document.getElementsByName("num");
+			var total = document.getElementById("total").value;
+			var pay = $('input[name="payMethod"]:checked').val();
+			var img = document.getElementsByName("img");
 			var name = document.getElementsByName("name");
 			var amount = document.getElementsByName("amount");
 			var price = document.getElementsByName("price");
 			var testList = new Array();
-			alert(num.length)
-			for (var i = 0; i < num.length; i++) {
+			
+			for (var i = 0; i < name.length; i++) {
 				// 객체 생성
 				var data = new Object();
 				// 리스트에 생성된 객체 삽입
-				data.num = num[i].value;
+				data.img = img[i].value;
 				data.name = name[i].value;
 				data.amount = amount[i].value;
 				data.price = price[i].value;
 				testList.push(data);
 			}
-			//		     // String 형태로 변환
+			// String 형태로 변환
 			var jsonData = JSON.stringify(testList);
-
+		
 			$.ajax("orderAdd.or", {
 				type : "POST",
 				data : {
-					"jsonData" : jsonData
+					"jsonData" : jsonData,
+					"total" : total,
+					"pay" : pay
 				},
 				success : function() {
 					location.href = "orderResult.or"
@@ -151,7 +155,7 @@
 	<section id="portfolio">
 		<div class="center">
 			<h2>주문/결제</h2>
-			<p class="lead">주문목록123~</p>
+			<p class="lead">주문목록</p>
 		</div>
 		<div class="container">
 			<div class="o_info">
@@ -187,13 +191,13 @@
 						varStatus="status">
 						<tr>
 							<td><img src="product/productUpload/${p.p_image }"
-								width="200" height="100"></td>
+								width="200" height="100"><input type="hidden" name="img" value="${p.p_image }"></td>
 							<td>${p.p_name }<input type="hidden" name="name"
 								value="${p.p_name }"><input type="hidden" name="num"
 								value="${p.p_num }"></td>
 							<td><fmt:formatNumber value="${p.p_price/p.p_amount }"
 									pattern="###,###,###" /><input type="hidden" name="price"
-								value="${p.p_price/p.p_amount }" pattern="0"/>"></td>
+								value="<fmt:formatNumber value="${p.p_price/p.p_amount }" pattern="0"/>"></td>
 							<td>${p.p_amount }<input type="hidden" name="amount"
 								value="${p.p_amount }"></td>
 							<td><fmt:formatNumber value="${p.p_price}"
@@ -214,16 +218,16 @@
 				<h2>결제수단 선택</h2>
 				<table class="ot_pay">
 					<tr>
-						<td><input type="radio" name="payMethod" value="1">신용카드</td>
-						<td><input type="radio" name="payMethod" value="2">계좌이체</td>
-						<td><input type="radio" name="payMethod" value="3">무통장입금</td>
-						<td><input type="radio" name="payMethod" value="4">휴대폰결제</td>
+						<td><input type="radio" name="payMethod" value="신용카드">신용카드</td>
+						<td><input type="radio" name="payMethod" value="계좌이체">계좌이체</td>
+						<td><input type="radio" name="payMethod" value="무통장입금">무통장입금</td>
+						<td><input type="radio" name="payMethod" value="휴대폰결제">휴대폰결제</td>
 					</tr>
 					<tr>
-						<td><input type="radio" name="payMethod" value="5">문화상품권</td>
-						<td><input type="radio" name="payMethod" value="6">도서상품권</td>
-						<td><input type="radio" name="payMethod" value="7">PAYCO</td>
-						<td><input type="radio" name="payMethod" value="8">카카오페이</td>
+						<td><input type="radio" name="payMethod" value="문화상품권">문화상품권</td>
+						<td><input type="radio" name="payMethod" value="도서상품권">도서상품권</td>
+						<td><input type="radio" name="payMethod" value="PAYCO">PAYCO</td>
+						<td><input type="radio" name="payMethod" value="카카오페이">카카오페이</td>
 					</tr>
 				</table>
 				<div>
@@ -393,7 +397,7 @@
 						<div class="both"></div>
 						<li class="total"><span class="total_t">최종 결제금액</span><span
 							class="total_cnt"> <span class="total_tn" id="total_tn"><fmt:formatNumber value="${sessionScope.total}"
-									pattern="###,###,###" />원</span></span></li>
+									pattern="###,###,###" />원<input type="hidden" id="total" value="${sessionScope.total}"></span></span></li>
 						<div class="both"></div>
 						<li><input type="button" class="btn tpm" id="orderBtn" value="결제하기"></li>
 				</ul>

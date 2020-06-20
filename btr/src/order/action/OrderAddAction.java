@@ -19,6 +19,7 @@ import org.json.simple.parser.JSONParser;
 import common.action.Action;
 import common.vo.ActionForward;
 import order.svc.OrderAddService;
+import order.vo.OrderBean;
 
 
 
@@ -31,8 +32,11 @@ public class OrderAddAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		// 리턴 잊지 않도록 미리 선언 해주기
 		ActionForward forward = null;
+		// insert 성공 여부 판별 변수선언
 		boolean insertSuccess = false;
 		
+		JSONParser parser = new JSONParser();
+		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMdd");
 		
@@ -40,23 +44,24 @@ public class OrderAddAction implements Action {
 		
 		String strDate = sdf.format(date);
 		
-		String strDate2 = null;
+		HttpSession session = request.getSession();
 		
+		OrderBean ob = new OrderBean();
 		
-		JSONParser parser = new JSONParser();
-		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
-		
+		ob.setMember_id((String)session.getAttribute("id"));
+		ob.setO_price(Integer.parseInt(request.getParameter("total")));
+		ob.setO_pay(request.getParameter("pay"));
+		ob.setO_num(Integer.parseInt(strDate));
+				
 		OrderAddService orderAddService = new OrderAddService();
 		
-		for(int i=0;i<jsonObj.size();i++) {
-			JSONObject obj = (JSONObject)jsonObj.get(i);
-
-			 strDate2 = orderAddService.insertOrderList(obj, strDate);
-			
-		}
+		String orderNum = orderAddService.insertOrderList(ob, jsonObj.size()); // Bean 객체, 주문번호 하나에 따른 상품 종류 수
 		
 		orderAddService.updateSequence();
-		
+
+		insertSuccess =  orderAddService.insertOrderDetailList(jsonObj, orderNum);
+
+				
 		if(insertSuccess) {
 			
 			response.setContentType("text/html;charset=UTF-8");
@@ -66,15 +71,8 @@ public class OrderAddAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		}
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("orderNum", strDate2);
 
-	
-		
-		// 결제 API
-		
-		// 이동
+		session.setAttribute("orderNum", orderNum);
 
 		return forward;
 	}

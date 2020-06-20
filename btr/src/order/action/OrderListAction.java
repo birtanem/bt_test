@@ -1,15 +1,16 @@
 package order.action;
 
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+
 import common.action.Action;
 import common.vo.ActionForward;
 import order.svc.OrderListService;
-import order.vo.OrderBean;
+import review.vo.ReviewPageInfo;
 
 public class OrderListAction implements Action {
 
@@ -17,24 +18,38 @@ public class OrderListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("OrderListAction");
 		ActionForward forward = null;
-		int total = 0;
-		// 주문 리스트 가져오기
-		
 		HttpSession session = request.getSession();
+		// 페이징
+		int page = 1;
+		int limit = 5;
+
+		if (request.getParameter("page")!=null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 		
 		OrderListService orderListService = new OrderListService();
 		
-		ArrayList<OrderBean> list = orderListService.getOrderList((String)session.getAttribute("id"));
+		int listCount =orderListService.getOrderListCount((String)session.getAttribute("id"));
+		int maxPage = (int)((double)listCount/limit+0.95);
+		int startPage = (((int)((double)page/10+0.9))-1)*10+1;
+		int endPage = startPage+10-1;
 		
-		System.out.println(list.size());
-		
-		for(int i=0;i<list.size();i++) {
-			OrderBean ob = (OrderBean)list.get(i);
-			total += ob.getO_sum_money();
+		if (endPage > maxPage) {
+			endPage = maxPage;
 		}
+		
+		ReviewPageInfo pageInfo = new ReviewPageInfo(page, maxPage, startPage, endPage, listCount);
 
-		request.setAttribute("list", list);
-		request.setAttribute("total", total);
+		
+		// 주문 리스트 가져오기	
+	
+	
+		JSONArray jsonArray = orderListService.getOrderList((String)session.getAttribute("id"), page, limit);
+		
+		System.out.println(jsonArray.size());
+		
+		request.setAttribute("list", jsonArray);
+		request.setAttribute("pageInfo", pageInfo);
 		
 		forward = new ActionForward();
 		

@@ -16,7 +16,9 @@ import org.json.simple.JSONObject;
 import common.action.Action;
 import common.vo.ActionForward;
 import order.svc.OrderListSearchService;
+import order.svc.OrderListService;
 import order.vo.OrderBean;
+import review.vo.ReviewPageInfo;
 
 public class OrderListSearchAction implements Action {
 
@@ -24,6 +26,11 @@ public class OrderListSearchAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("OrderListSearchAction");
 		ActionForward forward = null;
+		
+
+		
+		
+		
 		
 		HttpSession session = request.getSession();
 		
@@ -48,35 +55,47 @@ public class OrderListSearchAction implements Action {
 		
 		System.out.println(day2);
 		
-		OrderListSearchService  orderListSearchService = new OrderListSearchService();
-		
-		ArrayList<OrderBean> list = orderListSearchService.getOrderSearchList((String)session.getAttribute("id"), day, day2);
+		// 페이징
+		int page = 1;
+		int limit = 5;
 
-		System.out.println("사이즈:"+list.size());
-		
-		JSONArray result = new JSONArray();
-
-	
-		for(int i=0;i<list.size();i++) {
-			
-			OrderBean ob = (OrderBean)list.get(i);
-			JSONObject obj = new JSONObject();
-			
-			obj.put("orderNum", ob.getO_status());
-			obj.put("name", ob.getO_p_name());
-			obj.put("amount", ob.getO_p_amount());
-			obj.put("price", ob.getO_sum_money());
-			obj.put("date", ob.getDate()+"");
-			result.add(obj);
+		if (request.getParameter("page")!=null) {
+			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
+		OrderListSearchService orderListSearchService = new OrderListSearchService();
 		
-		System.out.println(result);
+		int listCount =orderListSearchService.getOrderSearchListCount((String)session.getAttribute("id"), day, day2);
+		int maxPage = (int)((double)listCount/limit+0.95);
+		int startPage = (((int)((double)page/10+0.9))-1)*10+1;
+		int endPage = startPage+10-1;
 		
+		if (endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		ReviewPageInfo pageInfo = new ReviewPageInfo(page, maxPage, startPage, endPage, listCount);
+		
+		JSONArray jsonArray = orderListSearchService.getOrderSearchList((String)session.getAttribute("id"), day, day2, page, limit);
+		
+		JSONObject obj = new JSONObject();
+		
+		obj.put("page", pageInfo.getPage());
+		obj.put("maxPage", pageInfo.getMaxPage());
+		obj.put("startPage", pageInfo.getStartPage());
+		obj.put("endPage", pageInfo.getEndPage());
+		obj.put("listCount", pageInfo.getListCount());
+		
+		jsonArray.add(obj);
+		
+		System.out.println("사이즈:"+jsonArray.size());
+
+
+		System.out.println(jsonArray);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.print(result);
-	
+		out.print(jsonArray);
+		
 		return forward;
 	}
 
