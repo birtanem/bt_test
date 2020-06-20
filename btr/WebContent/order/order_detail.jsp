@@ -54,7 +54,7 @@
 		</div>
 		<div class="container" style=" margin-top: -50px;">
 			<div class="o_info o_input" style="font-size: 12pt;">
-				<h2><span>구매일시: <fmt:formatDate value="${obj.date}" pattern="yyyy-MM-dd KK:mm:ss"/></span></h2>
+				<h2><span>구매일시: <fmt:parseDate var="dateString" value="${date}" pattern="yyyy-MM-dd HH:mm:ss" /><fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd HH:mm:ss" /></span></h2>
 			</div>
 			<div class="o_list">
 				<h2>주문내역</h2>
