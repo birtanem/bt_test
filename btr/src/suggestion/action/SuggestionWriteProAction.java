@@ -43,7 +43,7 @@ public class SuggestionWriteProAction implements Action{
 		suggestionBean.setSubject(request.getParameter("subject"));
 		suggestionBean.setContent(request.getParameter("content"));
 		
-		//==============email 전송 시작===============================================
+		//==============email 전송 시작===============================================		
 		String receiver = "lkj0511kr@gmail.com";
 		String sender = "lkj0511kr@gmail.com";
 		String subject = suggestionBean.getSubject() + "<건의사항>";

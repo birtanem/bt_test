@@ -21,15 +21,18 @@ public class OrderFrontAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
-		System.out.println(request.getParameter("amount"));
 		System.out.println("OrderFrontAction");
 
 				
 		// 상품번호(num), 수량(amount), 합계(price) 를 JSON 형태로 가져와서 파싱
 		JSONParser parser = new JSONParser();
 		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
-		
-		
+		JSONObject obj = new JSONObject();
+		for(int i=0;i<jsonObj.size();i++) {
+			System.out.println("사이즈: "+jsonObj.size());
+			obj = (JSONObject)jsonObj.get(i);
+			System.out.println("넘버: "+obj.get("num"));
+		}
 		
 		OrderFrontService orderFrontService = new OrderFrontService();
 		
@@ -37,7 +40,9 @@ public class OrderFrontAction implements Action {
 		
 		
 		for(int i=0;i<jsonObj.size();i++) {
-			JSONObject obj = (JSONObject)jsonObj.get(i);
+			System.out.println("사이즈: "+jsonObj.size());
+			obj = (JSONObject)jsonObj.get(i);
+			System.out.println("넘버: "+obj.get("amount"));
 			arrayList.add(orderFrontService.selectOrderList(obj));
 		}
 		

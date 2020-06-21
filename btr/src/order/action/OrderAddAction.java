@@ -52,6 +52,7 @@ public class OrderAddAction implements Action {
 		ob.setO_price(Integer.parseInt(request.getParameter("total")));
 		ob.setO_pay(request.getParameter("pay"));
 		ob.setO_num(Integer.parseInt(strDate));
+		
 				
 		OrderAddService orderAddService = new OrderAddService();
 		
@@ -71,6 +72,17 @@ public class OrderAddAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		}
+		// 결제상품 수량 빼기
+		boolean updateSuccess = orderAddService.updateProductAmount(jsonObj);
+		
+		if(!updateSuccess) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('수량 수정 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 		
 		//  구매금액 1퍼 적립
 		int point = (int)(ob.getO_price()*0.01);
@@ -86,7 +98,10 @@ public class OrderAddAction implements Action {
 			out.println("</script>");
 		}
 		
+		// 주문번호 계산을 위해 num 에 오늘날짜 저장되어있음
+		System.out.println(ob.getO_num());
 		session.setAttribute("orderNum", orderNum);
+		session.setAttribute("ob", ob);
 
 		return forward;
 	}

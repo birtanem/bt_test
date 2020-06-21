@@ -27,9 +27,9 @@ public class OrderDetailAction implements Action {
 		JSONArray jsonArray = orderDetailActionService.getOrder(Long.parseLong(request.getParameter("num")));
 		
 		JSONObject obj = (JSONObject)jsonArray.get(0);
-
 		
-		request.setAttribute("date", obj.get("date"));
+		
+		request.setAttribute("obj", obj);
 		request.setAttribute("list", jsonArray);
 		
 		forward = new ActionForward();

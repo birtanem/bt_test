@@ -70,7 +70,7 @@ $(document).ready(function() {
 		<h1>Product</h1>
 	</div>
 
-	<section id="portfolio">
+	<section id="portfolio" style="background-color: #FAFAFA">
 
 		<div class="center">
 			<h2>Product List</h2>
@@ -84,11 +84,15 @@ $(document).ready(function() {
 			<li><a class="btn btn-default" href="#" data-filter=".전시">전시</a></li>
 			<li><a class="btn btn-default" href="#" data-filter=".요트">요트</a></li>
 			<li><a class="btn btn-default" href="#" data-filter=".체험">체험</a></li>
+			<li></li>
 		</ul>
 
-		
 		<section id="team-area">
+
         <div class="container">
+        <div style="margin-bottom: 10px; text-align: right;">
+		<input type="button" class="btn btn-primary btn-lg"  value="장바구니" onclick="location.href='ProductCartList.ca'">
+		</div>
         <c:if test="${ListCount<=0}">
             <div class="center fadeInDown">
                 <h4>등록된 상품이 없습니다</h4>

@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,13 +44,19 @@
 
 		$("#orderBtn").click(function() {
 			
+			if($("#emailcheck").html() != "인증 완료") {
+				alert("이메일 인증이 필요합니다.")
+				return false;
+			}
 			if($('input[name="payMethod"]:checked').val() == null) {
 				alert("결제수단을 선택해주세요!")
 				return false;
 			}
 			
+			
 			var total = document.getElementById("total").value;
 			var pay = $('input[name="payMethod"]:checked').val();
+			var num = document.getElementsByName("num");
 			var img = document.getElementsByName("img");
 			var name = document.getElementsByName("name");
 			var amount = document.getElementsByName("amount");
@@ -62,6 +67,7 @@
 				// 객체 생성
 				var data = new Object();
 				// 리스트에 생성된 객체 삽입
+				data.num = num[i].value;
 				data.img = img[i].value;
 				data.name = name[i].value;
 				data.amount = amount[i].value;
@@ -144,10 +150,36 @@
 	       
 	    });
 		
-		
+		$("#email").blur(function() {
+			if($("#email").val() != $("#hemail").val()) {
+				$("#emailcheck").html("인증 필요")
+				$("#emailcheck").css("color","red");	
+			}else {
+				$("#emailcheck").html("인증 완료")
+				$("#emailcheck").css("color","blue");
+			}
+			
+		})
 		
 		
 	});
+</script>
+<script type="text/javascript">
+function emailCheck() {
+	alert("이메일을 확인하여 인증해주세요")
+	$.ajax({
+		url: "orderAuthentication.or",
+		type: "POST",
+		data: {"email":$("#email").val()},
+		success: function() {
+			alert("왜 안닫히지?")
+			window.open('','_self');
+			window.close();
+
+		}
+	
+	})
+}
 </script>
 
 </head>
@@ -178,8 +210,26 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="text" name="o_name"
-							value="${sessionScope.info.email}" class="o_input"></td>
+						<td>
+							<c:choose>
+							<c:when test="${not empty sessionScope.email}">
+								<input type="text" id="email" name="o_name"
+								value="${sessionScope.email}" class="o_input">
+								<!-- 이메일 변경 시 확인용 -->
+								<input type="hidden" id="hemail" name="o_name"
+								value="${sessionScope.email}" class="o_input">
+							</c:when>
+							<c:otherwise>
+								<input type="text" id="email" name="o_name"
+								value="${sessionScope.info.email}" class="o_input">
+
+							</c:otherwise>
+							</c:choose>
+							<input type="button" value="인증하기" onclick="emailCheck()">
+							<c:if test="${!empty sessionScope.emailOk}">
+							<p id="emailcheck" style="color: blue; margin: 5px;">인증 완료</p>
+							</c:if>								
+						</td>
 					</tr>
 				</table>
 			</div>

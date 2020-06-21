@@ -342,7 +342,7 @@ private static OrderDAO instance;
 		return jsonArray;
 	}
 
-	public int updateSavePonint(String id, int point) {
+	public int updateSavePoint(String id, int point) {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 	
@@ -361,6 +361,28 @@ private static OrderDAO instance;
 			close(pstmt);
 		}		
 		return updateCount;
+	}
+
+	public int updateProduntAmount(int num, int amount) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+	
+		try {
+			String sql = "UPDATE product SET p_amount = p_amount - ? WHERE p_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, amount);
+			pstmt.setInt(2, num);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return updateCount;
+		
 	}
 	
 } 

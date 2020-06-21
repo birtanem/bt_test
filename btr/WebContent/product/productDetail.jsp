@@ -68,21 +68,25 @@ $(document).ready(function(){
 	});
 	
 	 $("#orderBtn").click(function() {
-		 
-		 	var messageChk = ${productDetail.p_num};
-		 	var amountChk = document.getElementsByName("amount");
-		 	var priceChk = document.getElementsByName("price");
-		 	var price = 0;
+		 			 	 
+			if($("#amountcheck").html() == "품절") {
+				alert("품절 되었습니다.")
+				return false;
+			}
+			
+		 	var num = $("#num").val();
+		 	var amount = $("#amount2").val();
+		 	var price = $("#price").val();
 		    var testList = new Array() ;
 		         
 		        // 객체 생성
 		        var data = new Object() ;
 		         
 		     // 리스트에 생성된 객체 삽입
-		        	price += Number(priceChk[i].value);
-		        	data.num =  messageChk[i].value;
-				    data.amount = amountChk[i].value;
-				    data.price = document.getElementById("td"+(i+1)).innerText;
+		        	
+		        	data.num =  num
+				    data.amount = amount
+				    data.price = price
 				    testList.push(data) ;
 				    
 //		     // String 형태로 변환
@@ -91,7 +95,7 @@ $(document).ready(function(){
 			$.ajax("orderFront.or", {
 				type:"POST",
 				data: {"jsonData": jsonData,
-					   "total": price},
+					   "total": price*amount},
 				success: function() {
 					location.href="orderForm.or"
 				}
@@ -103,6 +107,11 @@ $(document).ready(function(){
 	
 });
 function goCart(){
+	
+	if($("#amountcheck").html() == "품절") {
+		alert("품절 되었습니다.")
+		return false;
+	}
 	var id='admin'; 
 	var amount=Number(document.getElementById("amount").value);
 	var max=${productDetail.p_amount};
@@ -141,18 +150,30 @@ function goCart(){
 		</div>
 		<div id="product_detail" style="margin-bottom: 200px;">
 			<div>
+				<input type="hidden" id="num" value="${productDetail.p_num}">
 				<strong class="pd kw">#${productDetail.p_category}&nbsp;
 					#${productDetail.region_name }</strong>
 				<p class="pd pn" style="font-size: 20pt; font-weight: 600; margin-top: 20px;">${productDetail.p_name }</p>
-				<p>보유 수량:&nbsp; <span style="color: red;">${productDetail.p_amount }개</span></p>
+				<c:choose>
+				<c:when test="${productDetail.p_amount>0 }">
+					<p>보유 수량:&nbsp; <span id="amountcheck" style="color: red;">${productDetail.p_amount }</span>개</p>
+					<input type="hidden" id="amount2" value="${productDetail.p_amount }">
+				</c:when>
+				<c:otherwise>
+					<p>보유 수량:&nbsp; <span id="amountcheck" style="color: red; ">품절</span></p>
+				</c:otherwise>
+				
+				</c:choose>
+				
 				<p>가격: &nbsp; <span style="color: #F77;"><fmt:formatNumber value="${productDetail.p_price }" pattern="###,###,###" />원</span></p>
+				<input type="hidden" id="price" value="${productDetail.p_price }">
 				<div style="border: 1px dashed #ddd; height: 200px; padding: 10px;">${productDetail.p_content }</div>
 			</div>
 			<div style="margin-top: 30px;">
 				<span style="font-size: 14pt; margin-top: 100px;">선택 수량 &nbsp; </span> <input type="button" value="-" class="btn"
 					id="minus"> <input type="text" value="1" id="amount"
 					name="amount"> <input type="button" value="+" class="btn"
-					id="plus">
+					id="plus"><br>
 				<span class="detailCheck" id="detailCheck"></span>
 			</div>
 			<div style="margin: 50px;">

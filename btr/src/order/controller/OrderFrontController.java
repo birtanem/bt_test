@@ -15,6 +15,7 @@ import cart.action.ProductCartRemoveAction;
 import common.action.Action;
 import common.vo.ActionForward;
 import order.action.OrderAddAction;
+import order.action.OrderAuthenticationAction;
 import order.action.OrderDetailAction;
 import order.action.OrderFrontAction;
 import order.action.OrderListAction;
@@ -83,6 +84,19 @@ public class OrderFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+		}else if(command.equals("/orderAuthentication.or")) { // 주문 추가
+			action = new OrderAuthenticationAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if(command.equals("/orderEmailCheck.or")) { // 주문 추가
+			forward = new ActionForward();
+			forward.setPath("/order/email_check.jsp");
+
 
 		}
 		

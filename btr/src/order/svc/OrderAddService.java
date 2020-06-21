@@ -78,7 +78,7 @@ public class OrderAddService {
 		
 		orderDAO.setConnection(con);
 		
-		int updateCount =  orderDAO.updateSavePonint(id, point);
+		int updateCount =  orderDAO.updateSavePoint(id, point);
 		
 		if(updateCount > 0) {
 			commit(con);
@@ -106,6 +106,32 @@ public class OrderAddService {
 		
 		close(con);	
 		
+	}
+	public boolean updateProductAmount(JSONArray jsonObj) {
+		
+		boolean updateSuccess = false;
+		
+		Connection con = getConnection();
+		
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		
+		orderDAO.setConnection(con);
+		
+		for(int i=0;i<jsonObj.size();i++) {
+			JSONObject obj = (JSONObject)jsonObj.get(i);
+			int updateCount = orderDAO.updateProduntAmount(Integer.parseInt((String)obj.get("num")), Integer.parseInt((String)obj.get("amount")));
+			if(updateCount > 0) {
+				updateSuccess = true;
+			}else {
+				rollback(con);
+				updateSuccess = false;
+				break;
+			}
+		}	
+		commit(con);
+		
+		close(con);	
+		return updateSuccess;
 	}
 
 

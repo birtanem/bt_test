@@ -58,7 +58,7 @@ form {float: left;}
 	</div>
 	<section id="portfolio">
 		<div class="center" style="padding: 0; margin: 0;">
-			<h2>주문내역</h2>
+			<h2>결제내역</h2>
 		</div>
 		<div class="container" style="margin-top: -50px;">
 			<div class="o_info o_input" style="font-size: 12pt; padding-right: 0;">
@@ -87,9 +87,9 @@ form {float: left;}
 				<table class="ot_list">
 					<tr>
 						<th>주문번호</th>
-						<th colspan="2" style="">주문정보</th>
-						<th style="padding-right: 20px;">주문금액</th>
-						<th style="padding-right: 20px;">주문일</th>
+						<th colspan="2" style="">상품정보</th>
+						<th style="padding-right: 20px;">결제금액</th>
+						<th style="padding-right: 20px;">결제일</th>
 					
 					</tr>				
 					<c:forEach var="list" items="${list }">

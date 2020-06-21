@@ -103,12 +103,12 @@ $(document).ready(function(){
 		    var testList = new Array() ;
 	
 		        // 객체 생성
-		        var data = new Object() ;
+		        
 		     // 리스트에 생성된 객체 삽입
 		   for(var i=0;i<messageChk.length;i++) {
 			   
 		        if(messageChk[i].checked) {
-		        	
+		        	var data = new Object() ;
 		        	total += Number(commasWithNumber(priceChk[i].value));
 		        	data.num =  messageChk[i].value;
 				    data.amount = amountChk[i].value;
@@ -125,6 +125,8 @@ $(document).ready(function(){
 //		     // String 형태로 변환
 
 		    var jsonData = JSON.stringify(testList) ;
+		    
+		    console.log(jsonData);
 		     
 			$.ajax("orderFront.or", {
 				type:"POST",
@@ -152,11 +154,19 @@ $('.fun-btn').on('click', function(event) {
 	
 
  function minuscount(num, a) {
+	 
+	 	
 
 		var amount = commasWithNumber(document.getElementById("amount"+num).value);
 		var price = commasWithNumber(document.getElementById("price"+num).value);
 		var count = Number(amount) + a;
 		var total = 0;
+	
+		if(count > $("#hamount"+num).val()) {
+			$("#amountcheck"+num).html("판매수량 초과")
+			$("#amountcheck"+num).css("color","red")
+			return false;
+		}
 		
 		document.getElementById("amount"+num).value = count;
 		
@@ -224,11 +234,12 @@ $('.fun-btn').on('click', function(event) {
 						<td style="text-align: left;">${p.p_name }</td>
 						<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>
 						<td><input type="button" value="-" onclick="minuscount(${status.count },-1)"> 
+							<input type="hidden" value="${p.p_amount }" id="hamount${status.count }">
 							<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
 									value="${cartList[status.index].c_p_amount }"
 									title="구매수량" onfocus="this.blur()"> <input type="button" value="+"
 									onclick="minuscount(${status.count },1)"> <input
-									type="hidden" id="price${status.count }" value="${p.p_price}"></td>
+									type="hidden" id="price${status.count }" value="${p.p_price}"><p id="amountcheck${status.count }"></p></td>
 						<td><div style="text-align: center; color: #F77; padding-right: 50px;"><input style="width:130px; color: #F77;text-align: right;outline: 0; " type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원</div></td>
 					</tr>
 					</c:forEach>
