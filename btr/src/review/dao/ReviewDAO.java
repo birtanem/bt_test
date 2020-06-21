@@ -65,6 +65,17 @@ public class ReviewDAO {
 			
 			insertCount = pstmt.executeUpdate();
 			
+			if (insertCount > 0) {
+				sql = "update member set point = point+100 where id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, reviewBean.getR_id());
+				
+				pstmt.executeUpdate();
+				
+			}
+			
 		} catch (SQLException e) {
 			System.out.println("BoardDAO - insertArticle() 실패! : " + e.getMessage());
 		}finally {

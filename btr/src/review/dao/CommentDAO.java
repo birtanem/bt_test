@@ -88,7 +88,7 @@ public class CommentDAO {
 		return insertCount;
 	}
 
-	public int getCountArticle() {
+	public int getCountArticle(int r_num) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -96,9 +96,11 @@ public class CommentDAO {
 		int articleCount = 0;
 		
 		try {
-			String sql = "select count(review_review_num) from review_comment";
+			String sql = "select count(rc_num) from review_comment where review_review_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, r_num);
 			
 			rs = pstmt.executeQuery();
 			

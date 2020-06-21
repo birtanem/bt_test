@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class CommentListService {
 
-	public int getArticle() {
+	public int getArticle(int r_num) {
 
 		System.out.println("CommentListService - getArticle");
 		
@@ -22,7 +22,7 @@ public class CommentListService {
 		
 		commentDAO.setConnection(con);
 		
-		listCount = commentDAO.getCountArticle();
+		listCount = commentDAO.getCountArticle(r_num);
 		
 		close(con);
 		
