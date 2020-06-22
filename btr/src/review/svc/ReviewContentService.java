@@ -46,7 +46,7 @@ public class ReviewContentService {
 		reviewDAO.setConnection(con);
 		
 		int likeCount = reviewDAO.UpdateLikeCount(r_num);
-		
+
 		if (likeCount > 0) {
 			commit(con);
 			likeArticle = true;

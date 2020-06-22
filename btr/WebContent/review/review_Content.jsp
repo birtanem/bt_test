@@ -55,22 +55,42 @@
 			$.ajax({
 					
 				type : 'post',
+				dataType : "json",
 				url : 'Comment_WritePro.re',
 				data : formData,
 				success : function(rdata){
-					location.reload();
-				}
+				$('.comments').html("");
+					$.each(rdata,function(index,item){
+						
+						$('.comments').append(
+								
+                                '<div class="single-comment" >'
+                                +'<div class="comment-content" style="margin-left: 10px;">'
+                                 +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+                                  +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+                                  +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+		                           +'<div class="comment-count">'
+		                              +'<a href="#"><i class="fa fa-reply"></i> 답글 (1)</a>'
+		                            +'<a href="#"> 수정 </a>'
+                                   +'<a href="#"> 삭제 </a>'
+                                   +'</div>'
+                                   +'</div>'
+                       );
+						
+					});
+				},
 			});
 		});
 	       
 		$('#like').click(function(e){
-			e.preventDefault();
-			// json 으로 값 받아와야 함!!!
+
 			$.ajax({
 				
 				url : "Review_ContentLike.re?r_num=${article.r_num }&page=${nowPage }",
-				success : function(){
-					location.reload();
+				dataType : "json",
+				success : function(rdata){
+					$('#likeCount').html(rdata.likecount);
+					
 				}
 				
 			});
@@ -111,13 +131,13 @@
                             
                             <div class="inner-meta">
                                 <div class="social-btns">
-                                    <a href="#" id="like"> <i class="fa fa-heart"></i> Like</a>
-                                    <a href="#" id="comment" class="tweet-bg">댓글 보기</a>
+                                    <a id="like"> <i class="fa fa-heart"></i> Like</a>
+                                    <a id="comment" class="tweet-bg">댓글 보기</a>
                                 </div>
                             </div>
                             <br>
                           <h2>Comments&nbsp; (${pageinfo.commentCount })</h2>
-                  <!--          글 쓰기                    -->
+                  <!--        댓글 쓰기                    -->
                              <div id="comments" style="display: none;">
                                 <div class="single-comment">
                                     <div class="comment-content comment-form">
@@ -126,50 +146,53 @@
                                             <input type="hidden"name="id" id="id" value="${sessionScope.id }">
                                             <input type="hidden"name="r_num" id="r_num" value="${article.r_num }">
                                             <input type="hidden"name="page" id="page" value="${nowPage }">
-                                            <input type="submit" id="commentWrite" value="Comment">
+                                            <input type="button" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
                                         </form>
                                     </div>
                                 </div>
-                    <!--          댓글                    -->
+                            
+                    <!--          댓글 보기                   -->
+                    
                             <div class="comments">
-                              <c:forEach var="articleList" items="${articleList }">
-	                              <c:choose>
-	                                 <c:when test="${articleList.rc_seq == 0}">
-		                                <div class="single-comment" >
-		                                  <div class="comment-content" style="margin-left: 10px;">
-	                                        <h5 style="float: right;">${articleList.rc_date }</h5>
-	                                        <h5>작성자&nbsp; : &nbsp;${articleList.rc_id }</h5>
-	                                        <p>글 내용 &nbsp; : &nbsp;${articleList.rc_content }</p>
-		                                   </div>
-				                           <div class="comment-count">
-				                              <a href="#"><i class="fa fa-reply"></i> 답글 (1)</a>
-				                              <a href="#"> 수정 </a>
-                                              <a href="#"> 삭제 </a>
-				                           </div>
-		                                </div>
-	                                   </c:when>
+<%--                               <c:forEach var="articleList" items="${articleList }"> --%>
+<%-- 	                              <c:choose> --%>
+<%-- 	                                 <c:when test="${articleList.rc_seq == 0}"> --%>
+<!-- 		                                <div class="single-comment" > -->
+<!-- 		                                  <div class="comment-content" style="margin-left: 10px;"> -->
+<%-- 	                                        <h5 style="float: right;">${articleList.rc_date }</h5> --%>
+<%-- 	                                        <h5>작성자&nbsp; : &nbsp;${articleList.rc_id }</h5> --%>
+<%-- 	                                        <p>글 내용 &nbsp; : &nbsp;${articleList.rc_content }</p> --%>
+<!-- 		                                   </div> -->
+<!-- 				                           <div class="comment-count"> -->
+<!-- 				                              <a href="#"><i class="fa fa-reply"></i> 답글 (1)</a> -->
+<!-- 				                              <a href="#"> 수정 </a> -->
+<!--                                               <a href="#"> 삭제 </a> -->
+<!-- 				                           </div> -->
+<!-- 		                                </div> -->
+<%-- 	                                   </c:when> --%>
 
-	                                   <c:otherwise>
-	                                     <div class="single-comment reply">
-	                                        <div class="comment-content">
-	                                            <h5 style="float: right;">${articleList.rc_date }</h5>
-	                                            <h5>작성자&nbsp; : &nbsp;${articleList.rc_id }</h5>
-	                                            <p>글 내용 &nbsp; : &nbsp;${articleList.rc_content }</p>
-	                                        </div>
-	                                        <div class="comment-count">
-	                                            <a href="#"><i class="fa fa-reply"></i> 답글 (1)</a>
-	                                            <a href="#"> 수정 </a>
-                                                <a href="#"> 삭제 </a>
-	                                        </div>
-	                                    </div>
-	                                   </c:otherwise>
-	                              </c:choose>  
+<%-- 	                                   <c:otherwise> --%>
+<!-- 	                                     <div class="single-comment reply"> -->
+<!-- 	                                        <div class="comment-content"> -->
+<%-- 	                                            <h5 style="float: right;">${articleList.rc_date }</h5> --%>
+<%-- 	                                            <h5>작성자&nbsp; : &nbsp;${articleList.rc_id }</h5> --%>
+<%-- 	                                            <p>글 내용 &nbsp; : &nbsp;${articleList.rc_content }</p> --%>
+<!-- 	                                        </div> -->
+<!-- 	                                        <div class="comment-count"> -->
+<!-- 	                                            <a href="#"><i class="fa fa-reply"></i> 답글 (1)</a> -->
+<!-- 	                                            <a href="#"> 수정 </a> -->
+<!--                                                 <a href="#"> 삭제 </a> -->
+<!-- 	                                        </div> -->
+<!-- 	                                    </div> -->
+<%-- 	                                   </c:otherwise> --%>
+<%-- 	                              </c:choose>   --%>
+	                              
                                 
-                              </c:forEach>
-                            </div>
+<%--                               </c:forEach> --%>
                             </div>
                         </div>
                     </div>
+                </div>
               </div>
               </div>
               </div>

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import javax.servlet.http.*;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import common.action.*;
 import common.vo.*;
 import review.svc.*;
@@ -29,13 +32,11 @@ public class ReviewContentAction implements Action{
 		
 		int commentCount = commentListService.getArticle(r_num);
 		
-		ArrayList<CommentBean> articleList = commentListService.getArticleList(r_num);
 		
 		ReviewPageInfo pageinfo = new ReviewPageInfo(commentCount);
 		
 		request.setAttribute("article", article);
 		request.setAttribute("page", page);
-		request.setAttribute("articleList", articleList);
 		request.setAttribute("pageinfo", pageinfo);
 		
 		forward = new ActionForward();
