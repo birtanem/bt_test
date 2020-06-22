@@ -29,7 +29,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="../images/ico/favicon.ico">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
@@ -51,26 +51,25 @@
                 <div class="col-md-8">
                 	<table>
                 		<c:forEach var="article" items="${articleList }" >
-                			
-							<ul style="width: 100%; height: 150px; " onclick="location.href='Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }'">
-								<li style="list-style: none;">
-									<div style="float: left;">
-										<img src="reviewUpload/${article.r_image }" width="150px" height="120px"><!-- css파일에서 라운드 처리  border-radius -->
-									</div>
-									<div style=" float:left; padding-left: 15px; width: 560px; height: 120px;">
-										<div style="width: 100%; height: 35px; font-size: 20px;padding-top: 8px;">
-											[${article.r_name }]&nbsp;${article.r_subject }&nbsp;<img src="review/love.png" width="25px" height="25px">&nbsp;${article.r_likecount } (${article.r_cnt })
-										</div>
-										<div style="min-width: 200px; height: 25px; font-size: 14px">
-											${article.r_id }&nbsp;&nbsp;${article.r_date }&nbsp;&nbsp;조회수&nbsp;${article.r_readcount }
-										</div>
-										<p style="font-size: 20px;">
-											${article.r_content }
-										</p>
-									</div>
-								</li>
-							</ul>
-
+		                	<div class="blog-item">
+		                        <div class="blog-content"
+		                           onclick="location.href='Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }'">
+		                            <a class="readmore" style="float: right;">작성날짜&nbsp; : &nbsp;${article.r_date }</a><br>
+		                            <a class="readmore" style="float: right;">
+		                               <img src="review/love.png" width="20px" height="20px">&nbsp;${article.r_likecount }
+		                            </a>
+		                            <a class="readmore" style="float: right;">조회수&nbsp; : &nbsp;${article.r_readcount }&nbsp;&nbsp;</a>
+		                            <h2>
+		                            <a href="blog-item.html">${article.r_subject }</a>
+		                            </h2>
+		                            <h3>작성자&nbsp; : &nbsp;${article.r_id } &nbsp;&nbsp; </h3>
+		                            <h2>${article.r_content }
+		                            <c:if test="${article.r_image != null}">
+		                              <img src="review/icon.png" width="40px" height="40px">
+		                            </c:if>
+		                            &nbsp;(${article.r_cnt })</h2>
+		                        </div>
+		                    </div>
                 		</c:forEach>
 				</table>
                     
@@ -87,9 +86,9 @@
                     <!--/.search-->
  
                     <!--글 쓰기-->
-                    <div>
+                    <div class="form-group">
                     <c:if test="${sessionScope.id != null}">
-                    	<input type="button" value="리뷰 글 쓰기" onclick="location.href='Review_WriteForm.re'">
+                    	<input type="button" class="btn btn-primary btn-lg" value="리뷰 글 쓰기" style="width: 100%;" onclick="location.href='Review_WriteForm.re'">
                     </c:if>
                     </div>
                     <!--글 쓰기-->
@@ -100,23 +99,22 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="blog_archieve">
-                                	<li><a href="Review_List.re">전체 글</a></li>
-                                    <li><a href="Review_List.re?r_code=1">강서구</a> <span><a href="Review_List.re?r_code=9">사상구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=2">금정구</a> <span><a href="Review_List.re?r_code=10">사하구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=3">기장군</a> <span><a href="Review_List.re?r_code=11">서구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=4">남구</a> <span><a href="Review_List.re?r_code=12">수영구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=5">동구</a> <span><a href="Review_List.re?r_code=13">연제구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=6">동래구</a> <span><a href="Review_List.re?r_code=14">영도구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=7">부산진구</a> <span><a href="Review_List.re?r_code=15">중구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=8">북구</a> <span><a href="Review_List.re?r_code=16">해운대구</a></span></li>
-                                    <li><a href="Review_List.re?r_code=17">기타지역(부산외)</a></li>
+                                	<li><a href="Review_List.re">전체 글 &nbsp; (${pageInfo.listCount })</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=9">사상구 &nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=1">강서구 &nbsp; (#)</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=10">사하구 &nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=2">금정구 &nbsp; (#)</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=11">서구 &nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=3">기장군 &nbsp; (#)</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=12">수영구 &nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=4">남구 &nbsp; (#)</a>  <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=13">연제구&nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=5">동구 &nbsp; (#)</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=14">영도구 &nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=6">동래구 &nbsp; (#)</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=15">중구 &nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=7">부산진구 &nbsp; (#)</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=16">해운대구&nbsp; (#)</a></span></li>
+                                    <li><a href="Review_List.re?r_code=8">북구 &nbsp; (#)</a></li>
+                                    <li><a href="Review_List.re?r_code=17">기타지역(부산외) &nbsp; (#)</a></li>
                                     
                                 </ul>
                             </div>
                         </div>
                     </div>
 					<!--카테고리-->
-
                     
                 </aside>
             </div>

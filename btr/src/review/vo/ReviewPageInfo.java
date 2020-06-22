@@ -7,6 +7,7 @@ public class ReviewPageInfo {
 	private int startPage;
 	private int endPage;
 	private int listCount;
+	private int commentCount;
 	
 	public ReviewPageInfo() {}
 
@@ -19,6 +20,11 @@ public class ReviewPageInfo {
 		this.listCount = listCount;
 	}
 	
+	public ReviewPageInfo(int commentCount) {
+		super();
+		this.commentCount = commentCount;
+	}
+
 	public int getPage() {
 		return page;
 	}
@@ -57,6 +63,14 @@ public class ReviewPageInfo {
 
 	public void setListCount(int listCount) {
 		this.listCount = listCount;
+	}
+
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
 
 }
