@@ -53,12 +53,8 @@
 				return false;
 			}
 
-			alert("dd")
 			var total = $("#total").val();
-// 				commasWithNumber($("#total_tn").html()) 
-			alert(total)
 			var point = commasWithNumber($("#desc_point").html());
-			alert(point)
 			var pay = $('input[name="payMethod"]:checked').val();
 			var num = document.getElementsByName("num");
 			var img = document.getElementsByName("img");
@@ -181,9 +177,7 @@ function emailCheck() {
 		type: "POST",
 		data: {"email":$("#email").val()},
 		success: function() {
-			alert("왜 안닫히지?")
-			window.open('','_self');
-			window.close();
+
 
 		}
 	

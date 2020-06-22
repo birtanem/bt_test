@@ -5,6 +5,8 @@ create table order_seq (
 num int primary key auto_increment 
 );
 
+insert into order_seq values(null);
+
 이벤트 스케쥴러 ON
 set GLOBAL event_scheduler = on;
 

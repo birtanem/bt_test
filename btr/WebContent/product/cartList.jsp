@@ -161,7 +161,11 @@ $('.fun-btn').on('click', function(event) {
 		var price = commasWithNumber(document.getElementById("price"+num).value);
 		var count = Number(amount) + a;
 		var total = 0;
-	
+		
+		if(count<1) {
+			return false;
+		}
+		
 		if(count > $("#hamount"+num).val()) {
 			$("#amountcheck"+num).html("판매수량 초과")
 			$("#amountcheck"+num).css("color","red")
@@ -234,10 +238,23 @@ $('.fun-btn').on('click', function(event) {
 						<td style="text-align: left;">${p.p_name }</td>
 						<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>
 						<td><input type="button" value="-" onclick="minuscount(${status.count },-1)"> 
-							<input type="hidden" value="${p.p_amount }" id="hamount${status.count }">
-							<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
+							<input type="hidden" value="${p.p_amount }" id="hamount${status.count }">						
+							<c:choose>
+							<c:when test="${cartList[status.index].c_p_amount <= p.p_amount }">
+								<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
 									value="${cartList[status.index].c_p_amount }"
-									title="구매수량" onfocus="this.blur()"> <input type="button" value="+"
+									title="구매수량" onfocus="this.blur()">
+							</c:when>
+							<c:when test="${p.p_amount eq 0}">
+							<span style="color: red;">&nbsp;품절&nbsp;</span>
+							</c:when>
+							<c:otherwise>
+									<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
+									value="${p.p_amount }"
+									title="구매수량" onfocus="this.blur()">
+							</c:otherwise>
+							</c:choose>
+							 <input type="button" value="+"
 									onclick="minuscount(${status.count },1)"> <input
 									type="hidden" id="price${status.count }" value="${p.p_price}"><p id="amountcheck${status.count }"></p></td>
 						<td><div style="text-align: center; color: #F77; padding-right: 50px;"><input style="width:130px; color: #F77;text-align: right;outline: 0; " type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원</div></td>
