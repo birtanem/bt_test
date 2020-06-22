@@ -149,6 +149,7 @@ public class CommentDAO {
 				article.setRc_lev(rs.getInt("rct_lev"));
 				
 				articleList.add(article);
+				
 			}
 			
 		} catch (SQLException e) {

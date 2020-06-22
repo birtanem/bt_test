@@ -5,9 +5,12 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import common.action.Action;
 import common.vo.ActionForward;
 import review.svc.ReviewContentService;
+import review.vo.ReviewBean;
 
 public class ReviewLikeAction implements Action {
 
@@ -37,13 +40,23 @@ public class ReviewLikeAction implements Action {
 			
 		}else {
 			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
 			System.out.println("좋아요 성공");
 			
-			forward = new ActionForward();
+			ReviewBean article = reviewContentService.getArticle(r_num);
 			
-			forward.setPath("/Review_Content.re?r_num="+r_num+"&page="+page);
+			JSONObject json = new JSONObject();
+			
+			json.put("likecount", article.getR_likecount());
+			
+//			out.print(json);
+//			System.out.println(json);
+//			forward = new ActionForward();
+			
+//			forward.setPath("/Review_Content.re?r_num="+r_num+"&page="+page);
 		}
-		
 		
 		return forward;
 	}
