@@ -250,6 +250,22 @@ $(function() {
 });
 
 </script>
+
+<!-- main -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#test').click(function(){
+	$.ajax('PlaceList.pl?check=1',{
+		success:function(rdata){
+		 alert(rdata);
+		}
+	});
+		
+	})
+});
+</script>
+
+
 </head>
 <!--/head-->
 
@@ -345,6 +361,43 @@ $(function() {
 						<h2 style=" margin-left:20px;color: black; margin-top: 120px;">주간</h2>
 						<div class="day" ></div>
 					</div>
+
+
+<div class="place">
+  <div>
+  <h2>섹션</h2>
+  <input type="button" id="test">
+  <c:choose>
+  <c:when test="${empty sessionScope.id }"><h2>세션없어?</h2>
+  
+  
+     <div onclick="location.href='p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
+	                <input type="hidden" value="${list.p_num }" name="p_num">
+	                    <div class="inner">
+	                        <div class="team-img">
+	                           <img src="placeUpload/${article.pl_image }" width="200px" height="200px">
+	                        </div>
+	                        <div class="team-content">
+	                            <h4>${list.p_name }</h4>
+	                            <span class="desg">${list.p_category }</span>
+	                            <div class="team-social">
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                
+  </c:when>
+  <c:otherwise><h2>세션있지??</h2>
+  
+  
+  
+  </c:otherwise>
+  </c:choose>
+  </div>
+</div>
+
+
 
 
 <!-- <div class="tabcontainer"> -->

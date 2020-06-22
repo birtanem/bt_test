@@ -200,9 +200,17 @@ $('.fun-btn').on('click', function(event) {
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.ot_list td, .ot_list th {border-right: 1px solid #ddd;}
-.ot_list tr, .ot_list th  {text-align: center;}
-.ot_list {border-left: 1px solid #ddd;}
+.ot_list td, .ot_list th {
+	border-right: 1px solid #ddd;
+}
+
+.ot_list tr, .ot_list th {
+	text-align: center;
+}
+
+.ot_list {
+	border-left: 1px solid #ddd;
+}
 </style>
 </head>
 
@@ -213,17 +221,17 @@ $('.fun-btn').on('click', function(event) {
 		style="background-image: url(images/page-title.png);">
 		<h1>장바구니</h1>
 	</div>
-		<section id="portfolio">
+	<section id="portfolio">
 		<div class="center" style="padding: 0; margin: 0;">
 			<h2>장바구니</h2>
 		</div>
 		<div class="container" style="margin-top: -50px;">
 
-			
 			<div class="o_list" style="clear: both;">
 				<table class="ot_list">
 					<tr>
-						<th style="padding-right: 20px;"><input type="checkbox" id="allCheck" onclick="checkAll(this)" /></th>
+						<th style="padding-right: 20px;"><input type="checkbox"
+							id="allCheck" onclick="checkAll(this)" /></th>
 						<th>카테고리</th>
 						<th colspan="2">상품정보</th>
 						<th style="padding-right: 20px;">가격</th>
@@ -231,131 +239,148 @@ $('.fun-btn').on('click', function(event) {
 						<th style="padding-right: 20px;">합계</th>
 					</tr>
 					<c:forEach var="p" items="${productList }" varStatus="status">
-					<tr>
-						<td><input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" /></td>
-						<td>${p.p_category }</td>						
-						<td style="border-right: none;"><img src="product/productUpload/${p.p_image }" width="200" height="100"></td>
-						<td style="text-align: left;">${p.p_name }</td>
-						<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>
-						<td><input type="button" value="-" onclick="minuscount(${status.count },-1)"> 
-							<input type="hidden" value="${p.p_amount }" id="hamount${status.count }">						
-							<c:choose>
-							<c:when test="${cartList[status.index].c_p_amount <= p.p_amount }">
-								<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
-									value="${cartList[status.index].c_p_amount }"
-									title="구매수량" onfocus="this.blur()">
-							</c:when>
-							<c:when test="${p.p_amount eq 0}">
-							<span style="color: red;">&nbsp;품절&nbsp;</span>
-							</c:when>
-							<c:otherwise>
-									<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" 
-									value="${p.p_amount }"
-									title="구매수량" onfocus="this.blur()">
-							</c:otherwise>
-							</c:choose>
-							 <input type="button" value="+"
-									onclick="minuscount(${status.count },1)"> <input
-									type="hidden" id="price${status.count }" value="${p.p_price}"><p id="amountcheck${status.count }"></p></td>
-						<td><div style="text-align: center; color: #F77; padding-right: 50px;"><input style="width:130px; color: #F77;text-align: right;outline: 0; " type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원</div></td>
-					</tr>
+						<tr>
+							<td><input type="checkbox" name="rowCheck" id="rowCheck"
+								value="${cartList[status.index].c_p_num }" /></td>
+							<td>${p.p_category }</td>
+							<td style="border-right: none;"><img
+								src="product/productUpload/${p.p_image }" width="200"
+								height="100"></td>
+							<td style="text-align: left;">${p.p_name }</td>
+							<td class="price"><fmt:formatNumber value="${p.p_price }"
+									pattern="###,###,###" />원</td>
+							<td><input type="button" value="-"
+								onclick="minuscount(${status.count },-1)"> <input
+								type="hidden" value="${p.p_amount }"
+								id="hamount${status.count }"> <c:choose>
+									<c:when
+										test="${cartList[status.index].c_p_amount <= p.p_amount }">
+										<input
+											style="border: 1px solid #ddd; width: 50px; text-align: left;"
+											type="text" id="amount${status.count }" name="amount"
+											value="${cartList[status.index].c_p_amount }" title="구매수량"
+											onfocus="this.blur()">
+									</c:when>
+									<c:when test="${p.p_amount eq 0}">
+										<span style="color: red;">&nbsp;품절&nbsp;</span>
+									</c:when>
+									<c:otherwise>
+										<input
+											style="border: 1px solid #ddd; width: 50px; text-align: left;"
+											type="text" id="amount${status.count }" name="amount"
+											value="${p.p_amount }" title="구매수량" onfocus="this.blur()">
+									</c:otherwise>
+								</c:choose> <input type="button" value="+"
+								onclick="minuscount(${status.count },1)"> <input
+								type="hidden" id="price${status.count }" value="${p.p_price}">
+							<p id="amountcheck${status.count }"></p></td>
+							<td><div
+									style="text-align: center; color: #F77; padding-right: 50px;">
+									<input
+										style="width: 130px; color: #F77; text-align: right; outline: 0;"
+										type="text" id="td${status.count }" name="price"
+										value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원
+								</div></td>
+						</tr>
 					</c:forEach>
-	
+
 				</table>
-					<div>
-							<input type="button" class="fun-btn btn btn-primary btn-lg"
-							style="text-align: center" value="선택상품 삭제" id="deleteButton"
-							onclick="return deleteCart()">
-					</div>
+				<div>
+					<input type="button" class="fun-btn btn btn-primary btn-lg"
+						style="text-align: center" value="선택상품 삭제" id="deleteButton"
+						onclick="return deleteCart()">
+				</div>
 			</div>
 
 
-					
-								<div class="o_list">
+
+			<div class="o_list">
 				<table class="ot_list">
 
-					
-					<tr style="height: 100px; font-size: 18pt;" >
-						<th colspan="3" style="text-align: right; padding-right: 20px;">총 결제예상금액
-						<c:set var="totalmoney" value="0" />
-						<c:forEach var="p" items="${productList }" varStatus="status">
-							<c:set var="money"
-								value="${cartList[status.index].c_p_amount * p.p_price}" />
-							<c:set var="totalmoney" value="${totalmoney + money }" />
-						</c:forEach>
-				
-							<span id="span" style="color: red; font-size: 16pt;">	
-							<input type="text" value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />" id="total" onfocus="this.blur()" style=" font-size: 16pt; width:130px; color: red;text-align: right;background-color:  #f4f4f4;">원
-							</span>
+
+					<tr style="height: 100px; font-size: 18pt;">
+						<th colspan="3" style="text-align: right; padding-right: 20px;">총
+							결제예상금액 <c:set var="totalmoney" value="0" /> <c:forEach var="p"
+								items="${productList }" varStatus="status">
+								<c:set var="money"
+									value="${cartList[status.index].c_p_amount * p.p_price}" />
+								<c:set var="totalmoney" value="${totalmoney + money }" />
+							</c:forEach> <span id="span" style="color: red; font-size: 16pt;"> <input
+								type="text"
+								value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />"
+								id="total" onfocus="this.blur()"
+								style="font-size: 16pt; width: 130px; color: red; text-align: right; background-color: #f4f4f4;">원
+						</span>
 						</th>
-					</tr>				
+					</tr>
 				</table>
 			</div>
-			
-					<div class="center" style="margin-top: 50px;">
-					<nav style="text-align: center">
-						<input type="button" class="fun-btn btn btn-primary btn-lg" style="text-align: center"
-							value="쇼핑 계속하기" onclick="location.href='productList.pr'">
-						<input type="button" id="orderBtn" class="fun-btn btn btn-primary btn-lg"
-							style="text-align: center" value="주문하기">
-					
-					</nav>
-					
-					</div>
-						
-			            <!--/.row   페이징 처리-->
-<!--             <div class="row"> -->
-<!--                 <div class="col-md-12 text-center"> -->
-<!--                     <ul class="pagination pagination-lg"> -->
-                    			
-<%--                     	<c:choose> --%>
-                    	
-<%--                     		<c:when test="${pageInfo.page <= 1 }"> --%>
-<!--                     			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li> -->
-<%--                     		</c:when> --%>
-<%--                     		<c:otherwise> --%>
-<%--                     			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li> --%>
-<%--                     		</c:otherwise> --%>
-<%--                     	</c:choose> --%>
-                                     	
-<%--                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">                   		 --%>
-<%--                     		<c:choose>      							 --%>
-<%--                    				<c:when test="${a == pageInfo.page }"> --%>
-		
-<%--                     				<li class="active li3"><a>${a }</a></li> --%>
-                				
-<%--                     			</c:when> --%>
-<%--                				<c:otherwise> --%>
-                    			
-<%-- 									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li> --%>
-									
-<%--                     			</c:otherwise> --%>
-  							
-<%--                     		</c:choose> --%>
-                    	
-<%--                     	</c:forEach> --%>
-                    
-<%--                     		<c:choose> --%>
-                    		
-<%--                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }"> --%>
-<!--                     				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li> -->
-<%--                     			</c:when> --%>
-<%--                     			<c:otherwise> --%>
-<%--                     				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li> --%>
-<%--                     			</c:otherwise> --%>
-<%--                     		</c:choose> --%>
-<!--                     </ul> -->
-<!--                     /.pagination -->
-<!--                 </div> -->
-<!--             </div> -->
-            <!--/.row   페이징 처리-->
 
-	</div>
-	
+			<div class="center" style="margin-top: 50px;">
+				<nav style="text-align: center">
+					<input type="button" class="fun-btn btn btn-primary btn-lg"
+						style="text-align: center" value="쇼핑 계속하기"
+						onclick="location.href='productList.pr'"> <input
+						type="button" id="orderBtn" class="fun-btn btn btn-primary btn-lg"
+						style="text-align: center" value="주문하기">
+
+				</nav>
+
+			</div>
+
+			<!--/.row   페이징 처리-->
+			<!--             <div class="row"> -->
+			<!--                 <div class="col-md-12 text-center"> -->
+			<!--                     <ul class="pagination pagination-lg"> -->
+
+			<%--                     	<c:choose> --%>
+
+			<%--                     		<c:when test="${pageInfo.page <= 1 }"> --%>
+			<!--                     			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li> -->
+			<%--                     		</c:when> --%>
+			<%--                     		<c:otherwise> --%>
+			<%--                     			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li> --%>
+			<%--                     		</c:otherwise> --%>
+			<%--                     	</c:choose> --%>
+
+			<%--                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">                   		 --%>
+			<%--                     		<c:choose>      							 --%>
+			<%--                    				<c:when test="${a == pageInfo.page }"> --%>
+
+			<%--                     				<li class="active li3"><a>${a }</a></li> --%>
+
+			<%--                     			</c:when> --%>
+			<%--                				<c:otherwise> --%>
+
+			<%-- 									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li> --%>
+
+			<%--                     			</c:otherwise> --%>
+
+			<%--                     		</c:choose> --%>
+
+			<%--                     	</c:forEach> --%>
+
+			<%--                     		<c:choose> --%>
+
+			<%--                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }"> --%>
+			<!--                     				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li> -->
+			<%--                     			</c:when> --%>
+			<%--                     			<c:otherwise> --%>
+			<%--                     				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li> --%>
+			<%--                     			</c:otherwise> --%>
+			<%--                     		</c:choose> --%>
+			<!--                     </ul> -->
+			<!--                     /.pagination -->
+			<!--                 </div> -->
+			<!--             </div> -->
+			<!--/.row   페이징 처리-->
+
+		</div>
+
 
 	</section>
 
-<jsp:include page="/inc/bottom.jsp" />
+	<jsp:include page="/inc/bottom.jsp" />
 
 </body>
 </html>

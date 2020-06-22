@@ -49,14 +49,7 @@
 </style>
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	$("#product-detail").click(function() {
-		alert("클릭")
-		document.productListForm.submit()
-		
-	});
-});
+
 </script>
 
 </head>
@@ -91,7 +84,7 @@ $(document).ready(function() {
 
         <div class="container">
         <div style="margin-bottom: 10px; text-align: right;">
-		<input type="button" class="btn btn-primary btn-lg"  value="장바구니" onclick="location.href='ProductCartList.ca'">
+		<input type="button" class="btn btn-primary btn-lg" id="btnCa"value="장바구니" onclick="location.href='ProductCartList.ca'">
 		</div>
         <c:if test="${ListCount<=0}">
             <div class="center fadeInDown">
@@ -102,7 +95,6 @@ $(document).ready(function() {
             <div class="row">
 
            <div class="portfolio-items">
-			
 	            <c:choose>
 					<c:when test="${ListCount>0}">
 					<c:forEach var="list" items="${productList }" varStatus="vs">
@@ -122,7 +114,6 @@ $(document).ready(function() {
 	                        </div>
 	                    </div>
 	                </div>
-	               
 	                </c:forEach>
 	             </c:when>						
 				</c:choose>

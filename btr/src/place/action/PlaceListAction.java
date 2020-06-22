@@ -1,5 +1,6 @@
 package place.action;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ public class PlaceListAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("PlaceListAction");
 		ActionForward forward = null;
+		request.getParameter("check");
 		
 		int page = 1; // 현재 페이지 번호를 저장할 변수
 		int limit = 3; // 한 페이지 당 출력할 게시물 수 지정
@@ -63,10 +65,19 @@ public class PlaceListAction implements Action{
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
 		
-		
+		//메인페이지 작업중 ~!
+		String check=((String)request.getParameter("check")==null)?"":(String)request.getParameter("check");
+		if(check=="1"){
+			
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(articleList);
+			System.out.println("f:"+request.getParameter("check"));
+			return forward;	
+		}
 		forward = new ActionForward();
 		forward.setPath("/place/place_list.jsp");
-		
+		System.out.println("t:"+request.getParameter("check"));
 		
 		return forward;
 	}

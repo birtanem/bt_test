@@ -33,7 +33,7 @@ public class ProductCartListAction implements Action {
 		// id가 없으면 login 페이지로 돌아가기
 		if(id == null) {
 			forward.setRedirect(true);
-			forward.setPath("MemberLogin.me");
+			forward.setPath("MemberLoginForm.me");
 			return forward;
 		} 
 		
