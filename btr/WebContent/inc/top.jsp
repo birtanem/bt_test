@@ -44,27 +44,12 @@
 	
 	    <c:otherwise>
 	        <span style="color: white;">${sessionScope.id}&nbsp;&nbsp;님</span> |
-			<a href="MemberMypage.me">마이페이지</a> l 
+			<a href="MemberMypage.me">마이페이지</a> | 
 			<a href="MemberLogout.me">로그아웃</a>
 	    </c:otherwise>
 	</c:choose>
 	
-	<!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
-	<c:if test="${sessionScope.id == 'admin'}">	l  <a href="adminPage.ad">관리자 페이지</a> 	
-	<li class="dropdown">
-         <a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
-         <ol class="dropdown-menu">
-             <li><a href="adminPage.ad">관리자 페이지</a></li>
-             <li><a href="adminProduct.ad">상품 관리</a></li>
-             <li><a href="PlaceWriteForm.pl">Place 글 등록</a></li>
-             <li><a href="#">여행지 관리</a></li>
-             <li><a href="adminSuggestion_List.su">문의 게시판</a></li>
-             <li><a href="adminEvent.ad">이벤트 관리</a></li>
-         </ol>
-     </li>
-	</c:if>
 
-	
                         
                         
 

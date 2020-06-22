@@ -68,7 +68,6 @@ public class PlaceListAction implements Action{
 		//메인페이지 작업중 ~!
 		String check=((String)request.getParameter("check")==null)?"":(String)request.getParameter("check");
 		if(check=="1"){
-			
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print(articleList);
