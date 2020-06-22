@@ -39,6 +39,8 @@ public class OrderFrontAction implements Action {
 		ArrayList<ProductBean> arrayList = new ArrayList<ProductBean>();
 		
 		
+		
+		
 		for(int i=0;i<jsonObj.size();i++) {
 			System.out.println("사이즈: "+jsonObj.size());
 			obj = (JSONObject)jsonObj.get(i);

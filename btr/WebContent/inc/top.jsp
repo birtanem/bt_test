@@ -85,6 +85,7 @@
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
 						        <ol class="dropdown-menu">
 						            <li><a href="adminPage.ad">관리자 페이지</a></li>
+						            <li><a href="adminLog.ad">통계</a></li>
 						            <li><a href="adminProduct.ad">상품 관리</a></li>
 						            <li><a href="PlaceWriteForm.pl">Place 글 등록</a></li>
 						            <li><a href="#">여행지 관리</a></li>
