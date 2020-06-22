@@ -50,6 +50,9 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/adminLog.ad")) {
+			forward=new ActionForward();
+			forward.setPath("/admin/adminLog.jsp");
 		}
 		
 		if(forward !=null ) {
