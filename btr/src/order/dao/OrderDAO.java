@@ -93,13 +93,14 @@ private static OrderDAO instance;
 			orderNum = ob.getO_num() + num;
 			System.out.println("price: "+ob.getO_price());
 			
-			sql = "INSERT INTO `order` VALUES(?,?,?,?,?,now())";
+			sql = "INSERT INTO `order` VALUES(?,?,?,?,?,now(),?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setLong(1, Long.parseLong(orderNum));
 			pstmt.setString(2, ob.getMember_id());
 			pstmt.setInt(3, amount);
 			pstmt.setInt(4, ob.getO_price());
 			pstmt.setString(5, ob.getO_pay());
+			pstmt.setInt(6, ob.getO_point());
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -328,7 +329,8 @@ private static OrderDAO instance;
 				obj.put("date", rs.getTimestamp("o_date")+"");
 				obj.put("name", rs.getString("od_name"));
 				obj.put("image", rs.getString("od_image"));
-				System.out.println( rs.getInt("od_amount"));
+				obj.put("point",rs.getString("o_point"));
+
 				jsonArray.add(obj);
 			}
 			

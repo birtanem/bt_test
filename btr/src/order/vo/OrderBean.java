@@ -9,6 +9,7 @@ public class OrderBean {
 	private int o_price;
 	private String o_pay;
 	private Timestamp o_date;
+	private int o_point;
 	
 	public long getO_num() {
 		return o_num;
@@ -46,6 +47,13 @@ public class OrderBean {
 	public void setO_date(Timestamp o_date) {
 		this.o_date = o_date;
 	}
+	public int getO_point() {
+		return o_point;
+	}
+	public void setO_point(int o_point) {
+		this.o_point = o_point;
+	}
+	
 	
 	
 	

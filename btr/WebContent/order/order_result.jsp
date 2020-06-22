@@ -64,7 +64,7 @@ font-size: 12pt; margin: 10px; font-weight: 550; color: #FFFFF;
                         <span>총 결제금액</span>
                         <h1 style="transform: scale(0.8)">
                             <span></span>
-                             300,000
+                            <fmt:formatNumber value="${sessionScope.ob.o_price }" pattern="###,###,###" />                          
                             <span>원</span>
                         </h1>
                         <div class="clearfix" style="margin-top: 20px;">

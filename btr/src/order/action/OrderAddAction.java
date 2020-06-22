@@ -52,6 +52,7 @@ public class OrderAddAction implements Action {
 		ob.setO_price(Integer.parseInt(request.getParameter("total")));
 		ob.setO_pay(request.getParameter("pay"));
 		ob.setO_num(Integer.parseInt(strDate));
+		ob.setO_point(Integer.parseInt(request.getParameter("point")));
 		
 				
 		OrderAddService orderAddService = new OrderAddService();
@@ -84,10 +85,13 @@ public class OrderAddAction implements Action {
 			out.println("</script>");
 		}
 		
-		//  구매금액 1퍼 적립
-		int point = (int)(ob.getO_price()*0.01);
+		//  사용포인트 차감, 구매금액 1퍼 적립
 		
-		boolean saveSuccess = orderAddService.savePoint((String)session.getAttribute("id"), point);
+		int savePoint = (int)((ob.getO_price()-ob.getO_point())*0.01);
+		// sql 이 적립한다고 + 되어있음.  차감 위해서 - 로 전달?
+		int minusPoint = (int)(ob.getO_point()*-1);
+			
+		boolean saveSuccess = orderAddService.savePoint((String)session.getAttribute("id"), savePoint, minusPoint);
 		
 		if(!saveSuccess) {
 			response.setContentType("text/html;charset=UTF-8");

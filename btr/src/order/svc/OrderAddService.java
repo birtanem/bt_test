@@ -68,7 +68,7 @@ public class OrderAddService {
 		return InsertSuccess;
 	}
 	
-	public boolean savePoint(String id, int point) {
+	public boolean savePoint(String id, int savePoint, int minusPoint) {
 		
 		boolean saveSuccess = false;
 		
@@ -78,10 +78,18 @@ public class OrderAddService {
 		
 		orderDAO.setConnection(con);
 		
-		int updateCount =  orderDAO.updateSavePoint(id, point);
-		
+		int updateCount =  orderDAO.updateSavePoint(id, minusPoint);
+		System.out.println("upd1");
 		if(updateCount > 0) {
-			commit(con);
+			
+			int updateCount2 = orderDAO.updateSavePoint(id, savePoint);
+			System.out.println("upd2");
+			
+			if(updateCount2 > 0) {
+				commit(con);
+				saveSuccess =  true;
+			}
+						
 		}else {
 			rollback(con);
 		}

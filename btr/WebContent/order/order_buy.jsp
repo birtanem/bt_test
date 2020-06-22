@@ -52,9 +52,13 @@
 				alert("결제수단을 선택해주세요!")
 				return false;
 			}
-			
-			
-			var total = document.getElementById("total").value;
+
+			alert("dd")
+			var total = $("#total").val();
+// 				commasWithNumber($("#total_tn").html()) 
+			alert(total)
+			var point = commasWithNumber($("#desc_point").html());
+			alert(point)
 			var pay = $('input[name="payMethod"]:checked').val();
 			var num = document.getElementsByName("num");
 			var img = document.getElementsByName("img");
@@ -82,6 +86,7 @@
 				data : {
 					"jsonData" : jsonData,
 					"total" : total,
+					"point" : point,
 					"pay" : pay
 				},
 				success : function() {
@@ -90,7 +95,11 @@
 			});
 		});
 		
-		
+		// , 빼기
+		 function commasWithNumber(x) {
+			    return x.toString().replace(/\,/g,"");
+			}
+		// , 넣기
 		function comma(x){
 			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 		}	
@@ -111,7 +120,7 @@
 				if(p_total<0){
 					$('.msg').html("사용한 포인트가 결제 금액을 초과했습니다.").css('color','red');
 					document.getElementById("inPoint").value="";
-				$('#desc_point').html(comma(""));
+				$('#desc_point').html(comma("0"));
 					$('#total_tn').html(comma(total));
 				}else{
 					$('.msg').html("");
@@ -187,7 +196,7 @@ function emailCheck() {
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png);">
-		<h1>Order</h1>
+		<h1>Order123</h1>
 	</div>
 	<section id="portfolio">
 		<div class="center">
@@ -445,14 +454,14 @@ function emailCheck() {
 				<ul class="total_pmBox">
 						<li><span class="total_t">총 상품금액</span><span
 							class="total_cnt"><span class="total_tn"><fmt:formatNumber value="${sessionScope.total}"
-									pattern="###,###,###" /> 원</span></span></li>
+									pattern="###,###,###" /> 원</span></span><input type="hidden" id="total" value="${sessionScope.total}"></li>
 						<div class="both"></div>
-						<li><span class="total_t">할인금액</span> <span class="total_cnt"><span
-								class="total_tn"><span id="desc_point"></span>원</span></span></li>
+						<li><span class="total_t">포인트 사용</span> <span class="total_cnt"><span
+								class="total_tn"><span id="desc_point">0</span>원</span></span></li>
 						<div class="both"></div>
 						<li class="total"><span class="total_t">최종 결제금액</span><span
 							class="total_cnt"> <span class="total_tn" id="total_tn"><fmt:formatNumber value="${sessionScope.total}"
-									pattern="###,###,###" />원<input type="hidden" id="total" value="${sessionScope.total}"></span></span></li>
+									pattern="###,###,###" />원</span></span></li>
 						<div class="both"></div>
 						<li><input type="button" class="btn tpm" id="orderBtn" value="결제하기"></li>
 				</ul>
