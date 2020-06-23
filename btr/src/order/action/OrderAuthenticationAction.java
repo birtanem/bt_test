@@ -1,5 +1,7 @@
 package order.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,6 +37,7 @@ public class OrderAuthenticationAction implements Action {
 		String[] mailArr = {receiver, subject, content};
 
 		MailServlet.main(mailArr);
+		
 		
 		return forward;
 	}

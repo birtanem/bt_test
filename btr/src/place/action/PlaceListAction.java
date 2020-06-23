@@ -66,17 +66,24 @@ public class PlaceListAction implements Action{
 		request.setAttribute("articleList", articleList);
 		
 		//메인페이지 작업중 ~!
-		String check=((String)request.getParameter("check")==null)?"":(String)request.getParameter("check");
-		if(check=="1"){
+		String check=((String)request.getParameter("check")!=null)?(String)request.getParameter("check"):"1";
+		System.out.println("1:"+check);
+		if(check.equals("1")){
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print(articleList);
-			System.out.println("f:"+request.getParameter("check"));
+			System.out.println("세션있음 1와라~");
+			System.out.println(check);
+			System.out.println(request.getParameter("check"));
+//			리스트 → 제이슨?
+//			필요한 데이터 : type, 사진
 			return forward;	
+		}else if(check.equals("0")) {
+			forward = new ActionForward();
+			forward.setPath("/place/place_list.jsp");
+			System.out.println(check);
+			System.out.println("세션없음:"+request.getParameter("check"));
 		}
-		forward = new ActionForward();
-		forward.setPath("/place/place_list.jsp");
-		System.out.println("t:"+request.getParameter("check"));
 		
 		return forward;
 	}

@@ -41,10 +41,12 @@ public class CommentWriteProAction implements Action {
 		
 		boolean isComment = commentWriteService.isWriteComment(article);
 		
+		
 		CommentListService commentListService = new CommentListService();
 		
 		ArrayList<CommentBean> articleList = commentListService.getArticleList(r_num);
 		
+		int commentCount = commentListService.getArticle(r_num);
 		
 		JSONArray jsonArray = new JSONArray();
 		
@@ -55,16 +57,23 @@ public class CommentWriteProAction implements Action {
 			jObject.put("rc_id", articleList.get(i).getRc_id());
 			jObject.put("rc_content", articleList.get(i).getRc_content());
 			jObject.put("rc_date", articleList.get(i).getRc_date()+"");
-//			jObject.put("rc_num", articleList.get(i).getRc_num());
+			jObject.put("commentCount", commentCount);
+			jObject.put("rc_num", articleList.get(i).getRc_num());
 //			jObject.put("rc_lev", articleList.get(i).getRc_lev());
 //			jObject.put("rc_ref", articleList.get(i).getRc_ref());
 //			jObject.put("rc_seq", articleList.get(i).getRc_seq());
 			
 			jsonArray.add(jObject);
 		}
-		out.print(jsonArray);
-		System.out.println(jsonArray);
 		
+//		JSONObject jObject = new JSONObject();
+//			
+//		jObject.put("commentCount", commentCount);
+		
+		out.print(jsonArray);
+//		out.print(jObject);
+		System.out.println(jsonArray);
+//		System.out.println(jObject);
 //		forward = new ActionFoRWARD();
 //		FORWARD.SETPATH("/REVIEW_Content.re?r_num="+r_num+"&page="+page);
 		

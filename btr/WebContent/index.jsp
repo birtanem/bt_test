@@ -352,22 +352,20 @@ a:hover {
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		//0: 세션없음  1: 세션있음
-// 		var sessionCheck;
-// 		var session=${sessionScope.id};
+		//0: 세션없음  1: 세션있음 ; 데이터가져옴
+		var session='<%=session.getAttribute("id")%>';
+// 		var sessionCheck=1;
 // 		if(session==null){sessionCheck=0;}
 // 		else{
 // 			sessionCheck=1;
 // 		}
 		$('#test').click(function(){
-// 			alert(${sessionScope});
-			alert("check:");
-// 		$.ajax('PlaceList.pl?check='+sessionCheck,{
-// 			success:function(rdata){
-// 				alert(rdata);
-// 			}
-// 		});
-			
+			alert(session);
+		$.ajax('PlaceList.pl',{
+			success:function(rdata){
+				alert(rdata);
+			}
+		});
 		});
 		
 	});
@@ -534,6 +532,7 @@ a:hover {
 				<input type="button" id="test" value="test">
 				<c:choose>
 					<c:when test="${empty sessionScope.id }">
+					<input type="hidden" id="sessionId">
 						<h2>세션없어?</h2>
 						<div onclick="location.href='p_num=${list.p_num }'"
 							class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
@@ -552,7 +551,9 @@ a:hover {
 						</div>
 					</c:when>
 					<c:otherwise>
-						<h2>세션있지??</h2>
+						<h2>세션있지?? <c:out value="${sessionScope.id }"></c:out>  
+
+						</h2>
 
 
 

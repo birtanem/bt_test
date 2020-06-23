@@ -226,6 +226,17 @@ function ageCheck() {
 		}
 	}	
 }
+
+// function ageCheck() {
+// 	if(joinForm.age.value=="") {
+// 		$("#age").focus();
+// 		alert("나이를 입력해주세요");
+// 		return false;
+// 	} else {
+// 		return true;
+// 	}
+// }		
+
 function emailCheck() {
 	if(joinForm.email.value=="") {
 		$("#email").focus();
@@ -439,7 +450,7 @@ $("#name").blur(function() {
 	}
 });
 
-//나이제어
+//나이제어 date 로 바꾸면서 주석처리
 $("#age").blur(function() {                               
 	if(!/^[0-9]{1,3}$/.test($('#age').val()) || $('#age').val() == 0) {
 		$("#ageChk").text("올바른 나이를 기입해주세요");
