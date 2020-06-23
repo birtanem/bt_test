@@ -37,7 +37,8 @@
 	$(document).ready(function(){
 		
 	      $('#comment').click(function(){
-	            
+	    	  
+	    	 	var id = "${sessionScope.id}";
 	            var div = $('#comments').css("display");
 	            
 	            if (div == "none") {
@@ -46,11 +47,78 @@
 	                $('#comments').css("display","none");
 	            }
 	            
+	            $.ajax({
+	            	
+	            	type : 'post',
+	            	dataType : 'json',
+	            	url : 'GetCommentList.re?r_num=${article.r_num }',
+	            	success : function(rdata){
+	            	$('.comments').html("");
+	            		$.each(rdata, function(index,item){
+	            			
+							if (id != null && id != item.rc_id) {
+								$('.comments').append(
+									
+									'<div class="single-comment" >'
+			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+					                  +'<div class="comment-count">'
+					                  +'<a id ="reply" href="javascript:;">답글</a>'
+			                          +'</div>'
+			                          +'</div>'
+			                          +'<div id="updateLoad">'
+			                          +'</div>'
+	                       	);
+							}
+							else if (id != null && id == item.rc_id) {
+								$('.comments').append(							
+									
+			                          '<div class="single-comment" >'
+			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+					                  +'<div class="comment-count">'
+					                  +'<a id ="reply" href="javascript:;">답글</a>'
+					                  +'<a id ="update" href="javascript:;"> 수정 </a>'
+			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+			                          +'</div>'
+			                          +'</div>'
+			                          +'<div id="updateLoad">'
+			                          +'</div>'
+								);
+								}	
+							else if(id == null){
+									$('.comments').append(
+											
+									'<div class="single-comment" >'
+			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+					                  +'<div class="comment-count">'
+			                          +'</div>'
+			                          +'</div>'
+			                          +'<div id="updateLoad">'
+			                          +'</div>'
+			                          
+								);
+								}
+	            			
+	            		});
+	            		
+	            	}
+	            	
+	            });
+	            
 	        });
 		
 		$('#commentWrite').click(function(){
 			
 			var formData = $("form[name=commentForm]").serialize();
+			var id = "${sessionScope.id}";
 			
 			$.ajax({
 					
@@ -59,30 +127,70 @@
 				url : 'Comment_WritePro.re',
 				data : formData,
 				success : function(rdata){
+					
 				$('.comments').html("");
+		        alert("글등록 되었습니다.");
+		        $('#rc_content').val("");
+		        
 					$.each(rdata,function(index,item){
+						$('#commentCount').html(item.commentCount);
 						
-						$('.comments').append(
+						if (id != null && id != item.rc_id) {
+							$('.comments').append(
 								
-                                '<div class="single-comment" >'
-                                +'<div class="comment-content" style="margin-left: 10px;">'
-                                 +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-                                  +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-                                  +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-		                           +'<div class="comment-count">'
-		                              +'<a href="#"><i class="fa fa-reply"></i> 답글 (1)</a>'
-		                            +'<a href="#"> 수정 </a>'
-                                   +'<a href="#"> 삭제 </a>'
-                                   +'</div>'
-                                   +'</div>'
-                       );
-						
+								'<div class="single-comment" >'
+		                          +'<div class="comment-content" style="margin-left: 10px;">'
+		                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+		                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+		                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+				                  +'<div class="comment-count">'
+				                  +'<a id ="reply" href="javascript:;">답글</a>'
+		                          +'</div>'
+		                          +'</div>'
+                       	);
+						}
+						else if (id != null && id == item.rc_id) {
+							$('.comments').append(							
+								
+		                          '<div class="single-comment" >'
+		                          +'<div class="comment-content" style="margin-left: 10px;">'
+		                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+		                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+		                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+				                  +'<div class="comment-count">'
+				                  +'<a id ="reply" href="javascript:;">답글</a>'
+				                  +'<a id ="update" href="javascript:;"> 수정 </a>'
+		                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+		                          +'</div>'
+		                          +'</div>'
+							);
+							}	
+						else if(id == null){
+								$('.comments').append(
+										
+								'<div class="single-comment" >'
+		                          +'<div class="comment-content" style="margin-left: 10px;">'
+		                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+		                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+		                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+				                  +'<div class="comment-count">'
+		                          +'</div>'
+		                          +'</div>'
+		                          
+							);
+							}
 					});
-				},
+				}
 			});
 		});
-	       
-		$('#like').click(function(e){
+		
+		$('#update').click(function(){
+			
+			$('updateLoad').load("/review/commentUpdateForm.jsp");
+			
+		});
+		
+		$('#like').click(function(){
 
 			$.ajax({
 				
@@ -131,12 +239,12 @@
                             
                             <div class="inner-meta">
                                 <div class="social-btns">
-                                    <a id="like"> <i class="fa fa-heart"></i> Like</a>
-                                    <a id="comment" class="tweet-bg">댓글 보기</a>
+                                    <a id="like"  href="javascript:;"> <i class="fa fa-heart"></i> Like</a>
+                                    <a id="comment" href="javascript:;" class="tweet-bg">댓글 보기</a>
                                 </div>
                             </div>
                             <br>
-                          <h2>Comments&nbsp; (${pageinfo.commentCount })</h2>
+                          <h2>Comments&nbsp; (<a id="commentCount">${pageinfo.commentCount }</a>)</h2>
                   <!--        댓글 쓰기                    -->
                              <div id="comments" style="display: none;">
                                 <div class="single-comment">
@@ -150,45 +258,9 @@
                                         </form>
                                     </div>
                                 </div>
-                            
-                    <!--          댓글 보기                   -->
                     
                             <div class="comments">
-<%--                               <c:forEach var="articleList" items="${articleList }"> --%>
-<%-- 	                              <c:choose> --%>
-<%-- 	                                 <c:when test="${articleList.rc_seq == 0}"> --%>
-<!-- 		                                <div class="single-comment" > -->
-<!-- 		                                  <div class="comment-content" style="margin-left: 10px;"> -->
-<%-- 	                                        <h5 style="float: right;">${articleList.rc_date }</h5> --%>
-<%-- 	                                        <h5>작성자&nbsp; : &nbsp;${articleList.rc_id }</h5> --%>
-<%-- 	                                        <p>글 내용 &nbsp; : &nbsp;${articleList.rc_content }</p> --%>
-<!-- 		                                   </div> -->
-<!-- 				                           <div class="comment-count"> -->
-<!-- 				                              <a href="#"><i class="fa fa-reply"></i> 답글 (1)</a> -->
-<!-- 				                              <a href="#"> 수정 </a> -->
-<!--                                               <a href="#"> 삭제 </a> -->
-<!-- 				                           </div> -->
-<!-- 		                                </div> -->
-<%-- 	                                   </c:when> --%>
-
-<%-- 	                                   <c:otherwise> --%>
-<!-- 	                                     <div class="single-comment reply"> -->
-<!-- 	                                        <div class="comment-content"> -->
-<%-- 	                                            <h5 style="float: right;">${articleList.rc_date }</h5> --%>
-<%-- 	                                            <h5>작성자&nbsp; : &nbsp;${articleList.rc_id }</h5> --%>
-<%-- 	                                            <p>글 내용 &nbsp; : &nbsp;${articleList.rc_content }</p> --%>
-<!-- 	                                        </div> -->
-<!-- 	                                        <div class="comment-count"> -->
-<!-- 	                                            <a href="#"><i class="fa fa-reply"></i> 답글 (1)</a> -->
-<!-- 	                                            <a href="#"> 수정 </a> -->
-<!--                                                 <a href="#"> 삭제 </a> -->
-<!-- 	                                        </div> -->
-<!-- 	                                    </div> -->
-<%-- 	                                   </c:otherwise> --%>
-<%-- 	                              </c:choose>   --%>
-	                              
-                                
-<%--                               </c:forEach> --%>
+                     <!--          댓글 영역                   -->
                             </div>
                         </div>
                     </div>

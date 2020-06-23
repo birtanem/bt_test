@@ -51,8 +51,8 @@ public class ReviewLikeAction implements Action {
 			
 			json.put("likecount", article.getR_likecount());
 			
-//			out.print(json);
-//			System.out.println(json);
+			out.print(json);
+			System.out.println(json);
 //			forward = new ActionForward();
 			
 //			forward.setPath("/Review_Content.re?r_num="+r_num+"&page="+page);
