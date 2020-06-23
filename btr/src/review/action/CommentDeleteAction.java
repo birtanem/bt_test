@@ -25,7 +25,8 @@ public class CommentDeleteAction implements Action {
 		boolean isDelete = commentDeleteService.DeleteArticle(rc_num);
 		
 		forward = new ActionForward();
-		forward.setPath("/Review_Content.re?r_num="+r_num+"&page="+page);
+		forward.setRedirect(true);
+		forward.setPath("Review_Content.re?r_num="+r_num+"&page="+page);
 		
 		return forward;
 	}

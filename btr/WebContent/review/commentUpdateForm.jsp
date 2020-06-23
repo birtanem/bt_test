@@ -3,13 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="article" value="${article }" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 <form action="Comment_UpdatePro.re" method="post">
 	<input type="hidden" name="r_num" value="${param.r_num }">
 	<input type="hidden" name="page" value="${param.page }">
@@ -21,5 +14,3 @@
     <input type="hidden" name="rc_seq" value="${article.rc_seq }">
     <input type="submit" value="댓글">
 </form>
-</body>
-</html>

@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import common.action.*;
 import common.vo.*;
 import member.svc.MemberWriteListService;
+import member.vo.MemberPageInfo;
 import member.svc.*;
 import review.vo.*;
 
@@ -39,7 +40,7 @@ public class MemberWriteListAction implements Action {
 			endPage = maxPage;
 		}
 		
-		ReviewPageInfo pageinfo = new ReviewPageInfo(page, maxPage, startPage, endPage, listCount);
+		MemberPageInfo pageinfo = new MemberPageInfo(page, maxPage, startPage, endPage, listCount);
 
 		
 // ------------------------------------------------------------------------------------------------------------
