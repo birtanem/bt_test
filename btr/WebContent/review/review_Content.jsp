@@ -68,8 +68,6 @@
 					                  +'<a id ="reply" href="javascript:;">답글</a>'
 			                          +'</div>'
 			                          +'</div>'
-			                          +'<div id="updateLoad">'
-			                          +'</div>'
 	                       	);
 							}
 							else if (id != null && id == item.rc_id) {
@@ -86,8 +84,6 @@
 			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
 			                          +'</div>'
 			                          +'</div>'
-			                          +'<div id="updateLoad">'
-			                          +'</div>'
 								);
 								}	
 							else if(id == null){
@@ -100,8 +96,6 @@
 			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
 			                          +'</div>'
-			                          +'</div>'
-			                          +'<div id="updateLoad">'
 			                          +'</div>'
 			                          
 								);
@@ -184,11 +178,11 @@
 			});
 		});
 		
-		$('#update').click(function(){
+// 		$('#update').click(function(){
+// 			alert('123');
+// 			$('updateLoad').load("/review/commentUpdateForm.jsp");
 			
-			$('updateLoad').load("/review/commentUpdateForm.jsp");
-			
-		});
+// 		});
 		
 		$('#like').click(function(){
 
