@@ -45,11 +45,11 @@
 		$("#orderBtn").click(function() {
 			
 			if($("#emailcheck").html() != "인증 완료") {
-				alert("이메일 인증이 필요합니다.")
+				alert("이메일 인증이 필요합니다.");
 				return false;
 			}
 			if($('input[name="payMethod"]:checked').val() == null) {
-				alert("결제수단을 선택해주세요!")
+				alert("결제수단을 선택해주세요!");
 				return false;
 			}
 
@@ -177,10 +177,7 @@ function emailCheck() {
 		type: "POST",
 		data: {"email":$("#email").val()},
 		success: function() {
-
-
 		}
-	
 	})
 }
 </script>
