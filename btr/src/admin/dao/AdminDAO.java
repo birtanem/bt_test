@@ -112,7 +112,77 @@ public class AdminDAO {
 		ResultSet rs = null;
 		JSONArray jsonArray = new JSONArray();
 		
-		String sql = "SELECT l.date as date, truncate((l2.revenue - l.revenue)/l.revenue*100,0) as rate, l2.revenue as revenue  FROM log l JOIN log l2 ON l.num = l2.num-1 ORDER BY date DESC";
+		String sql = "SELECT l.date as date, truncate((l2.revenue - l.revenue)/l.revenue*100,0) as rrate, l2.revenue as revenue, truncate((l2.member - l.member)/l.member*100,0) as mrate, l2.member as member, truncate((l2.board - l.board)/l.board*100,0) as brate, l2.board as board FROM log l JOIN log l2 ON l.num = l2.num-1 ORDER BY date DESC limit 7";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				JSONObject obj = new JSONObject();
+				
+				obj.put("date",rs.getString("date"));
+				obj.put("rrate",rs.getString("rrate"));
+				obj.put("revenue",rs.getString("revenue"));
+				obj.put("mrate",rs.getString("mrate"));
+				obj.put("member",rs.getString("member"));
+				obj.put("brate",rs.getString("brate"));
+				obj.put("board",rs.getString("board"));
+				
+				jsonArray.add(obj);
+								
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+
+
+		return jsonArray;
+	}
+	public JSONArray getMemberLog() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONArray jsonArray = new JSONArray();
+		
+		String sql = "SELECT truncate((l2.member - l.member)/l.member*100,0) as rate, l2.member as member  FROM log l JOIN log l2 ON l.num = l2.num-1 ORDER BY date DESC limit 7";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				JSONObject obj = new JSONObject();
+				
+				obj.put("date",rs.getString("date"));
+				obj.put("rate",rs.getString("rate"));
+				obj.put("revenue",rs.getString("revenue"));
+				
+				jsonArray.add(obj);
+								
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+
+
+		return jsonArray;
+	}
+	public JSONArray getPlaceLog() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONArray jsonArray = new JSONArray();
+		
+		String sql = "SELECT l.date as date, truncate((l2.revenue - l.revenue)/l.revenue*100,0) as rate, l2.revenue as revenue  FROM log l JOIN log l2 ON l.num = l2.num-1 ORDER BY date DESC limit 7";
 		
 		try {
 			pstmt = con.prepareStatement(sql);

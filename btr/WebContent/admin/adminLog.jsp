@@ -265,23 +265,48 @@ categoryAxis.sortBySeries = series;
 					<c:forEach var="list" items="${list }">
 					<tr>
 						<td>${list.date }<td>
-						<td>증감율</td>
-						<td>가입자수</td>
 						<c:choose>
-						<c:when test="${list.rate > 0 }">
-							<td style="color: red;">▲${list.rate }%</td>
+						<c:when test="${list.mrate > 0 }">
+							<td style="color: red;">▲${list.mrate }%</td>
 						</c:when>
-						<c:when test="${list.rate == 0 }">
-							<td>${list.rate }%</td>
+						<c:when test="${list.mrate == 0 }">
+							<td>${list.mrate }%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.rate }%</td>
+							<td style="color: blue;">▼${list.mrate }%</td>
+						</c:otherwise>
+						</c:choose>
+						
+						<td>${list.member }</td>
+						
+						<c:choose>
+						<c:when test="${list.rrate > 0 }">
+							<td style="color: red;">▲${list.rrate }%</td>
+						</c:when>
+						<c:when test="${list.rrate == 0 }">
+							<td>${list.rrate }%</td>
+						</c:when>
+						<c:otherwise>
+							<td style="color: blue;">▼${list.rrate }%</td>
 						</c:otherwise>
 						</c:choose>
 						
 						<td>${list.revenue }</td>
-						<td>증감율</td>
-						<td>조회수</td>
+				
+						<c:choose>
+						<c:when test="${list.brate > 0 }">
+							<td style="color: red;">▲${list.brate }%</td>
+						</c:when>
+						<c:when test="${list.brate == 0 }">
+							<td>${list.brate }%</td>
+						</c:when>
+						<c:otherwise>
+							<td style="color: blue;">▼${list.brate }%</td>
+						</c:otherwise>
+						</c:choose>
+						
+						<td>${list.board }</td>
+						
 					</tr>
 					</c:forEach>
 				</table>
