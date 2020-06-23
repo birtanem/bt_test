@@ -3,6 +3,7 @@ package admin.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import admin.svc.AdminLogActionService;
@@ -17,15 +18,11 @@ public class AdminLogAction implements Action {
 		
 		AdminLogActionService adminLogActionService = new AdminLogActionService();
 		
-		int memberCount = adminLogActionService.getMemberCount();
-		
-		request.setAttribute("memberCount", memberCount);
-		
-		int boardCount = adminLogActionService.getBoardCount();
-		
-		request.setAttribute("boardCount", boardCount);
-		
+		int memberCount = adminLogActionService.getMemberCount();		
+		int boardCount = adminLogActionService.getBoardCount();		
 		long revenue = adminLogActionService.getRevenue();
+		
+		JSONArray jsonArray = adminLogActionService.getRevenueLog();
 		
 		JSONObject obj = new JSONObject();
 				
@@ -35,6 +32,7 @@ public class AdminLogAction implements Action {
 		obj.put("boardCount", boardCount);
 		obj.put("revenue", revenue);
 		
+		request.setAttribute("list", jsonArray);
 		request.setAttribute("total", obj);
 		
 		forward = new ActionForward();

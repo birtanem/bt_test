@@ -34,3 +34,7 @@ STARTS '2020-06-23 18:27:30'
 DO
 call log_insert();
 //
+
+
+
+SELECT l.date as date, truncate((l2.revenue - l.revenue)/l.revenue*100,0) as rate, l2.revenue as revenue  FROM log l JOIN log l2 ON l.num = l2.num-1 order by date desc;

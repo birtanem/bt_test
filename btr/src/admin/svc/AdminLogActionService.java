@@ -6,6 +6,8 @@ import static common.db.JdbcUtil.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+
 import admin.dao.AdminDAO;
 
 
@@ -60,6 +62,24 @@ public class AdminLogActionService {
 		close(con);
 		
 		return revenue;
+	}
+
+	public JSONArray getRevenueLog() {
+		
+		System.out.println("AdminLogActionService");
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		
+		adminDAO.setConnection(con);
+		
+		JSONArray jsonArray = adminDAO.getRevenueLog(); 
+		
+		close(con);
+		
+		return jsonArray;
+		
 	}
 
 }

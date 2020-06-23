@@ -257,44 +257,33 @@ categoryAxis.sortBySeries = series;
 						<th>날짜<th>
 						<th>증감율</th>
 						<th>가입자수</th>
+						<th>증감율</th>
 						<th>판매액</th>
+						<th>증감율</th>
 						<th>조회수</th>
 					</tr>
+					<c:forEach var="list" items="${list }">
 					<tr>
-						<th>2020.06.23<th>
-						<td>▲33.3</td>
-						<td>255</td>
-						<td>2,000</td>
-						<td>22</td>
+						<td>${list.date }<td>
+						<td>증감율</td>
+						<td>가입자수</td>
+						<c:choose>
+						<c:when test="${list.rate > 0 }">
+							<td style="color: red;">▲${list.rate }%</td>
+						</c:when>
+						<c:when test="${list.rate == 0 }">
+							<td>${list.rate }%</td>
+						</c:when>
+						<c:otherwise>
+							<td style="color: blue;">▼${list.rate }%</td>
+						</c:otherwise>
+						</c:choose>
+						
+						<td>${list.revenue }</td>
+						<td>증감율</td>
+						<td>조회수</td>
 					</tr>
-					<tr>
-						<th>2020.06.24<th>
-						<td>▼11.3</td>
-						<td>8</td>
-						<td>1,000,000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<th>2020.06.25<th>
-						<td>▲11.3</td>
-						<td>8</td>
-						<td>2,000,000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<th>2020.06.26<th>
-						<td>▼30.3</td>
-						<td>38</td>
-						<td>3,000,000</td>
-						<td>4100</td>
-					</tr>
-					<tr>
-						<th>2020.06.27<th>
-						<td>▲30.3</td>
-						<td>550</td>
-						<td>1,000,000</td>
-						<td>300</td>
-					</tr>
+					</c:forEach>
 				</table>
 				
 		</div>
