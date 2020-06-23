@@ -1,0 +1,36 @@
+DELIMITER $$
+create procedure log_insert()
+BEGIN
+DECLARE member int;
+DECLARE revenue int;
+DECLARE board int;
+
+SELECT count(id) 
+INTO member
+FROM member 
+WHERE date_format(date, '%Y%m%d') =  date_format(date_add(now(), interval -1 day), '%Y%m%d');
+
+SELECT SUM(o_price)
+INTO revenue
+FROM `order`
+WHERE date_format(o_date, '%Y%m%d') =  date_format(date_add(now(), interval -1 day), '%Y%m%d');
+
+SELECT SUM(pl_readcount)
+INTO board
+FROM place
+WHERE date_format(pl_date, '%Y%m%d') =  date_format(date_add(now(), interval -1 day), '%Y%m%d');
+
+INSERT INTO log VALUES(null,num,revenue,board);
+
+END$$
+DELIMITER ;
+
+
+DELIMITER //
+create event log_insert
+on schedule
+EVERY 10 second
+STARTS '2020-06-23 18:27:30'
+DO
+call log_insert();
+//

@@ -106,8 +106,9 @@ $(document).ready(function(){
 		        
 		     // 리스트에 생성된 객체 삽입
 		   for(var i=0;i<messageChk.length;i++) {
-			   
+			   	
 		        if(messageChk[i].checked) {
+		        	alert(messageChk[i].checked)
 		        	var data = new Object() ;
 		        	total += Number(commasWithNumber(priceChk[i].value));
 		        	data.num =  messageChk[i].value;
@@ -274,12 +275,23 @@ $('.fun-btn').on('click', function(event) {
 								onclick="minuscount(${status.count },1)"> <input
 								type="hidden" id="price${status.count }" value="${p.p_price}">
 							<p id="amountcheck${status.count }"></p></td>
-							<td><div
-									style="text-align: center; color: #F77; padding-right: 50px;">
-									<input
+							<td><div style="text-align: center; color: #F77; padding-right: 50px;">
+							<c:choose>
+							<c:when test="">
+								<input
 										style="width: 130px; color: #F77; text-align: right; outline: 0;"
 										type="text" id="td${status.count }" name="price"
 										value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원
+							
+							</c:when>
+							<c:otherwise>
+							<input
+										style="width: 130px; color: #F77; text-align: right; outline: 0;"
+										type="text" id="td${status.count }" name="price"
+										value="<fmt:formatNumber value="${p.p_amount * p.p_price}" pattern="###,###,###" />">원
+							
+							</c:otherwise>
+							</c:choose>
 								</div></td>
 						</tr>
 					</c:forEach>

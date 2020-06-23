@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.action.AdminLogAction;
 import admin.action.adminEventListAction;
 import admin.action.adminEventWinListAction;
 import admin.action.adminProductAction;
@@ -51,8 +52,13 @@ public class AdminFrontController extends HttpServlet {
 			}
 			
 		}else if(command.equals("/adminLog.ad")) {
-			forward=new ActionForward();
-			forward.setPath("/admin/adminLog.jsp");
+			try {
+				action=new AdminLogAction();
+				
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if(forward !=null ) {

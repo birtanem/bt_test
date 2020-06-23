@@ -211,7 +211,7 @@ categoryAxis.sortBySeries = series;
                                 <i class="fa fa-check"></i>
                             </div>
                             <h2>총 가입자수</h2>
-                            <p>5555</p>
+                            <p><fmt:formatNumber value="${total.memberCount }" pattern="###,###,###" /></p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-4 fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
@@ -220,7 +220,7 @@ categoryAxis.sortBySeries = series;
                                 <i class="fa fa-check"></i>
                             </div>
                             <h2>총 판매액</h2>
-                            <p>11,500,000</p>
+                            <p><fmt:formatNumber value="${total.revenue }" pattern="###,###,###" /></p>
                         </div>
                     </div>
                    <div class="col-md-3 col-sm-4 fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
@@ -229,7 +229,7 @@ categoryAxis.sortBySeries = series;
                                 <i class="fa fa-check"></i>
                             </div>
                             <h2>총 조회수</h2>
-                            <p>50000000</p>
+                            <p><fmt:formatNumber value="${total.boardCount }" pattern="###,###,###" /></p>
                         </div>
                     </div>
                     <!--/.col-md-3-->
