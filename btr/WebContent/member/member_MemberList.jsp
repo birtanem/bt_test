@@ -5,6 +5,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageInfo" value="${pageinfo }"  /> 
+<%
+out.println(request.getParameter("type"));
+
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>나의 작성글</title>
+    <title>회원 목록</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,37 +35,12 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
 <style type="text/css">
+
 
 #table1 {
 	color: black;
-}
-
-/* 테이블 td조정 */
-#td0 {
-	width: 56px;
-}
-
-#td_title {
-	color: blue;
-}
-
-#td1 {
-	width: 68px;
-}
-
-#td2 {
-	width: 36px;
-	color: red;
-}
-
-#td3 {
-	width: 60px;
-}
-
-#td4 {
-	width: 36px;
-	color: red;
 }
 
 #spanCount1{
@@ -76,9 +56,64 @@
 #btnBack{
 	float: right;
     margin-right: 5px;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
+#btnBack1{
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+#span1{
+	display: inline-block;
+    width: 100px;
+}
+
+#btndiv1 {
+    margin-top: 10px;
+	    
+}
+
+#btndiv2 {
+    margin-top: 10px;
+    
+	
+}
 </style>
+<script type="text/javascript">
+
+function ageA() {
+	var type = "age ASC";
+	location.href = "./MemberList.me?type="+type;
+}
+
+function ageD() {
+	var type = "age DESC";
+	location.href = "./MemberList.me?type="+type;
+}
+
+function idA() {
+	var type = "id ASC";
+	location.href = "./MemberList.me?type="+type;
+}
+
+function idD() {
+	var type = "id DESC";
+	location.href = "./MemberList.me?type="+type;
+}
+
+function pointA() {
+	var type = "point ASC";
+	location.href = "./MemberList.me?type="+type;
+}
+
+function pointD() {
+	var type = "point DESC";
+	location.href = "./MemberList.me?type="+type;
+}
+
+</script>
 </head>
 <body>    
 <jsp:include page="/inc/top.jsp" />
@@ -99,6 +134,23 @@
 	                    	<div>
 	                    		<span id="spanCount1">총 회원 수 </span>
 	                    		<span id="spanCount2"> ${pageInfo.listCount }</span>
+	                    		<div id="btndiv1">
+<!-- 	                    		수정중################################################################### -->
+	                    			<form action=""> 
+										<input type="text" name="searchId" id="searchId" placeholder="회원검색">
+										<input type="submit" id="btnBack1" value="검색" onclick="#">
+	                    			</form>
+<!-- 	                    		수정중################################################################### -->
+	                    		</div>
+	                    		<div id="btndiv2">
+		                    		<input type="button" id="btnBack1" value="아이디 정렬" onclick="idA()">
+		                    		<input type="button" id="btnBack1" value="아이디 역정렬" onclick="idD()">
+		                    		<input type="button" id="btnBack1" value="나이 정렬" onclick="ageA()">
+		                    		<input type="button" id="btnBack1" value="나이 역정렬" onclick="ageD()">
+		                    		<input type="button" id="btnBack1" value="포인트 정렬" onclick="pointA()">
+		                    		<input type="button" id="btnBack1" value="포인트 역정렬" onclick="pointD()">
+	                    		</div>
+	                    		<input type="button" id="btnBack" value="돌아가기" onclick="location.href='./adminPage.ad'">
 	                    	</div>        		   
                         </div>
                     </div>
@@ -106,24 +158,15 @@
                 <c:forEach var="article" items="${articleList }" >
 					<div class="blog-item">
                         <div class="blog-content">
-                            <a href="Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }">
-                            	<table border="3" id="table1">
-	                            	<tr>
-	                            		<td id="td0">제목 : </td>
-	                            		<td id="td_title">${article.id }</td>
-	                            		<td id="td1">좋아요</td>
-	                            		<td id="td2"></td>
-	                            		<td id="td3">조회수 </td>
-	                            		<td id="td4"></td>
-	                            	</tr>
-	                            	<tr>
-	                            		<td>지역 : </td>
-	                            		<td></td>
-	                            		<td colspan="2">작성날짜</td>
-	                            		<td colspan="2"></td>
-	                            	</tr>
-                            	</table>
-                            </a>
+                        		<span id="span1">아이디  </span><span>${article.id }</span><br>
+                        		<span id="span1">이름  </span><span>${article.name }</span><br>
+                        		<span id="span1">나이  </span><span>${article.age }</span><br>
+                        		<span id="span1">성별  </span><span>${article.gender }</span><br>
+                        		<span id="span1">이메일  </span><span>${article.email }</span><br>
+                        		<span id="span1">휴대폰  </span><span>${article.phone }</span><br>
+                        		<span id="span1">가입날짜  </span><span>${article.date }</span><br>
+                        		<span id="span1">포인트  </span><span>${article.point }</span><br>
+                        		<span id="span1">타입  </span><span>${article.type }</span><br>
                         </div>
                     </div>
                 		</c:forEach>
@@ -146,7 +189,7 @@
                     			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
                     		<c:otherwise>
-                    			<li><a href="MemberWriteList.me?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a href="MemberList.me?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
                     
@@ -158,7 +201,7 @@
                     				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
-									<li><a href="MemberWriteList.me?page=${a }">${a }</a></li>
+									<li><a href="MemberList.me?page=${a }">${a }</a></li>
                     			</c:otherwise>
                     		</c:choose>
                     	
@@ -170,7 +213,7 @@
                     				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li><a href="MemberWriteList.me?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    				<li><a href="MemberList.me?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:otherwise>
                     		</c:choose>
                     </ul>

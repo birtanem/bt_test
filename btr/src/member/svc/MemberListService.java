@@ -12,8 +12,8 @@ import review.vo.*;
 
 public class MemberListService {
 
-	public int getListCount(String id) {
-		System.out.println("MemberListService - getListCount()");
+	public int memberListCount() {
+		System.out.println("MemberListService - memberListCount()");
 		int listCount = 0;
 		
 		Connection con = getConnection();
@@ -22,14 +22,14 @@ public class MemberListService {
 		
 		memberDAO.setConnection(con);
 		
-		listCount = memberDAO.selectListCount(id);
+		listCount = memberDAO.memberListCount();
 		
 		close(con);
 		
 		return listCount;
 	}
 
-	public ArrayList<MemberBean> getMemberList(int page, int limit) {
+	public ArrayList<MemberBean> getMemberList(int page, int limit, String type) {
 		
 		ArrayList<MemberBean> memberList = null;
 		
@@ -41,10 +41,12 @@ public class MemberListService {
 		
 		memberDAO.setConnection(con);
 		
-		memberList = memberDAO.getMemberList(page,limit);
+		memberList = memberDAO.getMemberList(page,limit,type);
 		
 		close(con);
 		
 		return memberList;
 	}
+	
+	
 }
