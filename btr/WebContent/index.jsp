@@ -353,22 +353,38 @@ a:hover {
 <script type="text/javascript">
 	$(document).ready(function() {
 		//0: 세션없음  1: 세션있음 ; 데이터가져옴
-		var session='<%=session.getAttribute("id")%>';
-// 		var sessionCheck=1;
-// 		if(session==null){sessionCheck=0;}
-// 		else{
-// 			sessionCheck=1;
-// 		}
+		var session= "<%=session.getAttribute("id")%>";
+		var check=1;
+		if(session==null||session=="null"){
+			check=0;
+			}
+		else{
+			check=1;
+		}
 		$('#test').click(function(){
-			alert(session);
-		$.ajax('PlaceList.pl',{
+		$.ajax('PlaceList.pl?check='+check+'&id='+session,{
+			dataType: "json",
 			success:function(rdata){
-				alert(rdata);
+				$.each(rdata, function(index, item){
+					var imgpath="placeUpload/"+item.pl_img;
+					alert(item.session+ item.pl_theme);
+// 					$('#here').append(item.session);
+					if((item.session)==item.pl_theme){
+						alert("yeah");
+						$('#mig').attr("alt",item.pl_theme);
+						$('#mig').attr("src",imgpath);					
+					}else{
+						alert("노일치");
+						$('#mig').attr("src",imgpath);
+					}
+					
+				});
 			}
 		});
 		});
+		});
 		
-	});
+	
 </script>
 
 
@@ -414,7 +430,7 @@ a:hover {
 								</ol></li>
 						</c:if>
 						<li class="active"><a href="index.html">Home</a></li>
-						<li><a href="PlaceList.pl">Place</a></li>
+						<li><a href="PlaceList.pl?check=2">Place</a></li>
 						<li><a href="Review_List.re">Review</a></li>
 						<li><a href="productList.pr">여행상품</a></li>
 						<li><a href="Suggestion_Menu.su">고객센터</a></li>
@@ -529,26 +545,12 @@ a:hover {
 		<div class="place">
 		 	<div>
 				<h2>섹션</h2>
+			<div id="here" class="here"><img id="mig"></div>
 				<input type="button" id="test" value="test">
 				<c:choose>
 					<c:when test="${empty sessionScope.id }">
 					<input type="hidden" id="sessionId">
 						<h2>세션없어?</h2>
-						<div onclick="location.href='p_num=${list.p_num }'"
-							class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
-							<input type="hidden" value="${list.p_num }" name="p_num">
-							<div class="inner">
-								<div class="team-img">
-									<img src="placeUpload/${article.pl_image }" width="200px"
-										height="200px">
-								</div>
-								<div class="team-content">
-									<h4>${list.p_name }</h4>
-									<span class="desg">${list.p_category }</span>
-									<div class="team-social"></div>
-								</div>
-							</div>
-						</div>
 					</c:when>
 					<c:otherwise>
 						<h2>세션있지?? <c:out value="${sessionScope.id }"></c:out>  

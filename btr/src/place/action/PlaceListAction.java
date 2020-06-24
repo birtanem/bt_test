@@ -2,13 +2,19 @@ package place.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import common.action.Action;
 import common.vo.ActionForward;
-
+import member.svc.MemberMypageFormService;
+import member.vo.MemberBean;
 import place.vo.PlaceBean;
 import place.svc.PlaceListService;
 import place.vo.PlacePageInfo;
@@ -65,25 +71,58 @@ public class PlaceListAction implements Action{
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
 		
-		//메인페이지 작업중 ~!
-		String check=((String)request.getParameter("check")!=null)?(String)request.getParameter("check"):"1";
-		System.out.println("1:"+check);
-		if(check.equals("1")){
+		
+		
+		//메인페이지 작업중 ~! 0: 세션없음 1: 세션있음
+		String check=(String)request.getParameter("check");
+		switch (check) {
+		case "0":
+			check="0";
+			break;
+		case "1":
+			check="1";
+			break;
+		case "2":
+			check="2";
+			break;
+		default:
+			break;
+		}
+		
+		String id=(String)request.getParameter("id");
+		System.out.println("id:"+id);
+		System.out.println("ck:"+check);
+		
+		
+		if(check.equals("1")||check.equals("0")){
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.print(articleList);
+//			out.print(articleList);
 			System.out.println("세션있음 1와라~");
-			System.out.println(check);
-			System.out.println(request.getParameter("check"));
 //			리스트 → 제이슨?
+				MemberMypageFormService info=new MemberMypageFormService();
+				MemberBean mb=info.getMemberInfo(id);
+				
+				JSONArray jsonArray = new JSONArray();
+				for(int i=0; i<articleList.size();i++) {
+					JSONObject obj=new JSONObject();
+					obj.put("pl_img", articleList.get(i).getPl_image());
+					obj.put("pl_theme", articleList.get(i).getPl_theme());
+					obj.put("session", mb.getType());
+					jsonArray.add(obj);
+				}
+				out.print(jsonArray);
+//			list.add(articleList.)
 //			필요한 데이터 : type, 사진
 			return forward;	
-		}else if(check.equals("0")) {
+				
+		}else if(check.equals("2")) {
 			forward = new ActionForward();
 			forward.setPath("/place/place_list.jsp");
 			System.out.println(check);
-			System.out.println("세션없음:"+request.getParameter("check"));
+			return forward;
 		}
+		
 		
 		return forward;
 	}

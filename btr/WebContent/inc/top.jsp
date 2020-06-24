@@ -87,7 +87,7 @@
 						            <li><a href="adminPage.ad">관리자 페이지</a></li>
 						            <li><a href="adminLog.ad">통계</a></li>
 						            <li><a href="adminProduct.ad">상품 관리</a></li>
-						            <li><a href="PlaceWriteForm.pl">Place 글 등록</a></li>
+						            <li><a href="PlaceWriteForm.pl?">Place 글 등록</a></li>
 						            <li><a href="#">여행지 관리</a></li>
 						            <li><a href="adminSuggestion_List.su">문의 게시판</a></li>
 						            <li><a href="adminEvent.ad">이벤트 관리</a></li>
@@ -95,7 +95,7 @@
 						    </li>
 						</c:if>
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="PlaceList.pl">Place</a></li>
+                        <li><a href="PlaceList.pl?check=2">Place</a></li>
                         <li><a href="Review_List.re">Review</a></li>
                         <li><a href="productList.pr">여행상품</a></li>
                         <li><a href="Suggestion_Menu.su">고객센터</a></li>
