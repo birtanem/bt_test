@@ -22,7 +22,15 @@ public class AdminLogAction implements Action {
 		int boardCount = adminLogActionService.getBoardCount();		
 		long revenue = adminLogActionService.getRevenue();
 		
+	
 		JSONArray jsonArray = adminLogActionService.getRevenueLog();
+		
+		int[] typeArr = adminLogActionService.getTypeCount();
+		
+		for(int i=0;i<typeArr.length;i++) {
+			System.out.println(typeArr[i]);
+		}
+
 		
 		JSONObject obj = new JSONObject();
 				
@@ -32,6 +40,7 @@ public class AdminLogAction implements Action {
 		obj.put("boardCount", boardCount);
 		obj.put("revenue", revenue);
 		
+		request.setAttribute("type", typeArr);
 		request.setAttribute("list", jsonArray);
 		request.setAttribute("total", obj);
 		

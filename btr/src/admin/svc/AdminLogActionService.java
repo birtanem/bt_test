@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import admin.dao.AdminDAO;
 
@@ -80,6 +81,23 @@ public class AdminLogActionService {
 		
 		return jsonArray;
 		
+	}
+
+	public int[] getTypeCount() {
+		
+		System.out.println("AdminLogActionService");
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		
+		adminDAO.setConnection(con);
+		
+		int[] typeArr = adminDAO.getTypeCount();
+		
+		close(con);
+		
+		return typeArr;
 	}
 
 }

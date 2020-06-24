@@ -182,9 +182,10 @@ public class AdminDAO {
 		ResultSet rs = null;
 		JSONArray jsonArray = new JSONArray();
 		
-		String sql = "SELECT l.date as date, truncate((l2.revenue - l.revenue)/l.revenue*100,0) as rate, l2.revenue as revenue  FROM log l JOIN log l2 ON l.num = l2.num-1 ORDER BY date DESC limit 7";
+		
 		
 		try {
+			String sql = "SELECT l.date as date, truncate((l2.revenue - l.revenue)/l.revenue*100,0) as rate, l2.revenue as revenue  FROM log l JOIN log l2 ON l.num = l2.num-1 ORDER BY date DESC limit 7";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -209,5 +210,32 @@ public class AdminDAO {
 
 
 		return jsonArray;
+	}
+
+	public int[] getTypeCount() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int[] typeArr = new int[2];
+		int i=0;
+			
+		try {
+			String sql = "SELECT count(type) FROM member GROUP BY type ORDER BY type";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+					
+				typeArr[i] = rs.getInt(1);
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(typeArr);
+		return typeArr;
 	}
 }
