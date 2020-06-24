@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import member.action.MemberGetMemAction;
 import member.action.MemberJoinCheckAction;
 import member.action.MemberJoinProAction;
 import member.action.MemberListAction;
@@ -180,7 +181,17 @@ public class MemberFrontController extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}						
-			} 
+			} else if(command.equals("/MemberGetMemAction.me")){    
+				
+				action = new MemberGetMemAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
 		
 
 			if(forward != null) {

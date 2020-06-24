@@ -7,6 +7,7 @@
 <c:set var="pageInfo" value="${pageinfo }"  /> 
 <%
 out.println(request.getParameter("type"));
+String type = request.getParameter("type");
 
 %>
 
@@ -36,6 +37,8 @@ out.println(request.getParameter("type"));
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     
+    <script src="js/jquery-3.5.0.js"></script>
+    
 <style type="text/css">
 
 
@@ -53,16 +56,38 @@ out.println(request.getParameter("type"));
     color: black;
 }
 
-#btnBack{
+/* 회원 관리용 버튼  */
+#btnMem {
 	float: right;
-    margin-right: 5px;
-    margin-top: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-#btnBack1{
+/* 회원 정렬 및 검색 버튼 */
+#btnSearch{
+
+}
+
+#btnIdArray{
     margin-right: 5px;
     margin-top: 10px;
+    background-color: cyan;
+}
+
+#btnAgeArray{
+    margin-right: 5px;
+    margin-top: 10px;
+    background-color: papayawhip;
+}
+
+#btnPointArray{
+    margin-right: 5px;
+    margin-top: 10px;
+    background-color: chartreuse;
+}
+
+/* 돌아가기 버튼 */
+#btnBack{
+	float: right;
 }
 
 #span1{
@@ -70,15 +95,35 @@ out.println(request.getParameter("type"));
     width: 100px;
 }
 
-#btndiv1 {
-    margin-top: 10px;
+#divBtn1 {
+    margin-top: 20px;
 	    
 }
 
-#btndiv2 {
+#divBtn2 {
+    margin-top: 0px;
+
+}
+
+#divBtn3 {
+    margin-top: 0px;
+
+}
+
+#divN {
+	background-color: red;
+    width: 380px;
+    height: 210px;
+    float: right;
+}
+
+#divInfo {
+	width: 280px;
+    background-color: #ffffb0;
+    color: black;
+    font-weight: bold;
+    padding: 3px;
     margin-top: 10px;
-    
-	
 }
 </style>
 <script type="text/javascript">
@@ -113,6 +158,26 @@ function pointD() {
 	location.href = "./MemberList.me?type="+type;
 }
 
+function btnSearch() {
+	if(document.getElementById('searchId').value == ""){
+		alert("아이디를 입력하세요");
+		return false;
+	} else {
+		var type = document.getElementById('searchId').value;
+		location.href = "./MemberList.me?type="+type+"&&search=true";
+	}
+}
+
+function changePoint() {
+		
+}
+
+//----------------------------------------------
+
+
+	
+
+
 </script>
 </head>
 <body>    
@@ -124,37 +189,56 @@ function pointD() {
     </div>
     
     <section id="blog">
-
         <div class="blog container">
             <div class="row">
+<!--                 	<div id=divN> -->
+<!--                     </div> -->
                 <div class="col-md-8">
-                                
                 	<div class="blog-item">
                         <div class="blog-content">
 	                    	<div>
+	                    		<input type="button" id="btnBack" value="돌아가기" onclick="location.href='./adminPage.ad'">
 	                    		<span id="spanCount1">총 회원 수 </span>
 	                    		<span id="spanCount2"> ${pageInfo.listCount }</span>
-	                    		<div id="btndiv1">
-<!-- 	                    		수정중################################################################### -->
-	                    			<form action=""> 
-										<input type="text" name="searchId" id="searchId" placeholder="회원검색">
-										<input type="submit" id="btnBack1" value="검색" onclick="#">
-	                    			</form>
-<!-- 	                    		수정중################################################################### -->
+	                    		
+	                    		<div id="divBtn1">
+										<input type="text" name="searchId" id="searchId" placeholder="아이디 검색">
+										<input type="button" id="btnSearch" value="아이디 검색" onclick="btnSearch()">
 	                    		</div>
-	                    		<div id="btndiv2">
-		                    		<input type="button" id="btnBack1" value="아이디 정렬" onclick="idA()">
-		                    		<input type="button" id="btnBack1" value="아이디 역정렬" onclick="idD()">
-		                    		<input type="button" id="btnBack1" value="나이 정렬" onclick="ageA()">
-		                    		<input type="button" id="btnBack1" value="나이 역정렬" onclick="ageD()">
-		                    		<input type="button" id="btnBack1" value="포인트 정렬" onclick="pointA()">
-		                    		<input type="button" id="btnBack1" value="포인트 역정렬" onclick="pointD()">
+	                    		<div id="divBtn2">
+		                    		<input type="button" id="btnIdArray" value="아이디 정렬" onclick="idA()">
+		                    		<input type="button" id="btnIdArray" value="아이디 역정렬" onclick="idD()">
+		                    		<input type="button" id="btnAgeArray" value="나이 정렬" onclick="ageA()">
+		                    		<input type="button" id="btnAgeArray" value="나이 역정렬" onclick="ageD()">
+		                    		<input type="button" id="btnPointArray" value="포인트 정렬" onclick="pointA()">
+		                    		<input type="button" id="btnPointArray" value="포인트 역정렬" onclick="pointD()">
 	                    		</div>
-	                    		<input type="button" id="btnBack" value="돌아가기" onclick="location.href='./adminPage.ad'">
 	                    	</div>        		   
                         </div>
                     </div>
                     
+                    <div class="blog-item">
+                        <div class="blog-content">
+                       		<span id="spanCount1">회원 관리 기능 </span>
+                       		<span id="id_check"></span>
+	                    	<div id="divBtn1">
+								<input type="text" name="id" id="searchId1" placeholder="선택 아이디 입력">
+								<input type="button" id="btnSearch1" value="아이디 선택">
+								  <div id="divBtn3">
+									<input type="button" id="btnMem" value="포인트 변경" onclick="changePoint()">
+									<input type="button" id="btnMem" value="아이디 탈퇴">
+									<input type="button" id="btnMem" value="아이디  수정">
+								  </div>
+									<!--회원정보 불러오기 -->
+	                    			<div class="memInfo">
+	                    			</div>
+	                    			<!--회원정보 불러오기 끝-->
+	                    	</div>        		   
+                        </div>
+                    </div>
+                    
+
+ 
                 <c:forEach var="article" items="${articleList }" >
 					<div class="blog-item">
                         <div class="blog-content">
@@ -173,11 +257,8 @@ function pointD() {
 				
                     
                 </div>
-                <!--/.col-md-8-->
-
-
             </div>
-           
+
             <!--/.row   페이징 처리-->
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -189,7 +270,7 @@ function pointD() {
                     			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
                     		<c:otherwise>
-                    			<li><a href="MemberList.me?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a href="MemberList.me?page=${pageInfo.page - 1 }&&type=<%=type%>"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
                     
@@ -201,7 +282,7 @@ function pointD() {
                     				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
-									<li><a href="MemberList.me?page=${a }">${a }</a></li>
+									<li><a href="MemberList.me?page=${a }&&type=<%=type%>">${a }</a></li>
                     			</c:otherwise>
                     		</c:choose>
                     	
@@ -213,7 +294,7 @@ function pointD() {
                     				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li><a href="MemberList.me?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    				<li><a href="MemberList.me?page=${pageInfo.page + 1 }&&type=<%=type%>"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:otherwise>
                     		</c:choose>
                     </ul>
@@ -236,4 +317,50 @@ function pointD() {
     <script src="../js/jquery.isotope.min.js"></script>
     <script src="../js/main.js"></script>
 </body>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+
+$("#btnSearch1").click(function() {
+	var formData = $("#searchId1").serialize() ;
+	
+// 		$("#id_check").text("5~12자 영문의 아이디 입력하세요");
+// 		$("#id_check").css("color","red");
+// 		$("#idCheck").attr("value", "denied");
+
+		$.ajax({
+		url : 'MemberGetMemAction.me',
+		type : 'post',
+		data : formData,
+		dataType : 'json',
+		success : function(rdata) {
+			$('.memInfo').html("");
+
+	        $.each(rdata,function(index,item){
+				$('.memInfo').html(
+						
+						'<div id="divInfo">'
+                		+ '<span id="span1">아이디  </span><span>'+item.get_id+'</span><br>'
+                		+ '<span id="span1">이름  </span><span>'+item.get_name+'</span><br>'
+                		+ '<span id="span1">나이  </span><span>'+item.get_age+'</span><br>'
+                		+ '<span id="span1">성별  </span><span>'+item.get_gender+'</span><br>'
+                		+ '<span id="span1">이메일  </span><span>'+item.get_email+'</span><br>'
+                		+ '<span id="span1">휴대폰  </span><span>'+item.get_phone+'</span><br>'
+                		+ '<span id="span1">가입날짜  </span><span>'+item.get_date+'</span><br>'
+                		+ '<span id="span1">포인트  </span><span>'+item.get_point+'</span><br>'
+                		+ '<span id="span1">타입  </span><span>'+item.get_type+'</span><br>'
+                		+ '</div>'
+                		
+               	);
+	        });
+		}, error : function() {
+				console.log("실패");
+		}
+	});	
+});
+
+});
+
+</script>
 </html>

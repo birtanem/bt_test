@@ -497,6 +497,7 @@ public class MemberDAO {
 			return selectCount;
 		}
 		
+		//멤버리스트 불러오기 (정렬기능 포함)
 		public ArrayList<MemberBean> getMemberList(int page, int limit, String type) {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -530,6 +531,48 @@ public class MemberDAO {
 					
 				}
 				
+				System.out.println(type);
+			
+			} catch (SQLException e) {
+				System.out.println("MemberDAO - getMemberList() 실패! : " + e.getMessage());
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return memberList;
+		}
+		
+		//멤버리스트 아이디 검색용
+		public ArrayList<MemberBean> getMemberListIdSearch(int page, int limit, String type) { 
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+			
+			try {
+				String sql = "select * from member where id=?";	
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, type);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					MemberBean memberBean = new MemberBean();
+					memberBean.setId(rs.getString("id"));
+					memberBean.setPass(rs.getString("pass"));
+					memberBean.setName(rs.getString("name"));
+					memberBean.setAge(rs.getInt("age"));
+					memberBean.setGender(rs.getString("gender"));
+					memberBean.setEmail(rs.getString("email"));
+					memberBean.setPhone(rs.getString("phone"));
+					memberBean.setDate(rs.getDate("date"));
+					memberBean.setPoint(rs.getInt("point"));
+					memberBean.setType(rs.getString("type"));
+
+					memberList.add(memberBean);
+					
+				}
+
 				System.out.println(type);
 			
 			} catch (SQLException e) {
