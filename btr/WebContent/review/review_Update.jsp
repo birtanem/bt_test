@@ -154,7 +154,7 @@
 
                   if($(this).val()=="${article.r_code}"){
 
-                    $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+                    $(this).attr("selected","selected"); 
 
                   }
 

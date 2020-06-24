@@ -216,7 +216,7 @@
     </div>
     
 
-     <section id="blog">
+     <section id="blog" style="min-height: 560px;">
 
         <div class="blog container">
             <div class="row">

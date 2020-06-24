@@ -63,7 +63,7 @@
                                     </a>
 		                            <h2>
 		                            <a>${article.r_subject }</a>
-		                            <c:if test="${article.r_image != null}">
+		                            <c:if test="${article.r_image != null }">
 		                              <img src="review/icon.png" width="40px" height="40px">
 		                            </c:if>
 		                            &nbsp;(${article.r_cnt })
