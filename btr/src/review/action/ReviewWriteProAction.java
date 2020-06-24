@@ -21,7 +21,6 @@ public class ReviewWriteProAction implements Action{
 		ActionForward forward = null;
 		
 		System.out.println("ReviewWriteProAction");
-		
 		ServletContext context = request.getServletContext();
 		
 		String saveFolder = "/reviewUpload";

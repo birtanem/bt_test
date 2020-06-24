@@ -38,7 +38,10 @@
 		
 	      $('#comment').click(function(){
 	    	  
-	    	 	var id = "${sessionScope.id}";
+				sessionStorage.setItem('id', $('#sessionID').val());
+				var sessionId = sessionStorage.getItem('id');
+				var id = sessionId;
+				
 	            var div = $('#comments').css("display");
 	            
 	            if (div == "none") {
@@ -55,10 +58,23 @@
 	            	success : function(rdata){
 	            	$('.comments').html("");
 	            		$.each(rdata, function(index,item){
-	            			
-							if (id != null && id != item.rc_id) {
+	            				            			
+							if(!id ){
+									$('.comments').append(
+	
+									'<div class="single-comment" >'
+			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+					                  +'<div class="comment-count">'
+			                          +'</div>'
+			                          +'</div>'
+			                          
+								);
+								}
+							else if (id != null && id != item.rc_id) {
 								$('.comments').append(
-									
 									'<div class="single-comment" >'
 			                          +'<div class="comment-content" style="margin-left: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
@@ -68,11 +84,11 @@
 					                  +'<a id ="reply" href="javascript:;">답글</a>'
 			                          +'</div>'
 			                          +'</div>'
-	                       	);
-							}
+		                       	);
+								}
 							else if (id != null && id == item.rc_id) {
 								$('.comments').append(							
-									
+
 			                          '<div class="single-comment" >'
 			                          +'<div class="comment-content" style="margin-left: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
@@ -86,20 +102,6 @@
 			                          +'</div>'
 								);
 								}	
-							else if(id == null){
-									$('.comments').append(
-											
-									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-			                          +'</div>'
-			                          +'</div>'
-			                          
-								);
-								}
 	            			
 	            		});
 	            		
@@ -112,8 +114,11 @@
 		$('#commentWrite').click(function(){
 			
 			var formData = $("form[name=commentForm]").serialize();
-			var id = "${sessionScope.id}";
 			
+            sessionStorage.setItem('id', $('#sessionID').val());
+            var sessionId = sessionStorage.getItem('id');
+            var id = sessionId;
+            
 			$.ajax({
 					
 				type : 'post',
@@ -129,50 +134,49 @@
 					$.each(rdata,function(index,item){
 						$('#commentCount').html(item.commentCount);
 						
-						if (id != null && id != item.rc_id) {
-							$('.comments').append(
-								
-								'<div class="single-comment" >'
-		                          +'<div class="comment-content" style="margin-left: 10px;">'
-		                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-		                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-		                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-				                  +'<div class="comment-count">'
-				                  +'<a id ="reply" href="javascript:;">답글</a>'
-		                          +'</div>'
-		                          +'</div>'
-                       	);
-						}
-						else if (id != null && id == item.rc_id) {
-							$('.comments').append(							
-								
-		                          '<div class="single-comment" >'
-		                          +'<div class="comment-content" style="margin-left: 10px;">'
-		                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-		                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-		                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-				                  +'<div class="comment-count">'
-				                  +'<a id ="reply" href="javascript:;">답글</a>'
-				                  +'<a id ="update" href="javascript:;"> 수정 </a>'
-		                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
-		                          +'</div>'
-		                          +'</div>'
-							);
-							}	
-						else if(id == null){
-								$('.comments').append(
-										
-								'<div class="single-comment" >'
-		                          +'<div class="comment-content" style="margin-left: 10px;">'
-		                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-		                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-		                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-				                  +'<div class="comment-count">'
-		                          +'</div>'
-		                          +'</div>'
-		                          
-							);
-							}
+                        if(!id ){
+                            $('.comments').append(
+
+                            '<div class="single-comment" >'
+                              +'<div class="comment-content" style="margin-left: 10px;">'
+                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+                              +'<div class="comment-count">'
+                              +'</div>'
+                              +'</div>'
+                              
+                        );
+                        }
+                    else if (id != null && id != item.rc_id) {
+                        $('.comments').append(
+                            '<div class="single-comment" >'
+                              +'<div class="comment-content" style="margin-left: 10px;">'
+                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+                              +'<div class="comment-count">'
+                              +'<a id ="reply" href="javascript:;">답글</a>'
+                              +'</div>'
+                              +'</div>'
+                        );
+                        }
+                    else if (id != null && id == item.rc_id) {
+                        $('.comments').append(                          
+
+                              '<div class="single-comment" >'
+                              +'<div class="comment-content" style="margin-left: 10px;">'
+                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+                              +'<div class="comment-count">'
+                              +'<a id ="reply" href="javascript:;">답글</a>'
+                              +'<a id ="update" href="javascript:;"> 수정 </a>'
+                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+                              +'</div>'
+                              +'</div>'
+                        );
+                        }   
 					});
 				}
 			});
@@ -234,7 +238,10 @@
                             <div class="inner-meta">
                                 <div class="social-btns">
                                     <a id="like"  href="javascript:;"> <i class="fa fa-heart"></i> Like</a>
-                                    <a id="comment" href="javascript:;" class="tweet-bg">댓글 보기</a>
+                                    
+                                    <input type="hidden" id="sessionID" value="${sessionScope.id }">
+                                    
+                                    <a id="comment" href="javascript:;" class="tweet-bg"> 댓글 보기</a>
                                 </div>
                             </div>
                             <br>
@@ -243,6 +250,7 @@
                              <div id="comments" style="display: none;">
                                 <div class="single-comment">
                                     <div class="comment-content comment-form">
+                                    <c:if test="${sessionScope.id != null }">
                                         <form action="Comment_WritePro.re" name="commentForm" method="post">
                                             <textarea rows="5" cols="100" id="rc_content" name="rc_content"></textarea>
                                             <input type="hidden"name="id" id="id" value="${sessionScope.id }">
@@ -250,6 +258,7 @@
                                             <input type="hidden"name="page" id="page" value="${nowPage }">
                                             <input type="button" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
                                         </form>
+                                    </c:if>    
                                     </div>
                                 </div>
                     

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.action.*;
 import common.vo.*;
+import place.action.ImageCallbackAction;
 import review.action.*;
 
 @WebServlet("*.re")
@@ -53,6 +54,13 @@ public class ReviewFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		} else if (command.equals("/ImageCallback.re")) {
+			action = new ImageCallbackAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/Review_Content.re")) {
 			
 			action = new ReviewContentAction();

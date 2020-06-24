@@ -30,7 +30,33 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <script src="js/summernote-ko-KR.js"></script>  
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    
     <script type="text/javascript">
+    
+    /* summernote에서 이미지 업로드시 실행할 함수 */
+    function sendFile(file, editor) {
+        // 파일 전송을 위한 폼생성
+        data = new FormData();
+        data.append("uploadFile", file);
+        $.ajax({ // ajax를 통해 파일 업로드 처리
+            data : data,
+            type : "POST",
+            url : "ImageCallback.re",
+            cache : false,
+            contentType : false,
+            processData : false,
+            success : function(data) { // 처리가 성공할 경우
+                // 에디터에 이미지 출력
+                $(editor).summernote('editor.insertImage', data.url);
+            }
+        });
+    }
     
     function readURL(input) {
 		
@@ -43,7 +69,6 @@
 		}
     	
 	}
-    
     </script>
     
 </head>
@@ -57,68 +82,88 @@
         <h1>Review</h1>
     </div>
     
-		    <section id="blog">
+	<section id="blog">
 		
-		        <div class="blog container">
-		            <div class="row" style="padding-left: 100px; padding-right: 100px;">
-		              <section id="writeForm">
-		                
-			        <form action="Review_WritePro.re" method="post" enctype="multipart/form-data">
-		               <div style="width: 400px; height: 450px; float: left;">
-		               
-		               	<img id="reader" src="" width="400px" height="450px">
-		               
-		               <input type="file" name="r_image" onchange="readURL(this);">
-		               
-		               </div>	   
-						
-			
-						<table style="width: 500px; float: right; ">
-					          <tr><td>작성자</td><td colspan="2"><input type="text" name="r_id" value="${sessionScope.id }"></td></tr>
-					          <tr><td style="float: left;">지역선택 </td><td>
-		            		<select name="r_code">
-		            			<option value="0">지역 선택하세요</option>
-		            			<option value="1">강서구</option>
-		            			<option value="2">금정구</option>
-		            			<option value="3">기장군</option>
-		            			<option value="4">남구</option>
-		            			<option value="5">동구</option>
-		            			<option value="6">동래구</option>
-		            			<option value="7">부산진구</option>
-		            			<option value="8">북구</option>
-		            			<option value="9">사상구</option>
-		            			<option value="10">사하구</option>
-		            			<option value="11">서구</option>
-		            			<option value="12">수영구</option>
-		            			<option value="13">연제구</option>
-		            			<option value="14">영도구</option>
-		            			<option value="15">중구</option>
-		            			<option value="16">해운대구</option>
-		            			<option value="17">기타지역(부산외)</option>
-		                 	</select> 
-				        		 </td></tr>
-					          <tr><td>제목 </td><td colspan="2"><input type="text" name="r_subject" style="width: 100%;"/></td></tr>
-					          <tr><td>내용 </td><td colspan="2"><textarea name="r_content" style="width: 100%; height: 300px; resize: none;"></textarea></td></tr>
-		          		</table>
-		               
-						<div style="float: right;">
-		                <input type="submit" value="등록">
-		                <input type="reset" value="다시쓰기" />
-		            </div>   
-			        </form>
-		   	 </section>
-                    
-          </div>      
-                <!--/.col-md-8-->
-        </div>
+		 <div class="container">
+            <div class="row contact-wrap"> 
+                <div class="status alert alert-success" style="display: none"></div>
+                
+                <form action="Review_WritePro.re" enctype="multipart/form-data" method="post">
+                    <div class="col-sm-offset-1">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                        
+                            <label>작성자 : </label>
+                            <input type="text" name="r_id" value="${sessionScope.id }" class="form-control" readonly required="required"/>
+                        </div>
+
+                        </div>
+                        
+                        <div class="col-sm-5">
+                        <div class="form-group">
+                        <label>지역 : </label>
+                            <select name="r_code" class="form-control" required="required">
+                                <option value="0">지역 선택하세요</option>
+                                <option value="1">강서구</option>
+                                <option value="2">금정구</option>
+                                <option value="3">기장군</option>
+                                <option value="4">남구</option>
+                                <option value="5">동구</option>
+                                <option value="6">동래구</option>
+                                <option value="7">부산진구</option>
+                                <option value="8">북구</option>
+                                <option value="9">사상구</option>
+                                <option value="10">사하구</option>
+                                <option value="11">서구</option>
+                                <option value="12">수영구</option>
+                                <option value="13">연제구</option>
+                                <option value="14">영도구</option>
+                                <option value="15">중구</option>
+                                <option value="16">해운대구</option>
+                                <option value="17">기타지역(부산외)</option>
+                            </select>
+                        </div>
+                        </div>                     
+                     
+                      <div class="col-sm-10 ">
+                      <div class="form-group ">
+                            <label>주제 : </label>
+                            <input type="text" name="r_subject" class="form-control" required="required"/>
+                            
+                            <label>이미지 : </label>
+                            <input type="file" name="r_image" class="form-control" required="required"/>
+                        </div>
+                            <label>글 내용</label>
+                            <textarea id="summernote" name="r_content" required="required" >글을 등록해주세요</textarea>
+                            
+                            <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary btn-lg" >글 등록</button>
+                            <button type="reset" name="reset" class="btn btn-primary btn-lg" >다시 쓰기</button>
+                        </div>
+                        </div>    
+                      </div>
+                    </form> 
+                 </div>
+            </div>
+		
     </section>
-    <!--/#blog-->
 
-    <!--/#bottom-->
 <jsp:include page="/inc/bottom.jsp" />
-    <!--/#footer-->
 
-    <script src="js/jquery.js"></script>
+    <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({ // summernote를 사용하기 위한 선언
+                    height: 400,lang: 'ko-KR',
+                    callbacks: { // 콜백을 사용
+                        // 이미지를 업로드할 경우 이벤트를 발생
+                        onImageUpload: function(files, editor, welEditable) {
+                            sendFile(files[0], this);
+                            
+                        }
+                    }
+                });
+            });
+    </script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/owl.carousel.min.js"></script>
