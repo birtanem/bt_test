@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="article" value="${article }"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +35,8 @@
     <script src="js/summernote-ko-KR.js"></script>  
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     
     <script type="text/javascript">
     
@@ -52,20 +53,19 @@
             contentType : false,
             processData : false,
             success : function(data) { // 처리가 성공할 경우
-            	alert(data.url);
+                alert(data.url);
                 // 에디터에 이미지 출력
                 $(editor).summernote('editor.insertImage', data.url);
             }
         });
     }
-    
 
     </script>
     
 </head>
 <body>
     <c:if test="${sessionScope.id == null}">
-    	<c:redirect url="MemberLoginForm.me" />
+        <c:redirect url="MemberLoginForm.me" />
     </c:if>
 <jsp:include page="/inc/top.jsp" />
 
@@ -73,17 +73,16 @@
         <h1>Review</h1>
     </div>
     
-	<section id="blog">
-		
-		 <div class="container">
+    <section id="blog">
+        
+         <div class="container">
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
                 
-                <form action="Review_WritePro.re" enctype="multipart/form-data" method="post">
+                <form action="Review_UpdatePro.re?r_num=${article.r_num }&page=${param.page }"method="post">
                     <div class="col-sm-offset-1">
                     <div class="col-sm-5">
                         <div class="form-group">
-                        
                             <label>작성자 : </label>
                             <input type="text" name="r_id" value="${sessionScope.id }" class="form-control" readonly/>
                         </div>
@@ -93,7 +92,7 @@
                         <div class="col-sm-5">
                         <div class="form-group">
                         <label>지역 : </label>
-                            <select name="r_code" class="form-control">
+                            <select id="r_code" name="r_code" class="form-control">
                                 <option value="0">지역 선택하세요</option>
                                 <option value="1">강서구</option>
                                 <option value="2">금정구</option>
@@ -118,10 +117,10 @@
                       <div class="col-sm-10 ">
                       <div class="form-group ">
                             <label>주제 : </label>
-                            <input type="text" name="r_subject" class="form-control"/>
+                            <input type="text" name="r_subject" class="form-control" value="${article.r_subject }"/>
                         </div>
                             <label>글 내용</label>
-                            <textarea id="summernote" name="r_content">글을 등록해주세요</textarea>
+                            <textarea id="summernote" name="r_content">${article.r_content }</textarea>
                             
                             <div class="form-group">
                             <button type="submit" name="submit" class="btn btn-primary btn-lg" >글 등록</button>
@@ -132,7 +131,7 @@
                     </form> 
                  </div>
             </div>
-		
+        
     </section>
 
 <jsp:include page="/inc/bottom.jsp" />
@@ -149,6 +148,18 @@
                         }
                     }
                 });
+                
+
+                $('#r_code option').each(function(){
+
+                  if($(this).val()=="${article.r_code}"){
+
+                    $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+
+                  }
+
+                });
+                
             });
     </script>
     <script src="js/bootstrap.min.js"></script>

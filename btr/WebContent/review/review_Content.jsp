@@ -222,15 +222,12 @@
             <div class="row">
                 <div class="col-md-8">
 
-                    <div class="blog-item">
-                        <a><img class="img-responsive img-blog" src="reviewUpload/${article.r_image }" width="100%"></a>
-                        <div class="blog-content">
                             <a class="blog_cat">[${article.r_name }]</a>
-                            <h2><a href="blog-item.html">${article.r_subject }</a></h2>
+                            <h2><a>${article.r_subject }</a></h2>
                             <div class="post-meta">
-                                <p><a href="#">${article.r_id }</a></p>
+                                <p><a>${article.r_id }</a></p>
                                 <p><i class="fa fa-clock-o"></i><a>${article.r_date }</a></p>
-                                <p><i class="fa fa-comment"></i>(<a id="likeCount">&nbsp;${article.r_likecount }</a>)</p>
+                                <p><img src="review/love.png" width="15px" height="15px">(<a id="likeCount">${article.r_likecount }</a>)</p>
                                 <p><a> 조회수&nbsp; : &nbsp;(${article.r_readcount })</a></p>
                             </div>
                             <h3>${article.r_content }</h3>
@@ -242,6 +239,10 @@
                                     <input type="hidden" id="sessionID" value="${sessionScope.id }">
                                     
                                     <a id="comment" href="javascript:;" class="tweet-bg"> 댓글 보기</a>
+                                    <c:if test="${sessionScope.id == article.r_id }">
+                                    <a id="reviewUpdate" href="Review_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }">수정</a>
+                                    <a id="reviewDelete" href="Review_DeleteForm.re?r_num=${article.r_num}&page=${nowPage }">삭제</a>
+                                    </c:if>
                                 </div>
                             </div>
                             <br>
@@ -268,8 +269,6 @@
                         </div>
                     </div>
                 </div>
-              </div>
-              </div>
               </div>
       </section>    
         

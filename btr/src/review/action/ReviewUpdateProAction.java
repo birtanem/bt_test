@@ -17,19 +17,22 @@ public class ReviewUpdateProAction implements Action {
 		ActionForward forward = null;
 		
 		System.out.println("ReviewUpdateProAction");
+		System.out.println(request.getParameter("r_num"));
+		System.out.println(request.getParameter("r_code"));
+		System.out.println(request.getParameter("r_subject"));
+		System.out.println(request.getParameter("r_content"));
+		System.out.println(request.getParameter("r_id"));
+		System.out.println(request.getParameter("page"));
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
 		int r_code = Integer.parseInt(request.getParameter("r_code"));
 		String page = request.getParameter("page");
 		
-		System.out.println(r_num);
-
 		ReviewBean reviewBean = new ReviewBean();
 		
 		reviewBean.setR_num(r_num);
 		reviewBean.setR_subject(request.getParameter("r_subject"));
 		reviewBean.setR_content(request.getParameter("r_content"));
-		reviewBean.setR_image(request.getParameter("r_image"));
 		reviewBean.setR_code(r_code);
 		
 		ReviewUpdateService reviewUpdateService = new ReviewUpdateService();

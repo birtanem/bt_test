@@ -55,7 +55,7 @@ public class ReviewFrontController extends HttpServlet {
 			}
 			
 		} else if (command.equals("/ImageCallback.re")) {
-			action = new ImageCallbackAction();
+			action = new review.action.ImageCallbackAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

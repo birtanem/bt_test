@@ -54,20 +54,20 @@
 		                	<div class="blog-item">
 		                        <div class="blog-content"
 		                           onclick="location.href='Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }'">
-		                            <a class="readmore" style="float: right;">작성날짜&nbsp; : &nbsp;${article.r_date }</a><br>
-		                            <a class="readmore" style="float: right;">
-		                               <img src="review/love.png" width="20px" height="20px">&nbsp;${article.r_likecount }
-		                            </a>
-		                            <a class="readmore" style="float: right;">조회수&nbsp; : &nbsp;${article.r_readcount }&nbsp;&nbsp;</a>
+		                            <a class="blog_cat" style="margin-bottom: 0px;">[${article.r_name }]</a><br>
+		                            <a class="readmore">작성자&nbsp; : &nbsp;${article.r_id } &nbsp;&nbsp; </a><br>
+		                            <a class="readmore">작성날짜&nbsp; : &nbsp;${article.r_date }</a>&nbsp;&nbsp;
+		                            <a class="readmore">조회수&nbsp; : &nbsp;${article.r_readcount }&nbsp;&nbsp;</a>
+		                            <a class="readmore">
+                                       <img src="review/love.png" width="20px" height="20px">&nbsp;${article.r_likecount }
+                                    </a>
 		                            <h2>
-		                            <a href="blog-item.html">${article.r_subject }</a>
-		                            </h2>
-		                            <h3>작성자&nbsp; : &nbsp;${article.r_id } &nbsp;&nbsp; </h3>
-		                            <h2>${article.r_content }
+		                            <a>${article.r_subject }</a>
 		                            <c:if test="${article.r_image != null}">
 		                              <img src="review/icon.png" width="40px" height="40px">
 		                            </c:if>
-		                            &nbsp;(${article.r_cnt })</h2>
+		                            &nbsp;(${article.r_cnt })
+		                            </h2>
 		                        </div>
 		                    </div>
                 		</c:forEach>
