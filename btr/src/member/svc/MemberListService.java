@@ -29,7 +29,7 @@ public class MemberListService {
 		return listCount;
 	}
 
-	public ArrayList<MemberBean> getMemberList(int page, int limit, String type) {
+	public ArrayList<MemberBean> getMemberList(int page, int limit, String type, boolean idSearch) {
 		
 		ArrayList<MemberBean> memberList = null;
 		
@@ -41,12 +41,15 @@ public class MemberListService {
 		
 		memberDAO.setConnection(con);
 		
-		memberList = memberDAO.getMemberList(page,limit,type);
-		
+		if(!idSearch) {
+			memberList = memberDAO.getMemberList(page,limit,type);
+		} else {
+			memberList = memberDAO.getMemberListIdSearch(page,limit,type);
+		}
+
 		close(con);
 		
 		return memberList;
 	}
-	
 	
 }

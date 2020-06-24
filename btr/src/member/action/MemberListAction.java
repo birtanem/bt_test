@@ -37,24 +37,35 @@ public class MemberListAction implements Action {
 			endPage = maxPage;
 		}
 		
-		MemberPageInfo pageinfo = new MemberPageInfo(page, maxPage, startPage, endPage, listCount);
+		
 
 		
 // ------------------------------------------------------------------------------------------------------------
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();	
 		String type = null;
+		boolean idSearch = false;
 		
-		if(request.getParameter("type") == null) {
-			type = "id ASC";
+		if(request.getParameter("search") != null) {
+			if(request.getParameter("search").equals("true")) {
+				idSearch = true;
+				type = request.getParameter("type");
+				maxPage = 1;
+				startPage = 1;
+				endPage = 1;
+			}
 		} else {
-			type = request.getParameter("type");
+			if(request.getParameter("type") == null) {
+				type = "id ASC";
+			} else {
+				type = request.getParameter("type");
+			}
 		}
 		
-		memberList = memberListService.getMemberList(page, limit, type);
+		memberList = memberListService.getMemberList(page, limit, type, idSearch);
 		forward = new ActionForward();
 		forward.setPath("/member/member_MemberList.jsp?type="+type);
 
-			
+		MemberPageInfo pageinfo = new MemberPageInfo(page, maxPage, startPage, endPage, listCount); //멤버페이지 정보 저장 #아이디 검색시 페이지 정보들 변경해야해서 여기 위치해야함 자리변경 X	
 		request.setAttribute("pageinfo", pageinfo);
 		request.setAttribute("articleList", memberList);
 		
