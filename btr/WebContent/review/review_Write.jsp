@@ -165,10 +165,10 @@
                       <div class="col-sm-10 ">
                       <div class="form-group ">
                             <label>주제 : </label>
-                            <input type="text" id="r_subject" name="r_subject" class="form-control"/>
+                            <input type="text" id="r_subject" name="r_subject" class="form-control" required/>
                         </div>
                             <label>글 내용</label>
-                            <textarea id="summernote" name="r_content" class="r_content">글 등록해주세요</textarea>
+                            <textarea id="summernote" name="r_content" class="r_content" required>글 등록해주세요</textarea>
                             
                             <div class="form-group">
                             <button type="submit" name="submit" class="btn btn-primary btn-lg" >글 등록</button>

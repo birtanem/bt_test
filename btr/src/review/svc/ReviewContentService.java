@@ -35,7 +35,7 @@ public class ReviewContentService {
 		
 	}
 
-	public boolean getLikeArticle(int r_num) {
+	public boolean LikeArticle(int r_num, String id) {
 
 		boolean likeArticle = false;
 		System.out.println("ReviewContentService - getLikeArticle");

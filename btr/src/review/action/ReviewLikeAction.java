@@ -23,10 +23,12 @@ public class ReviewLikeAction implements Action {
 		String page = request.getParameter("page");
 		
 		System.out.println("ReviewLikeAction");
-		
+		String id = request.getParameter("id");
+		String ip = request.getParameter("ip");
+		System.out.println(ip);
 		ReviewContentService reviewContentService = new ReviewContentService();
 		
-		boolean likeArticle = reviewContentService.getLikeArticle(r_num);
+		boolean likeArticle = reviewContentService.LikeArticle(r_num, id);
 		
 		if (!likeArticle) {
 			
