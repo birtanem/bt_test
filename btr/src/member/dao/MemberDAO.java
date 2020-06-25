@@ -67,7 +67,6 @@ public class MemberDAO {
 				pstmt.setString(6,memberBean.getEmail());
 				pstmt.setString(7,memberBean.getPhone());
 				pstmt.setString(8,memberBean.getType());
-
 				insertCount = pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -576,7 +575,7 @@ public class MemberDAO {
 				System.out.println(type);
 			
 			} catch (SQLException e) {
-				System.out.println("MemberDAO - getMemberList() 실패! : " + e.getMessage());
+				System.out.println("MemberDAO - getMemberListIdSearch() 실패! : " + e.getMessage());
 			}finally {
 				close(rs);
 				close(pstmt);
@@ -584,7 +583,25 @@ public class MemberDAO {
 			return memberList;
 		}
 		
-		
+		//멤버관리  포인트 변경
+		public void memPointChange(String type, int cPoint) { 
+			PreparedStatement pstmt = null;
+			int UpdateCount = 0;
+			
+			try {
+				String sql = "UPDATE member SET point=? WHERE id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, cPoint);
+				pstmt.setString(2,type);
+				pstmt.executeUpdate();
+				UpdateCount = pstmt.executeUpdate();
+			}catch(Exception e) {
+				System.out.println("MemberDAO - memPointChange() 실패! : " + e.getMessage());
+			}finally {
+				close(pstmt);
+			}
+
+		}
 }
 
 
