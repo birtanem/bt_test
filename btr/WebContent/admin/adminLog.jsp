@@ -131,26 +131,26 @@ $(document).ready(function() {
 		var chart = am4core.create("chartdiv2", am4charts.XYChart);
 		chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 		chart.data = [{
-			 "count": $('#hdate1').val(),
-			 "visits": "300"
-			}, {
-			 "count": $('#hdate2').val(),
-			 "visits": $('#hmember2').val()
-			}, {
-			 "count": $('#hdate3').val(),
-			 "visits": $('#hmember3').val()
-			}, {
-			 "count": $('#hdate4').val(),
-			 "visits": $('#hmember4').val()
-			}, {
-			 "count": $('#hdate5').val(),
-			 "visits": $('#hmember5').val()
+			 "count": $('#hdate7').val(),
+			 "visits": $('#hmember7').val()
 			}, {
 			 "count": $('#hdate6').val(),
 			 "visits": $('#hmember6').val()
 			}, {
-			 "count": $('#hdate7').val(),
-			 "visits": $('#hmember7').val()
+			 "count": $('#hdate5').val(),
+			 "visits": $('#hmember5').val()
+			}, {
+			 "count": $('#hdate4').val(),
+			 "visits": $('#hmember4').val()
+			}, {
+			 "count": $('#hdate3').val(),
+			 "visits": $('#hmember3').val()
+			}, {
+			 "count": $('#hdate2').val(),
+			 "visits": $('#hmember2').val()
+			}, {
+			 "count": $('#hdate1').val(),
+			 "visits": $('#hmember1').val()
 			}];
 
 		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -246,9 +246,9 @@ $(document).ready(function() {
 			<th>총 조회수</th>
 		</tr>
 		<tr>
-			<td><fmt:formatNumber value="${total.memberCount }" pattern="###,###,###" /></td>
+			<td><fmt:formatNumber value="${total.joinCount }" pattern="###,###,###" /></td>
 			<td><fmt:formatNumber value="${total.revenue }" pattern="###,###,###" /></td>
-			<td><fmt:formatNumber value="${total.boardCount }" pattern="###,###,###" /></td>
+			<td><fmt:formatNumber value="${total.readCount }" pattern="###,###,###" /></td>
 		</tr>
 		</table>
 		
@@ -260,7 +260,7 @@ $(document).ready(function() {
 			<!--  가입자 추이 -->
 			<c:forEach var="hList" items="${list }" varStatus="status">
 			<input type="hidden" id="hdate${status.count}" value="<fmt:parseDate var="dateString" value="${hList.date}" pattern="yyyy-MM-dd" /><fmt:formatDate value="${dateString }" pattern="MM.dd" />">			
-			<input type="hidden" id="hmember${status.count}" value="${hList.member}">			
+			<input type="hidden" id="hmember${status.count}" value="${hList.joincount}">			
 			</c:forEach>
 			
 			<!--  /가입자 추이 -->
@@ -289,46 +289,46 @@ $(document).ready(function() {
 					<tr>
 						<td>${list.date }<td>
 						<c:choose>
-						<c:when test="${list.mrate > 0 }">
-							<td style="color: red;">▲${list.mrate }%</td>
+						<c:when test="${list.jrate > 0 }">
+							<td style="color: red;">▲<fmt:formatNumber value="${list.jrate }" pattern="###,###,###" />%</td>
 						</c:when>
-						<c:when test="${list.mrate == 0 }">
-							<td>${list.mrate }%</td>
+						<c:when test="${list.jrate == 0 }">
+							<td><fmt:formatNumber value="${list.jrate }" pattern="###,###,###" />%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.mrate }%</td>
+							<td style="color: blue;">▼<fmt:formatNumber value="${list.jrate*-1 }" pattern="###,###,###" />%</td>
 						</c:otherwise>
 						</c:choose>
 						
-						<td>${list.member }</td>
+						<td><fmt:formatNumber value="${list.joincount }" pattern="###,###,###" /></td>
 						
 						<c:choose>
-						<c:when test="${list.rrate > 0 }">
-							<td style="color: red;">▲${list.rrate }%</td>
+						<c:when test="${list.revrate > 0 }">
+							<td style="color: red;">▲<fmt:formatNumber value="${list.revrate }" pattern="###,###,###" />%</td>
 						</c:when>
-						<c:when test="${list.rrate == 0 }">
-							<td>${list.rrate }%</td>
+						<c:when test="${list.revrate == 0 }">
+							<td><fmt:formatNumber value="${list.revrate }" pattern="###,###,###" />%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.rrate }%</td>
+							<td style="color: blue;">▼<fmt:formatNumber value="${list.revrate*-1 }" pattern="###,###,###" />%</td>
 						</c:otherwise>
 						</c:choose>
 						
-						<td>${list.revenue }</td>
+						<td><fmt:formatNumber value="${list.revenue }" pattern="###,###,###" /></td>
 				
 						<c:choose>
-						<c:when test="${list.brate > 0 }">
-							<td style="color: red;">▲${list.brate }%</td>
+						<c:when test="${list.readrate > 0 }">
+							<td style="color: red;">▲<fmt:formatNumber value="${list.readrate }" pattern="###,###,###" />%</td>
 						</c:when>
-						<c:when test="${list.brate == 0 }">
-							<td>${list.brate }%</td>
+						<c:when test="${list.readrate == 0 }">
+							<td><fmt:formatNumber value="${list.readrate }" pattern="###,###,###" />%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.brate }%</td>
+							<td style="color: blue;">▼<fmt:formatNumber value="${list.readrate*-1 }" pattern="###,###,###" />%</td>
 						</c:otherwise>
 						</c:choose>
 						
-						<td>${list.board }</td>
+						<td><fmt:formatNumber value="${list.readcount }" pattern="###,###,###" /></td>
 						
 					</tr>
 					</c:forEach>

@@ -14,16 +14,16 @@ public class AdminLogAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("AdminLogAction");
 		ActionForward forward = null;
 		
 		AdminLogActionService adminLogActionService = new AdminLogActionService();
 		
-		int memberCount = adminLogActionService.getMemberCount();		
-		int boardCount = adminLogActionService.getBoardCount();		
-		long revenue = adminLogActionService.getRevenue();
+		int totalJoinCount = adminLogActionService.geTtotalJoinCount();		
+		int totalReadCount = adminLogActionService.getTotalReadCount();		
+		long totalRevenue = adminLogActionService.getTotalRevenue();
 		
-	
-		JSONArray jsonArray = adminLogActionService.getRevenueLog();
+		JSONArray jsonArray = adminLogActionService.getDailyLog();
 		
 		int[] typeArr = adminLogActionService.getTypeCount();
 		
@@ -32,17 +32,18 @@ public class AdminLogAction implements Action {
 		}
 
 		
-		JSONObject obj = new JSONObject();
+		JSONObject totalCount = new JSONObject();
 				
-		System.out.println(memberCount+", "+boardCount+", "+revenue);
+		System.out.println(totalJoinCount+", "+totalReadCount+", "+totalRevenue);
 		
-		obj.put("memberCount", memberCount);
-		obj.put("boardCount", boardCount);
-		obj.put("revenue", revenue);
+		totalCount.put("joinCount", totalJoinCount);
+		totalCount.put("readCount", totalReadCount);
+		totalCount.put("revenue", totalRevenue);
+		
 		
 		request.setAttribute("type", typeArr);
 		request.setAttribute("list", jsonArray);
-		request.setAttribute("total", obj);
+		request.setAttribute("total", totalCount);
 		
 		forward = new ActionForward();
 		
