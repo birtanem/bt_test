@@ -77,7 +77,7 @@ public class PlaceWriteProAction implements Action {
 			// 2. 포워딩 방식 지정 => Redirect 방식이므로 파라미터에 true 전달(필수)
 			forward.setRedirect(true);
 			// 3. 포워딩 할 주소 지정 => 서블릿 주소 BoardList.bo 요청
-			forward.setPath("PlaceList.pl");
+			forward.setPath("PlaceList.pl?check=2");
 		}
 		
 		

@@ -102,13 +102,14 @@ public class PlaceListAction implements Action{
 //			리스트 → 제이슨?
 				MemberMypageFormService info=new MemberMypageFormService();
 				MemberBean mb=info.getMemberInfo(id);
-				
+				ArrayList<PlaceBean> List = placeListService.getList();
 				JSONArray jsonArray = new JSONArray();
-				for(int i=0; i<articleList.size();i++) {
+				for(int i=0; i<List.size();i++) {
 					JSONObject obj=new JSONObject();
-					obj.put("pl_img", articleList.get(i).getPl_image());
-					obj.put("pl_theme", articleList.get(i).getPl_theme());
+					obj.put("pl_img", List.get(i).getPl_image());
+					obj.put("pl_theme", List.get(i).getPl_theme());
 					obj.put("session", mb.getType());
+					obj.put("pl_num", List.get(i).getPl_num());
 					jsonArray.add(obj);
 				}
 				out.print(jsonArray);

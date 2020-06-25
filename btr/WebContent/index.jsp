@@ -26,6 +26,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+<link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Gochi+Hand&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link rel="shortcut icon" href="images/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
 	href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -46,6 +47,11 @@
 
 
 <script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	location.href="index.jsp#main-map";
+});
+</script>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -323,6 +329,31 @@ a:hover {
 	margin-top: 50px;
 	float: right;
 }
+
+.pl_t{
+font-family: 'Noto Sans KR', sans-serif;
+font-size: 30px;
+margin-bottom: 35px;
+font-weight: bold;
+}
+.eng{font-family: 'Covered By Your Grace', cursive;
+letter-spacing: 5px;
+}
+.place{
+width: 1100px;
+margin: 0 auto;
+}
+#mig{
+margin-right: 10px;
+margin-bottom: 10px;
+}
+#mig:hover {
+	box-shadow: 0px 0 5px 5px #ccc; 
+	transition: 0.3s;
+}
+
+
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -361,30 +392,22 @@ a:hover {
 		else{
 			check=1;
 		}
-		$('#test').click(function(){
+		
 		$.ajax('PlaceList.pl?check='+check+'&id='+session,{
 			dataType: "json",
 			success:function(rdata){
 				$.each(rdata, function(index, item){
 					var imgpath="placeUpload/"+item.pl_img;
-					alert(item.session+ item.pl_theme);
-// 					$('#here').append(item.session);
 					if((item.session)==item.pl_theme){
-						alert("yeah");
-						$('#mig').attr("alt",item.pl_theme);
-						$('#mig').attr("src",imgpath);					
-					}else{
-						alert("노일치");
-						$('#mig').attr("src",imgpath);
+						$('.here').append('<img src="'+imgpath+'"alt="'+item.pl_theme+'"id="mig" width="300" height="300">');
+					}else if(item.session==null){
+						$('.here').append('<img src="'+imgpath+'"id="mig" width="300" height="300">');
 					}
 					
 				});
 			}
 		});
 		});
-		});
-		
-	
 </script>
 
 
@@ -392,57 +415,70 @@ a:hover {
 <!--/head-->
 
 <body class="homepage">
-	<div class="topH">
+<jsp:include page="/inc/top.jsp" />
+<!-- <div class="top-bar"> -->
+<!-- 	<div class="topH"> -->
+<!-- 	<div class="row"> -->
 		<%-- 		<jsp:include page="inc/top.jsp"></jsp:include> --%>
-		<header id="header">
-			<div class="topLogin">
-				<c:choose>
-					<c:when test="${empty sessionScope.id}">
-						<a href="MemberLoginForm.me">로그인</a> | 
-			<a href="MemberJoinForm.me">회원가입</a>
-					</c:when>
+<!-- 		<header id="header"> -->
+<!-- 			<div class="topLogin"> -->
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${empty sessionScope.id}"> --%>
+<!-- 						<a href="MemberLoginForm.me">로그인</a> |  -->
+<!-- 			<a href="MemberJoinForm.me">회원가입</a> -->
+<%-- 					</c:when> --%>
 
-					<c:otherwise>
-						<span style="color: black;">${sessionScope.id}&nbsp;&nbsp;님</span> |
-			<a href="MemberMypage.me">마이페이지</a> | 
-			<a href="MemberLogout.me">로그아웃</a>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<nav>
-				<div class="topnav">
-					<a class="navbar-brand logo" href="index.html"><img
-						src="images/logo.png" alt="logo" width="150"></a>
-					<ul class="nav navbar-nav topli">
-						<!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
+<%-- 					<c:otherwise> --%>
+<%-- 						<span style="color: black;">${sessionScope.id}&nbsp;&nbsp;님</span> | --%>
+<!-- 			<a href="MemberMypage.me">마이페이지</a> |  -->
+<!-- 			<a href="MemberLogout.me">로그아웃</a> -->
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
+<!-- 			</div> -->
+<!-- 			<nav class="navbar-inverse" role="banner"> -->
+<!-- 			   <div class="container"> -->
+<!-- 			   <div class="navbar-header"> -->
+<!-- 			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> -->
+<!--                         <span class="sr-only">Toggle navigation</span> -->
+<!--                         <span class="icon-bar"></span> -->
+<!--                         <span class="icon-bar"></span> -->
+<!--                         <span class="icon-bar"></span> -->
+<!--                     </button> -->
+<!--                     </div> -->
+<!-- 				<div class="topnav"> -->
+<!-- 					<a class="navbar-brand logo" href="index.html"><img -->
+<!-- 						src="images/logo.png" alt="logo" width="150"></a> -->
+<!-- 					<ul class="nav navbar-nav topli"> -->
+<!-- 						관리자 'admin' 일 경우 관리자 메뉴 노출 -->
 
-						<c:if test="${sessionScope.id == 'admin'}">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
-								<ol class="dropdown-menu">
-									<li><a href="adminPage.ad">관리자 페이지</a></li>
-									<li><a href="adminLog.ad">통계</a></li>
-									<li><a href="adminProduct.ad">상품 관리</a></li>
-									<li><a href="PlaceWriteForm.pl">Place 글 등록</a></li>
-									<li><a href="#">여행지 관리</a></li>
-									<li><a href="adminSuggestion_List.su">문의 게시판</a></li>
-									<li><a href="adminEvent.ad">이벤트 관리</a></li>
-								</ol></li>
-						</c:if>
-						<li class="active"><a href="index.html">Home</a></li>
-						<li><a href="PlaceList.pl?check=2">Place</a></li>
-						<li><a href="Review_List.re">Review</a></li>
-						<li><a href="productList.pr">여행상품</a></li>
-						<li><a href="Suggestion_Menu.su">고객센터</a></li>
-						<li><a href="event.ev">이벤트</a></li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-	</div>
+<%-- 						<c:if test="${sessionScope.id == 'admin'}"> --%>
+<!-- 							<li class="dropdown"><a href="#" class="dropdown-toggle" -->
+<!-- 								data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a> -->
+<!-- 								<ol class="dropdown-menu"> -->
+<!-- 									<li><a href="adminPage.ad">관리자 페이지</a></li> -->
+<!-- 									<li><a href="adminLog.ad">통계</a></li> -->
+<!-- 									<li><a href="adminProduct.ad">상품 관리</a></li> -->
+<!-- 									<li><a href="PlaceWriteForm.pl">Place 글 등록</a></li> -->
+<!-- 									<li><a href="#">여행지 관리</a></li> -->
+<!-- 									<li><a href="adminSuggestion_List.su">문의 게시판</a></li> -->
+<!-- 									<li><a href="adminEvent.ad">이벤트 관리</a></li> -->
+<!-- 								</ol></li> -->
+<%-- 						</c:if> --%>
+<!-- 						<li class="active"><a href="index.html">Home</a></li> -->
+<!-- 						<li><a href="PlaceList.pl?check=2">Place</a></li> -->
+<!-- 						<li><a href="Review_List.re">Review</a></li> -->
+<!-- 						<li><a href="productList.pr">여행상품</a></li> -->
+<!-- 						<li><a href="Suggestion_Menu.su">고객센터</a></li> -->
+<!-- 						<li><a href="event.ev">이벤트</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 				</div> -->
+<!-- 			</nav> -->
+<!-- 		</header> -->
+<!-- 	</div></div></div> -->
 
 
-	<section id="portfolio" class="no-margin">
+	<section id="main-map" class="no-margin">
 		<div id="mainImg" class="mainImg">
 			<div class="mainText">
 				<div class="mainBox">
@@ -540,33 +576,32 @@ a:hover {
 			<div class="day"></div>
 		</div>
 
+	</section>
 		
 <!-- 		메인 플레이스 -->
+<section id="portfolio">
 		<div class="place">
-		 	<div>
-				<h2>섹션</h2>
-			<div id="here" class="here"><img id="mig"></div>
-				<input type="button" id="test" value="test">
+		 	<div class="container portfolio-item row isotope ">
 				<c:choose>
 					<c:when test="${empty sessionScope.id }">
-					<input type="hidden" id="sessionId">
-						<h2>세션없어?</h2>
+						<p class="pl_t"><span class="kor">방문자 </span>&nbsp;님을 위한 추천 여행지  </p>
+			<div id="here" class="row here isotope-item">
+			
+			</div>			
 					</c:when>
 					<c:otherwise>
-						<h2>세션있지?? <c:out value="${sessionScope.id }"></c:out>  
-
-						</h2>
-
-
-
+						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 여행지  </p>  
+			<div id="here" class="row here">
+<!-- 			<img id="mig" width="300" height="300"> -->
+			</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
+</section>
 
 
-
-
+<section id="locations">
 		<!-- <div class="tabcontainer"> -->
 		<div class="tab">
 			<button class="tablinks" onclick="openCity(event, 'Buk-gu')">북구</button>

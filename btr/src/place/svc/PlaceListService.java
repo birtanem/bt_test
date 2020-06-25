@@ -64,5 +64,21 @@ public class PlaceListService {
 		
 		return articleList;
 	}
+	
+	public ArrayList<PlaceBean> getList() {
+		
+		ArrayList<PlaceBean> articleList = null;
+		
+		Connection con = getConnection();
+		PlaceDAO placeDAO = PlaceDAO.getInstance();
+		placeDAO.setConnection(con);
+		
+		articleList = placeDAO.selectList();
+		
+		close(con);
+		
+		
+		return articleList;
+	}
 
 }

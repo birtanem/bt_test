@@ -88,7 +88,7 @@
                     			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
                     		<c:otherwise>
-                    			<li><a href="PlaceList.pl?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a href="PlaceList.pl?check=2&page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
                     
@@ -99,7 +99,7 @@
                     				<li class="active"><a>${a }</a></li>
                     			</c:when>
                     			<c:otherwise>
-									<li><a href="PlaceList.pl?page=${a }">${a }</a></li>
+									<li><a href="PlaceList.pl?check=2&page=${a }">${a }</a></li>
                     			</c:otherwise>
                     		</c:choose>
                     	

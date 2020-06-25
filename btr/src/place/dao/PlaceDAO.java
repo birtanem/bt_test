@@ -519,5 +519,43 @@ public class PlaceDAO {
 			
 			return articleList;
 		}
+
+		public ArrayList<PlaceBean> selectList() {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<PlaceBean> articleList = new ArrayList<PlaceBean>();
+			try {
+				String sql = "SELECT * FROM place";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					// 1개 레코드(게시물)를 저장할 BoardBean 객체 생성
+					PlaceBean article = new PlaceBean();
+					// BoardBean 객체에 조회된 레코드(게시물) 정보를 저장
+					article.setPl_num(rs.getInt("pl_num"));
+					article.setRegion_code(rs.getInt("region_code"));
+					article.setPl_name(rs.getString("pl_name"));
+					article.setPl_content(rs.getString("pl_content"));
+					article.setPl_address(rs.getString("pl_address"));
+					article.setPl_image(rs.getString("pl_image"));
+					article.setPl_readcount(rs.getInt("pl_readcount"));
+					article.setPl_likecount(rs.getInt("pl_likecount"));
+					article.setPl_date(rs.getDate("pl_date"));
+					article.setPl_theme(rs.getString("pl_theme"));
+					
+					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
+					articleList.add(article);}
+				
+			} catch (Exception e) {
+				System.out.println("PlaceDAO - selectArticleList() (search)실패! : " + e.getMessage());
+			} finally {
+				// DB 자원 반환
+				close(rs);
+				close(pstmt);
+			}
+			
+			return articleList;
+		}
 	
 }
