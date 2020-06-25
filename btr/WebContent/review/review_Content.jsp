@@ -210,9 +210,11 @@
 				dataType : "json",
 				success : function(rdata){
 					$('#likeCount').html(rdata.likecount);
-					
+						alert("좋아요 하셨습니다.");
+					},
+					error:function(){
+						alert("이미 좋아요 하셨습니다.");
 					}
-					
 				});
 			
 			}

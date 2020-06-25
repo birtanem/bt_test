@@ -22,30 +22,23 @@ public class ReviewLikeAction implements Action {
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
 		String page = request.getParameter("page");
 		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		System.out.println("ReviewLikeAction");
 		String id = request.getParameter("id");
-		String ip = request.getParameter("ip");
-		System.out.println(ip);
+		System.out.println(id);
 		ReviewContentService reviewContentService = new ReviewContentService();
 		
 		boolean likeArticle = reviewContentService.LikeArticle(r_num, id);
-		
+
 		if (!likeArticle) {
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			
+			System.out.println("123");
 			out.println("<script>");
 			out.println("alert('좋아요 실패!')");
-			out.println("history.back()");
 			out.println("</script>");
 			
 		}else {
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			System.out.println("좋아요 성공");
 			
 			ReviewBean article = reviewContentService.getArticle(r_num);
 			

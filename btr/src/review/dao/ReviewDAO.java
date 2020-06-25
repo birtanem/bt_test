@@ -389,13 +389,7 @@ public class ReviewDAO {
 		
 		try {
 			
-			String sql = "set foreign_key_checks=0";
-			
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.executeUpdate();
-			
-			sql = "delete from review where r_num = ?";
+			String sql = "delete from review where r_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -403,11 +397,6 @@ public class ReviewDAO {
 			
 			deleteCount = pstmt.executeUpdate();
 			
-			sql = "set foreign_key_checks=1";
-			
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println("BoardDAO - Delete() 실패! : " + e.getMessage());
@@ -417,10 +406,8 @@ public class ReviewDAO {
 		return deleteCount;
 	}
 
-	public int UpdateLikeCount(int r_num) {
+	public void UpdateLikeCount(int r_num) {
 
-		int likeCount = 0;
-		
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -430,7 +417,7 @@ public class ReviewDAO {
 			
 			pstmt.setInt(1, r_num);
 			
-			likeCount = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println("BoardDAO - UpdateLikeCount() 실패! : " + e.getMessage());
@@ -438,7 +425,6 @@ public class ReviewDAO {
 			close(pstmt);
 		}
 		
-		return likeCount;
 	}
 
 	public int UserCheck(int r_num, String r_id) {
@@ -471,6 +457,74 @@ public class ReviewDAO {
 		}
 		
 		return userCheck;
+	}
+
+	public int likeCheck(int r_num, String id) {
+		System.out.println("BoardDAO - likeCheck");
+		int article = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from like_check where review_r_num = ? and review_member_member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, r_num);
+			pstmt.setString(2, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				if (id.equals(rs.getString(2))) {
+					
+					article =1;
+				}else {
+					article = 0;
+				}
+			}else {
+				article = -1;
+			}
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - likeCheck() 실패! : " + e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return article;
+	}
+
+	public int insertLike(int r_num, String id) {
+		
+		int insertCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			String sql = "set foreign_key_checks=0";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.executeUpdate();
+			
+			sql = "insert into like_check values(?,?)";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, r_num);
+			pstmt.setString(2, id);
+			
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO - insertLike() 실패! : " + e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
 	}
 
 }
