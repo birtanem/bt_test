@@ -96,7 +96,7 @@ public class CommentDAO {
 		int articleCount = 0;
 		
 		try {
-			String sql = "select count(rc_num) from review_comment where review_review_num = ?";
+			String sql = "select count(rc_num) from review_comment where review_r_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -126,7 +126,7 @@ public class CommentDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from review_comment where review_review_num = ?"
+			String sql = "select * from review_comment where review_r_num = ?"
 					+ " order by rc_ref desc, rct_lev asc";
 			
 			pstmt = con.prepareStatement(sql);
@@ -140,8 +140,8 @@ public class CommentDAO {
 				CommentBean article = new CommentBean();
 				
 				article.setRc_num(rs.getInt("rc_num"));
-				article.setR_num(rs.getInt("review_review_num"));
-				article.setRc_id(rs.getString("review_member_member_id"));
+				article.setR_num(rs.getInt("review_r_num"));
+				article.setRc_id(rs.getString("member_id"));
 				article.setRc_content(rs.getString("rc_content"));
 				article.setRc_date(rs.getDate("rc_date"));
 				article.setRc_ref(rs.getInt("rc_ref"));
@@ -250,8 +250,8 @@ public class CommentDAO {
 				article = new CommentBean();
 				
 				article.setRc_num(rs.getInt("rc_num"));
-				article.setR_num(rs.getInt("review_review_num"));
-				article.setRc_id(rs.getString("review_member_member_id"));
+				article.setR_num(rs.getInt("review_r_num"));
+				article.setRc_id(rs.getString("member_id"));
 				article.setRc_content(rs.getString("rc_content"));
 				article.setRc_date(rs.getDate("rc_date"));
 				article.setRc_ref(rs.getInt("rc_ref"));

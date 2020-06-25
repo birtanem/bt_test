@@ -124,7 +124,7 @@ public class ReviewDAO {
 		
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
-		String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+		String r_cnt = "(select count(rc_num) from review_comment where review_r_num = r_num)";
 		String r_name = "(select region_name from region where region_code = region_region_code)";
 		
 		try {
@@ -143,7 +143,7 @@ public class ReviewDAO {
 				ReviewBean reviewBean = new ReviewBean();
 				
 				reviewBean.setR_num(rs.getInt("r_num"));
-				reviewBean.setR_id(rs.getString("member_member_id"));
+				reviewBean.setR_id(rs.getString("member_id"));
 				reviewBean.setR_subject(rs.getString("r_subject"));
 				reviewBean.setR_content(rs.getString("r_content"));
 				reviewBean.setR_readcount(rs.getInt("r_readcount"));
@@ -177,7 +177,7 @@ public class ReviewDAO {
 		
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
-		String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+		String r_cnt = "(select count(rc_num) from review_comment where review_r_num = r_num)";
 		String r_name = "(select region_name from region where region_code = region_region_code)";
 		
 		try {
@@ -197,7 +197,7 @@ public class ReviewDAO {
 				ReviewBean reviewBean = new ReviewBean();
 				
 				reviewBean.setR_num(rs.getInt("r_num"));
-				reviewBean.setR_id(rs.getString("member_member_id"));
+				reviewBean.setR_id(rs.getString("member_id"));
 				reviewBean.setR_subject(rs.getString("r_subject"));
 				reviewBean.setR_content(rs.getString("r_content"));
 				reviewBean.setR_readcount(rs.getInt("r_readcount"));
@@ -231,12 +231,12 @@ public class ReviewDAO {
 		
 		ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 		
-		String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+		String r_cnt = "(select count(rc_num) from review_comment where review_r_num = r_num)";
 		String r_name = "(select region_name from region where region_code = region_region_code)";
 		
 		try {
 			String sql = "select *, "+r_cnt+" as r_cnt,"+r_name+" as r_name "
-					+ "from review where r_subject like ? or r_content like ? or member_member_id like ? "
+					+ "from review where r_subject like ? or r_content like ? or member_id like ? "
 					+ "or "+r_name+" like ?"
 					+ "order by r_num desc limit ?,?";
 					// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
@@ -257,7 +257,7 @@ public class ReviewDAO {
 				ReviewBean reviewBean = new ReviewBean();
 				
 				reviewBean.setR_num(rs.getInt("r_num"));
-				reviewBean.setR_id(rs.getString("member_member_id"));
+				reviewBean.setR_id(rs.getString("member_id"));
 				reviewBean.setR_subject(rs.getString("r_subject"));
 				reviewBean.setR_content(rs.getString("r_content"));
 				reviewBean.setR_readcount(rs.getInt("r_readcount"));
@@ -306,7 +306,7 @@ public class ReviewDAO {
 				article = new ReviewBean();
 				
 				article.setR_num(rs.getInt("r_num"));
-				article.setR_id(rs.getString("member_member_id"));
+				article.setR_id(rs.getString("member_id"));
 				article.setR_subject(rs.getString("r_subject"));
 				article.setR_content(rs.getString("r_content"));
 				article.setR_readcount(rs.getInt("r_readcount"));
@@ -435,7 +435,7 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select member_member_id from review where r_num = ?";
+			String sql = "select member_id from review where r_num = ?";
 			
 			pstmt = con.prepareStatement(sql);
 			
