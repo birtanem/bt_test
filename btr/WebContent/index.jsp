@@ -340,7 +340,7 @@ font-weight: bold;
 letter-spacing: 5px;
 }
 .place{
-width: 1100px;
+width: 800px;
 margin: 0 auto;
 }
 #mig{
@@ -399,9 +399,9 @@ margin-bottom: 10px;
 				$.each(rdata, function(index, item){
 					var imgpath="placeUpload/"+item.pl_img;
 					if((item.session)==item.pl_theme){
-						$('.here').append('<img src="'+imgpath+'"alt="'+item.pl_theme+'"id="mig" width="300" height="300">');
+						$('.here').append('<a href="PlaceDetail.pl?pl_num='+item.pl_num+'"><img src="'+imgpath+'"alt="'+item.pl_theme+'"id="mig" width="300" height="300"></a>');
 					}else if(item.session==null){
-						$('.here').append('<img src="'+imgpath+'"id="mig" width="300" height="300">');
+						$('.here').append('<a href="PlaceDetail.pl?pl_num='+item.pl_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
 					}
 					
 				});
