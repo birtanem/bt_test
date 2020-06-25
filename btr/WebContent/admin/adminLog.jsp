@@ -51,47 +51,62 @@ float: left;
 
 <!-- Chart code -->
 <script>
-am4core.ready(function() {
+$(document).ready(function() {
+	
+	am4core.ready(function() {
+		
+		// Themes begin
+		am4core.useTheme(am4themes_animated);
+		// Themes end
 
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
+		// Create chart instance
+		var chart = am4core.create("chartdiv", am4charts.PieChart);
 
-// Create chart instance
-var chart = am4core.create("chartdiv", am4charts.PieChart);
+		// Add data
+		chart.data = [ {
+		  "취향": "여행",
+		  "litres": Math.round($("#htype").val()/$("#htype3").val()*100)		 
+		}, {
+		  "취향": "맛집",
+		  "litres": Math.round($("#htype2").val()/$("#htype3").val()*100)
+		}];
 
-// Add data
-chart.data = [ {
-  "성별": "여",
-  "litres": 50,
- 
-}, {
-  "성별": "남",
-  "litres": 50
-}];
+		// Add and configure Series
+		var pieSeries = chart.series.push(new am4charts.PieSeries());
+		pieSeries.dataFields.value = "litres";
+		pieSeries.dataFields.category = "취향";
+		pieSeries.slices.template.stroke = am4core.color("#fff");
+		pieSeries.slices.template.strokeWidth = 2;
+		pieSeries.slices.template.strokeOpacity = 1;
 
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "litres";
-pieSeries.dataFields.category = "성별";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
+		// This creates initial animation
+		pieSeries.hiddenState.properties.opacity = 1;
+		pieSeries.hiddenState.properties.endAngle = -90;
+		pieSeries.hiddenState.properties.startAngle = -90;
 
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
+		}); // end am4core.ready()
+});
 
-}); // end am4core.ready()
 </script>
 
 
 
 <!-- Styles -->
 <style>
-#chartdiv2 {
 
+#chartdiv {
+	float: left;
+  width: 500px;
+
+
+}
+
+</style>
+
+
+
+<style>
+#chartdiv2 {
 float: right;
   width: 500px;
   height: 400px;
@@ -106,79 +121,100 @@ float: right;
 
 <!-- Chart code -->
 <script>
-am4core.ready(function() {
+$(document).ready(function() {
+	
+	am4core.ready(function() {
+		// Themes begin
+		am4core.useTheme(am4themes_animated);
+		// Themes end
 
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
+		var chart = am4core.create("chartdiv2", am4charts.XYChart);
+		chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+		chart.data = [{
+			 "count": $('#hdate7').val(),
+			 "visits": $('#hmember7').val()
+			}, {
+			 "count": $('#hdate6').val(),
+			 "visits": $('#hmember6').val()
+			}, {
+			 "count": $('#hdate5').val(),
+			 "visits": $('#hmember5').val()
+			}, {
+			 "count": $('#hdate4').val(),
+			 "visits": $('#hmember4').val()
+			}, {
+			 "count": $('#hdate3').val(),
+			 "visits": $('#hmember3').val()
+			}, {
+			 "count": $('#hdate2').val(),
+			 "visits": $('#hmember2').val()
+			}, {
+			 "count": $('#hdate1').val(),
+			 "visits": $('#hmember1').val()
+			}];
 
+		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+		categoryAxis.renderer.grid.template.location = 0;
+		categoryAxis.dataFields.category = "count";
+		categoryAxis.renderer.minGridDistance = 40;
+		categoryAxis.fontSize = 11;
 
-var chart = am4core.create("chartdiv2", am4charts.XYChart);
+		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+		valueAxis.min = 0;
+		valueAxis.max = 1000;
+		valueAxis.strictMinMax = true;
+		valueAxis.renderer.minGridDistance = 30;
+		// axis break
+		var axisBreak = valueAxis.axisBreaks.create();
+		axisBreak.startValue = 500;
+		axisBreak.endValue = 600;
+		//axisBreak.breakSize = 0.005;
 
-chart.data = [{
- "country": "USA",
- "visits": 2025
-}, {
- "country": "China",
- "visits": 1882
-}, {
- "country": "Japan",
- "visits": 1809
-}, {
- "country": "Germany",
- "visits": 1322
-}];
+		// fixed axis break
+		var d = (axisBreak.endValue - axisBreak.startValue) / (valueAxis.max - valueAxis.min);
+		axisBreak.breakSize = 0.05 * (1 - d) / d; 
 
-chart.padding(40, 40, 40, 40);
+		// make break expand on hover
+		var hoverState = axisBreak.states.create("hover");
+		hoverState.properties.breakSize = 1;
+		hoverState.properties.opacity = 0.1;
+		hoverState.transitionDuration = 1500;
 
-var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.dataFields.category = "country";
-categoryAxis.renderer.minGridDistance = 60;
-categoryAxis.renderer.inversed = true;
-categoryAxis.renderer.grid.template.disabled = true;
+		axisBreak.defaultState.transitionDuration = 1000;
+		/*
+		// this is exactly the same, but with events
+		axisBreak.events.on("over", function() {
+		  axisBreak.animate(
+		    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+		    1500,
+		    am4core.ease.sinOut
+		  );
+		});
+		axisBreak.events.on("out", function() {
+		  axisBreak.animate(
+		    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+		    1000,
+		    am4core.ease.quadOut
+		  );
+		});*/
 
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.min = 0;
-valueAxis.extraMax = 0.1;
-//valueAxis.rangeChangeEasing = am4core.ease.linear;
-//valueAxis.rangeChangeDuration = 1500;
+		var series = chart.series.push(new am4charts.ColumnSeries());
+		series.dataFields.categoryX = "count";
+		series.dataFields.valueY = "visits";
+		series.columns.template.tooltipText = "{valueY.value}";
+		series.columns.template.tooltipY = 0;
+		series.columns.template.strokeOpacity = 0;
 
-var series = chart.series.push(new am4charts.ColumnSeries());
-series.dataFields.categoryX = "country";
-series.dataFields.valueY = "visits";
-series.tooltipText = "{valueY.value}"
-series.columns.template.strokeOpacity = 0;
-series.columns.template.column.cornerRadiusTopRight = 10;
-series.columns.template.column.cornerRadiusTopLeft = 10;
-//series.interpolationDuration = 1500;
-//series.interpolationEasing = am4core.ease.linear;
-var labelBullet = series.bullets.push(new am4charts.LabelBullet());
-labelBullet.label.verticalCenter = "bottom";
-labelBullet.label.dy = -10;
-labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+		// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+		series.columns.template.adapter.add("fill", function(fill, target) {
+		  return chart.colors.getIndex(target.dataItem.index);
+		});
 
-chart.zoomOutButton.disabled = true;
+		}); // end am4core.ready()
+	
+})
 
-// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", function (fill, target) {
- return chart.colors.getIndex(target.dataItem.index);
-});
-
-setInterval(function () {
- am4core.array.each(chart.data, function (item) {
-   item.visits += Math.round(Math.random() * 200 - 100);
-   item.visits = Math.abs(item.visits);
- })
- chart.invalidateRawData();
-}, 2000)
-
-categoryAxis.sortBySeries = series;
-
-}); // end am4core.ready()
 </script>
-
-
 </head>
 <body>
 	<jsp:include page="/inc/top.jsp" />
@@ -199,58 +235,45 @@ categoryAxis.sortBySeries = series;
         <!--/.container-->
     </section>
     <!--/#middle-->
-    
-    	<section id="feature">
-        <div class="container">
-
-            <div class="row">
-                <div class="features">
-                    <div class="col-md-3 col-sm-4 fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <div class="icon">
-                                <i class="fa fa-check"></i>
-                            </div>
-                            <h2>총 가입자수</h2>
-                            <p><fmt:formatNumber value="${total.memberCount }" pattern="###,###,###" /></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-4 fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <div class="icon">
-                                <i class="fa fa-check"></i>
-                            </div>
-                            <h2>총 판매액</h2>
-                            <p><fmt:formatNumber value="${total.revenue }" pattern="###,###,###" /></p>
-                        </div>
-                    </div>
-                   <div class="col-md-3 col-sm-4 fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <div class="icon">
-                                <i class="fa fa-check"></i>
-                            </div>
-                            <h2>총 조회수</h2>
-                            <p><fmt:formatNumber value="${total.boardCount }" pattern="###,###,###" /></p>
-                        </div>
-                    </div>
-                    <!--/.col-md-3-->
-                </div>
-                <!--/.services-->
-            </div>
-            <!--/.row-->
-        </div>
-        <!--/.container-->
-    </section>
 	
 	<section id="portfolio">
 		<div class="container">
-			<h1></h1>
-			<div id="chartdiv" class="row"></div>
-			<div id="chartdiv2" class="row"></div>
+		<h2 style=" height: 60px; padding: 20px;">데이터 총계</h2>
+				<table class="ot_info">
+		<tr>
+			<th>총 가입자 수</th>
+			<th>총 판매액</th>
+			<th>총 조회수</th>
+		</tr>
+		<tr>
+			<td><fmt:formatNumber value="${total.joinCount }" pattern="###,###,###" /></td>
+			<td><fmt:formatNumber value="${total.revenue }" pattern="###,###,###" /></td>
+			<td><fmt:formatNumber value="${total.readCount }" pattern="###,###,###" /></td>
+		</tr>
+		</table>
+		
+			<!-- 취향 비율 -->
+			<input type="hidden" id="htype" value="${type[0] }">
+			<input type="hidden" id="htype2" value="${type[1] }">
+			<input type="hidden" id="htype3" value="${type[0] + type[1] }">
+			<!-- /취향 비율 -->
+			<!--  가입자 추이 -->
+			<c:forEach var="hList" items="${list }" varStatus="status">
+			<input type="hidden" id="hdate${status.count}" value="<fmt:parseDate var="dateString" value="${hList.date}" pattern="yyyy-MM-dd" /><fmt:formatDate value="${dateString }" pattern="MM.dd" />">			
+			<input type="hidden" id="hmember${status.count}" value="${hList.joincount}">			
+			</c:forEach>
 			
-
+			<!--  /가입자 추이 -->
+			
+			<h2 style=" height: 60px; padding: 20px;">관심사 & 가입자 수 차트</h2>
+			<div style=" height: 500px; padding: 50px; background-color: #f4f4f4">
+			<div id="chartdiv" class="row" ></div>
+			<div id="chartdiv2" class="row" ></div>
+			</div>			
+		
     <!--/#feature-->
     		<div style="clear: both;">
-    		<h2>일별 데이터</h2>
+    		<h2 style=" height: 60px; padding: 20px;">일별 데이터 증감율</h2>
     		</div>
 			<table class="ot_info">
 					<tr>
@@ -266,46 +289,46 @@ categoryAxis.sortBySeries = series;
 					<tr>
 						<td>${list.date }<td>
 						<c:choose>
-						<c:when test="${list.mrate > 0 }">
-							<td style="color: red;">▲${list.mrate }%</td>
+						<c:when test="${list.jrate > 0 }">
+							<td style="color: red;">▲<fmt:formatNumber value="${list.jrate }" pattern="###,###,###" />%</td>
 						</c:when>
-						<c:when test="${list.mrate == 0 }">
-							<td>${list.mrate }%</td>
+						<c:when test="${list.jrate == 0 }">
+							<td><fmt:formatNumber value="${list.jrate }" pattern="###,###,###" />%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.mrate }%</td>
+							<td style="color: blue;">▼<fmt:formatNumber value="${list.jrate*-1 }" pattern="###,###,###" />%</td>
 						</c:otherwise>
 						</c:choose>
 						
-						<td>${list.member }</td>
+						<td><fmt:formatNumber value="${list.joincount }" pattern="###,###,###" /></td>
 						
 						<c:choose>
-						<c:when test="${list.rrate > 0 }">
-							<td style="color: red;">▲${list.rrate }%</td>
+						<c:when test="${list.revrate > 0 }">
+							<td style="color: red;">▲<fmt:formatNumber value="${list.revrate }" pattern="###,###,###" />%</td>
 						</c:when>
-						<c:when test="${list.rrate == 0 }">
-							<td>${list.rrate }%</td>
+						<c:when test="${list.revrate == 0 }">
+							<td><fmt:formatNumber value="${list.revrate }" pattern="###,###,###" />%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.rrate }%</td>
+							<td style="color: blue;">▼<fmt:formatNumber value="${list.revrate*-1 }" pattern="###,###,###" />%</td>
 						</c:otherwise>
 						</c:choose>
 						
-						<td>${list.revenue }</td>
+						<td><fmt:formatNumber value="${list.revenue }" pattern="###,###,###" /></td>
 				
 						<c:choose>
-						<c:when test="${list.brate > 0 }">
-							<td style="color: red;">▲${list.brate }%</td>
+						<c:when test="${list.readrate > 0 }">
+							<td style="color: red;">▲<fmt:formatNumber value="${list.readrate }" pattern="###,###,###" />%</td>
 						</c:when>
-						<c:when test="${list.brate == 0 }">
-							<td>${list.brate }%</td>
+						<c:when test="${list.readrate == 0 }">
+							<td><fmt:formatNumber value="${list.readrate }" pattern="###,###,###" />%</td>
 						</c:when>
 						<c:otherwise>
-							<td style="color: blue;">▼${list.brate }%</td>
+							<td style="color: blue;">▼<fmt:formatNumber value="${list.readrate*-1 }" pattern="###,###,###" />%</td>
 						</c:otherwise>
 						</c:choose>
 						
-						<td>${list.board }</td>
+						<td><fmt:formatNumber value="${list.readcount }" pattern="###,###,###" /></td>
 						
 					</tr>
 					</c:forEach>

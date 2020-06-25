@@ -48,6 +48,8 @@ String type = request.getParameter("type");
 
 #spanCount1{
 	font-size: 23px;
+    color: black;
+    font-weight: bold;
 }
 
 #spanCount2{
@@ -56,15 +58,37 @@ String type = request.getParameter("type");
     color: black;
 }
 
+#spanCount3{
+	font-size: 23px;
+    font-weight: bold;
+    color: white;
+}
+
 /* 회원 관리용 버튼  */
 #btnMem {
-	float: right;
     margin-bottom: 20px;
+    margin-top: 20px;
+    margin-right: 5px;
+    color: white;
+	background-color: #6868ff;
+}
+
+#btnMem1 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-right: 5px;
+    color: white;
+	background-color: #6868ff;
 }
 
 /* 회원 정렬 및 검색 버튼 */
 #btnSearch{
 
+}
+
+#btnSearch1{
+	color: white;
+	background-color: #6868ff;
 }
 
 #btnIdArray{
@@ -106,8 +130,7 @@ String type = request.getParameter("type");
 }
 
 #divBtn3 {
-    margin-top: 0px;
-
+    height: 35px;
 }
 
 #divN {
@@ -119,12 +142,18 @@ String type = request.getParameter("type");
 
 #divInfo {
 	width: 280px;
-    background-color: #ffffb0;
-    color: black;
+    background-color: #3131ff;
+    color: white;
     font-weight: bold;
     padding: 3px;
     margin-top: 10px;
 }
+
+#ddd {
+	background-color: #3131ff;
+	
+}
+
 </style>
 <script type="text/javascript">
 
@@ -168,10 +197,115 @@ function btnSearch() {
 	}
 }
 
-function changePoint() {
-		
+//포인트 변경 버튼
+function btnPointChange() {
+	$(".pointChange").html(
+			
+			'<input type="text" name="cPoint" id="cPoint" placeholder="변경할 포인트">'
+			+ '<input type="button" id="btnMem1" value="변경 완료" onclick="btnChangeConfirm()">'	
+	);
 }
 
+function btnChangeConfirm() {
+	
+	if($('#cPoint').val() == ""){
+		alert("변경 포인트를 입력하세요");
+		return false;
+	} else if(!/^[0-9]/.test($('#cPoint').val())){
+		alert("변경 포인트는 숫자값을 입력하세요");
+		return false;
+	}
+	
+	if(!confirm("포인트를 변경하시겠습니까?")){
+		return false;
+		
+	} else {
+		var params = "selectId=" + $("#selectId").val() + "&&" + "cPoint=" + $("#cPoint").val();
+		
+			$.ajax({
+			url : 'MemberGetMemAction.me',
+			type : 'post',
+			data : params,
+			dataType : 'json',
+			success : function(rdata) {
+				$(".pointChange").html("");
+				$('.memInfo').html("");
+		        $.each(rdata,function(index,item){
+		        	
+					$('.memInfo').html(
+							
+							'<div id="divInfo">'
+							+ '<input type="hidden" id="selectId" value="'+item.get_id+'">'
+	                		+ '<span id="span1">아이디  </span><span>'+item.get_id+'</span><br>'
+	                		+ '<span id="span1">이름  </span><span>'+item.get_name+'</span><br>'
+	                		+ '<span id="span1">나이  </span><span>'+item.get_age+'</span><br>'
+	                		+ '<span id="span1">성별  </span><span>'+item.get_gender+'</span><br>'
+	                		+ '<span id="span1">이메일  </span><span>'+item.get_email+'</span><br>'
+	                		+ '<span id="span1">휴대폰  </span><span>'+item.get_phone+'</span><br>'
+	                		+ '<span id="span1">가입날짜  </span><span>'+item.get_date+'</span><br>'
+	                		+ '<span id="span1">포인트  </span><span>'+item.get_point+'</span><br>'
+	                		+ '<span id="span1">타입  </span><span>'+item.get_type+'</span><br>'
+	                		+ '</div>'
+	                		+ '<div id="divBtn3">'
+	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
+	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴">'
+	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
+	                		+ '</div>'
+	               	);
+		        });
+		        alert("포인트 변경 완료!");
+			}, error : function() {
+					console.log("실패");
+			}
+		});	
+	}
+}
+
+
+//----------------------------------------------
+//회원 선택 기능 
+$(document).ready(function(){
+	$("#btnSearch1").click(function() {
+		var formData = $("#searchId1").serialize() ;
+// 		$("#id_check").text("5~12자 영문의 아이디 입력하세요");
+// 		$("#id_check").css("color","red");
+// 		$("#idCheck").attr("value", "denied");
+			$.ajax({
+			url : 'MemberGetMemAction.me',
+			type : 'post',
+			data : formData,
+			dataType : 'json',
+			success : function(rdata) {
+				$('.memInfo').html("");
+	
+		        $.each(rdata,function(index,item){
+					$('.memInfo').html(
+							
+							'<div id="divInfo">'
+							+ '<input type="hidden" id="selectId" value="'+item.get_id+'">'
+	                		+ '<span id="span1">아이디  </span><span>'+item.get_id+'</span><br>'
+	                		+ '<span id="span1">이름  </span><span>'+item.get_name+'</span><br>'
+	                		+ '<span id="span1">나이  </span><span>'+item.get_age+'</span><br>'
+	                		+ '<span id="span1">성별  </span><span>'+item.get_gender+'</span><br>'
+	                		+ '<span id="span1">이메일  </span><span>'+item.get_email+'</span><br>'
+	                		+ '<span id="span1">휴대폰  </span><span>'+item.get_phone+'</span><br>'
+	                		+ '<span id="span1">가입날짜  </span><span>'+item.get_date+'</span><br>'
+	                		+ '<span id="span1">포인트  </span><span>'+item.get_point+'</span><br>'
+	                		+ '<span id="span1">타입  </span><span>'+item.get_type+'</span><br>'
+	                		+ '</div>'
+	                		+ '<div id="divBtn3">'
+	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
+	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴">'
+	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
+	                		+ '</div>'
+	               	);
+		        });
+			}, error : function() {
+					console.log("실패");
+			}
+		});	
+	});
+});
 //----------------------------------------------
 
 
@@ -218,23 +352,25 @@ function changePoint() {
                     </div>
                     
                     <div class="blog-item">
+                   	 <div id="ddd">
                         <div class="blog-content">
-                       		<span id="spanCount1">회원 관리 기능 </span>
+                       		<span id="spanCount3">회원 관리 기능 </span>
                        		<span id="id_check"></span>
 	                    	<div id="divBtn1">
 								<input type="text" name="id" id="searchId1" placeholder="선택 아이디 입력">
 								<input type="button" id="btnSearch1" value="아이디 선택">
-								  <div id="divBtn3">
-									<input type="button" id="btnMem" value="포인트 변경" onclick="changePoint()">
-									<input type="button" id="btnMem" value="아이디 탈퇴">
-									<input type="button" id="btnMem" value="아이디  수정">
-								  </div>
 									<!--회원정보 불러오기 -->
 	                    			<div class="memInfo">
 	                    			</div>
 	                    			<!--회원정보 불러오기 끝-->
+	                    			
+	                    			<!--포인트 변경 버튼 클리깃 나타나는 창-->
+	                    			<div class="pointChange">
+	                    			</div>
+	                    			<!--포인트 변경 버튼 클리깃 나타나는 창-->
 	                    	</div>        		   
                         </div>
+                     </div>
                     </div>
                     
 
@@ -317,50 +453,4 @@ function changePoint() {
     <script src="../js/jquery.isotope.min.js"></script>
     <script src="../js/main.js"></script>
 </body>
-<script type="text/javascript">
-
-$(document).ready(function(){
-	
-
-$("#btnSearch1").click(function() {
-	var formData = $("#searchId1").serialize() ;
-	
-// 		$("#id_check").text("5~12자 영문의 아이디 입력하세요");
-// 		$("#id_check").css("color","red");
-// 		$("#idCheck").attr("value", "denied");
-
-		$.ajax({
-		url : 'MemberGetMemAction.me',
-		type : 'post',
-		data : formData,
-		dataType : 'json',
-		success : function(rdata) {
-			$('.memInfo').html("");
-
-	        $.each(rdata,function(index,item){
-				$('.memInfo').html(
-						
-						'<div id="divInfo">'
-                		+ '<span id="span1">아이디  </span><span>'+item.get_id+'</span><br>'
-                		+ '<span id="span1">이름  </span><span>'+item.get_name+'</span><br>'
-                		+ '<span id="span1">나이  </span><span>'+item.get_age+'</span><br>'
-                		+ '<span id="span1">성별  </span><span>'+item.get_gender+'</span><br>'
-                		+ '<span id="span1">이메일  </span><span>'+item.get_email+'</span><br>'
-                		+ '<span id="span1">휴대폰  </span><span>'+item.get_phone+'</span><br>'
-                		+ '<span id="span1">가입날짜  </span><span>'+item.get_date+'</span><br>'
-                		+ '<span id="span1">포인트  </span><span>'+item.get_point+'</span><br>'
-                		+ '<span id="span1">타입  </span><span>'+item.get_type+'</span><br>'
-                		+ '</div>'
-                		
-               	);
-	        });
-		}, error : function() {
-				console.log("실패");
-		}
-	});	
-});
-
-});
-
-</script>
 </html>

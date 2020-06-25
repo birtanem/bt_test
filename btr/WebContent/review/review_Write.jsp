@@ -59,9 +59,56 @@
         });
     }
     
+    function regionCheck(){
+    	
+        if ($("#r_code option:selected").val() == "0") {
+            alert("지역 선택해주세요!");
+            return false;
+        }else {
+            return true;
+        }
+    }
+    
+    function subjectCheck(){
+    	
+        if ($("#r_subject").val() == "") {
+            alert("제목 입력해주세요!");
+            return false;
+        }else {
+            return true;
+        }
+    }
+    
+    function contentCheck(){
+    	
+        if ($(".r_content").val() == "") {
+            alert("내용 입력해주세요!");
+            return false;
+        }else {
+            return true;
+        }
+    }
+    
+    function writeCheck(){
+    	
+        if (regionCheck() &&
+        	subjectCheck() &&
+        	contentCheck()) {
+            
+        	if (confirm("입력하신 정보로 작성하시겠습니까?")) {
+        	    return true;
+			}else {
+				return false;
+			}
+        	
+        }else {
+            return false;
+        }
+        
+    }
 
     </script>
-    
+
 </head>
 <body>
     <c:if test="${sessionScope.id == null}">
@@ -79,7 +126,7 @@
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
                 
-                <form action="Review_WritePro.re" enctype="multipart/form-data" method="post">
+                <form action="Review_WritePro.re" name="writeForm" enctype="multipart/form-data" method="post" onsubmit="return writeCheck()">
                     <div class="col-sm-offset-1">
                     <div class="col-sm-5">
                         <div class="form-group">
@@ -93,7 +140,7 @@
                         <div class="col-sm-5">
                         <div class="form-group">
                         <label>지역 : </label>
-                            <select name="r_code" class="form-control">
+                            <select id="r_code" name="r_code" class="form-control">
                                 <option value="0">지역 선택하세요</option>
                                 <option value="1">강서구</option>
                                 <option value="2">금정구</option>
@@ -118,10 +165,10 @@
                       <div class="col-sm-10 ">
                       <div class="form-group ">
                             <label>주제 : </label>
-                            <input type="text" name="r_subject" class="form-control"/>
+                            <input type="text" id="r_subject" name="r_subject" class="form-control" required/>
                         </div>
                             <label>글 내용</label>
-                            <textarea id="summernote" name="r_content">글을 등록해주세요</textarea>
+                            <textarea id="summernote" name="r_content" class="r_content" required>글 등록해주세요</textarea>
                             
                             <div class="form-group">
                             <button type="submit" name="submit" class="btn btn-primary btn-lg" >글 등록</button>
@@ -150,7 +197,8 @@
                     }
                 });
             });
-    </script>
+   </script>
+
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/owl.carousel.min.js"></script>

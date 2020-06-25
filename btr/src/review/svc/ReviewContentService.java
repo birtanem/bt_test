@@ -35,26 +35,34 @@ public class ReviewContentService {
 		
 	}
 
-	public boolean getLikeArticle(int r_num) {
+	public boolean LikeArticle(int r_num, String id) {
 
 		boolean likeArticle = false;
-		System.out.println("ReviewContentService - getLikeArticle");
+		System.out.println("ReviewContentService - LikeArticle");
 		Connection con = getConnection();
 		
 		ReviewDAO reviewDAO = ReviewDAO.getInstance();
 		
 		reviewDAO.setConnection(con);
 		
-		int likeCount = reviewDAO.UpdateLikeCount(r_num);
+		int likeCheck = reviewDAO.likeCheck(r_num, id);
 
-		if (likeCount > 0) {
-			commit(con);
-			likeArticle = true;
+		if (likeCheck == 0 || likeCheck == -1) {
+			
+		int insertCount = reviewDAO.insertLike(r_num, id);
+		
+			if (insertCount > 0) {
+					
+				reviewDAO.UpdateLikeCount(r_num);
+				likeArticle = true;
+				commit(con);
+			}
+			
 		}else {
 			rollback(con);
 		}
-		close(con);
-		
+			close(con);
+			
 		return likeArticle;
 	}
 	

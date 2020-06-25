@@ -7,13 +7,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import admin.dao.AdminDAO;
 
 
 public class AdminLogActionService {
 
-	public int getMemberCount() {
+	public int geTtotalJoinCount() {
 		
 		System.out.println("AdminLogActionService");
 		
@@ -23,14 +24,14 @@ public class AdminLogActionService {
 		
 		adminDAO.setConnection(con);
 		
-		int memberCount = adminDAO.getMemberCount(); 
+		int memberCount = adminDAO.getTotalJoinCount(); 
 		
 		close(con);
 		
 		return memberCount;
 	}
 	
-	public int getBoardCount() {
+	public int getTotalReadCount() {
 		
 		System.out.println("AdminLogActionService");
 		
@@ -40,14 +41,14 @@ public class AdminLogActionService {
 		
 		adminDAO.setConnection(con);
 		
-		int placeCount = adminDAO.getPlaceCount(); 
+		int placeCount = adminDAO.getTotalReadCount(); 
 		
 		close(con);
 		
 		return placeCount;
 	}
 	
-	public long getRevenue() {
+	public long getTotalRevenue() {
 		
 		System.out.println("AdminLogActionService");
 		
@@ -57,14 +58,14 @@ public class AdminLogActionService {
 		
 		adminDAO.setConnection(con);
 		
-		long revenue = adminDAO.getRevenue(); 
+		long revenue = adminDAO.getTotalRevenue(); 
 		
 		close(con);
 		
 		return revenue;
 	}
 
-	public JSONArray getRevenueLog() {
+	public JSONArray getDailyLog() {
 		
 		System.out.println("AdminLogActionService");
 		
@@ -74,12 +75,29 @@ public class AdminLogActionService {
 		
 		adminDAO.setConnection(con);
 		
-		JSONArray jsonArray = adminDAO.getRevenueLog(); 
+		JSONArray jsonArray = adminDAO.getDailyLog(); 
 		
 		close(con);
 		
 		return jsonArray;
 		
+	}
+
+	public int[] getTypeCount() {
+		
+		System.out.println("AdminLogActionService");
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		
+		adminDAO.setConnection(con);
+		
+		int[] typeArr = adminDAO.getTypeCount();
+		
+		close(con);
+		
+		return typeArr;
 	}
 
 }

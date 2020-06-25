@@ -1,12 +1,12 @@
 DELIMITER $$
 create procedure log_insert()
 BEGIN
-DECLARE member int;
+DECLARE joincount int;
 DECLARE revenue int;
-DECLARE board int;
+DECLARE readcount int;
 
 SELECT count(id) 
-INTO member
+INTO joincount
 FROM member 
 WHERE date_format(date, '%Y%m%d') =  date_format(date_add(now(), interval -1 day), '%Y%m%d');
 
@@ -15,12 +15,11 @@ INTO revenue
 FROM `order`
 WHERE date_format(o_date, '%Y%m%d') =  date_format(date_add(now(), interval -1 day), '%Y%m%d');
 
-SELECT SUM(pl_readcount)
-INTO board
-FROM place
-WHERE date_format(pl_date, '%Y%m%d') =  date_format(date_add(now(), interval -1 day), '%Y%m%d');
+SELECT SUM(pl_readcount) - (SELECT MAX(board) FROM log) 
+INTO readcount
+FROM place;
 
-INSERT INTO log VALUES(null,num,revenue,board);
+INSERT INTO log VALUES(null,member,revenue,readcount,date_add(now(), interval -10 day));
 
 END$$
 DELIMITER ;

@@ -119,67 +119,73 @@
             var sessionId = sessionStorage.getItem('id');
             var id = sessionId;
             
-			$.ajax({
-					
-				type : 'post',
-				dataType : "json",
-				url : 'Comment_WritePro.re',
-				data : formData,
-				success : function(rdata){
-					
-				$('.comments').html("");
-		        alert("글등록 되었습니다.");
-		        $('#rc_content').val("");
-		        
-					$.each(rdata,function(index,item){
-						$('#commentCount').html(item.commentCount);
+            if ($("#rc_content").val() == "") {
+				alert("내용 입력 해주세요!");				
+				$("#rc_content").focus();
+			}else{
+				$.ajax({
 						
-                        if(!id ){
-                            $('.comments').append(
-
-                            '<div class="single-comment" >'
-                              +'<div class="comment-content" style="margin-left: 10px;">'
-                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-                              +'<div class="comment-count">'
-                              +'</div>'
-                              +'</div>'
-                              
-                        );
-                        }
-                    else if (id != null && id != item.rc_id) {
-                        $('.comments').append(
-                            '<div class="single-comment" >'
-                              +'<div class="comment-content" style="margin-left: 10px;">'
-                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-                              +'<div class="comment-count">'
-                              +'<a id ="reply" href="javascript:;">답글</a>'
-                              +'</div>'
-                              +'</div>'
-                        );
-                        }
-                    else if (id != null && id == item.rc_id) {
-                        $('.comments').append(                          
-
-                              '<div class="single-comment" >'
-                              +'<div class="comment-content" style="margin-left: 10px;">'
-                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
-                              +'<div class="comment-count">'
-                              +'<a id ="reply" href="javascript:;">답글</a>'
-                              +'<a id ="update" href="javascript:;"> 수정 </a>'
-                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
-                              +'</div>'
-                              +'</div>'
-                        );
-                        }   
-					});
-				}
-			});
+					type : 'post',
+					dataType : "json",
+					url : 'Comment_WritePro.re',
+					data : formData,
+					success : function(rdata){
+						
+					$('.comments').html("");
+			        alert("글등록 되었습니다.");
+			        $('#rc_content').val("");
+			        
+						$.each(rdata,function(index,item){
+							$('#commentCount').html(item.commentCount);
+							
+	                        if(!id ){
+	                            $('.comments').append(
+	
+	                            '<div class="single-comment" >'
+	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+	                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+	                              +'<div class="comment-count">'
+	                              +'</div>'
+	                              +'</div>'
+	                              
+	                        );
+	                        }
+	                    else if (id != null && id != item.rc_id) {
+	                        $('.comments').append(
+	                            '<div class="single-comment" >'
+	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+	                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+	                              +'<div class="comment-count">'
+	                              +'<a id ="reply" href="javascript:;">답글</a>'
+	                              +'</div>'
+	                              +'</div>'
+	                        );
+	                        }
+	                    else if (id != null && id == item.rc_id) {
+	                        $('.comments').append(                          
+	
+	                              '<div class="single-comment" >'
+	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
+	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
+	                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+	                              +'<div class="comment-count">'
+	                              +'<a id ="reply" href="javascript:;">답글</a>'
+	                              +'<a id ="update" href="javascript:;"> 수정 </a>'
+	                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+	                              +'</div>'
+	                              +'</div>'
+	                        );
+	                        }   
+						});
+					}
+				});
+			}
+            
 		});
 		
 // 		$('#update').click(function(){
@@ -190,16 +196,28 @@
 		
 		$('#like').click(function(){
 
+            sessionStorage.setItem('id', $('#sessionID').val());
+            var sessionId = sessionStorage.getItem('id');
+            var id = sessionId;
+            
+			if (!id) {
+				alert("로그인 하세요!");
+			}else {
+				
 			$.ajax({
 				
-				url : "Review_ContentLike.re?r_num=${article.r_num }&page=${nowPage }",
+				url : "Review_ContentLike.re?r_num=${article.r_num }&page=${nowPage }&id=${sessionScope.id }",
 				dataType : "json",
 				success : function(rdata){
 					$('#likeCount').html(rdata.likecount);
-					
-				}
-				
-			});
+						alert("좋아요 하셨습니다.");
+					},
+					error:function(){
+						alert("이미 좋아요 하셨습니다.");
+					}
+				});
+			
+			}
 			
 		});
 		
@@ -216,7 +234,7 @@
     </div>
     
 
-     <section id="blog">
+     <section id="blog" style="min-height: 560px;">
 
         <div class="blog container">
             <div class="row">
