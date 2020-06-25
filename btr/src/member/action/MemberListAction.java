@@ -44,6 +44,8 @@ public class MemberListAction implements Action {
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();	
 		String type = null;
 		boolean idSearch = false;
+		boolean pointChange = false;
+		int cPoint = 0;
 		
 		if(request.getParameter("search") != null) {
 			if(request.getParameter("search").equals("true")) {
@@ -61,7 +63,7 @@ public class MemberListAction implements Action {
 			}
 		}
 		
-		memberList = memberListService.getMemberList(page, limit, type, idSearch);
+		memberList = memberListService.getMemberList(page, limit, type, idSearch, pointChange, cPoint);
 		forward = new ActionForward();
 		forward.setPath("/member/member_MemberList.jsp?type="+type);
 

@@ -29,8 +29,7 @@ public class MemberListService {
 		return listCount;
 	}
 
-	public ArrayList<MemberBean> getMemberList(int page, int limit, String type, boolean idSearch) {
-		
+	public ArrayList<MemberBean> getMemberList(int page, int limit, String type, boolean idSearch, boolean pointChange, int cPoint) {
 		ArrayList<MemberBean> memberList = null;
 		
 		System.out.println("MemberListService -getMemberList()");
@@ -41,10 +40,15 @@ public class MemberListService {
 		
 		memberDAO.setConnection(con);
 		
-		if(!idSearch) {
-			memberList = memberDAO.getMemberList(page,limit,type);
-		} else {
+		if(idSearch) {
 			memberList = memberDAO.getMemberListIdSearch(page,limit,type);
+		} else if(pointChange){
+			memberDAO.memPointChange(type,cPoint);
+			commit(con);
+			
+			memberList = memberDAO.getMemberListIdSearch(page,limit,type);
+		} else {
+			memberList = memberDAO.getMemberList(page,limit,type);
 		}
 
 		close(con);

@@ -28,11 +28,24 @@ public class MemberGetMemAction implements Action {
 		ActionForward forward =null;
 		String type = null;
 		boolean idSearch = false;
+		boolean pointChange = false;
+		int cPoint = 0;
 		
 		if(request.getParameter("id") != null) {
 			
 			type = request.getParameter("id");
 			idSearch = true;
+			pointChange = false;
+			
+		} else if (request.getParameter("selectId") != null) {
+			
+			cPoint = Integer.parseInt(request.getParameter("cPoint"));
+			type = request.getParameter("selectId");
+			idSearch = false;
+			pointChange = true;
+		
+		} else {
+			System.out.println("id 값 받기 오류");
 		}
 //		String email = request.getParameter("email");
 //		String phone = request.getParameter("phone");
@@ -51,29 +64,7 @@ public class MemberGetMemAction implements Action {
 		int page = 1;
 		int limit = 10;
 		
-		memberList = memberListService.getMemberList(page, limit, type, idSearch);
-		
-//		// dupCheck
-//		boolean isDuplicateCheck = false;
-//		
-//		if(request.getParameter("id") != null) {
-//			isDuplicateCheck = memberJoinCheckService.duplicateIdCheck(id);
-//		} 
-//		
-//		if (request.getParameter("email") != null) {
-//			isDuplicateCheck = memberJoinCheckService.duplicateEmailCheck(email);
-//		} 
-//		
-//		if (request.getParameter("phone") != null) {
-//			isDuplicateCheck = memberJoinCheckService.duplicatePhoneCheck(phone);
-//		}
-//
-//		if(!isDuplicateCheck) { //false 인 경우
-////			out.println(request.getParameter("id"));
-//			out.println(0);
-//		}else { // id 중복 true 인 경우
-//			out.println(1);						
-//		}  
+		memberList = memberListService.getMemberList(page, limit, type, idSearch, pointChange, cPoint);
 		
 		JSONArray jsonArray = new JSONArray();
 		for (int i = 0; i < memberList.size(); i++) {
