@@ -41,15 +41,16 @@ $(document).ready(function() {
 									})					
 						    		$.ajax("eventPullCheck.ev", {
 						    			success: function(rdata) {
-						    				if(rdata == 0) {
-						    					setTimeout(function() {
-						    						$.ajax("eventEnd.ev",{
-							    						success: function() {
-							    							location.reload();			    							
-							    						}
-							    					});										
-						    					}, 2000);	
-						    				}
+//						    				if(rdata == "0") {
+//						    					alert("엔드")
+//						    					setTimeout(function() {
+//						    						$.ajax("eventEnd.ev",{
+//							    						success: function() {
+//							    							location.reload();			    							
+//							    						}
+//							    					});										
+//						    					}, 2000);	
+//						    				}
 						    			}
 						    		});
 								}else if(rdata == 1) {
@@ -57,15 +58,16 @@ $(document).ready(function() {
 									
 						    		$.ajax("eventPullCheck.ev", {
 						    			success: function(rdata) {
-						    				if(rdata == "0") {
-						    					setTimeout(function() {
-						    						$.ajax("eventEnd.ev",{
-							    						success: function() {
-							    							location.reload();			    							
-							    						}
-							    					});										
-						    					}, 2000);
-						    				}
+						    				alert("엔드2")
+//						    				if(rdata == "0") {
+//						    					setTimeout(function() {
+//						    						$.ajax("eventEnd.ev",{
+//							    						success: function() {
+//							    							location.reload();			    							
+//							    						}
+//							    					});										
+//						    					}, 2000);
+//						    				}
 						    			}
 						    		});
 								}				
@@ -90,14 +92,7 @@ $(document).ready(function() {
 			
 
 	});
-	$('#btn').mouseover(function() {
-		
-		$('#img').css('-webkit-animation','vibrate-1 0.3s linear infinite both').css('animation','vibrate-1 0.3s linear infinite both')
-	});
-	$('#btn').mouseout(function() {
-		
-		$('#img').css('-webkit-animation','').css('animation','');
-	});
+
 	
 
 	

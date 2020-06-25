@@ -37,7 +37,7 @@ e_edate default 값 설정
 
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="event/assets/countdown/jquery.countdown.js"></script>
-<script src="<c:url value="js/event.js" />"></script>
+<%-- <script src="<c:url value="js/event.js" />"></script> --%>
 <script src="<c:url value="js/eventPop.js" />"></script>
 
 <!-- /이벤트 css, js -->
@@ -47,6 +47,90 @@ e_edate default 값 설정
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	$('#btn').click(function() {
+		
+		$.ajax({
+			
+			url: "eventPull.ev",
+			dataType: "json",
+			success: function(rdata) {
+
+				if(rdata.check == 30000 ) {
+					
+					$('.p1').html("<img src='images/eventCoupon.png' class='img'><br>");
+					
+					$('#myCoupon').html(rdata.point)
+					$('#c3').html(rdata.coupon);
+					alert("30000P 쿠폰에 당첨되셨습니다!");
+				}else if(rdata.check == 50000) {
+					
+					$('.p1').html("<img src='images/eventCoupon2.png' class='img'><br>");
+					
+					$('#myCoupon').html(rdata.point)
+					$('#c5').html(rdata.coupon);
+					alert("50000P 쿠폰에 당첨되셨습니다!");
+				}else if(rdata.check == 100000) {
+					
+					$('.p1').html("<img src='images/eventCoupon3.png' class='img'><br>");
+					
+					$('#myCoupon').html(rdata.point)
+					$('#c10').html(rdata.coupon);
+					alert("100000P 쿠폰에 당첨되셨습니다!");
+				}else if(rdata.check == 1) {
+					$('.p1').html("<img src='images/x.PNG' class='img'><br>");
+					$('#myCoupon').html(rdata.point)
+
+				}else if(rdata.check == 0){
+					
+					alert("종료되었습니다!")
+					location.reload();
+				}
+				
+				$("#btn").css('opacity','0').css('pointer-events','none');
+				
+				setTimeout(function() {
+					
+					$(".p1").html("<img src='images/box.png' id='img'><br>");
+					$("#btn").css('opacity','1').css('pointer-events','auto');
+					
+				}, 4000);
+				
+
+			}
+		})
+
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	var addDate = document.getElementById("hid").value;		
+	var ts = new Date(addDate);
+	var newYear = true;
+
+	if((new Date()) > ts){
+
+		$('.p1').html("<img src='images/a.png' class='img'><br>");
+		$("#btn").css('opacity','0').css('pointer-events','none');
+		
+		newYear = false;
+	}
+	
+	$('#countdown').empty();
+	
+	$('#countdown').countdown({
+		timestamp	: ts,
+		callback	: function(days, hours, minutes, seconds){
+		
+		}
+});
+});
+</script>
 </head>
 
 <body>
@@ -61,9 +145,22 @@ e_edate default 값 설정
 
     	<div class="event">
     	<input type="hidden" id="hid" value="${date}">
-			<p>나의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
+    	
+      	
+    		<c:choose>
+    		<c:when test="${sessionScope.id eq 'admin'}">
+    		<p class="p">나의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
+    		<a href="javascript:void(0);" class="fun-btn btn btn-primary btn-lg"  onclick="return adminPop()">관리자</a>
+    		</c:when>
+    		<c:when test="${!empty sessionScope.id}">
+    		<p class="pp">나의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
+    		</c:when>
+    		<c:otherwise>
+    		<p class="ppp">포인트를 모아 뽑기에 도전해보세요!</p>
+    		</c:otherwise>
+    		</c:choose>			
 			<c:if test="${sessionScope.id == 'admin'}">
-			<a href="javascript:void(0);" class="getCoupon" onclick="return adminPop()">관리자</a>
+			
 			</c:if>
 		</div>
 		
@@ -81,44 +178,43 @@ e_edate default 값 설정
 		<p class="p1"><img src="images/box.png" id="img"></p>
 		<div id="eventBox">
 		<c:if test="${sessionScope.id != null}">
-		<input type="button" value="지금 뽑기" id="btn" width="100" height="100"><br>
+		<input type="button" value="지금 뽑기" id="btn" width="100" height="100" class="fun-btn btn btn-primary btn-lg"><br>
 		</c:if>
 		</div>
 		</div>	
 				<div class="couponArea" id="cpArea">
-				<h3>이벤트 당첨쿠폰</h3>
 				<div class="cpStatus " class="row" >
 					<ul>
 						<li style="background-image: url('images/event10.png'); background-size: contain;">
 						
 								<i class="ico"></i>
-								<strong>포인트 30000</strong>
+								<strong class="str">포인트 30000</strong>
 			
-								<p>보유쿠폰: <em><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_3}</em> </p>
+								<p class="p">보유쿠폰: <em id="c3"><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_3}</em> </p>
 								<c:if test="${sessionScope.id != null}">
 								
-								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=3'">
+								<input class="fun-btn btn btn-primary btn-lg" type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=3'">
 								</c:if>
 					
 						</li>
 						<li class="review  emth5">
 							
 								<i class="ico"></i>
-								<strong>포인트 50000</strong>
+								<strong class="str">포인트 50000</strong>
 								
-								<p>보유쿠폰: <em><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_5}</em> </p>
+								<p class="p">보유쿠폰: <em id="c5"><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_5}</em> </p>
 								<c:if test="${sessionScope.id != null}">							
-								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=5'">
+								<input class="fun-btn btn btn-primary btn-lg" type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=5'">
 								</c:if>
 						</li>
 						<li class="ad  emth8">
 							
 								<i class="ico"></i>
-								<strong>포인트 100000</strong>
+								<strong class="str">포인트 100000</strong>
 								
-								<p>보유쿠폰: <em><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_10}</em> </p>	
+								<p class="p">보유쿠폰: <em id="c10"><c:if test="${sessionScope.id == null}">0</c:if>${article.cp_10}</em> </p>	
 								<c:if test="${sessionScope.id != null}">							
-								<input type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=10'">
+								<input class="fun-btn btn btn-primary btn-lg" type="button" value="교환" onclick="location.href='eventExchangePoint.ev?point=10'">
 								</c:if>
 						</li>
 					</ul>
