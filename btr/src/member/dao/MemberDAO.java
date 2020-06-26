@@ -323,7 +323,7 @@ public class MemberDAO {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select count(r_num) from review where member_member_id=?";
+				String sql = "select count(r_num) from review where member_id=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				
@@ -353,12 +353,12 @@ public class MemberDAO {
 			
 			ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 			
-			String r_cnt = "(select count(rc_num) from review_comment where review_review_num = r_num)";
+			String r_cnt = "(select count(rc_num) from review_comment where r_num = r_num)";
 			String r_name = "(select region_name from region where region_code = region_region_code)";
 			
 			try {
 				String sql = "select *, "+r_cnt+" as r_cnt,"+r_name+" as r_name "
-						+ "from review where member_member_id=? order by r_num desc limit ?,?";
+						+ "from review where member_id=? order by r_num desc limit ?,?";
 							// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
@@ -372,7 +372,7 @@ public class MemberDAO {
 					ReviewBean reviewBean = new ReviewBean();
 					
 					reviewBean.setR_num(rs.getInt("r_num"));
-					reviewBean.setR_id(rs.getString("member_member_id"));
+					reviewBean.setR_id(rs.getString("member_id"));
 					reviewBean.setR_subject(rs.getString("r_subject"));
 					reviewBean.setR_content(rs.getString("r_content"));
 					reviewBean.setR_readcount(rs.getInt("r_readcount"));
@@ -406,7 +406,7 @@ public class MemberDAO {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select count(rc_num) from review_comment where review_member_member_id=?";
+				String sql = "select count(rc_num) from review_comment where member_id=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				
@@ -436,7 +436,7 @@ public class MemberDAO {
 			ArrayList<ReviewBean> articleList = new ArrayList<ReviewBean>();
 			
 			try {
-				String sql = "select * from review_comment where review_member_member_id=? order by rc_num desc limit ?,?";
+				String sql = "select * from review_comment where member_id=? order by rc_num desc limit ?,?";
 							// 댓글 개수와 해당 지역 이름값 받아오는 서브 쿼리문
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
@@ -451,7 +451,7 @@ public class MemberDAO {
 					
 					reviewBean.setR_num(rs.getInt("rc_num"));
 					reviewBean.setR_content(rs.getString("rc_content"));
-					reviewBean.setR_readcount(rs.getInt("review_review_num"));
+					reviewBean.setR_readcount(rs.getInt("review_r_num"));
 					reviewBean.setR_date(rs.getDate("rc_date"));
 
 					articleList.add(reviewBean);
