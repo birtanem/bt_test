@@ -63,9 +63,6 @@ public class MemberLoginProAction implements Action {
 				// => 전달받은 예외 객체의 메세지를 자바스크립트로 출력하면
 				//    로그인 실패에 대한 결과 메세지 출력 구분 가능
 				
-	        return forward;
-	        
-	        
+	        return forward;      
 	}
-
 }
