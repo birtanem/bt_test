@@ -41,6 +41,7 @@
 				sessionStorage.setItem('id', $('#sessionID').val());
 				var sessionId = sessionStorage.getItem('id');
 				var id = sessionId;
+				var update = "Comment_UpdateForm.re";
 				
 	            var div = $('#comments').css("display");
 	            
@@ -52,13 +53,12 @@
 	            
 	            $.ajax({
 	            	
-	            	type : 'post',
+	            	type : 'get',
 	            	dataType : 'json',
 	            	url : 'GetCommentList.re?r_num=${article.r_num }',
 	            	success : function(rdata){
 	            	$('.comments').html("");
 	            		$.each(rdata, function(index,item){
-	            				            			
 							if(!id ){
 									$('.comments').append(
 	
@@ -96,7 +96,7 @@
 			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
 					                  +'<a id ="reply" href="javascript:;">답글</a>'
-					                  +'<a id ="update" href="javascript:;"> 수정 </a>'
+					                  +'<a id ="update" onclick="window.open('+update+')"> 수정 </a>'
 			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
 			                          +'</div>'
 			                          +'</div>'
@@ -110,7 +110,7 @@
 	            });
 	            
 	        });
-		
+	      
 		$('#commentWrite').click(function(){
 			
 			var formData = $("form[name=commentForm]").serialize();
@@ -137,7 +137,6 @@
 			        
 						$.each(rdata,function(index,item){
 							$('#commentCount').html(item.commentCount);
-							
 	                        if(!id ){
 	                            $('.comments').append(
 	
@@ -164,6 +163,7 @@
 	                              +'</div>'
 	                              +'</div>'
 	                        );
+	                        
 	                        }
 	                    else if (id != null && id == item.rc_id) {
 	                        $('.comments').append(                          
@@ -188,11 +188,7 @@
             
 		});
 		
-// 		$('#update').click(function(){
-// 			alert('123');
-// 			$('updateLoad').load("/review/commentUpdateForm.jsp");
-			
-// 		});
+
 		
 		$('#like').click(function(){
 
