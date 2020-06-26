@@ -87,9 +87,7 @@ function checkValue(){
     <div class="page-title" style="background-image: url(images/page-title.png)">
         <h1>건의하기</h1>
     </div>
-
 <!--     ------------------------------------------------------------------------------------------------------ -->
-
     <section id="contact-page">
         <div class="container">
             <div class="large-title text-center">        
@@ -129,7 +127,6 @@ function checkValue(){
         </div><!--/.container-->
     </section><!--/#contact-page-->
 <!--     ------------------------------------------------------------------------------------------------------ -->
-    
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
