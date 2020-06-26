@@ -104,11 +104,7 @@ function end() {
 	
 }
 
-function adminPop() {
-	
-	window.open("eventAdminPop.ev", "관리자", "width=300,height=300,top=150,left=610,resizable=no");
 
-}
 </script>
 <style type="text/css">
 .div {

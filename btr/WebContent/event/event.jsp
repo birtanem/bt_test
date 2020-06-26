@@ -130,6 +130,12 @@ $(document).ready(function() {
 		}
 });
 });
+
+function adminPop() {
+	
+	window.open("eventAdminPop.ev", "관리자", "width=500,height=500,top=150,left=610,resizable=no");
+
+}
 </script>
 </head>
 
