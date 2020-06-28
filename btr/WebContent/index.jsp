@@ -403,11 +403,42 @@ margin-bottom: 10px;
 					}else if(item.session==null){
 						$('.here').append('<a href="PlaceDetail.pl?pl_num='+item.pl_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
 					}
+				});
+			}
+		});
+		});
+	//추천상품
+	$(document).ready(function() {
+		//0: 세션없음  1: 세션있음 ; 데이터가져옴
+		var session= "<%=session.getAttribute("id")%>";
+		var check=1;
+		if(session==null||session=="null"){
+			check=0;
+			}
+		else{
+			check=1;
+		}
+		$.ajax('productList.pr?check='+check+'&id='+session,{
+			dataType: "json",
+			success:function(rdata){
+				$.each(rdata, function(index, item){
+					alert(item.p_img);
+					var imgpath="product/productUpload/"+item.p_img;
+					if((item.session)==item.p_theme){
+						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
+					}else if(item.session==null){
+						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
+					}
 					
 				});
 			}
 		});
 		});
+	
+	
+	
+	
+	
 </script>
 
 
@@ -464,8 +495,8 @@ margin-bottom: 10px;
 
 	</section>
 		
-<!-- 		메인 플레이스 -->
 <section id="portfolio">
+<!-- 		추천 장소-->
 		<div class="place">
 		 	<div class="container portfolio-item row isotope ">
 				<c:choose>
@@ -478,7 +509,24 @@ margin-bottom: 10px;
 					<c:otherwise>
 						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 여행지  </p>  
 			<div id="here" class="row here">
-<!-- 			<img id="mig" width="300" height="300"> -->
+			</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+<!-- 		추천 상품 -->
+		<div class="place">
+		 	<div class="container portfolio-item row isotope ">
+				<c:choose>
+					<c:when test="${empty sessionScope.id }">
+						<p class="pl_t"><span class="kor">방문자 </span>&nbsp;님을 위한 추천 상품  </p>
+			<div id="rc_pl" class="row isotope-item rc_pl">
+			
+			</div>			
+					</c:when>
+					<c:otherwise>
+						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 상품  </p>  
+			<div id="rc_pl" class="row rc_pl">
 			</div>
 					</c:otherwise>
 				</c:choose>

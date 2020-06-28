@@ -51,7 +51,7 @@ public class ProductDAO {
 			}
 
 			// 게시글 등록
-			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, productBean.getP_name());
@@ -61,6 +61,7 @@ public class ProductDAO {
 			pstmt.setInt(6, productBean.getP_amount());
 			pstmt.setString(7, productBean.getP_category());
 			pstmt.setInt(8, productBean.getRegion_region_code());
+			pstmt.setString(9, productBean.getP_theme());
 
 			insertCount = pstmt.executeUpdate();
 
@@ -101,7 +102,6 @@ public class ProductDAO {
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
 				productList.add(productBean);
-
 			}
 		} catch (SQLException e) {
 			System.out.println("ProductDAO getList실패" + e.getMessage());
@@ -142,7 +142,7 @@ public class ProductDAO {
 		
 		try {
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
-					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name"
+					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name, p.p_theme"
 					+ " from product p join region r on p.region_region_code = r.region_code where p.p_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, p_num);
@@ -158,6 +158,7 @@ public class ProductDAO {
 				productBean.setP_category(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
+				productBean.setP_theme(rs.getString(10));
 			}
 		} catch (SQLException e) {
 			System.out.println("ProductDAO-getProductDetail에러: 	"+e.getMessage());

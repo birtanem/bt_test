@@ -11,8 +11,15 @@ public class ProductBean {
 	private String p_category;
 	private int region_region_code;
 	private String region_name;
+	private String p_theme;
 	
 	
+	public String getP_theme() {
+		return p_theme;
+	}
+	public void setP_theme(String p_theme) {
+		this.p_theme = p_theme;
+	}
 	public String getRegion_name() {
 		return region_name;
 	}
