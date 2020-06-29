@@ -46,6 +46,7 @@ public class MemberListAction implements Action {
 		boolean idSearch = false;
 		boolean pointChange = false;
 		int cPoint = 0;
+		String adminPass = null;
 		
 		if(request.getParameter("search") != null) {
 			if(request.getParameter("search").equals("true")) {
@@ -63,7 +64,7 @@ public class MemberListAction implements Action {
 			}
 		}
 		
-		memberList = memberListService.getMemberList(page, limit, type, idSearch, pointChange, cPoint);
+		memberList = memberListService.getMemberList(page, limit, type, idSearch, pointChange, cPoint, adminPass);
 		forward = new ActionForward();
 		forward.setPath("/member/member_MemberList.jsp?type="+type);
 

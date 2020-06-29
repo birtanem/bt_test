@@ -42,11 +42,6 @@ String plPage = request.getParameter("page");
 <link href="css/responsive.css" rel="stylesheet">
 <link href="css/review.css" rel="stylesheet">
 
-<script src="js/product_modal.js"></script>
-<script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.isotope.min.js"></script>
-<script src="js/main.js"></script>
 	
 <script src="js/summernote-ko-KR.js"></script>	
 <!-- 썸머노트 필수 스크립트 링크 코드 -->
@@ -239,7 +234,12 @@ function validCheck() {
 <jsp:include page="/inc/bottom.jsp" />
     
     <!--/#footer-->
-
+	<script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
   
 </body>
 </html>

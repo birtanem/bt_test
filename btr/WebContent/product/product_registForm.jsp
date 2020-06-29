@@ -24,6 +24,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- <script src="js/summernote-ko-KR.js"></script>	 -->
+<script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 function sendFile(file, editor) {
 		data = new FormData();
@@ -40,6 +41,19 @@ function sendFile(file, editor) {
 	        }
 	    });
 	}
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax("getRegion.co",{
+			dataType:"json",
+			success:function(rdata){
+				$.each(rdata,function(index,code){
+					var option=$('<option value="'+code.rCode+'">'+code.rName+'</option>');
+					$('#rCode').append(option);
+				});
+			}
+		});
+	});
 </script>
 <style type="text/css">
 table {
@@ -67,25 +81,8 @@ table {
 
                         <div class="form-group">
                             <label>지역 : </label>
-                            <select name="region_region_code" class="form-control" required="required">
-		            			<option value="0">지역 선택하세요</option>
-		            			<option value="1">강서구</option>
-		            			<option value="2">금정구</option>
-		            			<option value="3">기장군</option>
-		            			<option value="4">남구</option>
-		            			<option value="5">동구</option>
-		            			<option value="6">동래구</option>
-		            			<option value="7">부산진구</option>
-		            			<option value="8">북구</option>
-		            			<option value="9">사상구</option>
-		            			<option value="10">사하구</option>
-		            			<option value="11">서구</option>
-		            			<option value="12">수영구</option>
-		            			<option value="13">연제구</option>
-		            			<option value="14">영도구</option>
-		            			<option value="15">중구</option>
-		            			<option value="16">해운대구</option>
-		            			<option value="17">기타지역(부산외)</option>
+                            <select name="region_region_code" id="rCode" class="form-control" required="required">
+		            			
 		                 	</select>
                         </div>
                         <div class="form-group">
@@ -97,6 +94,8 @@ table {
 								<option value="체험">체험</option>
 		                 	</select>
                         </div>
+                        
+                        
                         </div>
                         
                         <div class="col-sm-5">
@@ -108,6 +107,17 @@ table {
                             <label>상품수량 :</label>
                             <input type="number" name="p_amount" class="form-control" required="required"/>
                         </div>   
+                         <div class="form-group">
+                            <label>주제 : </label>
+                            <select name="p_theme" class="form-control" required="required">
+				            	  <option value="관심사">관심사</option>
+	  							  <option value="관광">관광</option>
+								  <option value="맛집">맛집</option>
+								  <option value="역사">역사</option>
+								  <option value="자연">자연</option>
+								  <option value="공연/전시">공연/전시</option>
+		                 	</select>
+                        </div>
                         </div>                     
                          
                         

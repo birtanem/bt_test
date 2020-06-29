@@ -72,7 +72,19 @@ function pop(){
 }
 
 </script>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$.ajax("getRegion.co",{
+		dataType:"json",
+		success:function(rdata){
+			$.each(rdata,function(index,code){
+				var option=$('<option value="'+code.rCode+'">'+code.rName+'</option>');
+				$('.rCode').append(option);
+			});
+		}
+	});
+});
+</script>
 
 </head>
 
@@ -103,26 +115,9 @@ function pop(){
 						<tr>
 							<td>${list.p_num}</td>
 
-							<td><select name="regionCode" id="regionCode${vs.count }"
+							<td><select name="regionCode" class="rCode" id="regionCode${vs.count }"
 								onchange="changeRegionCode('${list.p_num }',this.value,${vs.count });">
 									<option selected value="${list.region_region_code }">${list.region_name }</option>
-									<option value="1">강서구</option>
-									<option value="2">금정구</option>
-									<option value="3">기장군</option>
-									<option value="4">남구</option>
-									<option value="5">동구</option>
-									<option value="6">동래구</option>
-									<option value="7">부산진구</option>
-									<option value="8">북구</option>
-									<option value="9">사상구</option>
-									<option value="10">사하구</option>
-									<option value="11">서구</option>
-									<option value="12">수영구</option>
-									<option value="13">연제구</option>
-									<option value="14">영도구</option>
-									<option value="15">중구</option>
-									<option value="16">해운대구</option>
-									<option value="17">기타지역(부산 외)</option>
 							</select></td>
 							<td><select name="category"
 								onchange="changeCategory('${list.p_num }',this.value);">

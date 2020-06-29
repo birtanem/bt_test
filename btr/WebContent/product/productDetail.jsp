@@ -158,7 +158,7 @@ function goCart(){
 			<div>
 				<input type="hidden" id="num" value="${productDetail.p_num}">
 				<strong class="pd kw">#${productDetail.p_category}&nbsp;
-					#${productDetail.region_name }</strong>
+					#${productDetail.region_name }&nbsp;#${productDetail.p_theme }</strong>
 				<p class="pd pn" style="font-size: 20pt; font-weight: 600; margin-top: 20px;">${productDetail.p_name }</p>
 				<c:choose>
 				<c:when test="${productDetail.p_amount>0 }">
