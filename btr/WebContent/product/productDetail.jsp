@@ -70,8 +70,8 @@ $(document).ready(function(){
 	 $("#orderBtn").click(function() {
 		 			 	 
 			if($("#amountcheck").html() == "품절") {
-				alert("품절 되었습니다.")
-				return false;
+				alert("품절된 상품입니다.")
+				
 			}
 			
 		 	var num = $("#num").val();
@@ -109,8 +109,14 @@ $(document).ready(function(){
 function goCart(){
 	
 	if($("#amountcheck").html() == "품절") {
-		alert("품절 되었습니다.")
-		return false;
+		var c = confirm("품절된 상품입니다. \n장바구니로 이동하시겠습니까?");
+		if(c == true) {
+			location.href="ProductCartList.ca";
+		}else {
+			return false;
+		}
+		
+		
 	}
 	var id='admin'; 
 	var amount=Number(document.getElementById("amount").value);

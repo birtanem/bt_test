@@ -4,9 +4,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	int ListCount = (int) request.getAttribute("ListCount");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -59,7 +56,7 @@
 	<!--/header-->
 
 	<div class="page-title"
-		style="background-image: url(images/page-title.png)">
+		style="background-image: url(images/top/Busan2.jpg); background-size: cover; background-position: center;">
 		<h1>Product</h1>
 	</div>
 
@@ -96,7 +93,7 @@
 
            <div class="portfolio-items">
 	            <c:choose>
-					<c:when test="${ListCount>0}">
+					<c:when test="${pageInfo.listCount>0}">
 					<c:forEach var="list" items="${productList }" varStatus="vs">
 	                <div onclick="location.href='productDetail.pr?p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
 	                <input type="hidden" value="${list.p_num }" name="p_num">
@@ -120,6 +117,50 @@
 					</div>
 
             </div>
+            
+                        <!--/.row   페이징 처리-->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg">
+                    
+                    	<c:choose>
+                    	
+                    		<c:when test="${pageInfo.page <= 1 }">
+                    			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li><a href="productList.pr?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:otherwise>
+                    	</c:choose>
+                    
+                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${a == pageInfo.page }">
+                    				<li class="active"><a>${a }</a></li>
+                    			</c:when>
+                    			<c:otherwise>
+									<li><a href="productList.pr?page=${a }">${a }</a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    	
+                    	</c:forEach>
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+                    				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li><a href="productList.pr?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    </ul>
+                    <!--/.pagination-->
+                </div>
+            </div>
+            <!--/.row   페이징 처리-->
         </div>
     </section>
 

@@ -88,6 +88,10 @@ $(document).ready(function() {
 					
 					alert("종료되었습니다!")
 					location.reload();
+				}else if (rdata == 0) {
+					
+					alert("포인트가 부족합니다!")
+					return false;
 				}
 				
 				$("#btn").css('opacity','0').css('pointer-events','none');
@@ -142,7 +146,7 @@ function adminPop() {
 <body>
 <jsp:include page="../inc/top.jsp"></jsp:include>
 
-    <div class="page-title" style="background-image: url(images/page-title.png)">
+    <div class="page-title" style="background-image: url(images/top/Busan5.jpg); background-size: cover; background-position: center;">
         <h1>무료 이벤트</h1>
     </div>
 
@@ -155,7 +159,7 @@ function adminPop() {
       	
     		<c:choose>
     		<c:when test="${sessionScope.id eq 'admin'}">
-    		<p class="p">나의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
+    		<p class="p">${sessionScope.id } 님의 포인트  <em><i id="myCoupon">${article.point}</i>점</em></p>
     		<a href="javascript:void(0);" class="fun-btn btn btn-primary btn-lg"  onclick="return adminPop()">관리자</a>
     		</c:when>
     		<c:when test="${!empty sessionScope.id}">

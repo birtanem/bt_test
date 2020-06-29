@@ -40,7 +40,7 @@
     
 <jsp:include page="/inc/top.jsp" />
 
-    <div class="page-title" style="background-image: url(images/page-title.png)">
+    <div class="page-title" style="background-image: url(images/top/Busan3.jpg); background-size: cover; background-position: center;">
         <h1>Review</h1>
     </div>
     

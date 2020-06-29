@@ -125,83 +125,7 @@ $(document).ready(function(){
 					});
 </script>
 
-<script type="text/javascript">
-	$(function() {
-		var ranNum = Math.floor(Math.random() * 16);
 
-		$(".tabcontent:eq(" + ranNum + ")").css("display", "block")
-		$(".tablinks:eq(" + ranNum + ")").css("background-color", "#ddd");
-
-	});
-
-	function openCity(evt, cityName) {
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className
-					.replace(" active", "");
-		}
-		document.getElementById(cityName).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-</script>
-
-<style>
-body {
-	font-family: Arial;
-}
-
-/* Style the tab */
-.tab {
-	width: 1550px;
-	text-align: center;
-	overflow: hidden;
-	border: 0 solid #ccc;
-	background-color: #f1f1f1;
-	padding: 5px;
-	margin: 0 auto;
-}
-
-.tabcontainer {
-	
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-	font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-	background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-	background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-top: none;
-	width: 1550px;
-	margin: 0 auto;
-}
-</style>
 
 
 <!-- 실시간검색어 -->
@@ -427,7 +351,7 @@ margin-bottom: 10px;
 						<span>당신과 함께, 부산</span>
 					</h2>
 					
-				    <div id="realcontent"">
+				    <div id="realcontent">
 						<dl id="rank-list">
 						<dt>인기 여행지</dt>
 						<dd>

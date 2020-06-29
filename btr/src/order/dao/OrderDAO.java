@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -207,6 +208,7 @@ private static OrderDAO instance;
 		ResultSet rs = null;
 		JSONArray jsonArray = new JSONArray();
 		int startRow = (page-1)*limit;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try {
 			// BETWEEN END 절로 날짜 범위 조회
@@ -234,7 +236,7 @@ private static OrderDAO instance;
 				obj.put("amount", rs.getInt("o.o_amount"));
 				obj.put("price", rs.getInt("o.o_price"));
 				obj.put("pay", rs.getString("o.o_pay"));
-				obj.put("date", rs.getTimestamp("o.o_date")+"");
+				obj.put("date", sdf.format(rs.getTimestamp("o.o_date")));
 				obj.put("name", rs.getString("od.od_name"));
 				obj.put("image", rs.getString("od.od_image"));
 				jsonArray.add(obj);

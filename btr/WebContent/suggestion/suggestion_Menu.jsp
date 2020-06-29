@@ -45,7 +45,7 @@
 <body>
 	<jsp:include page="/inc/top.jsp" />
 	
-    <div class="page-title" style="background-image: url(images/page-title.png)">
+    <div class="page-title" style="background-image: url(images/top/Busan6.jpg);background-position: top;">
         <h1>고객센터</h1>
     </div>
 
