@@ -52,6 +52,7 @@ public class ProductRegistProAction implements Action {
 		productBean.setP_category(multi.getParameter("p_category"));
 		productBean.setRegion_region_code(Integer.parseInt(multi.getParameter("region_region_code")));
 		productBean.setP_amount(Integer.parseInt(multi.getParameter("p_amount")));
+		productBean.setP_theme(multi.getParameter("p_theme"));
 		// 업로드할 파일명 전달
 		productBean.setP_image(
 				multi.getOriginalFileName( (String)multi.getFileNames().nextElement()));

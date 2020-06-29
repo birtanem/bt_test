@@ -24,6 +24,15 @@ public class CommentUpdateProAction implements Action {
 		int rc_lev = Integer.parseInt(request.getParameter("rc_lev"));
 		int rc_seq = Integer.parseInt(request.getParameter("rc_seq"));
 		
+		System.out.println(r_num);
+		System.out.println(page);
+		System.out.println(rc_num);
+		System.out.println(rc_ref);
+		System.out.println(rc_lev);
+		System.out.println(rc_seq);
+		System.out.println(request.getParameter("rc_id"));
+		System.out.println(request.getParameter("rc_content"));
+		
 		CommentBean article = new CommentBean();
 
 		article.setRc_num(rc_num);

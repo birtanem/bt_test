@@ -461,7 +461,7 @@ public class EventDAO {
 				jArr.add(obj);
 			}
 		} catch (SQLException e) {
-			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
+			System.out.println("EventDAO - getChangeWinArticle() 실패! : "+e.getMessage());
 			e.printStackTrace();
 		}finally {
 			close(rs);
@@ -491,7 +491,7 @@ public class EventDAO {
 				obj.put("e_edate", rs.getString("e_edate"));
 			}
 		} catch (SQLException e) {
-			System.out.println("EventDAO - getArticle() 실패! : "+e.getMessage());
+			System.out.println("EventDAO - getChageArticle() 실패! : "+e.getMessage());
 			e.printStackTrace();
 		}finally {
 			close(rs);
@@ -499,5 +499,30 @@ public class EventDAO {
 		}
 		
 		return obj;
+	}
+
+	public int getCoupon(String id, int coupon) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int couponCount = 0;
+		try {
+			String sql = "SELECT cp_? FROM member WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, coupon);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				couponCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO - getCoupon() 실패! : "+e.getMessage());
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return couponCount;
 	}
 }

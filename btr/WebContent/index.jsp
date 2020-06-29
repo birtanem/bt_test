@@ -204,11 +204,11 @@ body {
 <style type="text/css">
 #realcontent {
 	width: 250px;
-	margin: 5px;
+	margin-top: 30px;
+	margin-left: 120px;
 	padding: 10px;
 	background: white;
 	text-align: center;
-	float: right;
 }
 
 #rank-list a {
@@ -358,7 +358,7 @@ margin-bottom: 10px;
 		function step(index) {
 			$('#rank-list ol').delay(2000).animate({
 				top : -height * index,
-			}, 500, function() {
+			}, 300, function() {
 				step((index + 1) % count);
 			});
 		}
@@ -398,11 +398,42 @@ margin-bottom: 10px;
 					}else if(item.session==null){
 						$('.here').append('<a href="PlaceDetail.pl?pl_num='+item.pl_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
 					}
+				});
+			}
+		});
+		});
+	//추천상품
+	$(document).ready(function() {
+		//0: 세션없음  1: 세션있음 ; 데이터가져옴
+		var session= "<%=session.getAttribute("id")%>";
+		var check=1;
+		if(session==null||session=="null"){
+			check=0;
+			}
+		else{
+			check=1;
+		}
+		$.ajax('productList.pr?check='+check+'&id='+session,{
+			dataType: "json",
+			success:function(rdata){
+				$.each(rdata, function(index, item){
+					alert(item.p_img);
+					var imgpath="product/productUpload/"+item.p_img;
+					if((item.session)==item.p_theme){
+						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
+					}else if(item.session==null){
+						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
+					}
 					
 				});
 			}
 		});
 		});
+	
+	
+	
+	
+	
 </script>
 
 
@@ -411,66 +442,7 @@ margin-bottom: 10px;
 
 <body class="homepage">
 <jsp:include page="/inc/top.jsp" />
-<!-- <div class="top-bar"> -->
-<!-- 	<div class="topH"> -->
-<!-- 	<div class="row"> -->
-		<%-- 		<jsp:include page="inc/top.jsp"></jsp:include> --%>
-<!-- 		<header id="header"> -->
-<!-- 			<div class="topLogin"> -->
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${empty sessionScope.id}"> --%>
-<!-- 						<a href="MemberLoginForm.me">로그인</a> |  -->
-<!-- 			<a href="MemberJoinForm.me">회원가입</a> -->
-<%-- 					</c:when> --%>
 
-<%-- 					<c:otherwise> --%>
-<%-- 						<span style="color: black;">${sessionScope.id}&nbsp;&nbsp;님</span> | --%>
-<!-- 			<a href="MemberMypage.me">마이페이지</a> |  -->
-<!-- 			<a href="MemberLogout.me">로그아웃</a> -->
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
-<!-- 			</div> -->
-<!-- 			<nav class="navbar-inverse" role="banner"> -->
-<!-- 			   <div class="container"> -->
-<!-- 			   <div class="navbar-header"> -->
-<!-- 			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> -->
-<!--                         <span class="sr-only">Toggle navigation</span> -->
-<!--                         <span class="icon-bar"></span> -->
-<!--                         <span class="icon-bar"></span> -->
-<!--                         <span class="icon-bar"></span> -->
-<!--                     </button> -->
-<!--                     </div> -->
-<!-- 				<div class="topnav"> -->
-<!-- 					<a class="navbar-brand logo" href="index.html"><img -->
-<!-- 						src="images/logo.png" alt="logo" width="150"></a> -->
-<!-- 					<ul class="nav navbar-nav topli"> -->
-<!-- 						관리자 'admin' 일 경우 관리자 메뉴 노출 -->
-
-<%-- 						<c:if test="${sessionScope.id == 'admin'}"> --%>
-<!-- 							<li class="dropdown"><a href="#" class="dropdown-toggle" -->
-<!-- 								data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a> -->
-<!-- 								<ol class="dropdown-menu"> -->
-<!-- 									<li><a href="adminPage.ad">관리자 페이지</a></li> -->
-<!-- 									<li><a href="adminLog.ad">통계</a></li> -->
-<!-- 									<li><a href="adminProduct.ad">상품 관리</a></li> -->
-<!-- 									<li><a href="PlaceWriteForm.pl">Place 글 등록</a></li> -->
-<!-- 									<li><a href="#">여행지 관리</a></li> -->
-<!-- 									<li><a href="adminSuggestion_List.su">문의 게시판</a></li> -->
-<!-- 									<li><a href="adminEvent.ad">이벤트 관리</a></li> -->
-<!-- 								</ol></li> -->
-<%-- 						</c:if> --%>
-<!-- 						<li class="active"><a href="index.html">Home</a></li> -->
-<!-- 						<li><a href="PlaceList.pl?check=2">Place</a></li> -->
-<!-- 						<li><a href="Review_List.re">Review</a></li> -->
-<!-- 						<li><a href="productList.pr">여행상품</a></li> -->
-<!-- 						<li><a href="Suggestion_Menu.su">고객센터</a></li> -->
-<!-- 						<li><a href="event.ev">이벤트</a></li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-<!-- 				</div> -->
-<!-- 			</nav> -->
-<!-- 		</header> -->
-<!-- 	</div></div></div> -->
 
 
 	<section id="main-map" class="no-margin">
@@ -480,85 +452,30 @@ margin-bottom: 10px;
 					<h2>
 						<span>당신과 함께, 부산</span>
 					</h2>
+					
+				    <div id="realcontent"">
+						<dl id="rank-list">
+						<dt>인기 여행지</dt>
+						<dd>
+							<ol>
+								<li><a href="#">1 순위</a></li>
+								<li><a href="#">2 순위</a></li>
+								<li><a href="#">3 순위</a></li>
+								<li><a href="#">4 순위</a></li>
+								<li><a href="#">5 순위</a></li>
+							</ol>
+						</dd>
+						</dl>
+					</div>		
+					
+					
 				</div>
 			</div>
 			<!-- 				<img id="bgImg"> -->
 		</div>
-		<!-- ---------- ------기존 이미지-------------------- -->
 
-		<!--         <div class="carousel slide"> -->
-		<!--             <ol class="carousel-indicators"> -->
-		<!--                 <li data-target="#main-slider" data-slide-to="0" class="active"></li> -->
-		<!--                 <li data-target="#main-slider" data-slide-to="1"></li> -->
-		<!--                 <li data-target="#main-slider" data-slide-to="2"></li> -->
-		<!--             </ol> -->
-		<!--             <div class="carousel-inner"> -->
-
-		<!-- 		                <div class="item active" style="background-image: url(''); background-size: cover;"> -->
-
-
-		<!--                     <div class="container" style="clear: both;"> -->
-		<!--                         <div class="row"> -->
-		<!--                             <div class="col-md-7"> -->
-		<!--                                 <div class="carousel-content"> -->
-		<!--                                     <h1 class="animation animated-item-1"></h1> -->
-		<!--                                     <div class="animation animated-item-2"> -->
-
-		<!--                                     </div> -->
-
-		<!--                                 </div> -->
-		<!--                             </div> -->
-
-		<!--                         </div> -->
-		<!--                     </div> -->
-		<!--                 </div> -->
-		<!--                 /.item -->
-
-		<!--                 <div class="item" style="background-image: url(images/Busan-main02.jpg);"> -->
-		<!--                     <div class="container"> -->
-		<!--                         <div class="row"> -->
-		<!--                             <div class="col-md-7"> -->
-		<!--                                 <div class="carousel-content"> -->
-		<!--                                     <h1 class="animation animated-item-1"></h1> -->
-		<!--                                     <div class="animation animated-item-2"> -->
-
-		<!--                                     </div> -->
-
-		<!--                                 </div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                     </div> -->
-		<!--                 </div> -->
-		<!--                 /.item -->
-		<!--                                 <div class="item" style="background-image: url(images/Busan-main03.jpg);"> -->
-		<!--                     <div class="container"> -->
-		<!--                         <div class="row"> -->
-		<!--                             <div class="col-md-7"> -->
-		<!--                                 <div class="carousel-content"> -->
-		<!--                                     <h1 class="animation animated-item-1"></h1> -->
-		<!--                                     <div class="animation animated-item-2"> -->
-
-		<!--                                     </div> -->
-
-		<!--                                 </div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                     </div> -->
-		<!--                 </div> -->
-		<!--/.item-->
-
-		<!--             </div> -->
-		<!--/.carousel-inner-->
-		<!--         </div> -->
-		<!--/.carousel-->
-		<!--         <a class="prev hidden-xs hidden-sm" href="#main-slider" data-slide="prev"> -->
-		<!--             <i class="fa fa-chevron-left"></i> -->
-		<!--         </a> -->
-		<!--         <a class="next hidden-xs hidden-sm" href="#main-slider" data-slide="next"> -->
-		<!--             <i class="fa fa-chevron-right"></i> -->
-		<!--         </a> -->
 	</section>
-	<!-- 메인 지도 -->
+
 
 	<section id="maincontent">
 
@@ -573,8 +490,8 @@ margin-bottom: 10px;
 
 	</section>
 		
-<!-- 		메인 플레이스 -->
 <section id="portfolio">
+<!-- 		추천 장소-->
 		<div class="place">
 		 	<div class="container portfolio-item row isotope ">
 				<c:choose>
@@ -587,7 +504,24 @@ margin-bottom: 10px;
 					<c:otherwise>
 						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 여행지  </p>  
 			<div id="here" class="row here">
-<!-- 			<img id="mig" width="300" height="300"> -->
+			</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+<!-- 		추천 상품 -->
+		<div class="place">
+		 	<div class="container portfolio-item row isotope ">
+				<c:choose>
+					<c:when test="${empty sessionScope.id }">
+						<p class="pl_t"><span class="kor">방문자 </span>&nbsp;님을 위한 추천 상품  </p>
+			<div id="rc_pl" class="row isotope-item rc_pl">
+			
+			</div>			
+					</c:when>
+					<c:otherwise>
+						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 상품  </p>  
+			<div id="rc_pl" class="row rc_pl">
 			</div>
 					</c:otherwise>
 				</c:choose>
@@ -596,165 +530,37 @@ margin-bottom: 10px;
 </section>
 
 
-<section id="locations">
-		<!-- <div class="tabcontainer"> -->
-		<div class="tab">
-			<button class="tablinks" onclick="openCity(event, 'Buk-gu')">북구</button>
-			<button class="tablinks" onclick="openCity(event, 'jin-gu')">진구</button>
-			<button class="tablinks" onclick="openCity(event, 'Dong-gu')">동구</button>
-			<button class="tablinks" onclick="openCity(event, 'Dongnae-gu')">동래구</button>
-			<button class="tablinks" onclick="openCity(event, 'Gangseo-gu')">강서구</button>
-			<button class="tablinks" onclick="openCity(event, 'Geumjeong-gu')">금정구</button>
-			<button class="tablinks" onclick="openCity(event, 'Haeundae-gu')">해운대구</button>
-			<button class="tablinks" onclick="openCity(event, 'Jung-gu')">중구</button>
-			<button class="tablinks" onclick="openCity(event, 'Nam-gu')">남구</button>
-			<button class="tablinks" onclick="openCity(event, 'Saha-gu')">사하구</button>
-			<button class="tablinks" onclick="openCity(event, 'Sasang-gu')">사상구</button>
-			<button class="tablinks" onclick="openCity(event, 'Seo-gu')">서구</button>
-			<button class="tablinks" onclick="openCity(event, 'Suyeong-gu')">수영구</button>
-			<button class="tablinks" onclick="openCity(event, 'Yeongdo-gu')">영도구</button>
-			<button class="tablinks" onclick="openCity(event, 'Yeonje-gu')">연제구</button>
-			<button class="tablinks" onclick="openCity(event, 'Gijang-gun')">기장군</button>
-			<div id="realcontent">
-				<dl id="rank-list">
-					<dt>인기 여행지</dt>
-					<dd>
-						<ol>
-							<li><a href="#">1 순위</a></li>
-							<li><a href="#">2 순위</a></li>
-							<li><a href="#">3 순위</a></li>
-							<li><a href="#">4 순위</a></li>
-							<li><a href="#">5 순위</a></li>
-						</ol>
-					</dd>
+    <section id="partner">
+        <div class="container">
+            <div class="center">
+                <h2>다른 사이트 넣기123</h2>
+                <p class="lead"></p>
+            </div>
 
-				</dl>
+            <div class="partners">
+                <ul>
+                    <li>
+                        <a href="http://www.busan.go.kr/open/index.jsp" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/partners/부산.gif"></a>
+                    </li>
+                    <li>
+                        <a href="http://www.bfo.or.kr/main/index.asp" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="images/partners/관광.jpg"></a>
+                    </li>
+                    <li>
+                        <a href="https://bto.or.kr/kor/Main.do" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="images/partners/공사.jpg"></a>
+                    </li>      
+                    <li>
+                        <a href="http://busan.grandculture.net/?local=busan" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="images/partners/역사.jpg"></a>
+                    </li>
+                     <li>
+                        <a href="https://korean.visitkorea.or.kr/main/main.do" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/partners/구석.jpg"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/#partner-->
 
-			</div>
-
-		</div>
-
-
-		<div id="Buk-gu" class="tabcontent">
-			<h3>북구</h3>
-			<p>북구</p>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-4 single-work">
-					<div class="recent-work-wrap">
-						<img class="img-responsive" src="images/portfolio/item-1.png"
-							alt="">
-						<div class="overlay">
-							<div class="recent-work-inner">
-								<a class="preview" href="images/portfolio/item-1.png"
-									rel="prettyPhoto"><i class="fa fa-plus"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-6 col-md-4 single-work">
-					<div class="recent-work-wrap">
-						<img class="img-responsive" src="images/portfolio/item-2.png"
-							alt="">
-						<div class="overlay">
-							<div class="recent-work-inner">
-								<a class="preview" href="images/portfolio/item-2.png"
-									rel="prettyPhoto"><i class="fa fa-plus"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-6 col-md-4 single-work">
-					<div class="recent-work-wrap">
-						<img class="img-responsive" src="images/portfolio/item-3.png"
-							alt="">
-						<div class="overlay">
-							<div class="recent-work-inner">
-								<a class="preview" href="images/portfolio/item-3.png"
-									rel="prettyPhoto"><i class="fa fa-plus"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-
-
-
-		</div>
-
-		<div id="jin-gu" class="tabcontent">
-			<h3>진구</h3>
-			<p>진구</p>
-		</div>
-		<div id="Dong-gu" class="tabcontent">
-			<h3>동구</h3>
-			<p>동구</p>
-		</div>
-		<div id="Dongnae-gu" class="tabcontent">
-			<h3>동래구</h3>
-			<p>동래구</p>
-		</div>
-		<div id="Gangseo-gu" class="tabcontent">
-			<h3>강서구</h3>
-			<p>강서구</p>
-		</div>
-		<div id="Geumjeong-gu" class="tabcontent">
-			<h3>금정구</h3>
-			<p>금정구</p>
-		</div>
-		<div id="Haeundae-gu" class="tabcontent">
-			<h3>해운대구</h3>
-			<p>해운대구</p>
-		</div>
-		<div id="Jung-gu" class="tabcontent">
-			<h3>중구</h3>
-			<p>중구</p>
-		</div>
-		<div id="Nam-gu" class="tabcontent">
-			<h3>남구</h3>
-			<p>남구</p>
-		</div>
-		<div id="Saha-gu" class="tabcontent">
-			<h3>사하구</h3>
-			<p>사하구</p>
-		</div>
-		<div id="Sasang-gu" class="tabcontent">
-			<h3>사상구</h3>
-			<p>사상구</p>
-		</div>
-		<div id="Seo-gu" class="tabcontent">
-			<h3>서구</h3>
-			<p>서구</p>
-		</div>
-		<div id="Suyeong-gu" class="tabcontent">
-			<h3>수영구</h3>
-			<p>수영구</p>
-		</div>
-		<div id="Yeongdo-gu" class="tabcontent">
-			<h3>영도구</h3>
-			<p>영도구</p>
-		</div>
-		<div id="Yeonje-gu" class="tabcontent">
-			<h3>연제구</h3>
-			<p>연제구</p>
-		</div>
-		<div id="Gijang-gun" class="tabcontent">
-			<h3>기장군</h3>
-			<p>기장군</p>
-		</div>
-		<!-- </div> -->
-
-		<div class="clearfix text-center" style="clear: both;">
-			<br> <br> <a href="#portfolio" class="btn btn-primary">+</a>
-		</div>
-
-
-	</section>
-
-	<!--/#bottom-->
 
 	<jsp:include page="inc/bottom.jsp"></jsp:include>
 	<!--/#footer-->

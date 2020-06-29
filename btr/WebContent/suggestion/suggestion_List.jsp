@@ -33,7 +33,54 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+<style type="text/css">
+#table1 {
+	color: black;
+}
 
+/* 테이블 td조정 */
+#td0 {
+	width: 45px;
+}
+
+#td_title {
+	color: blue;
+}
+
+#td1 {
+	width: 50px;
+}
+
+#td2 {
+	width: 110px;
+	color: red;
+}
+
+#td3 {
+	width: 64px;
+}
+
+#td4 {
+	width: 52px;
+	color: red;
+}
+
+#spanCount1{
+	font-size: 23px;
+}
+
+#spanCount2{
+	font-size: 23px;
+    font-weight: bold;
+    color: black;
+}
+
+#btnBack{
+	float: right;
+    margin-right: 5px;
+}
+
+</style>
 </head>
 <body>
 	<jsp:include page="/inc/top.jsp" />
@@ -93,119 +140,38 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
     
     <!--/#partner-->
     
-    
-<!--     <section id="partner"> -->
-<!--         <div class="container"> -->
-<!--             <div class="center fadeInDown"> -->
-<!--                 <h2>Our Partners</h2> -->
-<!--                 <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p> -->
-<!--             </div> -->
+    <section id="blog">
 
-<!--             <div class="partners"> -->
-<!--                 <ul> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/partners/brand-1.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="images/partners/brand-2.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="images/partners/brand-3.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" src="images/partners/brand-4.png"></a> -->
-<!--                     </li> -->
-<!--                     <li> -->
-<!--                         <a href="#"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="images/partners/brand-5.png"></a> -->
-<!--                     </li> -->
-<!--                 </ul> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--         /.container -->
-<!--     </section> -->
-<!--     /#partner -->
-
-    <section id="bottom">
-        <div class="container fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+        <div class="blog container">
             <div class="row">
-                <div class="col-md-2">
-                    <a href="#" class="footer-logo">
-                        <img src="images/logo-black.png" alt="logo">
-                    </a>
-                </div>
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Company</h3>
-                                <ul>
-                                    <li><a href="#">About us</a></li>
-                                    <li><a href="#">We are hiring</a></li>
-                                    <li><a href="#">Meet the team</a></li>
-                                    <li><a href="#">Copyright</a></li>
-                                    <li><a href="#">Terms of use</a></li>
-                                    <li><a href="#">Privacy policy</a></li>
-                                    <li><a href="#">Contact us</a></li>
-                                </ul>
-                            </div>
+                <div class="col-md-8">
+                                
+				
+					<div class="blog-item">
+                        <div class="blog-content">
+                            	<table border="3" id="table1">
+	                            	<tr>
+	                            		<td id="td0">제목 : </td>
+	                            		<td id="td_title">ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</td>
+	                            		<td id="td1">작성일</td>
+	                            		<td id="td2">2020-06-26</td>
+	                            		<td id="td3">답변여부 </td>
+	                            		<td id="td4">미완료</td>
+	                            	</tr>
+                            	</table>
                         </div>
-                        <!--/.col-md-3-->
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Support</h3>
-                                <ul>
-                                    <li><a href="#">Faq</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Forum</a></li>
-                                    <li><a href="#">Documentation</a></li>
-                                    <li><a href="#">Refund policy</a></li>
-                                    <li><a href="#">Ticket system</a></li>
-                                    <li><a href="#">Billing system</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Developers</h3>
-                                <ul>
-                                    <li><a href="#">Web Development</a></li>
-                                    <li><a href="#">SEO Marketing</a></li>
-                                    <li><a href="#">Theme</a></li>
-                                    <li><a href="#">Development</a></li>
-                                    <li><a href="#">Email Marketing</a></li>
-                                    <li><a href="#">Plugin Development</a></li>
-                                    <li><a href="#">Article Writing</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Our Partners</h3>
-                                <ul>
-                                    <li><a href="#">Adipisicing Elit</a></li>
-                                    <li><a href="#">Eiusmod</a></li>
-                                    <li><a href="#">Tempor</a></li>
-                                    <li><a href="#">Veniam</a></li>
-                                    <li><a href="#">Exercitation</a></li>
-                                    <li><a href="#">Ullamco</a></li>
-                                    <li><a href="#">Laboris</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
                     </div>
-                </div>
 
 
-            </div>
-        </div>
+
+                    </div>
+				</div>
+
+
+                    </div>
     </section>
-    <!--/#bottom-->
+
+
 
     <footer id="footer" class="midnight-blue">
         <div class="container">

@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/icomoon.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
 <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
@@ -95,14 +103,64 @@ function end() {
 	},1000)
 	
 }
+
+
 </script>
+<style type="text/css">
+.div {
+	
+	width: 400px;
+	height: 200px;
+	margin: 100px auto;
+}
+.div2 {
+	margin-top: 30px;
+	text-align: center;
+}
+.div3 {
+height: 100px;
+	text-align: center;
+}
+.div1 {
+height: 100px;
+text-align: center;
+}
+#mydate {
+width: 200px;
+padding: .5em .5em;
+border: 1px solid #999;
+font-family: inherit;
+border-radius: 0px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+margin: 0 0 50px 0;
+}
+
+#mydate::-ms-expand {
+    display: none;
+}
+
+</style>
 </head>
 <body>
-<h1>관리자</h1>
 
-이벤트기간(일) <input type="text" id="mydate" ><br><br>
-<input type="button" value="시작" onclick="return start()">
-<input type="button" value="종료" onclick="end()"><br><br>
+<section>
+<div class="div">
+
+<div class="div1">
+<h1 style="margin-bottom: 30px;">이벤트 시작/종료</h1>
+<span style="font-size: 12pt; margin-right: 10px;">이벤트기간(일)</span> 
+<input type="text" id="mydate" ><br><br>
+</div>
+<div class="div2">
+<input class="fun-btn btn btn-primary btn-lg" type="button" value="시작" onclick="return start()">
+<input class="fun-btn btn btn-primary btn-lg" type="button" value="종료" onclick="end()"><br><br>
+</div>
+<div class="div3">
 <div id="countdown"></div>
+</div>
+</div>
+</section>
 </body>
 </html>

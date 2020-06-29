@@ -1064,13 +1064,13 @@ a.accordion-toggle i {
 }
 
 #partner {
-    background-image: url(../images/partner-bg.png);
-    background-size: cover;
+
     background-position: center center;
+    
 }
 
 #partner {
-    color: #fff;
+    color: black;
     text-align: center;
 }
 

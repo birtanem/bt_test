@@ -4,9 +4,13 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 import common.action.Action;
 import common.vo.ActionForward;
+import event.svc.EventPageService;
 import event.svc.EventPullService;
 
 public class EventPullAction implements Action {
@@ -15,30 +19,80 @@ public class EventPullAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("EventPullAction");
 		ActionForward forward = null;
+		HttpSession session = request.getSession();
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String id = (String)session.getAttribute("id");
+		// {"point", "check"}
+		JSONObject obj = new JSONObject();
 		
 		EventPullService eventPullService = new EventPullService();
+		EventPageService eventPageService = new EventPageService();
 		
-		int setPullSuccess = eventPullService.pullEventBox();
 		
-		PrintWriter out = response.getWriter();
+		// event_box 체크
+		int check = eventPullService.setPullCheck();
 		
-		if(setPullSuccess == 30001) {
+		
+		if(check != 0) { // 뽑기 가능 -> 진행
 			
-			out.println("30000");
+			// 뽑기 시작 전 포인트 차감
+			boolean minusPointSuccess = eventPullService.minusPoint(id);
+			// 차감된 포인트 가져와서 JSON 저장
+			int point = eventPageService.getPoint(id);
+			obj.put("point", point);
+			// 뽑기 시작
+			int setPullSuccess = eventPullService.pullEventBox();
 			
-		}else if(setPullSuccess == 50001){
+			if(setPullSuccess == 30001) { // 30000 당첨
+				// 쿠폰 추가
+				eventPullService.addWinCoupon(3, id);
+				// 쿠폰 수 가져오기
+				int coupon = eventPullService.getCoupon(id, 3);
+				System.out.println(coupon);
+				// 쿠폰 수 JSON 저장
+				obj.put("coupon", coupon);
+				// 당첨값 JSON 저장
+				obj.put("check", "30000");
+				// ajax 리턴 {"point","check"}	
+				out.print(obj);	
+				
+			}else if(setPullSuccess == 50001){ // 50000 당첨
+				eventPullService.addWinCoupon(5, id);
+				int coupon = eventPullService.getCoupon(id, 5);
+				System.out.println(coupon);
+				obj.put("coupon", coupon);
+				obj.put("check", "50000");		
+				out.print(obj);
+				
+			}else if(setPullSuccess == 100001){ // 100000 당첨
+				eventPullService.addWinCoupon(10, id);
+				int coupon = eventPullService.getCoupon(id, 10);
+				System.out.println(coupon);
+				obj.put("coupon", coupon);
+				obj.put("check", "100000");
+				out.print(obj);
+				
+			}else if(setPullSuccess == 1) { // 꽝
+				obj.put("check", "1");
+				out.print(obj);							
+			}
 			
-			out.println("50000");		
+			if(setPullSuccess > 1) {
+				// 당첨 시 당첨내역추가, 쿠폰추가
+				eventPullService.addWinList(id);
+
+			}
+
 			
-		}else if(setPullSuccess == 100001){
+		}else { // 뽑기불가 -> 종료
 			
-			out.println("100000");
-			
-		}else if(setPullSuccess == 1) { // 꽝
-			
-			out.println("1");
-			
-		}	
+			boolean isEndSuccess =  eventPullService.setEventEndDate();
+			obj.put("check", "0");
+			out.print(obj);	
+		}
+		
+		
 		return forward;
 	}
 

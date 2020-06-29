@@ -35,17 +35,19 @@ public class EventExchangeAction implements Action {
 				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('교환실패!')");
+				out.println("alert('교환이 실패하였습니다!')");
 				out.println("history.back()");
 				out.println("</script>");
 				
 				
 			}else {
 
-				
-				forward = new ActionForward();
-				forward.setRedirect(true);
-				forward.setPath("event.ev");
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('"+point*10000+"P 교환되었습니다!')");
+				out.println("location.href='event.ev'");
+				out.println("</script>");
 			}		
 
 		return forward;

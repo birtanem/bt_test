@@ -16,6 +16,8 @@ public class EventCheckAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		ActionForward forward = null;
+		
 		Connection con = getConnection();
 		
 		EventDAO eventDAO = EventDAO.getInstance();
@@ -34,11 +36,11 @@ public class EventCheckAction implements Action {
 		
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("0");
+//			out.print("0");
 		}
 		
 		
-		return null;
+		return forward;
 	}
 
 }
