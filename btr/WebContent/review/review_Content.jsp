@@ -43,6 +43,7 @@
 				var id = sessionId;
 				var update = "Comment_UpdateForm.re";
 				
+				
 	            var div = $('#comments').css("display");
 	            
 	            if (div == "none") {
@@ -59,6 +60,7 @@
 	            	success : function(rdata){
 	            	$('.comments').html("");
 	            		$.each(rdata, function(index,item){
+	            			
 							if(!id ){
 									$('.comments').append(
 	
@@ -66,7 +68,7 @@
 			                          +'<div class="comment-content" style="margin-left: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
 			                          +'</div>'
 			                          +'</div>'
@@ -79,24 +81,25 @@
 			                          +'<div class="comment-content" style="margin-left: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="javascript:;">답글</a>'
+					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
 			                          +'</div>'
 			                          +'</div>'
 		                       	);
 								}
 							else if (id != null && id == item.rc_id) {
+								
 								$('.comments').append(							
-
+										
 			                          '<div class="single-comment" >'
 			                          +'<div class="comment-content" style="margin-left: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="javascript:;">답글</a>'
-					                  +'<a id ="update" onclick="window.open('+update+')"> 수정 </a>'
+					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
+					                  +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 수정 </a>'
 			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
 			                          +'</div>'
 			                          +'</div>'
@@ -144,7 +147,7 @@
 	                              +'<div class="comment-content" style="margin-left: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-	                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
 	                              +'</div>'
 	                              +'</div>'
@@ -157,9 +160,9 @@
 	                              +'<div class="comment-content" style="margin-left: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-	                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="javascript:;">답글</a>'
+	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -172,10 +175,10 @@
 	                              +'<div class="comment-content" style="margin-left: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-	                              +'<p>글 내용 &nbsp; : &nbsp;'+item.rc_content+'</p> </div>'
+	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="javascript:;">답글</a>'
-	                              +'<a id ="update" href="javascript:;"> 수정 </a>'
+	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
+	                              +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">수정</a>'
 	                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
 	                              +'</div>'
 	                              +'</div>'
@@ -187,8 +190,6 @@
 			}
             
 		});
-		
-
 		
 		$('#like').click(function(){
 
