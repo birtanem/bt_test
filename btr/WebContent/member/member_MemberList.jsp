@@ -81,6 +81,18 @@ String type = request.getParameter("type");
 	background-color: #6868ff;
 }
 
+#btnMem2 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-right: 5px;
+    color: white;
+	background-color: #6868ff;
+}
+
+#adminPass {
+	width: 206px;
+}
+
 /* 회원 정렬 및 검색 버튼 */
 #btnSearch{
 
@@ -206,6 +218,14 @@ function btnPointChange() {
 	);
 }
 
+function btnDeleteId() {
+	$(".pointChange").html(
+			
+			'<input type="text" name="adminPass" id="adminPass" placeholder="관리자 패스워드를 입력하세요">'
+			+ '<input type="button" id="btnMem2" value="삭제 확인" onclick="btnDeleteIdConfirm()">'	
+	);
+}
+
 function btnChangeConfirm() {
 	
 	if($('#cPoint').val() == ""){
@@ -260,6 +280,61 @@ function btnChangeConfirm() {
 		});	
 	}
 }
+///--------------------------------------------------------------
+//회원 탈퇴
+
+function btnDeleteIdConfirm() {
+	
+	if($('#adminPass').val() == ""){
+		alert("어드민 패스워드를 입력하세요");
+		return false;
+	}
+	
+	if(!confirm("회원을 탈퇴시키겠습니까?")){
+		return false;
+		
+	} else {
+		var params = "selectId=" + $("#selectId").val() + "&&" + "adminPass=" + $("#adminPass").val();
+		
+			$.ajax({
+			url : 'MemberGetMemAction.me',
+			type : 'post',
+			data : params,
+			dataType : 'json',
+			success : function(rdata) { //#############################################수정중##################################################
+				$(".pointChange").html("");
+				$('.memInfo').html("");
+		        $.each(rdata,function(index,item){
+		        	
+					$('.memInfo').html(
+							
+							'<div id="divInfo">'
+							+ '<input type="hidden" id="selectId" value="'+item.get_id+'">'
+	                		+ '<span id="span1">아이디  </span><span>'+item.get_id+'</span><br>'
+	                		+ '<span id="span1">이름  </span><span>'+item.get_name+'</span><br>'
+	                		+ '<span id="span1">나이  </span><span>'+item.get_age+'</span><br>'
+	                		+ '<span id="span1">성별  </span><span>'+item.get_gender+'</span><br>'
+	                		+ '<span id="span1">이메일  </span><span>'+item.get_email+'</span><br>'
+	                		+ '<span id="span1">휴대폰  </span><span>'+item.get_phone+'</span><br>'
+	                		+ '<span id="span1">가입날짜  </span><span>'+item.get_date+'</span><br>'
+	                		+ '<span id="span1">포인트  </span><span>'+item.get_point+'</span><br>'
+	                		+ '<span id="span1">타입  </span><span>'+item.get_type+'</span><br>'
+	                		+ '</div>'
+	                		+ '<div id="divBtn3">'
+	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
+	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴">'
+	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
+	                		+ '</div>'
+	               	);
+		        });
+		        alert("포인트 변경 완료!");
+			}, error : function() {
+					console.log("실패");
+			}
+		});	
+	}
+}
+
 
 
 //----------------------------------------------
@@ -295,7 +370,7 @@ $(document).ready(function(){
 	                		+ '</div>'
 	                		+ '<div id="divBtn3">'
 	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
-	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴">'
+	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴" onclick="btnDeleteId()">'
 	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
 	                		+ '</div>'
 	               	);

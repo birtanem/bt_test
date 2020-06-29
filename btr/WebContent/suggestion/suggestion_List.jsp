@@ -75,11 +75,18 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
     color: black;
 }
 
-#btnBack{
-	float: right;
-    margin-right: 5px;
+#btn1 {
+ float: left;
+ background-color: gray; 
+ color: white;
 }
 
+#span1 {
+	color: gray;
+    text-align: right;
+    font-size: 8px;
+    margin-left: 367px;
+}
 </style>
 </head>
 <body>
@@ -92,86 +99,51 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 
 
     <section id="partner">
-        <div class="container">
-            <div class="center fadeInDown">
-            
-				<h3 style="text-align: center;"><건의사항></h3>
-					<div style="color: gray; text-align: right; font-size: 8px; width: 885px;">※ 답변 내용은 이메일을 통해 확인해주세요.</div>
-					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
-							<table border="1" style="width: 610px; position: relative;">
-								<tr><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th style="width: 150px;">답변여부</th></tr>
-								<%
-								for(int i=0;i<articleList.size();i++){
-								%>
-								<tr>
-								<td>
-								<a href="Suggestion_Detail.su?su_num=<%=articleList.get(i).getNum()%>">
-								<%=articleList.get(i).getSubject() %>
-								</a>
-								</td>
-								<td><%=articleList.get(i).getDate() %></td>
-								<%
-								if(articleList.get(i).getCheck().equals("답변완료")){
-									%>
-									<td id="td1" style="color: blue; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=articleList.get(i).getCheck() %></td>
+	    <div class="center fadeInDown">		
+		    <div class="blog container">
+			    <div class="col-md-8">
+					<div class="blog-item">
+					    <div class="blog-content">
+								<table border="1" id="table1">
+									<tr><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th style="width: 150px;">답변여부</th></tr>
 									<%
-									
-								} else {
+									for(int i=0;i<articleList.size();i++){
 									%>
-									<td id="td1" style="color: red; font-weight: bold; "><%=articleList.get(i).getCheck() %></td>
+									<tr>
+									<td>
+									<a href="Suggestion_Detail.su?su_num=<%=articleList.get(i).getNum()%>">
+									<%=articleList.get(i).getSubject() %>
+									</a>
+									</td>
+									<td><%=articleList.get(i).getDate() %></td>
 									<%
-								}
-								%>
-
-								</tr>
-								<%
-								}
-								%>
-							</table>
-							<div style="width: 600px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="건의하러가기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_WriteForm.su'">
-							</div>
-					</article>
-
-            </div>
-        </div>
-        <!--/.container-->
+									if(articleList.get(i).getCheck().equals("답변완료")){
+										%>
+										<td id="td1" style="color: blue; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=articleList.get(i).getCheck() %></td>
+										<%
+										
+									} else {
+										%>
+										<td id="td1" style="color: red; font-weight: bold; "><%=articleList.get(i).getCheck() %></td>
+										<%
+									}
+									%>
+	
+									</tr>
+									<%
+									}
+									%>
+								</table>
+							<span id="span1">※ 답변 내용은 이메일을 통해 확인해주세요.</span>
+							<input type="button" value="건의하러가기" id="btn1" onclick="location.href='Suggestion_WriteForm.su'">
+					    </div>
+				    </div>
+			    </div>
+			</div>
+	    </div>
     </section>
     
     <!--/#partner-->
-    
-    <section id="blog">
-
-        <div class="blog container">
-            <div class="row">
-                <div class="col-md-8">
-                                
-				
-					<div class="blog-item">
-                        <div class="blog-content">
-                            	<table border="3" id="table1">
-	                            	<tr>
-	                            		<td id="td0">제목 : </td>
-	                            		<td id="td_title">ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</td>
-	                            		<td id="td1">작성일</td>
-	                            		<td id="td2">2020-06-26</td>
-	                            		<td id="td3">답변여부 </td>
-	                            		<td id="td4">미완료</td>
-	                            	</tr>
-                            	</table>
-                        </div>
-                    </div>
-
-
-
-                    </div>
-				</div>
-
-
-                    </div>
-    </section>
-
-
 
     <footer id="footer" class="midnight-blue">
         <div class="container">

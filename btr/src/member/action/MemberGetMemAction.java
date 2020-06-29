@@ -30,6 +30,7 @@ public class MemberGetMemAction implements Action {
 		boolean idSearch = false;
 		boolean pointChange = false;
 		int cPoint = 0;
+		String adminPass = null;
 		
 		if(request.getParameter("id") != null) {
 			
@@ -39,10 +40,19 @@ public class MemberGetMemAction implements Action {
 			
 		} else if (request.getParameter("selectId") != null) {
 			
-			cPoint = Integer.parseInt(request.getParameter("cPoint"));
-			type = request.getParameter("selectId");
-			idSearch = false;
-			pointChange = true;
+			if(request.getParameter("cPoint") != null) {
+				
+				cPoint = Integer.parseInt(request.getParameter("cPoint"));
+				type = request.getParameter("selectId");
+				idSearch = false;
+				pointChange = true;
+				
+			} else if(request.getParameter("adminPass") != null) {
+				adminPass = request.getParameter("adminPass");
+				type = request.getParameter("selectId");
+				idSearch = false;
+				pointChange = false;
+			}
 		
 		} else {
 			System.out.println("id 값 받기 오류");
@@ -64,7 +74,7 @@ public class MemberGetMemAction implements Action {
 		int page = 1;
 		int limit = 10;
 		
-		memberList = memberListService.getMemberList(page, limit, type, idSearch, pointChange, cPoint);
+		memberList = memberListService.getMemberList(page, limit, type, idSearch, pointChange, cPoint, adminPass);
 		
 		JSONArray jsonArray = new JSONArray();
 		for (int i = 0; i < memberList.size(); i++) {

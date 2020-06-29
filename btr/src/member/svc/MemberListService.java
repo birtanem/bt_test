@@ -29,7 +29,7 @@ public class MemberListService {
 		return listCount;
 	}
 
-	public ArrayList<MemberBean> getMemberList(int page, int limit, String type, boolean idSearch, boolean pointChange, int cPoint) {
+	public ArrayList<MemberBean> getMemberList(int page, int limit, String type, boolean idSearch, boolean pointChange, int cPoint, String adminPass) {
 		ArrayList<MemberBean> memberList = null;
 		
 		System.out.println("MemberListService -getMemberList()");
@@ -48,7 +48,7 @@ public class MemberListService {
 			
 			memberList = memberDAO.getMemberListIdSearch(page,limit,type);
 		} else {
-			memberList = memberDAO.getMemberList(page,limit,type);
+			memberList = memberDAO.getMemberList(page,limit,type); // 수정중#############################################adminPass 받아와서 비교후 탈퇴시키기
 		}
 
 		close(con);
