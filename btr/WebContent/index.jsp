@@ -48,11 +48,6 @@
 
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	location.href="index.jsp#main-map";
-});
-</script>
-<script type="text/javascript">
 	$(document)
 			.ready(
 					function() {
@@ -375,7 +370,7 @@ margin-bottom: 10px;
 <script type="text/javascript">
 	// 메인사진 랜덤 출력
 	$(document).ready(function() {
-		var imgRan = Math.round(Math.random() * 14);
+		var imgRan = Math.round(Math.random() * 13);
 		var imgPath = ('images/main/busan' + imgRan + '.jpg');
 		// 	document.getElementById('bgImg').src=imgPath;
 		$('#mainImg').css('background-image', 'url(' + imgPath + ')');
