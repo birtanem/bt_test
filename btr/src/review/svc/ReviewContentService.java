@@ -3,6 +3,7 @@ package review.svc;
 import static common.db.JdbcUtil.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import review.dao.ReviewDAO;
 import review.vo.*;
@@ -64,6 +65,25 @@ public class ReviewContentService {
 			close(con);
 			
 		return likeArticle;
+	}
+
+	public ArrayList<ReviewBean> getArrayList() {
+
+		ArrayList<ReviewBean> arrayList = null;
+		
+		System.out.println("ReviewContentService - getArrayList");
+		
+		Connection con = getConnection();
+		
+		ReviewDAO reviewDAO = ReviewDAO.getInstance();
+		
+		reviewDAO.setConnection(con);
+		
+		arrayList = reviewDAO.getArticleList();
+		
+		close(con);
+		
+		return arrayList;
 	}
 	
 }

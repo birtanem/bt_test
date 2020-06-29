@@ -53,7 +53,7 @@
                 		<c:forEach var="article" items="${articleList }" >
 		                	<div class="blog-item">
 		                        <div class="blog-content"
-		                           onclick="location.href='Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }'">
+		                           onclick="location.href='Review_Content.re?&r_num=${article.r_num }'">
 		                            <a class="blog_cat" style="margin-bottom: 0px;">[${article.r_name }]</a><br>
 		                            <a class="readmore">작성자&nbsp; : &nbsp;${article.r_id } &nbsp;&nbsp; </a><br>
 		                            <a class="readmore">작성날짜&nbsp; : &nbsp;${article.r_date }</a>&nbsp;&nbsp;

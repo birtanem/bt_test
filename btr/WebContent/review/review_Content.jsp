@@ -83,7 +83,7 @@
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
+					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 			                          +'</div>'
 			                          +'</div>'
 		                       	);
@@ -98,9 +98,9 @@
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
-					                  +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 수정 </a>'
-			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
+					                  +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 수정 </a>'
+			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
 			                          +'</div>'
 			                          +'</div>'
 								);
@@ -162,7 +162,7 @@
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
+	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -177,9 +177,9 @@
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
-	                              +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">수정</a>'
-	                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
+	                              +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">수정</a>'
+	                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -203,7 +203,7 @@
 				
 			$.ajax({
 				
-				url : "Review_ContentLike.re?r_num=${article.r_num }&page=${nowPage }&id=${sessionScope.id }",
+				url : "Review_ContentLike.re?r_num=${article.r_num }&id=${sessionScope.id }",
 				dataType : "json",
 				success : function(rdata){
 					$('#likeCount').html(rdata.likecount);
@@ -255,8 +255,8 @@
                                     
                                     <a id="comment" href="javascript:;" class="tweet-bg"> 댓글 보기</a>
                                     <c:if test="${sessionScope.id == article.r_id }">
-                                    <a id="reviewUpdate" href="Review_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }">수정</a>
-                                    <a id="reviewDelete" href="Review_DeleteForm.re?r_num=${article.r_num}&page=${nowPage }">삭제</a>
+                                    <a id="reviewUpdate" href="Review_UpdateForm.re?r_num=${article.r_num}">수정</a>
+                                    <a id="reviewDelete" href="Review_DeleteForm.re?r_num=${article.r_num}">삭제</a>
                                     </c:if>
                                 </div>
                             </div>
@@ -283,6 +283,69 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <aside class="col-md-4">
+                    
+					<!--카테고리-->
+                    <div class="widget archieve">
+                        <h3>Categories</h3>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="blog_archieve">
+                                <li><a href="Review_List.re?r_code=17" style="float: right; margin-right: 50px">기타지역(부산외) &nbsp; </a></li>
+                                	<li><a href="Review_List.re">전체 글 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=9">사상구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=1">강서구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=10">사하구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=2">금정구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=11">서구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=3">기장군 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=12">수영구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=4">남구 &nbsp; </a>  <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=13">연제구&nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=5">동구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=14">영도구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=6">동래구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=15">중구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=7">부산진구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=16">해운대구&nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=8">북구 &nbsp; </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+					<!--카테고리-->
+					<div class="widget popular_post">
+                        <h3>추 천 리 뷰</h3>
+                        <ul>
+                            <li>
+                       			<c:forEach var="List" items="${arrayList }">
+	                                <a href="Review_Content.re?r_num=${List.r_num }">
+	                                    <p>${List.r_subject }</p>
+	                                </a>
+                 				</c:forEach>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="widget blog_gallery">
+                        <h3>인 기 상 품</h3>
+                        <ul class="sidebar-gallery clearfix">
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-1.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-2.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-3.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-4.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-5.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-6.png" alt="" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </aside>
+                    
                 </div>
               </div>
       </section>    
