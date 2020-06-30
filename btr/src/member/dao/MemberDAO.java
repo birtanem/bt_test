@@ -552,7 +552,6 @@ public class MemberDAO {
 				String sql = "select * from member where id=?";	
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, type);
-				
 				rs = pstmt.executeQuery();
 				
 				while (rs.next()) {
@@ -567,9 +566,7 @@ public class MemberDAO {
 					memberBean.setDate(rs.getDate("date"));
 					memberBean.setPoint(rs.getInt("point"));
 					memberBean.setType(rs.getString("type"));
-
 					memberList.add(memberBean);
-					
 				}
 
 				System.out.println(type);
@@ -601,6 +598,23 @@ public class MemberDAO {
 				close(pstmt);
 			}
 
+		}
+		
+		//멤버관리 아이디삭제
+		public void deleteId(String type) { 
+			PreparedStatement pstmt = null;
+			
+			try {
+		 		String sql="delete from member where id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, type);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				System.out.println("MemberDAO - deleteId() 실패! : " + e.getMessage());
+			}finally {
+				close(pstmt);
+			}
+			
 		}
 }
 

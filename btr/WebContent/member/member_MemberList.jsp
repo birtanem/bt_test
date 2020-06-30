@@ -211,6 +211,7 @@ function btnSearch() {
 
 //포인트 변경 버튼
 function btnPointChange() {
+	$(".pointChange").html("");
 	$(".pointChange").html(
 			
 			'<input type="text" name="cPoint" id="cPoint" placeholder="변경할 포인트">'
@@ -219,9 +220,10 @@ function btnPointChange() {
 }
 
 function btnDeleteId() {
+	$(".pointChange").html("");
 	$(".pointChange").html(
 			
-			'<input type="text" name="adminPass" id="adminPass" placeholder="관리자 패스워드를 입력하세요">'
+			'<input type="password" name="adminPass" id="adminPass" placeholder="관리자 패스워드를 입력하세요">'
 			+ '<input type="button" id="btnMem2" value="삭제 확인" onclick="btnDeleteIdConfirm()">'	
 	);
 }
@@ -268,8 +270,7 @@ function btnChangeConfirm() {
 	                		+ '</div>'
 	                		+ '<div id="divBtn3">'
 	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
-	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴">'
-	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
+	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴" onclick="btnDeleteId()">'
 	                		+ '</div>'
 	               	);
 		        });
@@ -322,14 +323,14 @@ function btnDeleteIdConfirm() {
 	                		+ '</div>'
 	                		+ '<div id="divBtn3">'
 	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
-	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴">'
-	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
+	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴" onclick="btnDeleteId()">'
 	                		+ '</div>'
 	               	);
 		        });
-		        alert("포인트 변경 완료!");
+		        alert("회원 탈퇴 완료!");
 			}, error : function() {
 					console.log("실패");
+					alert("admin 패스워드가 틀립니다!");
 			}
 		});	
 	}
@@ -371,7 +372,6 @@ $(document).ready(function(){
 	                		+ '<div id="divBtn3">'
 	                		+ '<input type="button" id="btnMem" value="포인트 변경" onclick="btnPointChange()">'
 	                		+ '<input type="button" id="btnMem" value="아이디 탈퇴" onclick="btnDeleteId()">'
-	                		+ '<input type="button" id="btnMem" value="아이디  수정">'
 	                		+ '</div>'
 	               	);
 		        });
@@ -417,10 +417,10 @@ $(document).ready(function(){
 	                    		<div id="divBtn2">
 		                    		<input type="button" id="btnIdArray" value="아이디 정렬" onclick="idA()">
 		                    		<input type="button" id="btnIdArray" value="아이디 역정렬" onclick="idD()">
-		                    		<input type="button" id="btnAgeArray" value="나이 정렬" onclick="ageA()">
-		                    		<input type="button" id="btnAgeArray" value="나이 역정렬" onclick="ageD()">
-		                    		<input type="button" id="btnPointArray" value="포인트 정렬" onclick="pointA()">
-		                    		<input type="button" id="btnPointArray" value="포인트 역정렬" onclick="pointD()">
+		                    		<input type="button" id="btnAgeArray" value="나이 정렬" onclick="ageD()">
+		                    		<input type="button" id="btnAgeArray" value="나이 역정렬" onclick="ageA()">
+		                    		<input type="button" id="btnPointArray" value="포인트 정렬" onclick="pointD()">
+		                    		<input type="button" id="btnPointArray" value="포인트 역정렬" onclick="pointA()">
 	                    		</div>
 	                    	</div>        		   
                         </div>

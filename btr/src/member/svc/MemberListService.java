@@ -2,6 +2,10 @@ package member.svc;
 
 import static common.db.JdbcUtil.*;
 
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.sql.*;
 import java.util.*;
 
@@ -48,9 +52,18 @@ public class MemberListService {
 			
 			memberList = memberDAO.getMemberListIdSearch(page,limit,type);
 		} else {
-			memberList = memberDAO.getMemberList(page,limit,type); // 수정중#############################################adminPass 받아와서 비교후 탈퇴시키기
+			if(adminPass != null) {
+				String id = "admin";
+				int loginResult = memberDAO.selectLoginMember(id,adminPass);
+				if(loginResult == 1) {
+					memberDAO.deleteId(type);
+					commit(con);	
+					memberList = memberDAO.getMemberListIdSearch(page,limit,type);
+				}
+			} else {
+				memberList = memberDAO.getMemberList(page,limit,type); // 수정중#############################################adminPass 받아와서 비교후 탈퇴시키기
+			}
 		}
-
 		close(con);
 		
 		return memberList;
