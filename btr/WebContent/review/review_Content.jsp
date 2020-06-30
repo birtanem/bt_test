@@ -233,12 +233,12 @@
 
      <section id="blog" style="min-height: 560px;">
 
-        <div class="blog container">
+        <div class="blog container" >
             <div class="row">
             
                 <div class="col-md-8">
                 
-					<div class="blog-item">
+					<div class="blog-item" style="box-shadow: 1px 1px 20px #ddd;">
                             <a class="blog_cat" style="margin: 10px;">[${article.r_name }]</a>
                             <h2 style="margin-left: 10px;">${article.r_subject }</h2>
                             <div class="post-meta" style="margin-left: 10px;">
@@ -247,7 +247,7 @@
                                 <p><img src="review/love.png" width="15px" height="15px">(<a id="likeCount">${article.r_likecount }</a>)</p>
                                 <p><a> 조회수&nbsp; : &nbsp;(${article.r_readcount })</a></p>
                             </div>
-                            <h2 style="margin-left: 10px;">${article.r_content }</h2>
+                            <h2 style="margin-left: 10px; width: 97%;">${article.r_content }</h2>
                             
                             <div class="inner-meta">
                                 <div class="social-btns" style="margin-left: 10px;">
@@ -267,10 +267,10 @@
                   <!--        댓글 쓰기                    -->
                              <div id="comments" style="display: none;">
                                 <div class="single-comment">
-                                    <div class="comment-content comment-form">
+                                    <div class="comment-content comment-form" >
                                     <c:if test="${sessionScope.id != null }">
                                         <form action="Comment_WritePro.re" name="commentForm" method="post">
-                                            <textarea rows="5" cols="100" id="rc_content" name="rc_content" style=" border-radius: 10px 10px 10px 10px; margin-left:20px; width: 95%; "></textarea>
+                                            <textarea rows="5" cols="100" id="rc_content" name="rc_content" style="box-shadow: 1px 1px 20px #ddd; border-radius: 10px 10px 10px 10px; margin-left:20px; width: 95%; "></textarea>
                                             <input type="hidden"name="id" id="id" value="${sessionScope.id }">
                                             <input type="hidden"name="r_num" id="r_num" value="${article.r_num }">
                                             <input type="button" style=" margin-left:20px;" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
@@ -288,7 +288,7 @@
                     <aside class="col-md-4">
                     
 					<!--카테고리-->
-                    <div class="widget archieve">
+                    <div class="widget archieve" style="box-shadow: 1px 1px 20px #ddd;">
                         <h3>Categories</h3>
                         <div class="row">
                             <div class="col-sm-12">
@@ -308,7 +308,7 @@
                         </div>
                     </div>
 					<!--카테고리-->
-					<div class="widget popular_post">
+					<div class="widget popular_post" style="box-shadow: 1px 1px 20px #ddd;">
                         <h3>추 천 리 뷰</h3>
                         <ul>
                             <li>
@@ -321,7 +321,7 @@
                         </ul>
                     </div>
                     
-                    <div class="widget blog_gallery">
+                    <div class="widget blog_gallery" style="box-shadow: 1px 1px 20px #ddd;">
                         <h3>인 기 상 품</h3>
                         <ul class="sidebar-gallery clearfix">
                             <li>
