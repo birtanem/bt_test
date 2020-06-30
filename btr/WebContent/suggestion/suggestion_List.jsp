@@ -33,18 +33,27 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+<script type="text/javascript">
+
+// $(document).ready(function(){
+// 	$('.memInfo').html("");
+// });
+
+</script>
 <style type="text/css">
 #table1 {
 	color: black;
+	border-style: solid;
 }
 
 /* 테이블 td조정 */
 #td0 {
-	width: 45px;
+	width: 56px;
 }
 
 #td_title {
 	color: blue;
+	width: 440px;
 }
 
 #td1 {
@@ -52,16 +61,17 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 }
 
 #td2 {
-	width: 110px;
+	width: 85px;
 	color: red;
+	text-align: end;
 }
 
 #td3 {
-	width: 64px;
+	width: 128px;
 }
 
 #td4 {
-	width: 52px;
+	width: 88px;
 	color: red;
 }
 
@@ -76,7 +86,7 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 }
 
 #btn1 {
- float: left;
+ float: right;
  background-color: gray; 
  color: white;
 }
@@ -96,54 +106,75 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
     <div class="page-title" style="background-image: url(images/page-title.png)">
         <h1>내 건의사항</h1>
     </div>
-
-
-    <section id="partner">
-	    <div class="center fadeInDown">		
-		    <div class="blog container">
-			    <div class="col-md-8">
+    <section id="blog">
+        <div class="blog container">
+            <div class="row">
+                <div class="col-md-8">
+                
+                     <div class="blog-item">
+                        <div class="blog-content">
+	                    	<div>
+	                    		<span id="spanCount1">나의 건의사항 </span>
+	                    		<input type="button" value="건의하러가기" id="btn1" onclick="location.href='Suggestion_WriteForm.su'">
+	                    	</div>        		   
+                        </div>
+                    </div>
+    				<%
+					for(int i=0;i<articleList.size();i++){
+					%>
 					<div class="blog-item">
-					    <div class="blog-content">
-								<table border="1" id="table1">
-									<tr><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th style="width: 150px;">답변여부</th></tr>
-									<%
-									for(int i=0;i<articleList.size();i++){
-									%>
-									<tr>
-									<td>
-									<a href="Suggestion_Detail.su?su_num=<%=articleList.get(i).getNum()%>">
-									<%=articleList.get(i).getSubject() %>
-									</a>
-									</td>
-									<td><%=articleList.get(i).getDate() %></td>
-									<%
-									if(articleList.get(i).getCheck().equals("답변완료")){
-										%>
-										<td id="td1" style="color: blue; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=articleList.get(i).getCheck() %></td>
-										<%
-										
-									} else {
-										%>
-										<td id="td1" style="color: red; font-weight: bold; "><%=articleList.get(i).getCheck() %></td>
-										<%
-									}
-									%>
-	
-									</tr>
-									<%
-									}
-									%>
-								</table>
-							<span id="span1">※ 답변 내용은 이메일을 통해 확인해주세요.</span>
-							<input type="button" value="건의하러가기" id="btn1" onclick="location.href='Suggestion_WriteForm.su'">
-					    </div>
-				    </div>
-			    </div>
-			</div>
-	    </div>
-    </section>
+                        <div class="blog-content">
+                            <a href="Suggestion_Detail.su?su_num=<%=articleList.get(i).getNum()%>">
+                            	<table id="table1">
+	                            	<tr>
+	                            		<td id="td0">제목 : </td>
+	                            		<td id="td_title"><%=articleList.get(i).getSubject() %></td>
+	                            		<td id="td2">작성일 </td>
+	                            		<td id="td3"> <%=articleList.get(i).getDate() %></td>
+	                            		<td id="td4"><%=articleList.get(i).getCheck() %></td>
+	                            	</tr>
+                            	</table>
+                            </a>
+                        </div>
+                    </div>
+	         		<%
+					}
+					%>
+                </div>
+                <!--/.col-md-8-->
+
+            </div>  
+        </div>
+    </section>    
     
-    <!--/#partner-->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
