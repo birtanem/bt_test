@@ -24,7 +24,6 @@ public class CommentReplyProAction implements Action {
 		int rc_ref = Integer.parseInt(request.getParameter("rc_ref"));
 		int rc_lev = Integer.parseInt(request.getParameter("rc_lev"));
 		int rc_seq = Integer.parseInt(request.getParameter("rc_seq"));
-		int page = Integer.parseInt(request.getParameter("page"));
 		
 		CommentBean article = new CommentBean();
 		
@@ -54,7 +53,7 @@ public class CommentReplyProAction implements Action {
 			
 			forward = new ActionForward();
 			
-			forward.setPath("/Review_Content.re?&r_num="+r_num+"&page="+page);
+			forward.setPath("/Review_Content.re?&r_num="+r_num);
 		}
 		return forward;
 	}

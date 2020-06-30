@@ -18,14 +18,12 @@ public class CommentUpdateProAction implements Action {
 		ActionForward forward = null;
 
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
-		int page = Integer.parseInt(request.getParameter("page"));
 		int rc_num = Integer.parseInt(request.getParameter("rc_num"));
 		int rc_ref = Integer.parseInt(request.getParameter("rc_ref"));
 		int rc_lev = Integer.parseInt(request.getParameter("rc_lev"));
 		int rc_seq = Integer.parseInt(request.getParameter("rc_seq"));
 		
 		System.out.println(r_num);
-		System.out.println(page);
 		System.out.println(rc_num);
 		System.out.println(rc_ref);
 		System.out.println(rc_lev);
@@ -48,7 +46,7 @@ public class CommentUpdateProAction implements Action {
 		boolean isUpdate = commentUpdateService.UpdateArticle(article);
 		
 		forward = new ActionForward();
-		forward.setPath("/Review_Content.re?&r_num="+r_num+"&page="+page);
+		forward.setPath("/Review_Content.re?&r_num="+r_num);
 		
 		return forward;
 	}

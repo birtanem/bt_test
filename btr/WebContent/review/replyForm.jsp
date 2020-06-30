@@ -90,7 +90,6 @@
                         
                       <div class="col-sm-10 ">
 
-						  	<input type="hidden" name="page" value="${param.page }">
 						  	<input type="hidden" name="r_num" value="${article.r_num }">
 						  	<input type="hidden" name="rc_num" value="${param.rc_num }">
 						  	<input type="hidden" name="rc_ref" value="${article.rc_ref }">

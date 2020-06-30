@@ -92,7 +92,6 @@
                             <label>글 내용</label>
                             
 							<input type="hidden" name="r_num" value="${param.r_num }">
-							<input type="hidden" name="page" value="${param.page }">
 							<input type="hidden" name="rc_num" value="${param.rc_num }">
 						    <input type="hidden" name="rc_id" value="${sessionScope.id }">
 						    <input type="hidden" name="rc_ref" value="${article.rc_ref }">

@@ -65,7 +65,7 @@
 									$('.comments').append(
 	
 									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 			                          +'<p>'+item.rc_content+'</p> </div>'
@@ -78,12 +78,12 @@
 							else if (id != null && id != item.rc_id) {
 								$('.comments').append(
 									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
+					                  +'<a id ="reply" style="margin-right: 15px;" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 			                          +'</div>'
 			                          +'</div>'
 		                       	);
@@ -93,14 +93,14 @@
 								$('.comments').append(							
 										
 			                          '<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
+			                          +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 			                          +'<p>'+item.rc_content+'</p> </div>'
 					                  +'<div class="comment-count">'
 					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 					                  +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 수정 </a>'
-			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
+			                          +'<a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
 			                          +'</div>'
 			                          +'</div>'
 								);
@@ -144,7 +144,7 @@
 	                            $('.comments').append(
 	
 	                            '<div class="single-comment" >'
-	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
@@ -157,12 +157,12 @@
 	                    else if (id != null && id != item.rc_id) {
 	                        $('.comments').append(
 	                            '<div class="single-comment" >'
-	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
+	                              +'<a id ="reply" style="margin-right: 15px;" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -172,14 +172,14 @@
 	                        $('.comments').append(                          
 	
 	                              '<div class="single-comment" >'
-	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
 	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 	                              +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">수정</a>'
-	                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
+	                              +'<a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -235,20 +235,22 @@
 
         <div class="blog container">
             <div class="row">
+            
                 <div class="col-md-8">
-
-                            <a class="blog_cat">[${article.r_name }]</a>
-                            <h2><a>${article.r_subject }</a></h2>
-                            <div class="post-meta">
+                
+					<div class="blog-item">
+                            <a class="blog_cat" style="margin: 10px;">[${article.r_name }]</a>
+                            <h2 style="margin-left: 10px;">${article.r_subject }</h2>
+                            <div class="post-meta" style="margin-left: 10px;">
                                 <p><a>${article.r_id }</a></p>
                                 <p><i class="fa fa-clock-o"></i><a>${article.r_date }</a></p>
                                 <p><img src="review/love.png" width="15px" height="15px">(<a id="likeCount">${article.r_likecount }</a>)</p>
                                 <p><a> 조회수&nbsp; : &nbsp;(${article.r_readcount })</a></p>
                             </div>
-                            <h3>${article.r_content }</h3>
+                            <h2 style="margin-left: 10px;">${article.r_content }</h2>
                             
                             <div class="inner-meta">
-                                <div class="social-btns">
+                                <div class="social-btns" style="margin-left: 10px;">
                                     <a id="like"  href="javascript:;"> <i class="fa fa-heart"></i> Like</a>
                                     
                                     <input type="hidden" id="sessionID" value="${sessionScope.id }">
@@ -261,18 +263,17 @@
                                 </div>
                             </div>
                             <br>
-                          <h2>Comments&nbsp; (<a id="commentCount">${pageinfo.commentCount }</a>)</h2>
+                          <h2 style="margin-left: 10px;">Comments&nbsp; (<a id="commentCount">${pageinfo.commentCount }</a>)</h2>
                   <!--        댓글 쓰기                    -->
                              <div id="comments" style="display: none;">
                                 <div class="single-comment">
                                     <div class="comment-content comment-form">
                                     <c:if test="${sessionScope.id != null }">
                                         <form action="Comment_WritePro.re" name="commentForm" method="post">
-                                            <textarea rows="5" cols="100" id="rc_content" name="rc_content"></textarea>
+                                            <textarea rows="5" cols="100" id="rc_content" name="rc_content" style=" border-radius: 10px 10px 10px 10px; margin-left:20px; width: 95%; "></textarea>
                                             <input type="hidden"name="id" id="id" value="${sessionScope.id }">
                                             <input type="hidden"name="r_num" id="r_num" value="${article.r_num }">
-                                            <input type="hidden"name="page" id="page" value="${nowPage }">
-                                            <input type="button" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
+                                            <input type="button" style=" margin-left:20px;" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
                                         </form>
                                     </c:if>    
                                     </div>
@@ -283,7 +284,7 @@
                             </div>
                         </div>
                     </div>
-                    
+                   </div> 
                     <aside class="col-md-4">
                     
 					<!--카테고리-->

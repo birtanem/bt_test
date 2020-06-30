@@ -40,7 +40,7 @@
     
 <jsp:include page="/inc/top.jsp" />
 
-    <div class="page-title" style="background-image: url(images/top/Busan3.jpg); background-size: cover; background-position: center;">
+    <div class="page-title" style="background-image: url(images/page-title.png)">
         <h1>Review</h1>
     </div>
     
@@ -116,6 +116,43 @@
                         </div>
                     </div>
 					<!--카테고리-->
+                    
+                   <div class="widget popular_post">
+                        <h3>추 천 리 뷰</h3>
+                        <ul>
+                            <li>
+                       			<c:forEach var="List" items="${arrayList }">
+	                                <a href="Review_Content.re?r_num=${List.r_num }">
+	                                    <p>${List.r_num }번글 &nbsp; ${List.r_subject }</p>
+	                                </a>
+                 				</c:forEach>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                   <div class="widget blog_gallery">
+                        <h3>인 기 상 품</h3>
+                        <ul class="sidebar-gallery clearfix">
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-1.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-2.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-3.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-4.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-5.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-6.png" alt="" /></a>
+                            </li>
+                        </ul>
+                    </div>
                     
                 </aside>
             </div>

@@ -21,8 +21,6 @@ public class CommentUpdateFormAction implements Action {
 		
 		int rc_num = Integer.parseInt(request.getParameter("rc_num"));
 		
-		int page = Integer.parseInt(request.getParameter("page"));
-		
 		CommentUpdateService commentUpdateService = new CommentUpdateService();
 		
 		CommentBean article = commentUpdateService.getArticle(rc_num);
@@ -30,7 +28,7 @@ public class CommentUpdateFormAction implements Action {
 		request.setAttribute("article", article);
 		
 		forward = new ActionForward();
-		forward.setPath("/review/commentUpdateForm.jsp?r_num="+r_num+"&rc_num="+rc_num+"&page="+page);
+		forward.setPath("/review/commentUpdateForm.jsp?r_num="+r_num+"&rc_num="+rc_num);
 		
 		return forward;
 	}

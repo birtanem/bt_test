@@ -37,6 +37,11 @@ public class ReviewListAction implements Action {
 		
 		ReviewPageInfo pageinfo = new ReviewPageInfo(page, maxPage, startPage, endPage, listCount);
 
+		ReviewContentService reviewContentService = new ReviewContentService();
+		
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();
+		
+		request.setAttribute("arrayList",arrayList);
 		
 // ------------------------------------------------------------------------------------------------------------
 		

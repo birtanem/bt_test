@@ -18,7 +18,6 @@ public class CommentDeleteAction implements Action {
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
 		int rc_num = Integer.parseInt(request.getParameter("rc_num"));
-		int page = Integer.parseInt(request.getParameter("page"));
 		
 		CommentDeleteService commentDeleteService = new CommentDeleteService();
 		
@@ -26,7 +25,7 @@ public class CommentDeleteAction implements Action {
 		
 		forward = new ActionForward();
 		forward.setRedirect(true);
-		forward.setPath("Review_Content.re?r_num="+r_num+"&page="+page);
+		forward.setPath("Review_Content.re?r_num="+r_num);
 		
 		return forward;
 	}

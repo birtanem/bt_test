@@ -22,7 +22,6 @@ public class ReviewUpdateProAction implements Action {
 		System.out.println(request.getParameter("r_subject"));
 		System.out.println(request.getParameter("r_content"));
 		System.out.println(request.getParameter("r_id"));
-		System.out.println(request.getParameter("page"));
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
 		int r_code = Integer.parseInt(request.getParameter("r_code"));
@@ -41,7 +40,7 @@ public class ReviewUpdateProAction implements Action {
 		
 		forward = new ActionForward();
 		forward.setRedirect(true);
-		forward.setPath("Review_Content.re?r_num="+r_num+"&page="+page);
+		forward.setPath("Review_Content.re?r_num="+r_num);
 		
 		return forward;
 	}
