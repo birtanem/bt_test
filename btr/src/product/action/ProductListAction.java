@@ -95,7 +95,7 @@ public class ProductListAction implements Action {
 //					리스트 → 제이슨?
 						MemberMypageFormService info=new MemberMypageFormService();
 						MemberBean mb=info.getMemberInfo(id);
-						ArrayList<ProductBean> List = productListService.getProductList();
+						ArrayList<ProductBean> List = productListService.getProductList(1,10);
 						JSONArray jsonArray = new JSONArray();
 						for(int i=0; i<List.size();i++) {
 							JSONObject obj=new JSONObject();

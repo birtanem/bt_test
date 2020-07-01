@@ -72,7 +72,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo" width="150"></a>
+                    <a class="navbar-brand" href="main.co"><img src="images/logo.png" alt="logo" width="150"></a>
                     
                 </div>
 

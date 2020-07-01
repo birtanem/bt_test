@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,7 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	location.href="index.jsp#main-map";
+// 	location.href="index.jsp#main-map";
 });
 </script>
 <script type="text/javascript">
@@ -323,7 +324,7 @@ margin-bottom: 10px;
 			dataType: "json",
 			success:function(rdata){
 				$.each(rdata, function(index, item){
-					alert(item.p_img);
+// 					alert(item.p_img);
 					var imgpath="product/productUpload/"+item.p_img;
 					if((item.session)==item.p_theme){
 						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
@@ -348,9 +349,7 @@ margin-bottom: 10px;
 
 <body class="homepage">
 <jsp:include page="/inc/top.jsp" />
-
-
-
+${fn:length("texts")}
 	<section id="main-map" class="no-margin">
 		<div id="mainImg" class="mainImg">
 			<div class="mainText">
@@ -364,11 +363,22 @@ margin-bottom: 10px;
 						<dt>인기 여행지</dt>
 						<dd>
 							<ol>
-								<li><a href="#">1 순위</a></li>
-								<li><a href="#">2 순위</a></li>
-								<li><a href="#">3 순위</a></li>
-								<li><a href="#">4 순위</a></li>
-								<li><a href="#">5 순위</a></li>
+								<c:forEach var="list" items="${list }" begin="0" end="4" varStatus="stat">
+									<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}">
+									
+										<c:choose>
+											<c:when test="${fn:length(list.pl_name) lt 5} ">
+													123123123
+												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,5) }...	
+											</c:when>
+											<c:otherwise>
+											ddddd
+												<b>${stat.count }</b>&nbsp; ${list.pl_name }											
+											</c:otherwise>										
+										</c:choose>
+																			
+									</a></li>
+								</c:forEach>	
 							</ol>
 						</dd>
 						</dl>

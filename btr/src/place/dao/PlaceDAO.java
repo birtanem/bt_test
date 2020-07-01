@@ -525,7 +525,8 @@ public class PlaceDAO {
 			ResultSet rs = null;
 			ArrayList<PlaceBean> articleList = new ArrayList<PlaceBean>();
 			try {
-				String sql = "SELECT * FROM place";
+				// 인기여행지(like순) 추출하기 위해서 ORDER BY 추가
+				String sql = "SELECT * FROM place ORDER BY pl_likecount DESC";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				

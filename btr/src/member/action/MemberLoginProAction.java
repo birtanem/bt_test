@@ -62,7 +62,7 @@ public class MemberLoginProAction implements Action {
 				// LoginException 예외가 발생하여 전달되면 catch 구문 실행됨
 				// => 전달받은 예외 객체의 메세지를 자바스크립트로 출력하면
 				//    로그인 실패에 대한 결과 메세지 출력 구분 가능
-				
+
 	        return forward;      
 	}
 }
