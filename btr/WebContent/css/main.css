@@ -764,7 +764,7 @@ input.search-form:hover {
 
 .progress-wrap {
     position: relative;
-    padding: 10px 35px;
+    padding: 21px 25px;
 }
 
 .progress-wrap h3 {
@@ -775,7 +775,7 @@ input.search-form:hover {
 .progress .color1,
 .progress .color1 .bar-width,
 .progress .color1 .bar-width::after {
-    background: #2d7da4;
+    background: #1920ff;
 }
 
 .progress .color2,

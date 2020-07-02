@@ -20,7 +20,6 @@ String id = (String)request.getAttribute("id");
     <meta name="author" content="">
     <title>Home | With Trip</title>
 
-    <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
@@ -30,204 +29,112 @@ String id = (String)request.getAttribute("id");
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
    
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-    
+<style type="text/css">
+#span_Info {
+	display: inline-block;
+    width: 113px;
+    color: gray;
+    font-weight: bold;
+}
+
+#span_Info2 {
+	display: inline-block;
+    color: black;
+    font-family: none;
+    font-weight: bold;
+    color: green;
+}
+
+#btn_Goback {
+	margin-left: 10px;
+}
+
+#btn_MySuggestion {
+	float: right;
+	background-color: dimgray;
+}
+
+#content {
+	height: 260px;
+}
+</style>    
 </head>
 <body>
 	<jsp:include page="/inc/top.jsp" />
-	<!--/header-->
-
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
         <h1>건의사항(관리자 페이지)</h1>
     </div>
 
-
-    <section id="partner">
+        <section id="contact-page">
         <div class="container">
-            <div class="center fadeInDown">
-            <%
-            if(article.getCheck().equals("답변완료")){
-            	%>
-            	            <article style="position: relative; float: right; margin-right: 255px; margin-right: 110px;">
-								<table border="1" bordercolor="black"
-								style="position: relative; 
-									   float: right; 
-									   margin-left: 10px; 
-									   width: 255px; 
-									   mix-blend-mode: difference;
-									   font-size: medium;
-									   color: black;
-									   font-family: fantasy;
-									   background-color: darkgrey;
-									   border: double;">
-									<tr><td colspan="2">관리자 답변</td></tr>
-									<tr><td>작성날짜</td><td><%=article.getDate_r()%></td></tr>
-									<tr><td colspan="2" style="height: 300px; background-color: azure;"><%=article.getContent_r()%></td></tr>
-								</table>
-								<table border="1" style="width: 610px; position: relative;">
-									<tr>
-									<td style="width: 80px;">작성 아이디</td>
-									<td style="width: 140px;"><%=article.getId()%></td>
-									<td style="width: 90px;">답변 받을 이메일</td>
-									<td><%=article.getEmail()%></td>
-									</tr>
-									<tr>
-										<td style="width: 40px;">제목</td>
-										<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
-										<%
-										if(article.getCheck().equals("답변완료")){
-											%>
-											<td style="color: blue; width: 60px; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=article.getCheck()%></td>
-											<%
-										} else {
-											%>
-											<td style="color: red; width: 60px; font-weight: bold;"><%=article.getCheck()%></td>
-											<%
-										}
-										%>
-									</tr>
-									<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
-									<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
-								</table>
-            	<%
-            } else {
-            	%>
-            			<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
-							<table border="1" style="width: 610px; position: relative;">
-								<tr>
-								<td style="width: 80px;">작성자 아이디</td>
-								<td style="width: 140px;"><%=article.getId()%></td>
-								<td style="width: 90px;">답변 받을 이메일</td>
-								<td><%=article.getEmail()%></td>
-								</tr>
-								<tr>
-								<td style="width: 40px;">제목</td>
-								<td colspan="2" style="width: 540px; margin: 1px;"><%=article.getSubject() %></td>
-								<%
-								if(article.getCheck().equals("답변완료")){
-									%>
-									<td style="color: blue; width: 60px; font-weight: bold; text-shadow: 0.5px 0.5px 0px white;"><%=article.getCheck()%></td>
-									<%
-								} else {
-									%>
-									<td style="color: red; width: 60px; font-weight: bold;"><%=article.getCheck()%></td>
-									<%
-								}
-								%>
-								</tr>
-								<tr><td colspan="4" style="text-align: center;">건의 내용</td></tr>
-								<tr><td colspan="4" style="margin: 5px; width: 575px; height: 300px;"><%=article.getContent()%></td></tr>
-							</table>
-            	<%
-            }
-            %>
-          					    <div style="width: 610px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="목록" style="float: left; background-color: gray; color: white;" onclick="location.href='adminSuggestion_List.su?showStyle=<%=showStyle%>'">
-								<%
-								if(article.getCheck().equals("답변완료")){}
-								else{
-										%>
-										<input type="button" value="답변하기" style="float: right; background-color: gray; color: white;" onclick="location.href='Suggestion_ReplyForm.su?su_num=<%=su_num%>&&showStyle=<%=showStyle%>'">
-										<%
-									}
-								%>
-							</div>
-					</article>
-            </div>
-        </div>
-        <!--/.container-->
-    </section>
-    
-    <section id="bottom">
-        <div class="container fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-            <div class="row">
-                <div class="col-md-2">
-                    <a href="#" class="footer-logo">
-                        <img src="images/logo-black.png" alt="logo">
-                    </a>
-                </div>
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Company</h3>
-                                <ul>
-                                    <li><a href="#">About us</a></li>
-                                    <li><a href="#">We are hiring</a></li>
-                                    <li><a href="#">Meet the team</a></li>
-                                    <li><a href="#">Copyright</a></li>
-                                    <li><a href="#">Terms of use</a></li>
-                                    <li><a href="#">Privacy policy</a></li>
-                                    <li><a href="#">Contact us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Support</h3>
-                                <ul>
-                                    <li><a href="#">Faq</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Forum</a></li>
-                                    <li><a href="#">Documentation</a></li>
-                                    <li><a href="#">Refund policy</a></li>
-                                    <li><a href="#">Ticket system</a></li>
-                                    <li><a href="#">Billing system</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Developers</h3>
-                                <ul>
-                                    <li><a href="#">Web Development</a></li>
-                                    <li><a href="#">SEO Marketing</a></li>
-                                    <li><a href="#">Theme</a></li>
-                                    <li><a href="#">Development</a></li>
-                                    <li><a href="#">Email Marketing</a></li>
-                                    <li><a href="#">Plugin Development</a></li>
-                                    <li><a href="#">Article Writing</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="widget">
-                                <h3>Our Partners</h3>
-                                <ul>
-                                    <li><a href="#">Adipisicing Elit</a></li>
-                                    <li><a href="#">Eiusmod</a></li>
-                                    <li><a href="#">Tempor</a></li>
-                                    <li><a href="#">Veniam</a></li>
-                                    <li><a href="#">Exercitation</a></li>
-                                    <li><a href="#">Ullamco</a></li>
-                                    <li><a href="#">Laboris</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--/.col-md-3-->
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </section>
+            <div class="row contact-wrap"> 
+                <div class="status alert alert-success" style="display: none"></div>
+<!--                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">                     -->
+                	<form action="Suggestion_WritePro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
+	                    <div class="col-sm-13 col-sm-offset-13">
+	                        <div class="form-group">
+	                        	<span id="span_Info">작성자 ID </span><span id="span_Info2"><%=article.getId()%></span>
+	                        </div>
+	                        <div class="form-group">
+	                       	    <span id="span_Info">작성자 Email </span><span id="span_Info2"><%=article.getEmail()%></span>
+	                        </div>
+	                        <div class="form-group">
+	                       	    <span id="span_Info">답변 여부 </span><span id="span_Info2"><%=article.getCheck()%></span>
+	                        </div>
+	                        <%
+	                        if(article.getCheck().equals("답변완료")){
+	                        	%>
+		                        <div class="form-group">
+		                       	    <span id="span_Info">답변 날짜 </span><span id="span_Info2"><%=article.getDate_r()%></span><br><br>
+		                        </div>
+	                        	<%
+	                        }
+	                        %>
+	                        <div class="form-group">
+	                            <label>제목 *</label>
+	                            <input type="text" readonly="readonly" class="form-control" value="<%=article.getSubject() %>">
+	                        </div>
+	                        <div class="form-group">
+	                            <label>건의내용 *</label>
+	                            <input type="text" id="content" readonly="readonly" class="form-control" height="500px" value="<%=article.getContent()%>">
+	                        </div>
+	                        <%
+	                        if(article.getCheck().equals("답변완료")){
+	                       	    %>
+		                        <div class="form-group">
+		                            <label>답변내용 *</label>
+		                            <input type="text" id="content" readonly="readonly" class="form-control" height="500px" value="<%=article.getContent_r()%>">
+		                        </div>      
+	                        	<%
+	                        }
+	                        %>
+	                        <div class="form-group">
+	                        <%
+	                        if(article.getCheck().equals("미완료")){
+	                       		%>
+	                            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='Suggestion_ReplyForm.su?su_num=<%=su_num%>&&showStyle=<%=showStyle%>'">답변하기</button>
+	                        	<%
+	                        }
+	                        %>
+	                            <button type="button" name="btn1" class="btn btn-primary btn-lg" id="btn_MySuggestion" onclick="location.href='adminSuggestion_List.su?showStyle=<%=showStyle%>'">목록</button>
+	                        </div>
+	                    </div>
+                </form> 
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </section><!--/#contact-page-->
     <!--/#bottom-->
+    
+    
+    
+    
+    
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
