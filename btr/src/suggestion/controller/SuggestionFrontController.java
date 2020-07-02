@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.action.*;
 import common.vo.*;
 import suggestion.action.SuggestionDetailAction;
+import suggestion.action.SuggestionInfoAction;
 import suggestion.action.SuggestionListAction;
 import suggestion.action.SuggestionReplyFormAction;
 import suggestion.action.SuggestionReplyProAction;
@@ -65,12 +66,7 @@ public class SuggestionFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		} else if(command.equals("/Suggestion_Info.su")) {
-			
-			forward = new ActionForward();
-			forward.setPath("/suggestion/suggestion_Info.jsp"); // 이동할 view 페이지 경로 지정
-			
-		}	else if(command.equals("/Suggestion_Detail.su")) {
+		} else if(command.equals("/Suggestion_Detail.su")) {
 			
 			action = new SuggestionDetailAction();
 			
@@ -103,6 +99,16 @@ public class SuggestionFrontController extends HttpServlet {
 		} else if(command.equals("/adminSuggestion_List.su")) {
 			
 			action = new adminSuggestionListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}  else if(command.equals("/Suggestion_Info.su")) {
+			
+			action = new SuggestionInfoAction();
 			
 			try {
 				forward = action.execute(request, response);

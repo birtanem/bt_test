@@ -63,7 +63,7 @@ String showNo = "미완료";
         <div class="container">
             <div class="center fadeInDown">
 					<article style="width: 700px; position: relative; float: right; margin-right: 255px;">
-								<div style="width: 610px; text-align: end; font-size: 18px; color: white;">
+								<div style="width: 610px; text-align: end; font-size: 18px; color: black;">
 								<label>전체글 </label>
 								<label style="width: 25px; "><%=count1 %></label><br>
 								<label>미완료 </label>
@@ -86,7 +86,7 @@ String showNo = "미완료";
 									<%
 								}
 								%>
-							<table border="1" style="width: 610px; position: relative; background-color: black;">
+							<table border="1" style="width: 610px; position: relative; background-color: #d8d8d8;">
 								<tr style="background-color: grey; border:thick;"><th style="width: 300px;">제목</th><th style="width: 180px;">작성일</th><th>작성자</th><th style="width: 150px;">답변여부</th></tr>
 								<%
 								for(int i=0;i<articleList.size();i++){
