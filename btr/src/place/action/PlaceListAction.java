@@ -98,7 +98,6 @@ public class PlaceListAction implements Action{
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 //			out.print(articleList);
-			System.out.println("세션있음 1와라~");
 //			리스트 → 제이슨?
 				MemberMypageFormService info=new MemberMypageFormService();
 				MemberBean mb=info.getMemberInfo(id);
@@ -115,6 +114,12 @@ public class PlaceListAction implements Action{
 				out.print(jsonArray);
 //			list.add(articleList.)
 //			필요한 데이터 : type, 사진
+				
+//				request.setAttribute("plList", articleList);
+//				request.setAttribute("mb", mb);
+				
+				
+				
 			return forward;	
 				
 		}else if(check.equals("2")) {

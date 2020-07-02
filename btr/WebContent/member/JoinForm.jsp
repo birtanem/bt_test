@@ -359,12 +359,9 @@ function joinCheck() {
 	   <option value="관광">관광</option>
 	   <option value="맛집">맛집</option>
 	   <option value="역사">역사</option>
-<<<<<<< HEAD
 	   <option value="야경">야경</option>
-=======
 	   <option value="자연">자연</option>
 	   <option value="공연/전시">공연/전시</option>
->>>>>>> refs/remotes/origin/master
     </select>
 	<span id="typeChk"></span>
 

@@ -26,7 +26,9 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-<link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Gochi+Hand&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Gochi+Hand&family=Noto+Sans+KR:wght@300&display=swap"
+	rel="stylesheet">
 <link rel="shortcut icon" href="images/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
 	href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -281,7 +283,8 @@ body {
 }
 
 .mainBox span {
-	padding-top: 5px; color : white;
+	padding-top: 5px;
+	color: white;
 	font-size: 32px;
 	color: white;
 }
@@ -325,30 +328,35 @@ a:hover {
 	float: right;
 }
 
-.pl_t{
-font-family: 'Noto Sans KR', sans-serif;
-font-size: 30px;
-margin-bottom: 35px;
-font-weight: bold;
+.pl_t {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 30px;
+	margin-bottom: 35px;
+	font-weight: bold;
 }
-.eng{font-family: 'Covered By Your Grace', cursive;
-letter-spacing: 5px;
+
+.eng {
+	font-family: 'Covered By Your Grace', cursive;
+	letter-spacing: 5px;
 }
-.place{
-width: 800px;
-margin: 0 auto;
+
+.place {
+	width: 800px;
+	margin: 0 auto;
 }
-#mig{
-margin-right: 10px;
-margin-bottom: 10px;
+
+#mig {
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
+
 #mig:hover {
-	box-shadow: 0px 0 5px 5px #ccc; 
+	box-shadow: 0px 0 5px 5px #ccc;
 	transition: 0.3s;
 }
-
-
-
+.single-slide a{
+display: inline-block;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -406,34 +414,46 @@ margin-bottom: 10px;
 	$(document).ready(function() {
 		//0: 세션없음  1: 세션있음 ; 데이터가져옴
 		var session= "<%=session.getAttribute("id")%>";
-		var check=1;
-		if(session==null||session=="null"){
-			check=0;
-			}
-		else{
-			check=1;
-		}
-		$.ajax('productList.pr?check='+check+'&id='+session,{
-			dataType: "json",
-			success:function(rdata){
-				$.each(rdata, function(index, item){
-					alert(item.p_img);
-					var imgpath="product/productUpload/"+item.p_img;
-					if((item.session)==item.p_theme){
-						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
-					}else if(item.session==null){
-						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
-					}
-					
-				});
-			}
-		});
-		});
-	
-	
-	
-	
-	
+						var check = 1;
+						if (session == null || session == "null") {
+							check = 0;
+						} else {
+							check = 1;
+						}
+						$
+								.ajax(
+										'productList.pr?check=' + check
+												+ '&id=' + session,
+										{
+											dataType : "json",
+											success : function(rdata) {
+												$
+														.each(
+																rdata,
+																function(index,
+																		item) {
+																	var imgpath = "product/productUpload/"
+																			+ item.p_img;
+																	if ((item.session) == item.p_theme) {
+																		$(
+																				'.rc_pl')
+																				.append(
+																						'<a href="productDetail.pr?p_num='
+																								+ item.p_num
+																								+ '"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
+																	} else if (item.session == null) {
+																		$(
+																				'.rc_pl')
+																				.append(
+																						'<a href="productDetail.pr?p_num='
+																								+ item.p_num
+																								+ '"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
+																	}
+
+																});
+											}
+										});
+					});
 </script>
 
 
@@ -441,7 +461,7 @@ margin-bottom: 10px;
 <!--/head-->
 
 <body class="homepage">
-<jsp:include page="/inc/top.jsp" />
+	<jsp:include page="/inc/top.jsp" />
 
 
 
@@ -452,23 +472,23 @@ margin-bottom: 10px;
 					<h2>
 						<span>당신과 함께, 부산</span>
 					</h2>
-					
-				    <div id="realcontent"">
+
+					<div id="realcontent">
 						<dl id="rank-list">
-						<dt>인기 여행지</dt>
-						<dd>
-							<ol>
-								<li><a href="#">1 순위</a></li>
-								<li><a href="#">2 순위</a></li>
-								<li><a href="#">3 순위</a></li>
-								<li><a href="#">4 순위</a></li>
-								<li><a href="#">5 순위</a></li>
-							</ol>
-						</dd>
+							<dt>인기 여행지</dt>
+							<dd>
+								<ol>
+									<li><a href="#">1 순위</a></li>
+									<li><a href="#">2 순위</a></li>
+									<li><a href="#">3 순위</a></li>
+									<li><a href="#">4 순위</a></li>
+									<li><a href="#">5 순위</a></li>
+								</ol>
+							</dd>
 						</dl>
-					</div>		
-					
-					
+					</div>
+
+
 				</div>
 			</div>
 			<!-- 				<img id="bgImg"> -->
@@ -489,77 +509,119 @@ margin-bottom: 10px;
 		</div>
 
 	</section>
-		
-<section id="portfolio">
-<!-- 		추천 장소-->
-		<div class="place">
-		 	<div class="container portfolio-item row isotope ">
+
+	<section id="testimonial">
+		<!-- 추천 장소-->
+<!-- 		<div class="place"> -->
+			<div class="container">
 				<c:choose>
 					<c:when test="${empty sessionScope.id }">
-						<p class="pl_t"><span class="kor">방문자 </span>&nbsp;님을 위한 추천 여행지  </p>
-			<div id="here" class="row here isotope-item">
-			
-			</div>			
+						<div class="fadeInDown" style="text-align: left;">
+							<p class="pl_t">
+								<span class="kor">방문자 </span>&nbsp;님을 위한 추천 여행지
+							</p>
+						</div>
+						<div class="testimonial-slider owl-carousel" >
+							<div id="here" class="row isotope-item here"></div>
+						</div>
 					</c:when>
 					<c:otherwise>
-						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 여행지  </p>  
-			<div id="here" class="row here">
+						<p class="pl_t">
+							<span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 여행지
+						</p>
+						<div class="testimonial-slider owl-carousel">
+							<div class="testimonial-slider owl-carousel">
+								<div id="here" class="row here"></div>
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
+<!-- 		</div> -->
+
+
+		<!-- 			<section id="testimonial"> -->
+		<!-- 		<div class="container"> -->
+		<!-- 			<div class="center fadeInDown"> -->
+		<!-- 				<h2>Testimonials</h2> -->
+		<!-- 			</div> -->
+		<!-- 			<div class="testimonial-slider owl-carousel" width="360" height="370"> -->
+		<!-- 				<a herf="#"><img src="images/client1.jpg" alt=""></a> -->
+		<!-- 				<img src="images/client1.jpg" alt=""> -->
+		<!-- 				<img src="images/client1.jpg" alt=""> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
+		<!-- 	</section> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- 		추천 상품 -->
+		<div class="place">
+			<div class="container portfolio-item row isotope ">
+				<c:choose>
+					<c:when test="${empty sessionScope.id }">
+						<p class="pl_t">
+							<span class="kor">방문자 </span>&nbsp;님을 위한 추천 상품
+						</p>
+						<div id="rc_pl" class="row isotope-item rc_pl"></div>
+					</c:when>
+					<c:otherwise>
+						<p class="pl_t">
+							<span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 상품
+						</p>
+						<div id="rc_pl" class="row rc_pl"></div>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
-<!-- 		추천 상품 -->
-		<div class="place">
-		 	<div class="container portfolio-item row isotope ">
-				<c:choose>
-					<c:when test="${empty sessionScope.id }">
-						<p class="pl_t"><span class="kor">방문자 </span>&nbsp;님을 위한 추천 상품  </p>
-			<div id="rc_pl" class="row isotope-item rc_pl">
-			
-			</div>			
-					</c:when>
-					<c:otherwise>
-						<p class="pl_t"><span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 상품  </p>  
-			<div id="rc_pl" class="row rc_pl">
+	</section>
+
+
+	<section id="partner">
+		<div class="container">
+			<div class="center">
+				<h2>다른 사이트 넣기123</h2>
+				<p class="lead"></p>
 			</div>
-					</c:otherwise>
-				</c:choose>
+
+			<div class="partners">
+				<ul>
+					<li><a href="http://www.busan.go.kr/open/index.jsp"
+						target="_blank"><img class="img-responsive fadeInDown"
+							data-wow-duration="1000ms" data-wow-delay="300ms"
+							src="images/partners/부산.gif"></a></li>
+					<li><a href="http://www.bfo.or.kr/main/index.asp"
+						target="_blank"><img class="img-responsive fadeInDown"
+							data-wow-duration="1000ms" data-wow-delay="600ms"
+							src="images/partners/관광.jpg"></a></li>
+					<li><a href="https://bto.or.kr/kor/Main.do" target="_blank"><img
+							class="img-responsive fadeInDown" data-wow-duration="1000ms"
+							data-wow-delay="900ms" src="images/partners/공사.jpg"></a></li>
+					<li><a href="http://busan.grandculture.net/?local=busan"
+						target="_blank"><img class="img-responsive fadeInDown"
+							data-wow-duration="1000ms" data-wow-delay="1500ms"
+							src="images/partners/역사.jpg"></a></li>
+					<li><a href="https://korean.visitkorea.or.kr/main/main.do"
+						target="_blank"><img class="img-responsive fadeInDown"
+							data-wow-duration="1000ms" data-wow-delay="300ms"
+							src="images/partners/구석.jpg"></a></li>
+				</ul>
 			</div>
 		</div>
-</section>
-
-
-    <section id="partner">
-        <div class="container">
-            <div class="center">
-                <h2>다른 사이트 넣기123</h2>
-                <p class="lead"></p>
-            </div>
-
-            <div class="partners">
-                <ul>
-                    <li>
-                        <a href="http://www.busan.go.kr/open/index.jsp" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/partners/부산.gif"></a>
-                    </li>
-                    <li>
-                        <a href="http://www.bfo.or.kr/main/index.asp" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="images/partners/관광.jpg"></a>
-                    </li>
-                    <li>
-                        <a href="https://bto.or.kr/kor/Main.do" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="images/partners/공사.jpg"></a>
-                    </li>      
-                    <li>
-                        <a href="http://busan.grandculture.net/?local=busan" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="images/partners/역사.jpg"></a>
-                    </li>
-                     <li>
-                        <a href="https://korean.visitkorea.or.kr/main/main.do" target="_blank"><img class="img-responsive fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/partners/구석.jpg"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!--/.container-->
-    </section>
-    <!--/#partner-->
+		<!--/.container-->
+	</section>
+	<!--/#partner-->
 
 
 	<jsp:include page="inc/bottom.jsp"></jsp:include>
