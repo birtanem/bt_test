@@ -72,65 +72,11 @@ public class PlaceListAction implements Action{
 		request.setAttribute("articleList", articleList);
 		
 		
-		
-		//메인페이지 작업중 ~! 0: 세션없음 1: 세션있음
-		String check=(String)request.getParameter("check");
-		switch (check) {
-		case "0":
-			check="0";
-			break;
-		case "1":
-			check="1";
-			break;
-		case "2":
-			check="2";
-			break;
-		default:
-			break;
-		}
-		
-		String id=(String)request.getParameter("id");
-		System.out.println("id:"+id);
-		System.out.println("ck:"+check);
-		
-		
-		if(check.equals("1")||check.equals("0")){
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-//			out.print(articleList);
-//			리스트 → 제이슨?
-				MemberMypageFormService info=new MemberMypageFormService();
-				MemberBean mb=info.getMemberInfo(id);
-				ArrayList<PlaceBean> List = placeListService.getList();
-				JSONArray jsonArray = new JSONArray();
-				for(int i=0; i<List.size();i++) {
-					JSONObject obj=new JSONObject();
-					obj.put("pl_img", List.get(i).getPl_image());
-					obj.put("pl_theme", List.get(i).getPl_theme());
-					obj.put("session", mb.getType());
-					obj.put("pl_num", List.get(i).getPl_num());
-					jsonArray.add(obj);
-				}
-				out.print(jsonArray);
-//			list.add(articleList.)
-//			필요한 데이터 : type, 사진
-				
-//				request.setAttribute("plList", articleList);
-//				request.setAttribute("mb", mb);
-				
-				
-				
-			return forward;	
-				
-		}else if(check.equals("2")) {
 			forward = new ActionForward();
 			forward.setPath("/place/place_list.jsp");
-			System.out.println(check);
 			return forward;
-		}
 		
 		
-		return forward;
 	}
 
 }

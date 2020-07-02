@@ -362,6 +362,7 @@ function joinCheck() {
 	   <option value="야경">야경</option>
 	   <option value="자연">자연</option>
 	   <option value="공연/전시">공연/전시</option>
+	   <option value="체험">체험</option>
     </select>
 	<span id="typeChk"></span>
 

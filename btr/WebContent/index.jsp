@@ -261,9 +261,16 @@ a:hover {
 	box-shadow: 0px 0 5px 5px #ccc;
 	transition: 0.3s;
 }
-.single-slide a{
-display: inline-block;
+
+.single-slide a {
+	display: inline-block;
 }
+
+.rc_img {
+	height: 270px;
+}
+.rcbox{
+margin-top: 150px;}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -291,73 +298,12 @@ display: inline-block;
 		$('#mainImg').css('background-image', 'url(' + imgPath + ')');
 	});
 </script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		//0: 세션없음  1: 세션있음 ; 데이터가져옴
-		var session= "<%=session.getAttribute("id")%>";
-		var check=1;
-		if(session==null||session=="null"){
-			check=0;
-			}
-		else{
-			check=1;
-		}
-		
-		$.ajax('PlaceList.pl?check='+check+'&id='+session,{
-			dataType: "json",
-			success:function(rdata){
-				$.each(rdata, function(index, item){
-					var imgpath="placeUpload/"+item.pl_img;
-					if((item.session)==item.pl_theme){
-						$('.here').append('<a href="PlaceDetail.pl?pl_num='+item.pl_num+'"><img src="'+imgpath+'"alt="'+item.pl_theme+'"id="mig" width="300" height="300"></a>');
-					}else if(item.session==null){
-						$('.here').append('<a href="PlaceDetail.pl?pl_num='+item.pl_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
-					}
-				});
-			}
-		});
-		});
-	//추천상품
-	$(document).ready(function() {
-		//0: 세션없음  1: 세션있음 ; 데이터가져옴
-		var session= "<%=session.getAttribute("id")%>";
-		var check=1;
-		if(session==null||session=="null"){
-			check=0;
-			}
-		else{
-			check=1;
-		}
-		$.ajax('productList.pr?check='+check+'&id='+session,{
-			dataType: "json",
-			success:function(rdata){
-				$.each(rdata, function(index, item){
-// 					alert(item.p_img);
-					var imgpath="product/productUpload/"+item.p_img;
-					if((item.session)==item.p_theme){
-						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
-					}else if(item.session==null){
-						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
-					}
-					
-				});
-			}
-		});
-		});
-	
-	
-	
-	
-	
-</script>
-
-
 </head>
 <!--/head-->
 
 <body class="homepage">
-<jsp:include page="/inc/top.jsp" />
-${fn:length("texts")}
+	<jsp:include page="/inc/top.jsp" />
+	<%-- ${fn:length("texts")} --%>
 	<section id="main-map" class="no-margin">
 		<div id="mainImg" class="mainImg">
 			<div class="mainText">
@@ -365,45 +311,41 @@ ${fn:length("texts")}
 					<h2>
 						<span>당신과 함께, 부산</span>
 					</h2>
-					
-				    <div id="realcontent">
+
+					<div id="realcontent">
 						<dl id="rank-list">
-						<dt>인기 여행지</dt>
-						<dd>
-							<ol>
-								<c:forEach var="list" items="${list }" begin="0" end="4" varStatus="stat">
-									<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}">
-									
-										<c:choose>
-											<c:when test="${fn:length(list.pl_name) lt 5} ">
+							<dt>인기 여행지</dt>
+							<dd>
+								<ol>
+									<c:forEach var="list" items="${list }" begin="0" end="4"
+										varStatus="stat">
+										<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}"> <c:choose>
+													<c:when test="${fn:length(list.pl_name) lt 5} ">
 													123123123
 												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,5) }...	
 											</c:when>
-											<c:otherwise>
-												<b>${stat.count }</b>&nbsp; ${list.pl_name }											
-											</c:otherwise>										
-										</c:choose>
-																			
-									</a></li>
-								</c:forEach>	
-							</ol>
-						</dd>
+													<c:otherwise>
+														<b>${stat.count }</b>&nbsp; ${list.pl_name }											
+											</c:otherwise>
+												</c:choose>
+
+										</a></li>
+									</c:forEach>
+								</ol>
+							</dd>
 						</dl>
-						</div>
 					</div>
-
-
 				</div>
+
+
 			</div>
-			<!-- 				<img id="bgImg"> -->
 		</div>
+		<!-- 				<img id="bgImg"> -->
 
 	</section>
 
 
 	<section id="maincontent">
-
-
 		<div class="weather"
 			style="margin: 0 auto; width: 600px; height: 300px; text-align: left; transform: scale(0.9);">
 			<h2 style="margin-left: 20px; color: black;">오늘</h2>
@@ -416,32 +358,49 @@ ${fn:length("texts")}
 
 	<section id="testimonial">
 		<!-- 추천 장소-->
-<!-- 		<div class="place"> -->
-			<div class="container">
-				<c:choose>
-					<c:when test="${empty sessionScope.id }">
-						<div class="fadeInDown" style="text-align: left;">
-							<p class="pl_t">
-								<span class="kor">방문자 </span>&nbsp;님을 위한 추천 여행지
-							</p>
-						</div>
-						<div class="testimonial-slider owl-carousel" >
-							<div id="here" class="row isotope-item here"></div>
-						</div>
-					</c:when>
-					<c:otherwise>
+		<!-- 		<div class="place"> -->
+		<div class="container rcbox">
+			<c:choose>
+				<c:when test="${empty sessionScope.id }">
+					<div class="fadeInDown" style="text-align: left;">
+						<p class="pl_t">
+							<span class="kor">방문자 </span>&nbsp;님을 위한 추천 여행지
+						</p>
+					</div>
+					<div class="testimonial-slider owl-carousel">
+						<c:forEach var="list" items="${list }" varStatus="stat">
+							<!-- 							<div id="here" class="row isotope-item here"></div> -->
+							<a href="PlaceDetail.pl?pl_num=${list.pl_num }"><img
+								src="placeUpload/${list.pl_image }" alt="rc_pList"
+								class="rc_img"></a>
+						</c:forEach>
+					</div>
+				</c:when>
+
+				<c:otherwise>
+					<div class="fadeInDown" style="text-align: left;">
 						<p class="pl_t">
 							<span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 여행지
 						</p>
-						<div class="testimonial-slider owl-carousel">
-							<div class="testimonial-slider owl-carousel">
-								<div id="here" class="row here"></div>
-							</div>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
-<!-- 		</div> -->
+					</div>
+					<div class="testimonial-slider owl-carousel">
+						<c:forEach var="list" items="${list }" varStatus="stat">
+							<%-- 								alert(${list.pl_theme eq sessionScope.session }); --%>
+							<c:if test="${list.pl_theme eq sessionScope.session }">
+								<!-- 							<div id="here" class="row isotope-item here"></div> -->
+								<a href="PlaceDetail.pl?pl_num=${list.pl_num }"><img
+									src="placeUpload/${list.pl_image }" alt="${list.pl_theme }"
+									class="rc_img"></a>
+							</c:if>
+						</c:forEach>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+
+
+		<!-- 		</div> -->
 
 
 		<!-- 			<section id="testimonial"> -->
@@ -460,35 +419,41 @@ ${fn:length("texts")}
 
 
 
-
-
-
-
-
-
-
-
-
-
 		<!-- 		추천 상품 -->
-		<div class="place">
-			<div class="container portfolio-item row isotope ">
+		<div class="container rcbox">
 				<c:choose>
 					<c:when test="${empty sessionScope.id }">
-						<p class="pl_t">
-							<span class="kor">방문자 </span>&nbsp;님을 위한 추천 상품
-						</p>
-						<div id="rc_pl" class="row isotope-item rc_pl"></div>
+						<div class="fadeInDown" style="text-align: left;">
+							<p class="pl_t">
+								<span class="kor">방문자 </span>&nbsp;님을 위한 추천 상품
+							</p>
+						</div>
+						<div class="testimonial-slider owl-carousel">
+							<c:forEach var="pdList" items="${pdList }" varStatus="stat">
+								<a href="productDetail.pr?p_num=${pdList.p_num }"><img
+									src="product/productUpload/${pdList.p_image }" alt="rc_pList"
+									class="rc_img"></a>
+							</c:forEach>
+						</div>
 					</c:when>
 					<c:otherwise>
-						<p class="pl_t">
-							<span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 상품
-						</p>
-						<div id="rc_pl" class="row rc_pl"></div>
+						<div class="fadeInDown" style="text-align: left;">
+							<p class="pl_t">
+								<span class="eng">${sessionScope.id }</span> &nbsp;님을 위한 추천 상품
+							</p>
+						</div>
+						<div class="testimonial-slider owl-carousel">
+							<c:forEach var="pdList" items="${pdList }" varStatus="stat">
+								<c:if test="${pdList.p_theme eq sessionScope.session }">
+									<a href="productDetail.pr?p_num=${pdList.p_num }"><img
+										src="product/productUpload/${pdList.p_image }"
+										alt="${pdList.p_theme }" class="rc_img"></a>
+								</c:if>
+							</c:forEach>
+						</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</div>
 	</section>
 
 
