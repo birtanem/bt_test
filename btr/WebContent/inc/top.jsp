@@ -72,7 +72,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo" width="150"></a>
+                    <a class="navbar-brand" href="main.co"><img src="images/logo.png" alt="logo" width="150"></a>
                     
                 </div>
 
@@ -85,11 +85,12 @@
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
 						        <ol class="dropdown-menu">
 						            <li><a href="adminPage.ad">관리자 페이지</a></li>
-						            <li><a href="adminLog.ad">통계</a></li>
+						            <li><a href="MemberList.me">회원 관리</a></li>
+						            <li><a href="adminSuggestion_List.su">문의관리</a></li>
 						            <li><a href="adminProduct.ad">상품 관리</a></li>
+						            <li><a href="adminLog.ad">통계</a></li>
 						            <li><a href="PlaceWriteForm.pl?">Place 글 등록</a></li>
 						            <li><a href="#">여행지 관리</a></li>
-						            <li><a href="adminSuggestion_List.su">문의 게시판</a></li>
 						            <li><a href="adminEvent.ad">이벤트 관리</a></li>
 						        </ol>
 						    </li>

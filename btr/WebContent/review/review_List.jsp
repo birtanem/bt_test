@@ -51,9 +51,9 @@
                 <div class="col-md-8">
                 	<table>
                 		<c:forEach var="article" items="${articleList }" >
-		                	<div class="blog-item">
-		                        <div class="blog-content"
-		                           onclick="location.href='Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }'">
+		                	<div class="blog-item" style="box-shadow: 1px 1px 20px #ddd;">
+		                        <div class="blog-content" 
+		                           onclick="location.href='Review_Content.re?&r_num=${article.r_num }'">
 		                            <a class="blog_cat" style="margin-bottom: 0px;">[${article.r_name }]</a><br>
 		                            <a class="readmore">작성자&nbsp; : &nbsp;${article.r_id } &nbsp;&nbsp; </a><br>
 		                            <a class="readmore">작성날짜&nbsp; : &nbsp;${article.r_date }</a>&nbsp;&nbsp;
@@ -75,12 +75,11 @@
                     
                 </div>
                 <!--/.col-md-8-->
-                <!-- 온 키업 사용하여 검색 하기 -->
                 <aside class="col-md-4">
-                    <div class="widget search">
+                    <div class="widget search" style="box-shadow: 1px 1px 20px #ddd;" >
                         <form action="Review_List.re" role="form">
-                            <input type="text" name="r_search" class="form-control search_box" autocomplete="off" placeholder="Search Here">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                            <input type="text" name="r_search" class="form-control search_box" autocomplete="off" placeholder="Search Here" >
+                            <button type="submit" style="margin: 25px 35px 0 0;"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <!--/.search-->
@@ -94,11 +93,11 @@
                     <!--글 쓰기-->
                     
 					<!--카테고리-->
-                    <div class="widget archieve">
+                    <div class="widget archieve" style="box-shadow: 1px 1px 20px #ddd;">
                         <h3>Categories</h3>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <ul class="blog_archieve">
+                            <div class="col-sm-12" >
+                                <ul class="blog_archieve" >
                                 <li><a href="Review_List.re?r_code=17" style="float: right; margin-right: 50px">기타지역(부산외) &nbsp; </a></li>
                                 	<li><a href="Review_List.re">전체 글 &nbsp; (${pageInfo.listCount })</a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=9">사상구 &nbsp; </a></span></li>
                                     <li><a href="Review_List.re?r_code=1">강서구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=10">사하구 &nbsp; </a></span></li>
@@ -116,6 +115,43 @@
                         </div>
                     </div>
 					<!--카테고리-->
+                    
+                   <div class="widget popular_post" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>추 천 리 뷰</h3>
+                        <ul>
+                            <li>
+                       			<c:forEach var="List" items="${arrayList }">
+	                                <a href="Review_Content.re?r_num=${List.r_num }">
+	                                    <p>${List.r_num }번글 &nbsp; ${List.r_subject }</p>
+	                                </a>
+                 				</c:forEach>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                   <div class="widget blog_gallery" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>인 기 상 품</h3>
+                        <ul class="sidebar-gallery clearfix">
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-1.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-2.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-3.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-4.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-5.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-6.png" alt="" /></a>
+                            </li>
+                        </ul>
+                    </div>
                     
                 </aside>
             </div>

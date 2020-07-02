@@ -29,8 +29,8 @@ public class MemberLogoutProAction implements Action {
 //		out.println("</script>");             ->>>>>>>>>script alert 출력 안먹힘 왜인지모름 일단 skip
 		forward = new ActionForward();
 		forward.setRedirect(true);
-		forward.setPath("./");
-		
+		forward.setPath("main.co");
+	
 		return forward;     
 	}
 }

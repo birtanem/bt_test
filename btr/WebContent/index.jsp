@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,155 +51,61 @@
 
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
+$(document).ready(function(){
+// 	location.href="index.jsp#main-map";
+});
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
 
-						var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric&cnt=8';
-						$
-								.getJSON(
-										apiURL,
-										function(rdata) {
+			var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric&cnt=8';
+			$.getJSON(apiURL,function(rdata) {
+				
+				$.each(rdata.list,function(index,item) {
+					
+					var today = new Date(item.dt_txt);
+					var icon = item.weather[0].icon;
+					var hour = today.getHours();
+					
+						$('.time').append("<div style='float:left; width: 65px; height: 100px; text-align: center; color: black;'>"
+										+ hour
+										+ '시'
+										+ '<br>'
+										+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
+										+ item.main.temp.toFixed(0)
+										+ "˚C"
+										+ "</div>");
+								});
 
-											$
-													.each(
-															rdata.list,
-															function(index,
-																	item) {
-
-																var today = new Date(
-																		item.dt_txt);
-																var icon = item.weather[0].icon;
-																var hour = today
-																		.getHours();
-
-																$('.time')
-																		.append(
-																				"<div style='float:left; width: 65px; height: 100px; text-align: center; color: black;'>"
-																						+ hour
-																						+ '시'
-																						+ '<br>'
-																						+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
-																						+ item.main.temp
-																								.toFixed(0)
-																						+ "˚C"
-																						+ "</div>");
-
-															});
-
-										});
+							});
 
 						var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric';
 						var week = new Array('일', '월', '화', '수', '목', '금', '토');
 
 						$.getJSON(apiURL,function(rdata) {
-											$.each(rdata.list,function(index,item) {
+							$.each(rdata.list,function(index,item) {
 
-																if (index % 8 == 2) {
+								if (index % 8 == 2) {
 
-																	var icon = item.weather[0].icon;
-																	var date = new Date(
-																			item.dt_txt)
-																			.getDay();
-																	var label = week[date];
+								var icon = item.weather[0].icon;
+								var date = new Date(item.dt_txt).getDay();
+								var label = week[date];
 
-																	$('.day')
-																			.append(
-																					"<div style='float:left; width: 104px; height: 100px; text-align: center; color: black;'>"
-																							+ label
-																							+ "<br>"
-																							+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
-																							+ '<br>'
-																							+ item.main.temp
-																									.toFixed(0)
-																							+ "˚C"
-																							+ "</div>");
-																}
-
-															});
-
-										});
-
-					});
+								$('.day').append("<div style='float:left; width: 104px; height: 100px; text-align: center; color: black;'>"
+												+ label
+												+ "<br>"
+												+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
+												+ '<br>'
+												+ item.main.temp.toFixed(0)
+												+ "˚C"
+												+ "</div>");
+										}
+									});
+								});
+							});
 </script>
 
-<script type="text/javascript">
-	$(function() {
-		var ranNum = Math.floor(Math.random() * 16);
 
-		$(".tabcontent:eq(" + ranNum + ")").css("display", "block")
-		$(".tablinks:eq(" + ranNum + ")").css("background-color", "#ddd");
-
-	});
-
-	function openCity(evt, cityName) {
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className
-					.replace(" active", "");
-		}
-		document.getElementById(cityName).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-</script>
-
-<style>
-body {
-	font-family: Arial;
-}
-
-/* Style the tab */
-.tab {
-	width: 1550px;
-	text-align: center;
-	overflow: hidden;
-	border: 0 solid #ccc;
-	background-color: #f1f1f1;
-	padding: 5px;
-	margin: 0 auto;
-}
-
-.tabcontainer {
-	
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-	font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-	background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-	background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-top: none;
-	width: 1550px;
-	margin: 0 auto;
-}
-</style>
 
 
 <!-- 실시간검색어 -->
@@ -414,46 +321,34 @@ display: inline-block;
 	$(document).ready(function() {
 		//0: 세션없음  1: 세션있음 ; 데이터가져옴
 		var session= "<%=session.getAttribute("id")%>";
-						var check = 1;
-						if (session == null || session == "null") {
-							check = 0;
-						} else {
-							check = 1;
-						}
-						$
-								.ajax(
-										'productList.pr?check=' + check
-												+ '&id=' + session,
-										{
-											dataType : "json",
-											success : function(rdata) {
-												$
-														.each(
-																rdata,
-																function(index,
-																		item) {
-																	var imgpath = "product/productUpload/"
-																			+ item.p_img;
-																	if ((item.session) == item.p_theme) {
-																		$(
-																				'.rc_pl')
-																				.append(
-																						'<a href="productDetail.pr?p_num='
-																								+ item.p_num
-																								+ '"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
-																	} else if (item.session == null) {
-																		$(
-																				'.rc_pl')
-																				.append(
-																						'<a href="productDetail.pr?p_num='
-																								+ item.p_num
-																								+ '"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
-																	}
-
-																});
-											}
-										});
-					});
+		var check=1;
+		if(session==null||session=="null"){
+			check=0;
+			}
+		else{
+			check=1;
+		}
+		$.ajax('productList.pr?check='+check+'&id='+session,{
+			dataType: "json",
+			success:function(rdata){
+				$.each(rdata, function(index, item){
+// 					alert(item.p_img);
+					var imgpath="product/productUpload/"+item.p_img;
+					if((item.session)==item.p_theme){
+						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"alt="'+item.p_theme+'"id="mig" width="300" height="300"></a>');
+					}else if(item.session==null){
+						$('.rc_pl').append('<a href="productDetail.pr?p_num='+item.p_num+'"><img src="'+imgpath+'"id="mig" width="300" height="300"></a>');
+					}
+					
+				});
+			}
+		});
+		});
+	
+	
+	
+	
+	
 </script>
 
 
@@ -461,10 +356,8 @@ display: inline-block;
 <!--/head-->
 
 <body class="homepage">
-	<jsp:include page="/inc/top.jsp" />
-
-
-
+<jsp:include page="/inc/top.jsp" />
+${fn:length("texts")}
 	<section id="main-map" class="no-margin">
 		<div id="mainImg" class="mainImg">
 			<div class="mainText">
@@ -472,20 +365,31 @@ display: inline-block;
 					<h2>
 						<span>당신과 함께, 부산</span>
 					</h2>
-
-					<div id="realcontent">
+					
+				    <div id="realcontent">
 						<dl id="rank-list">
-							<dt>인기 여행지</dt>
-							<dd>
-								<ol>
-									<li><a href="#">1 순위</a></li>
-									<li><a href="#">2 순위</a></li>
-									<li><a href="#">3 순위</a></li>
-									<li><a href="#">4 순위</a></li>
-									<li><a href="#">5 순위</a></li>
-								</ol>
-							</dd>
+						<dt>인기 여행지</dt>
+						<dd>
+							<ol>
+								<c:forEach var="list" items="${list }" begin="0" end="4" varStatus="stat">
+									<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}">
+									
+										<c:choose>
+											<c:when test="${fn:length(list.pl_name) lt 5} ">
+													123123123
+												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,5) }...	
+											</c:when>
+											<c:otherwise>
+												<b>${stat.count }</b>&nbsp; ${list.pl_name }											
+											</c:otherwise>										
+										</c:choose>
+																			
+									</a></li>
+								</c:forEach>	
+							</ol>
+						</dd>
 						</dl>
+						</div>
 					</div>
 
 

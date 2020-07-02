@@ -25,7 +25,6 @@ public class CommentWriteProAction implements Action {
 		System.out.println("CommentWriteProAction");
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
-		int page = Integer.parseInt(request.getParameter("page"));
 		System.out.println(r_num);
 		CommentBean article = new CommentBean();
 

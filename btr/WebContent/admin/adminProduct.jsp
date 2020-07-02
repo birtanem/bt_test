@@ -101,7 +101,7 @@ $(document).ready(function(){
 	<input type="button" class="btn apBtn" value="관리자:상품등록"onclick="pop()" />
 	</div>
 		<c:choose>
-			<c:when test="${ListCount>0 && productList !=null}">
+			<c:when test="${pageInfo.listCount>0 && productList !=null}">
 				<table>
 					<tr>
 						<th>번호</th>
@@ -169,6 +169,53 @@ $(document).ready(function(){
 						</div>
 					</c:forEach>
 				</table>
+				
+				
+				                       <!--/.row   페이징 처리-->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg">
+                    
+                    	<c:choose>
+                    	
+                    		<c:when test="${pageInfo.page <= 1 }">
+                    			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li><a href="adminProduct.ad?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
+                    		</c:otherwise>
+                    	</c:choose>
+                    
+                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${a == pageInfo.page }">
+                    				<li class="active"><a>${a }</a></li>
+                    			</c:when>
+                    			<c:otherwise>
+									<li><a href="adminProduct.ad?page=${a }">${a }</a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    	
+                    	</c:forEach>
+                    		
+                    		<c:choose>
+                    		
+                    			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
+                    				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li><a href="adminProduct.ad?page=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
+                    			</c:otherwise>
+                    		</c:choose>
+                    </ul>
+                    <!--/.pagination-->
+                </div>
+            </div>
+            <!--/.row   페이징 처리-->
+            
+            
 			</c:when>
 			<c:otherwise>
 				<section id="emptyArea">등록된 상품이 없습니다.</section>

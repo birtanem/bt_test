@@ -164,7 +164,7 @@ function loginCheck() {
             	$(".loginContainer span").html("")
             	
 				if(rdata == "1") {
-					location.href = "./"
+					location.href = "main.co"
 				}else if(rdata == "-1") {
 					$("#passChk").html("비밀번호 불일치")
 				}else {

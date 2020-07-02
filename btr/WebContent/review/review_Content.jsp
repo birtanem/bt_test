@@ -52,66 +52,6 @@
 	                $('#comments').css("display","none");
 	            }
 	            
-	            $.ajax({
-	            	
-	            	type : 'get',
-	            	dataType : 'json',
-	            	url : 'GetCommentList.re?r_num=${article.r_num }',
-	            	success : function(rdata){
-	            	$('.comments').html("");
-	            		$.each(rdata, function(index,item){
-	            			
-							if(!id ){
-									$('.comments').append(
-	
-									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-			                          +'</div>'
-			                          +'</div>'
-			                          
-								);
-								}
-							else if (id != null && id != item.rc_id) {
-								$('.comments').append(
-									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
-			                          +'</div>'
-			                          +'</div>'
-		                       	);
-								}
-							else if (id != null && id == item.rc_id) {
-								
-								$('.comments').append(							
-										
-			                          '<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
-					                  +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 수정 </a>'
-			                          +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
-			                          +'</div>'
-			                          +'</div>'
-								);
-								}	
-	            			
-	            		});
-	            		
-	            	}
-	            	
-	            });
-	            
 	        });
 	      
 		$('#commentWrite').click(function(){
@@ -144,7 +84,7 @@
 	                            $('.comments').append(
 	
 	                            '<div class="single-comment" >'
-	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
@@ -157,12 +97,12 @@
 	                    else if (id != null && id != item.rc_id) {
 	                        $('.comments').append(
 	                            '<div class="single-comment" >'
-	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
+	                              +'<a id ="reply" style="margin-right: 15px;" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -172,14 +112,14 @@
 	                        $('.comments').append(                          
 	
 	                              '<div class="single-comment" >'
-	                              +'<div class="comment-content" style="margin-left: 10px;">'
+	                              +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
 	                              +'<h5 style="float: right;">'+item.rc_date+'</h5>'
 	                              +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
 	                              +'<p>'+item.rc_content+'</p> </div>'
 	                              +'<div class="comment-count">'
-	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">답글</a>'
-	                              +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'">수정</a>'
-	                              +'<a id ="delete" href="Comment_Delete.re?r_num=${article.r_num}&page=${nowPage }&rc_num='+item.rc_num+'"> 삭제 </a>'
+	                              +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
+	                              +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">수정</a>'
+	                              +'<a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
 	                              +'</div>'
 	                              +'</div>'
 	                        );
@@ -203,7 +143,7 @@
 				
 			$.ajax({
 				
-				url : "Review_ContentLike.re?r_num=${article.r_num }&page=${nowPage }&id=${sessionScope.id }",
+				url : "Review_ContentLike.re?r_num=${article.r_num }&id=${sessionScope.id }",
 				dataType : "json",
 				success : function(rdata){
 					$('#likeCount').html(rdata.likecount);
@@ -233,46 +173,47 @@
 
      <section id="blog" style="min-height: 560px;">
 
-        <div class="blog container">
+        <div class="blog container" >
             <div class="row">
+            
                 <div class="col-md-8">
-
-                            <a class="blog_cat">[${article.r_name }]</a>
-                            <h2><a>${article.r_subject }</a></h2>
-                            <div class="post-meta">
+                
+					<div class="blog-item" style="box-shadow: 1px 1px 20px #ddd;">
+                            <a class="blog_cat" style="margin: 10px;">[${article.r_name }]</a>
+                            <h2 style="margin-left: 10px;">${article.r_subject }</h2>
+                            <div class="post-meta" style="margin-left: 10px;">
                                 <p><a>${article.r_id }</a></p>
                                 <p><i class="fa fa-clock-o"></i><a>${article.r_date }</a></p>
                                 <p><img src="review/love.png" width="15px" height="15px">(<a id="likeCount">${article.r_likecount }</a>)</p>
                                 <p><a> 조회수&nbsp; : &nbsp;(${article.r_readcount })</a></p>
                             </div>
-                            <h3>${article.r_content }</h3>
+                            <h2 style="margin-left: 10px; width: 97%;">${article.r_content }</h2>
                             
                             <div class="inner-meta">
-                                <div class="social-btns">
+                                <div class="social-btns" style="margin-left: 10px;">
                                     <a id="like"  href="javascript:;"> <i class="fa fa-heart"></i> Like</a>
                                     
                                     <input type="hidden" id="sessionID" value="${sessionScope.id }">
                                     
                                     <a id="comment" href="javascript:;" class="tweet-bg"> 댓글 보기</a>
                                     <c:if test="${sessionScope.id == article.r_id }">
-                                    <a id="reviewUpdate" href="Review_UpdateForm.re?r_num=${article.r_num}&page=${nowPage }">수정</a>
-                                    <a id="reviewDelete" href="Review_DeleteForm.re?r_num=${article.r_num}&page=${nowPage }">삭제</a>
+                                    <a id="reviewUpdate" href="Review_UpdateForm.re?r_num=${article.r_num}">수정</a>
+                                    <a id="reviewDelete" href="Review_DeleteForm.re?r_num=${article.r_num}">삭제</a>
                                     </c:if>
                                 </div>
                             </div>
                             <br>
-                          <h2>Comments&nbsp; (<a id="commentCount">${pageinfo.commentCount }</a>)</h2>
+                          <h2 style="margin-left: 10px;">Comments&nbsp; (<a id="commentCount">${pageinfo.commentCount }</a>)</h2>
                   <!--        댓글 쓰기                    -->
                              <div id="comments" style="display: none;">
                                 <div class="single-comment">
-                                    <div class="comment-content comment-form">
+                                    <div class="comment-content comment-form" >
                                     <c:if test="${sessionScope.id != null }">
                                         <form action="Comment_WritePro.re" name="commentForm" method="post">
-                                            <textarea rows="5" cols="100" id="rc_content" name="rc_content"></textarea>
+                                            <textarea rows="5" cols="100" id="rc_content" name="rc_content" style="box-shadow: 1px 1px 20px #ddd; border-radius: 10px 10px 10px 10px; margin-left:20px; width: 95%; "></textarea>
                                             <input type="hidden"name="id" id="id" value="${sessionScope.id }">
                                             <input type="hidden"name="r_num" id="r_num" value="${article.r_num }">
-                                            <input type="hidden"name="page" id="page" value="${nowPage }">
-                                            <input type="button" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
+                                            <input type="button" style=" margin-left:20px;" class="btn btn-primary btn-lg" id="commentWrite" value="Comment" >
                                         </form>
                                     </c:if>    
                                     </div>
@@ -280,9 +221,85 @@
                     
                             <div class="comments">
                      <!--          댓글 영역                   -->
+                    			 <c:forEach var="arrayList" items="${articleList }">
+                     				<div class="single-comment" >
+			                        <div class="comment-content" style="margin-left: 10px; margin-right: 10px;">
+			                        <h5 style="float: right;">${arrayList.rc_date }</h5>
+			                        <h5>작성자&nbsp; : &nbsp;${arrayList.rc_id }</h5>
+			                        <p>${arrayList.rc_content }</p> </div>
+					                <div class="comment-count">
+					                <a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>
+					                <a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 수정 </a>
+			                        <a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>
+			                        </div>
+			                        </div>
+                    			 </c:forEach>
                             </div>
                         </div>
                     </div>
+                   </div> 
+                    <aside class="col-md-4">
+                    
+					<!--카테고리-->
+                    <div class="widget archieve" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>Categories</h3>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="blog_archieve">
+                                <li><a href="Review_List.re?r_code=17" style="float: right; margin-right: 50px">기타지역(부산외) &nbsp; </a></li>
+                                	<li><a href="Review_List.re">전체 글 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=9">사상구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=1">강서구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=10">사하구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=2">금정구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=11">서구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=3">기장군 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=12">수영구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=4">남구 &nbsp; </a>  <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=13">연제구&nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=5">동구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=14">영도구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=6">동래구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=15">중구 &nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=7">부산진구 &nbsp; </a> <span style="float: right; margin-right: 50px"><a href="Review_List.re?r_code=16">해운대구&nbsp; </a></span></li>
+                                    <li><a href="Review_List.re?r_code=8">북구 &nbsp; </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+					<!--카테고리-->
+					<div class="widget popular_post" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>추 천 리 뷰</h3>
+                        <ul>
+                            <li>
+                       			<c:forEach var="List" items="${arrayList }">
+	                                <a href="Review_Content.re?r_num=${List.r_num }">
+	                                    <p>${List.r_subject }</p>
+	                                </a>
+                 				</c:forEach>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="widget blog_gallery" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>인 기 상 품</h3>
+                        <ul class="sidebar-gallery clearfix">
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-1.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-2.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-3.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-4.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-5.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="images/sidebar-g-6.png" alt="" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </aside>
+                    
                 </div>
               </div>
       </section>    

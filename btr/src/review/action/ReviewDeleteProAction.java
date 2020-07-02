@@ -19,7 +19,6 @@ public class ReviewDeleteProAction implements Action {
 		System.out.println("ReviewDeleteProAction");
 		
 		int r_num = Integer.parseInt(request.getParameter("r_num"));
-		String page = request.getParameter("page");
 		ReviewDeleteService reviewDeleteService = new ReviewDeleteService();
 		
 		HttpSession session = request.getSession();
@@ -40,7 +39,7 @@ public class ReviewDeleteProAction implements Action {
 		}else {
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("Review_List.re?page="+page);
+			forward.setPath("Review_List.re");
 		}
 		
 		return forward;

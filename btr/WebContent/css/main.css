@@ -1968,6 +1968,67 @@ ul.pagination>li:last-child > a{
     transform: translateX(200px)
 }
 
+<!-- 검색용 페이징2 -->
+
+ul.pagination2{
+    margin-top: 40px;
+}
+ul.pagination2>li>a {
+    border-radius: 5px;
+    font-size: 16px;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 50%;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+}
+
+ul.pagination2>li>a i {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+ul.pagination2>li.active>a,
+ul.pagination2>li:hover>a {
+    background-color: #EC5538 ;
+    color: #fff;
+}
+
+ul.pagination2>li:first-child > a, 
+ul.pagination2>li:last-child > a{
+    background-color: transparent;
+    color: #989898;
+    -webkit-transform: translateX(-200px);
+    transform: translateX(-200px)
+}
+
+ul.pagination2>li:first-child > a:hover, 
+ul.pagination2>li:last-child > a:hover{
+    background-color: transparent;
+    color: #EC5538;
+}
+
+
+ul.pagination2>li:first-child > a{
+    background-color: transparent;
+    color: #989898;
+    -webkit-transform: translateX(-200px);
+    transform: translateX(-200px)
+}
+ 
+ul.pagination2>li:last-child > a{
+    background-color: transparent;
+    color: #989898;
+    -webkit-transform: translateX(200px);
+    transform: translateX(200px)
+}
+
+<!-- /페이징2 -->
 
 .widget.search form{
     position: relative;

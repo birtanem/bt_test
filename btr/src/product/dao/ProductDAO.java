@@ -76,17 +76,57 @@ public class ProductDAO {
 		return insertCount;
 	} // 상품 등록 메서드 끝
 
+	public ArrayList<ProductBean> getList(int page, int limit) {
+		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int startRow = (page-1)*limit;
+
+		try {
+	
+			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
+					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name"
+					+ " from product p join region r on p.region_region_code = r.region_code order by p_num limit ?,?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductBean productBean = new ProductBean();
+				productBean.setP_num(rs.getInt(1));
+				productBean.setP_name(rs.getString(2));
+				productBean.setP_content(rs.getString(3));
+				productBean.setP_image(rs.getString(4));
+				productBean.setP_price(rs.getInt(5));
+				productBean.setP_amount(rs.getInt(6));
+				productBean.setP_category(rs.getString(7));
+				productBean.setRegion_region_code(rs.getInt(8));
+				productBean.setRegion_name(rs.getString(9));
+				productList.add(productBean);
+
+			}
+		} catch (SQLException e) {
+			System.out.println("ProductDAO getList실패" + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return productList;
+	}
 	public ArrayList<ProductBean> getList() {
 		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
+
 		try {
 	
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
 					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name"
-					+ " from product p join region r on p.region_region_code = r.region_code order by p_num";
+					+ " from product p join region r on p.region_region_code = r.region_code order by p_num limit ?,?";
 
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();

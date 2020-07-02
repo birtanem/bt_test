@@ -28,16 +28,21 @@ public class ReviewContentAction implements Action{
 		
 		ReviewBean article = reviewContentService.getArticle(r_num);
 
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();
+
 		CommentListService commentListService = new CommentListService();
 		
-		int commentCount = commentListService.getArticle(r_num);
+		ArrayList<CommentBean> articleList = commentListService.getArticleList(r_num);
 		
+		int commentCount = commentListService.getArticle(r_num);
 		
 		ReviewPageInfo pageinfo = new ReviewPageInfo(commentCount);
 		
 		request.setAttribute("article", article);
 		request.setAttribute("page", page);
 		request.setAttribute("pageinfo", pageinfo);
+		request.setAttribute("arrayList",arrayList);
+		request.setAttribute("articleList",articleList);
 		
 		forward = new ActionForward();
 		forward.setPath("/review/review_Content.jsp");

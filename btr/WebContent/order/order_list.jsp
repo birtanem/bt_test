@@ -118,10 +118,10 @@ form {float: left;}
                     	<c:choose>
                     	
                     		<c:when test="${pageInfo.page <= 1 }">
-                    			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
                     		<c:otherwise>
-                    			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li>
+                    			<li><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
                                      	
@@ -129,12 +129,12 @@ form {float: left;}
                     		<c:choose>      							
                    				<c:when test="${a == pageInfo.page }">
 		
-                    				<li class="active li3"><a>${a }</a></li>
+                    				<li class="active"><a>${a }</a></li>
                 				
                     			</c:when>
                				<c:otherwise>
                     			
-									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li>
+									<li><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li>
 									
                     			</c:otherwise>
   							
@@ -145,10 +145,10 @@ form {float: left;}
                     		<c:choose>
                     		
                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
-                    				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li>
+                    				<li><a><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li>
+                    				<li><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:otherwise>
                     		</c:choose>
                     </ul>
@@ -267,10 +267,10 @@ form {float: left;}
 								
 							if(i==item.page) {
  								
-								$(".pagination2").append("<li class='active li3'><a>"+i+"</a></li>");
+								$(".pagination2").append("<li class='active'><a>"+i+"</a></li>");
 							}else {
  								
-								$(".pagination2").append("<li class='li4'><a onclick='listSearch("+num+","+i+")'>"+i+"</a></li>");
+								$(".pagination2").append("<li><a onclick='listSearch("+num+","+i+")'>"+i+"</a></li>");
 								
 							}
 
@@ -292,7 +292,7 @@ form {float: left;}
 						item.name = item.name + " 외 " + (item.amount -1) + "개"
 					}					
 					// 검색결과 뿌려줌
-					$("table").append("<tr><td><a href='orderDetail.or?num="+item.orderNum+"'>"+item.orderNum+"<br>상세보기</a></td><td><img src='product/productUpload/"+item.image+"' width='200' height='100'></td><td>"+item.name+"</td><td>"+item.price+"</td><td>"+item.date+"</td></tr>");
+					$("table").append("<tr><td><a href='orderDetail.or?num="+item.orderNum+"'>"+item.orderNum+"<br>상세보기</a></td><td style='border-right: none;'><img src='product/productUpload/"+item.image+"' width='200' height='100'></td><td style='text-align: left;'>"+item.name+"</td><td class='price'>"+comma(item.price)+"원</td><td>"+item.date+"</td></tr>");
 					
 					// 조회 버튼 전체조회로 변경
 					$("#btn").css({
@@ -317,6 +317,10 @@ form {float: left;}
 		}else {
 			return false;
 		}
+	}
+	// ajax 리턴 price 콤마 찍기 위함
+	function comma(x){
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 	}
 	
 	$(document).ready(function() {

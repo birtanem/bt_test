@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | Corlate</title>
+    <title>Home | About us</title>
 
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 <body>
 	<jsp:include page="/inc/top.jsp" />
 	
-    <div class="page-title" style="background-image: url(images/page-title.png)">
+    <div class="page-title" style="background-image: url(images/top/Busan6.jpg);background-position: top;">
         <h1>고객센터</h1>
     </div>
 
@@ -81,7 +81,7 @@
 										 onmouseover="this.src='${pageContext.request.contextPath}/images/suggestion/c1.png'" 
 										 onmouseout="this.src='${pageContext.request.contextPath}/images/suggestion/c.png'" 
 										 >
-							<h3 style="text-align: center; font-size: 20px; font-weight: bold;">CONTACT US</h3>
+							<h3 style="text-align: center; font-size: 20px; font-weight: bold;">About US</h3>
 						</span>
 					</a>	
 				</label>

@@ -94,7 +94,7 @@ $(document).ready(function(){
 	});
 	
 	 $("#orderBtn").click(function() {
-		 
+		 	
 		 	var messageChk = document.getElementsByName("rowCheck");
 		 	var amountChk = document.getElementsByName("amount");
 		 	var priceChk = document.getElementsByName("price");
@@ -108,10 +108,13 @@ $(document).ready(function(){
 		   for(var i=0;i<messageChk.length;i++) {
 			   	
 		        if(messageChk[i].checked) {
-		        	alert(messageChk[i].checked)
 		        	var data = new Object() ;
 		        	total += Number(commasWithNumber(priceChk[i].value));
 		        	data.num =  messageChk[i].value;
+		        	if(amountChk[i].value == "품절") {
+		        		alert("품절된 상품은 주문할 수 없습니다!")
+		        		return false;
+		        	}
 				    data.amount = amountChk[i].value;
 				    data.price = commasWithNumber(priceChk[i].value);
 				    testList.push(data) ;
@@ -263,7 +266,11 @@ $('.fun-btn').on('click', function(event) {
 											onfocus="this.blur()">
 									</c:when>
 									<c:when test="${p.p_amount eq 0}">
-										<span style="color: red;">&nbsp;품절&nbsp;</span>
+											<input
+											style="border: 1px solid #ddd; color:red; width: 50px; text-align: left;"
+											type="text" id="amount${status.count }" name="amount"
+											value="품절" title="구매수량"
+											onfocus="this.blur()">
 									</c:when>
 									<c:otherwise>
 										<input
