@@ -111,10 +111,12 @@ $(document).ready(function(){
 		        	var data = new Object() ;
 		        	total += Number(commasWithNumber(priceChk[i].value));
 		        	data.num =  messageChk[i].value;
+		        	
 		        	if(amountChk[i].value == "품절") {
 		        		alert("품절된 상품은 주문할 수 없습니다!")
 		        		return false;
 		        	}
+		        	
 				    data.amount = amountChk[i].value;
 				    data.price = commasWithNumber(priceChk[i].value);
 				    testList.push(data) ;
@@ -244,62 +246,40 @@ $('.fun-btn').on('click', function(event) {
 					</tr>
 					<c:forEach var="p" items="${productList }" varStatus="status">
 						<tr>
-							<td><input type="checkbox" name="rowCheck" id="rowCheck"
-								value="${cartList[status.index].c_p_num }" /></td>
+							<td><input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" /></td>
 							<td>${p.p_category }</td>
-							<td style="border-right: none;"><img
-								src="product/productUpload/${p.p_image }" width="200"
-								height="100"></td>
+							<td style="border-right: none;"><img src="product/productUpload/${p.p_image }" width="200" height="100"></td>
 							<td style="text-align: left;">${p.p_name }</td>
-							<td class="price"><fmt:formatNumber value="${p.p_price }"
-									pattern="###,###,###" />원</td>
-							<td><input type="button" value="-"
-								onclick="minuscount(${status.count },-1)"> <input
-								type="hidden" value="${p.p_amount }"
-								id="hamount${status.count }"> <c:choose>
-									<c:when
-										test="${cartList[status.index].c_p_amount <= p.p_amount }">
-										<input
-											style="border: 1px solid #ddd; width: 50px; text-align: left;"
-											type="text" id="amount${status.count }" name="amount"
-											value="${cartList[status.index].c_p_amount }" title="구매수량"
-											onfocus="this.blur()">
-									</c:when>
-									<c:when test="${p.p_amount eq 0}">
-											<input
-											style="border: 1px solid #ddd; color:red; width: 50px; text-align: left;"
-											type="text" id="amount${status.count }" name="amount"
-											value="품절" title="구매수량"
-											onfocus="this.blur()">
-									</c:when>
-									<c:otherwise>
-										<input
-											style="border: 1px solid #ddd; width: 50px; text-align: left;"
-											type="text" id="amount${status.count }" name="amount"
-											value="${p.p_amount }" title="구매수량" onfocus="this.blur()">
-									</c:otherwise>
-								</c:choose> <input type="button" value="+"
-								onclick="minuscount(${status.count },1)"> <input
-								type="hidden" id="price${status.count }" value="${p.p_price}">
-							<p id="amountcheck${status.count }"></p></td>
-							<td><div style="text-align: center; color: #F77; padding-right: 50px;">
+							<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>
+							<td> 
+							<input type="hidden" value="${p.p_amount }" id="hamount${status.count }"> 
 							<c:choose>
-							<c:when test="">
-								<input
-										style="width: 130px; color: #F77; text-align: right; outline: 0;"
-										type="text" id="td${status.count }" name="price"
-										value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원
-							
-							</c:when>
-							<c:otherwise>
-							<input
-										style="width: 130px; color: #F77; text-align: right; outline: 0;"
-										type="text" id="td${status.count }" name="price"
-										value="<fmt:formatNumber value="${p.p_amount * p.p_price}" pattern="###,###,###" />">원
-							
-							</c:otherwise>
+								<c:when test="${cartList[status.index].c_p_amount <= p.p_amount }">
+									<input type="button" value="-" onclick="minuscount(${status.count },-1)">
+									<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" value="${cartList[status.index].c_p_amount }" title="구매수량" onfocus="this.blur()">
+									<input type="button" value="+" onclick="minuscount(${status.count },1)">
+								</c:when>
+								<c:when test="${p.p_amount le 0}">
+									<input style="color: red; width: 50px; outline: 0;" type="text" id="amount${status.count }" name="amount" value="품절" title="구매수량" onfocus="this.blur()">
+								</c:when>
+								<c:otherwise>
+									<input type="button" value="-" onclick="minuscount(${status.count },-1)">
+									<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" value="${p.p_amount }" title="구매수량" onfocus="this.blur()">
+									<input type="button" value="+" onclick="minuscount(${status.count },1)">
+								</c:otherwise>
+							</c:choose>  
+							<input type="hidden" id="price${status.count }" value="${p.p_price}">
+							<p id="amountcheck${status.count }"></p></td>
+							<td class="price">
+							<c:choose>
+								<c:when test="${p.p_amount le 0}">
+									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="0" />원
+								</c:when>
+								<c:otherwise>
+									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원	
+								</c:otherwise>
 							</c:choose>
-								</div></td>
+							</td>
 						</tr>
 					</c:forEach>
 
@@ -318,20 +298,18 @@ $('.fun-btn').on('click', function(event) {
 
 
 					<tr style="height: 100px; font-size: 18pt;">
-						<th colspan="3" style="text-align: right; padding-right: 20px;">총
-							결제예상금액 <c:set var="totalmoney" value="0" /> <c:forEach var="p"
-								items="${productList }" varStatus="status">
-								<c:set var="money"
-									value="${cartList[status.index].c_p_amount * p.p_price}" />
-								<c:set var="totalmoney" value="${totalmoney + money }" />
-							</c:forEach> <span id="span" style="color: red; font-size: 16pt;"> <input
-								type="text"
-								value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />"
-								id="total" onfocus="this.blur()"
-								style="font-size: 16pt; width: 130px; color: red; text-align: right; background-color: #f4f4f4;">원
+						<th colspan="3" style="text-align: right; padding-right: 20px;">
+						총 결제예상금액 <c:set var="totalmoney" value="0" /> 
+						<c:forEach var="p" items="${productList }" varStatus="status">
+						<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
+						<c:set var="totalmoney" value="${totalmoney + money }" />
+						</c:forEach> 
+						<span id="span" style="color: red; font-size: 16pt;"> 
+						<input type="text" value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />" id="total" onfocus="this.blur()" style="font-size: 16pt; width: 130px; color: red; text-align: right; background-color: #f4f4f4;">원
 						</span>
 						</th>
 					</tr>
+					
 				</table>
 			</div>
 

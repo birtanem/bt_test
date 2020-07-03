@@ -304,12 +304,9 @@ margin-top: 150px;}
 <!--/head-->
 
 <body class="homepage">
-<<<<<<< HEAD
+
 <jsp:include page="/inc/top.jsp" />
-=======
-	<jsp:include page="/inc/top.jsp" />
-	<%-- ${fn:length("texts")} --%>
->>>>>>> refs/remotes/origin/master
+
 	<section id="main-map" class="no-margin">
 		<div id="mainImg" class="mainImg">
 			<div class="mainText">
@@ -320,7 +317,7 @@ margin-top: 150px;}
 
 					<div id="realcontent">
 						<dl id="rank-list">
-<<<<<<< HEAD
+
 						<dt>인기 여행지</dt>
 						<dd>
 							<ol>
@@ -330,40 +327,17 @@ margin-top: 150px;}
 										<c:choose>
 											<c:when test="${fn:length(list.pl_name) gt '10'}">
 												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,10) }&nbsp;...	
-=======
-							<dt>인기 여행지</dt>
-							<dd>
-								<ol>
-									<c:forEach var="list" items="${list }" begin="0" end="4"
-										varStatus="stat">
-										<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}"> <c:choose>
-													<c:when test="${fn:length(list.pl_name) lt 5} ">
-													123123123
-												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,5) }...	
->>>>>>> refs/remotes/origin/master
 											</c:when>
-<<<<<<< HEAD
 											<c:otherwise>
-										
-												<b>${stat.count }</b>&nbsp; ${list.pl_name }${ fn:length(list.pl_name)}											
-											</c:otherwise>										
-										</c:choose>
-																			
-									</a></li>
-								</c:forEach>	
-							</ol>
-						</dd>
-=======
-													<c:otherwise>
 														<b>${stat.count }</b>&nbsp; ${list.pl_name }											
 											</c:otherwise>
 												</c:choose>
 
 										</a></li>
-									</c:forEach>
-								</ol>
-							</dd>
->>>>>>> refs/remotes/origin/master
+								</c:forEach>
+							</ol>
+						</dd>
+
 						</dl>
 					</div>
 				</div>

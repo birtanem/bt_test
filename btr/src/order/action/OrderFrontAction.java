@@ -29,9 +29,9 @@ public class OrderFrontAction implements Action {
 		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
 		JSONObject obj = new JSONObject();
 		for(int i=0;i<jsonObj.size();i++) {
-			System.out.println("사이즈: "+jsonObj.size());
+
 			obj = (JSONObject)jsonObj.get(i);
-			System.out.println("넘버: "+obj.get("num"));
+
 		}
 		
 		OrderFrontService orderFrontService = new OrderFrontService();
@@ -42,9 +42,7 @@ public class OrderFrontAction implements Action {
 		
 		
 		for(int i=0;i<jsonObj.size();i++) {
-			System.out.println("사이즈: "+jsonObj.size());
 			obj = (JSONObject)jsonObj.get(i);
-			System.out.println("넘버: "+obj.get("amount"));
 			arrayList.add(orderFrontService.selectOrderList(obj));
 		}
 		
@@ -58,7 +56,12 @@ public class OrderFrontAction implements Action {
 		return forward;
 		} 
 		
-	
+		for(int i=0;i<arrayList.size();i++) {
+			System.out.println("num: "+arrayList.get(i).getP_num());
+			System.out.println("amount: "+arrayList.get(i).getP_amount());
+			System.out.println("image: "+arrayList.get(i).getP_image());
+		}
+		
 		MemberMypageFormService memberMypageFormService = new MemberMypageFormService();
 		MemberBean mb = memberMypageFormService.getMemberInfo((String)session.getAttribute("id"));
 		session.setAttribute("arrayList", arrayList);

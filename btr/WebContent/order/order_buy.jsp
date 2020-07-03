@@ -190,7 +190,7 @@ function emailCheck() {
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png);">
-		<h1>Order123</h1>
+		<h1>Order</h1>
 	</div>
 	<section id="portfolio">
 		<div class="center">
@@ -253,13 +253,13 @@ function emailCheck() {
 							<td>${p.p_name }<input type="hidden" name="name"
 								value="${p.p_name }"><input type="hidden" name="num"
 								value="${p.p_num }"></td>
-							<td><fmt:formatNumber value="${p.p_price/p.p_amount }"
-									pattern="###,###,###" /><input type="hidden" name="price"
+							<td class="price"><fmt:formatNumber value="${p.p_price/p.p_amount }"
+									pattern="###,###,###" />원<input type="hidden" name="price"
 								value="<fmt:formatNumber value="${p.p_price/p.p_amount }" pattern="0"/>"></td>
 							<td>${p.p_amount }<input type="hidden" name="amount"
 								value="${p.p_amount }"></td>
-							<td><fmt:formatNumber value="${p.p_price}"
-									pattern="###,###,###" /></td>
+							<td class="price"><fmt:formatNumber value="${p.p_price}"
+									pattern="###,###,###" />원</td>
 						</tr>
 					</c:forEach>
 				</table>
