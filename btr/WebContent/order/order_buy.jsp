@@ -97,24 +97,24 @@ IMP.request_pay({
 	$(document).ready(function() {
 
 		$("#orderBtn").click(function() {
-// 			if($("#emailcheck").html() != "인증 완료") {
-// 				alert("이메일 인증이 필요합니다.");
-// 				return false;
-// 			}
-// 			if($('input[name="payMethod"]:checked').val() == null) {
-// 				alert("결제수단을 선택해주세요!");
-// 				return false;
-// 			}
+			if($("#emailcheck").html() != "인증 완료") {
+				alert("이메일 인증이 필요합니다.");
+				return false;
+			}
+			if($('input[name="payMethod"]:checked').val() == null) {
+				alert("결제수단을 선택해주세요!");
+				return false;
+			}
 			
-// 		 	var total = $("#total").val();
-// 			var point = commasWithNumber($("#desc_point").html());
-// 			var pay = $('input[name="payMethod"]:checked').val();
-// 			var num = document.getElementsByName("num");
-// 			var img = document.getElementsByName("img");
-// 			var name = document.getElementsByName("name");
-// 			var amount = document.getElementsByName("amount");
-// 			var price = document.getElementsByName("price");
-// 			var testList = new Array();
+		 	var total = $("#total").val();
+			var point = commasWithNumber($("#desc_point").html());
+			var pay = $('input[name="payMethod"]:checked').val();
+			var num = document.getElementsByName("num");
+			var img = document.getElementsByName("img");
+			var name = document.getElementsByName("name");
+			var amount = document.getElementsByName("amount");
+			var price = document.getElementsByName("price");
+			var testList = new Array();
 			
 
 			for (var i = 0; i < name.length; i++) {
@@ -147,37 +147,7 @@ IMP.request_pay({
 						location.href = "orderResult.or"
 					}
 				}
-
-// 			for (var i = 0; i < name.length; i++) {
-// 				// 객체 생성
-// 				var data = new Object();
-// 				// 리스트에 생성된 객체 삽입
-// 				data.num = num[i].value;
-// 				data.img = img[i].value;
-// 				data.name = name[i].value;
-// 				data.amount = amount[i].value;
-// 				data.price = price[i].value;
-// 				testList.push(data);
-// 			}
-// 			// String 형태로 변환
-// 			var jsonData = JSON.stringify(testList);
-			
-// 			$.ajax("orderAdd.or", {
-// 				type : "POST",
-// 				data : {
-// 					"jsonData" : jsonData,
-// 					"total" : total,
-// 					"point" : point,
-// 					"pay" : pay
-// 				}
-// 					success : function() {
-// 						location.href = "orderResult.or"
-// 					}
-
-			});
-			
-			
-		
+			});		
 		});
 		
 		// , 빼기
