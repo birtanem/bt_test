@@ -12,160 +12,120 @@ import order.vo.OrderBean;
 import order.vo.OrderDetailBean;
 
 public class OrderAddService {
-
-	public String insertOrderList(OrderBean ob, int amount) {
-		
-		
-		Connection con = getConnection();
-		
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		
-		orderDAO.setConnection(con);
-		
-		String date = orderDAO.insertOrderList(ob, amount);
-		
-		commit(con);
 	
-		close(con);
-		return date;
-	}
-	public boolean insertOrderDetailList(JSONArray jsonObj, String oderNum) {
+	/*
+	 *  insertOrderList() 메서드 실행 시 주문에 필요한 모든 작업이 처리됨
+	 *  모든 작업이 성공하면 커밋
+	 *  하나라도 실패하면 전체 롤백
+	 *  
+	 *  1. order 저장 (oder_seq 업뎃)
+	 *  2. order_detail 저장
+	 *  3. product 수량 빼기
+	 *  4. cart 삭제
+	 *  5. 포인트 적립
+	 *  
+	 */
+	public String insertOrderList(OrderBean ob, JSONArray jsonArray) {
 		
-		boolean InsertSuccess = false;
-		int insertCount = 0;
-		
-		Connection con = getConnection();
-		
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		
-		orderDAO.setConnection(con);
-		
-		for(int i=0;i<jsonObj.size();i++) {
-			
-			JSONObject obj = (JSONObject)jsonObj.get(i);
-
-			insertCount = orderDAO.insertOrderDetailList(obj, oderNum);
-			
-			if(insertCount > 0) {
-				InsertSuccess = true;
-			}else {
-				InsertSuccess = false;
-				break;
-			}
-		}
+		boolean insertSuccess = false;
+		boolean updateSuccess = false;
+		boolean deleteSuccess = false;
+		boolean savePointSuccess = false;
 				
-		if(InsertSuccess) {
+		Connection con = getConnection();
+		
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		
+		orderDAO.setConnection(con);
+		
+		// order 저장
+		String orderNum = orderDAO.insertOrderList(ob, jsonArray.size());
+		
+		if(orderNum != null) {
 			
-			commit(con);
+			// order_seq 업데이트
+			orderDAO.updateSequence();
 			
-		}else {
-			rollback(con);
+			// order_detail 저장
+			for(int i=0;i<jsonArray.size();i++) {
+				
+				JSONObject obj = (JSONObject)jsonArray.get(i);
+
+				int insertCount = orderDAO.insertOrderDetailList(obj, orderNum);
+				
+				if(insertCount > 0) {
+					insertSuccess = true;					
+				}else {
+					insertSuccess = false;
+					break;
+				}
+			}		
+			
+			if(!insertSuccess) { // order_detail 저장 실패!
+				orderNum = "주문상세에서 문제가 발생하였습니다!";
+				rollback(con);
+			}else { // order_detail 저장 성공!
+
+				// product 저장
+				for(int i=0;i<jsonArray.size();i++) {
+					JSONObject obj = (JSONObject)jsonArray.get(i);
+					int updateCount2 = orderDAO.updateProduntAmount(Integer.parseInt((String)obj.get("num")), Integer.parseInt((String)obj.get("amount")));
+					if(updateCount2 > 0) {
+						updateSuccess = true;
+					}else {
+						updateSuccess = false;
+						break;
+					}					
+				}				
+				if(!updateSuccess) { // product 저장 실패!
+					orderNum = "상품수량에서 문제가 발생하였습니다!";
+					rollback(con);
+				}else { // product 저장 성공!
+					
+					// cart 삭제
+					for(int i=0;i<jsonArray.size();i++) {
+						JSONObject obj = (JSONObject)jsonArray.get(i);
+						int deleteCount = orderDAO.deleteCart(Integer.parseInt((String)obj.get("num")), ob.getMember_id());
+						if(deleteCount > 0) {
+							deleteSuccess = true;
+						}else {					
+							deleteSuccess = false;
+							break;
+						}
+					}
+					
+					if(!deleteSuccess) { // cart 삭제 실패!
+						orderNum = "장바구니에서 문제가 발생하였습니다!";
+						rollback(con);
+					}else { // cart 삭제 성공!
+						
+						// 포인트 적립
+						//  사용포인트 차감, 구매금액 1퍼 적립						
+						int savePoint = (int)((ob.getO_price()-ob.getO_point())*0.01);
+						// sql 이 적립한다고 + 되어있음.  차감 위해서 - 로 전달?
+						int minusPoint = (int)(ob.getO_point()*-1);					
+						int updateCount =  orderDAO.updateSavePoint(ob.getMember_id(), minusPoint);
+
+						if(updateCount > 0) {							
+							int updateCount2 = orderDAO.updateSavePoint(ob.getMember_id(), savePoint);								
+							if(updateCount2 > 0) {								
+								savePointSuccess =  true;
+							}																
+						}						
+						if(!savePointSuccess) { // 포인트 적립 실패!
+							orderNum = "포인트적립에서 문제가 발생하였습니다!";
+							rollback(con);
+						}else { // 포인트 적립 성공!
+							
+							// 모든 과정이 에러없이 실행되면 커밋
+							commit(con);
+						}
+					}					
+				}
+			}
 		}
 		
 		close(con);
-		
-		return InsertSuccess;
+		return orderNum;
 	}
-	
-	public boolean savePoint(String id, int savePoint, int minusPoint) {
-		
-		boolean saveSuccess = false;
-		
-		Connection con = getConnection();
-		
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		
-		orderDAO.setConnection(con);
-		
-		int updateCount =  orderDAO.updateSavePoint(id, minusPoint);
-		System.out.println("upd1");
-		if(updateCount > 0) {
-			
-			int updateCount2 = orderDAO.updateSavePoint(id, savePoint);
-			System.out.println("upd2");
-			
-			if(updateCount2 > 0) {
-				commit(con);
-				saveSuccess =  true;
-			}
-						
-		}else {
-			rollback(con);
-		}
-
-		close(con);	
-		
-		return saveSuccess;
-		
-	}
-
-	public void updateSequence() {
-		
-		Connection con = getConnection();
-		
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		
-		orderDAO.setConnection(con);
-		
-		orderDAO.updateSequence();
-		
-		commit(con);
-		
-		close(con);	
-		
-	}
-	public boolean updateProductAmount(JSONArray jsonObj) {
-		
-		boolean updateSuccess = false;
-		
-		Connection con = getConnection();
-		
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		
-		orderDAO.setConnection(con);
-		
-		for(int i=0;i<jsonObj.size();i++) {
-			JSONObject obj = (JSONObject)jsonObj.get(i);
-			int updateCount = orderDAO.updateProduntAmount(Integer.parseInt((String)obj.get("num")), Integer.parseInt((String)obj.get("amount")));
-			if(updateCount > 0) {
-				updateSuccess = true;
-			}else {
-				rollback(con);
-				updateSuccess = false;
-				break;
-			}
-		}	
-		commit(con);
-		
-		close(con);	
-		return updateSuccess;
-	}
-	public boolean deleteCart(JSONArray jsonObj, String id) {
-		
-		boolean updateSuccess = false;
-		
-		Connection con = getConnection();
-		
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		
-		orderDAO.setConnection(con);
-		
-		for(int i=0;i<jsonObj.size();i++) {
-			JSONObject obj = (JSONObject)jsonObj.get(i);
-			int deleteCount = orderDAO.deleteCart(Integer.parseInt((String)obj.get("num")), id);
-			if(deleteCount > 0) {
-				updateSuccess = true;
-			}else {
-				rollback(con);
-				updateSuccess = false;
-				break;
-			}
-		}	
-		commit(con);
-		
-		close(con);	
-		return updateSuccess;
-	}
-
-
 }

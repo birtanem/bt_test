@@ -33,10 +33,9 @@ public class OrderAddAction implements Action {
 		// 리턴 잊지 않도록 미리 선언 해주기
 		ActionForward forward = null;
 		// insert 성공 여부 판별 변수선언
-		boolean insertSuccess = false;
 		
 		JSONParser parser = new JSONParser();
-		JSONArray jsonObj = (JSONArray)parser.parse(request.getParameter("jsonData"));
+		JSONArray jsonArray = (JSONArray)parser.parse(request.getParameter("jsonData"));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMdd");
 		
@@ -53,69 +52,24 @@ public class OrderAddAction implements Action {
 		ob.setO_pay(request.getParameter("pay"));
 		ob.setO_num(Integer.parseInt(strDate));
 		ob.setO_point(Integer.parseInt(request.getParameter("point")));
-		
-				
+						
 		OrderAddService orderAddService = new OrderAddService();
-		
-		String orderNum = orderAddService.insertOrderList(ob, jsonObj.size()); // Bean 객체, 주문번호 하나에 따른 상품 종류 수
-		
-		orderAddService.updateSequence();
 
-		insertSuccess =  orderAddService.insertOrderDetailList(jsonObj, orderNum);
-
-				
-		if(insertSuccess) {
+		String orderNum = orderAddService.insertOrderList(ob, jsonArray);
+		
+		if(orderNum.contains("문제")) {
 			
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('결제 실패!')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-		// 결제상품 수량 빼기
-		boolean updateSuccess = orderAddService.updateProductAmount(jsonObj);
-		
-		if(!updateSuccess) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('수량 수정 실패!')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-		// 장바구니 삭제
-		boolean deleteSuccess = orderAddService.deleteCart(jsonObj, (String)session.getAttribute("id"));
-		if(!deleteSuccess) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('장바구니 삭제 실패!')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-		
-		//  사용포인트 차감, 구매금액 1퍼 적립
-		
-		int savePoint = (int)((ob.getO_price()-ob.getO_point())*0.01);
-		// sql 이 적립한다고 + 되어있음.  차감 위해서 - 로 전달?
-		int minusPoint = (int)(ob.getO_point()*-1);
+			out.print(orderNum);
 			
-		boolean saveSuccess = orderAddService.savePoint((String)session.getAttribute("id"), savePoint, minusPoint);
-		
-		if(!saveSuccess) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('포인트 적립 실패!')");
-			out.println("history.back()");
-			out.println("</script>");
+		}else {
+						
+			session.setAttribute("orderNum", orderNum);
+			session.setAttribute("ob", ob);
+			
 		}
 		
-		// 주문번호 계산을 위해 num 에 오늘날짜 저장되어있음
-		System.out.println(ob.getO_num());
-		session.setAttribute("orderNum", orderNum);
-		session.setAttribute("ob", ob);
 
 		return forward;
 	}

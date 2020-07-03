@@ -88,8 +88,13 @@
 					"point" : point,
 					"pay" : pay
 				},
-				success : function() {
-					location.href = "orderResult.or"
+				success : function(rdata) {
+					if(rdata != "") {
+						alert(rdata)
+						return false;
+					}else {
+						location.href = "orderResult.or"
+					}
 				}
 			});
 		});

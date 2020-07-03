@@ -154,7 +154,7 @@ private static OrderDAO instance;
 		try {
 			String sql = "INSERT INTO order_seq VALUES(null)";
 			pstmt = con.prepareStatement(sql);
-			System.out.println(pstmt.executeUpdate());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
