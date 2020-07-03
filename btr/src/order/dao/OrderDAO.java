@@ -104,8 +104,12 @@ private static OrderDAO instance;
 			pstmt.setString(5, ob.getO_pay());
 			pstmt.setInt(6, ob.getO_point());
 			
+			
 			insertCount = pstmt.executeUpdate();
 			
+			if(insertCount <= 0) {
+				orderNum = null;
+			}
 			
 		} catch (SQLException e) {
 			
@@ -114,7 +118,6 @@ private static OrderDAO instance;
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println("앞끝");
 		return orderNum;
 		
 	}
