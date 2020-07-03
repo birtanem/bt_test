@@ -22,20 +22,9 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
-// function addAmount(num, idx){
-// 	var amount=document.getElementById("amount"+idx).value();
-// 	var count=Number(document.getElementById("amount"+idx).value())+num;
-// 	if(count<1){
-// 		count=1;
-// 		alert("최소 수량 1개입니다");
-// 		return false;
-// 	}
-// 	amount=count;
-// 	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
-// }
 
-
- function checkAll(obj) {
+// 모든 체크박스 선택
+function checkAll(obj) {
 	 
 	 var chkObj = document.getElementsByName("rowCheck");
 	 var rowCnt = chkObj.length - 1;
@@ -54,8 +43,8 @@
 	      }
 	  }
 } 
- 
- function deleteCart() {
+// 장바구니 삭제
+function deleteCart() {
 
 		var message = "";
 		var messageChk = document.getElementsByName("rowCheck");
@@ -73,25 +62,39 @@
 		}	
 		if(!indexMessage) {
 			alert("삭제할 상품을 선택하세요.");
-			return
+			return false;
 		}
 		
-	$.ajax("ProductCartRemove.ca", {
-		type:"POST",
-		data: {"message": message},
-		success: function() {
-			location.reload();
+		c= confirm("선택한 상품을 삭제하시겠습니까?")
+		
+		if(c) {
+			
+			$.ajax("ProductCartRemove.ca", {
+				type:"POST",
+				data: {"message": message},
+				success: function() {
+					alert("선택한 상품이 삭제되었습니다");	
+					location.reload();
+				}
+			});
+		}else {
+			return false;
 		}
-	});
+		
+
  }
 
 $(document).ready(function(){
-	$('#deleteButton').click(function(){ // 취소 버튼 눌렀을때
-		if($("input:checkbox[id='rowCheck']").is(":checked")==true){ // 체크박스가 체크되어있으면
-			alert("선택한 상품이 삭제되었습니다");	
-			location.reload(); // 새로고침
-		}
-	});
+	
+	// 페이지 열때 모든 체크박스 체크
+	$("input[type=checkbox]").prop("checked", true);
+	// 선택체크박스 선택 시 올체크박스 해제
+	 $("#rowCheck").change(function(){
+	      if(!$("#rowCheck").is(":checked")){
+	      		$("#allCheck").prop("checked", false);
+	      }
+	 });
+
 	
 	 $("#orderBtn").click(function() {
 		 	
@@ -146,23 +149,9 @@ $(document).ready(function(){
 
 });
 
-$('.fun-btn').on('click', function(event) {
-	  $(this).toggleClass('start-fun');
-	  var $page = $('.page');
-	  $page.toggleClass('color-bg-start')
-	    .toggleClass('bg-animate-color');
-
-	  $(this).hasClass('start-fun') ?
-	    $(this).text('stop the fun') :
-	    $(this).text('start the fun');
-
-	});
-	
-
+// 수량 변경
  function minuscount(num, a) {
 	 
-	 	
-
 		var amount = commasWithNumber(document.getElementById("amount"+num).value);
 		var price = commasWithNumber(document.getElementById("price"+num).value);
 		var count = Number(amount) + a;
@@ -186,8 +175,6 @@ $('.fun-btn').on('click', function(event) {
 		total = Number(commasWithNumber(document.getElementById("total").value)) + a*price	;
 		
 		document.getElementById("total").value = numberWithCommas(total);
-
-
 		
 		}
 	
@@ -284,11 +271,17 @@ $('.fun-btn').on('click', function(event) {
 					</c:forEach>
 
 				</table>
+		            
 				<div>
 					<input type="button" class="fun-btn btn btn-primary btn-lg"
 						style="text-align: center" value="선택상품 삭제" id="deleteButton"
 						onclick="return deleteCart()">
 				</div>
+				
+				
+
+			            
+			            
 			</div>
 
 
@@ -325,52 +318,9 @@ $('.fun-btn').on('click', function(event) {
 
 			</div>
 
-			<!--/.row   페이징 처리-->
-			<!--             <div class="row"> -->
-			<!--                 <div class="col-md-12 text-center"> -->
-			<!--                     <ul class="pagination pagination-lg"> -->
+	
 
-			<%--                     	<c:choose> --%>
-
-			<%--                     		<c:when test="${pageInfo.page <= 1 }"> --%>
-			<!--                     			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li> -->
-			<%--                     		</c:when> --%>
-			<%--                     		<c:otherwise> --%>
-			<%--                     			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li> --%>
-			<%--                     		</c:otherwise> --%>
-			<%--                     	</c:choose> --%>
-
-			<%--                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">                   		 --%>
-			<%--                     		<c:choose>      							 --%>
-			<%--                    				<c:when test="${a == pageInfo.page }"> --%>
-
-			<%--                     				<li class="active li3"><a>${a }</a></li> --%>
-
-			<%--                     			</c:when> --%>
-			<%--                				<c:otherwise> --%>
-
-			<%-- 									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li> --%>
-
-			<%--                     			</c:otherwise> --%>
-
-			<%--                     		</c:choose> --%>
-
-			<%--                     	</c:forEach> --%>
-
-			<%--                     		<c:choose> --%>
-
-			<%--                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }"> --%>
-			<!--                     				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li> -->
-			<%--                     			</c:when> --%>
-			<%--                     			<c:otherwise> --%>
-			<%--                     				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li> --%>
-			<%--                     			</c:otherwise> --%>
-			<%--                     		</c:choose> --%>
-			<!--                     </ul> -->
-			<!--                     /.pagination -->
-			<!--                 </div> -->
-			<!--             </div> -->
-			<!--/.row   페이징 처리-->
+		
 
 		</div>
 

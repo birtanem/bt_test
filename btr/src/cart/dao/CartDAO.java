@@ -107,6 +107,7 @@ public class CartDAO {
 
 	} // 장바구니 추가 메서드 끝
 
+
 	
 	// 장바구니 목록 메서드 시작
 	public Vector getList(String id) { 
@@ -116,6 +117,8 @@ public class CartDAO {
 		Vector vector = new Vector();
 		ArrayList cartList = new ArrayList();
 		ArrayList productList = new ArrayList();
+	
+
 		
 		try {
 			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where c_member_id = ?";
