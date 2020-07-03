@@ -116,6 +116,7 @@ table {
 								  <option value="역사">역사</option>
 								  <option value="자연">자연</option>
 								  <option value="공연/전시">공연/전시</option>
+								  <option value="체험">체험</option>
 		                 	</select>
                         </div>
                         </div>                     

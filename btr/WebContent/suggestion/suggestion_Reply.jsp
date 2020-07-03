@@ -77,47 +77,17 @@ function checkValue(){
 	        <h1>건의사항 답글(관리자 페이지)</h1>
 	    </div>
 
-    <section id="partner">
-        <div class="container">
-            <div class="center fadeInDown">
-            
-				<h3 style="text-align: center;"><건의사항 답변></h3>
-					<article style="width: 610px; position: relative; float: right; margin-right: 255px;">
-						<form action="Suggestion_ReplyPro.su?showStyle=<%=showStyle%>" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
-							<input type="hidden" value="<%= article.getNum()%>" name="num">
-							<input type="hidden" value="<%= article.getId()%>" name="id">
-							<input type="hidden" value="<%= article.getEmail()%>" name="email">
-							<input type="hidden" value="<%= article.getSubject()%>" name="subject">
-							<table border="1" style="width: 610px; position: relative;">
-								<tr><td colspan="4" style="text-align: center;">답변 내용</td></tr>
-								<tr><td colspan="4" style="height: 300px"><textarea name="content" id="content" rows="10" cols="20" style="margin: 5px; width: 575px; height: 270px;"></textarea></td></tr>
-							</table>
-							<div style="width: 600px; margin: 0px; margin-top: 5px;">
-								<input type="button" value="건의사항 목록" style="float: left; background-color: gray; color: white;" onclick="location.href='adminSuggestion_List.su?showStyle=<%=showStyle%>'">
-								<input type="reset" value="취소" style="float: right; background-color: gray; color: white;">
-								<input type="submit" value="답변하기" style="float: right; margin-right: 5px; background-color: gray; color: white;">
-							</div>
-						</form>
-					</article>
-
-            </div>
-        </div>
-        <!--/.container-->
-    </section>
-
     
         <section id="contact-page">
         <div class="container">
-            <div class="large-title text-center">        
-                <h2>WithTrip 을 사랑해주셔서 감사합니다!!</h2>
-                <p>당신의 톡톡 튀는 의견을 자유롭게 건의해주세요!</p>
-            </div> 
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
 <!--                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">                     -->
-                	<form action="Suggestion_WritePro.su" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
-	                		<input type="hidden" value="ㅁㅁ" name="id">
-							<input type="hidden" value="ㅁㅁ" name="email">
+                	<form action="Suggestion_ReplyPro.su?showStyle=<%=showStyle%>" method="post" name="contentinfo" style="margin-top:20px;" onsubmit="return checkValue()">
+	                		<input type="hidden" value="<%= article.getNum()%>" name="num">
+							<input type="hidden" value="<%= article.getId()%>" name="id">
+							<input type="hidden" value="<%= article.getEmail()%>" name="email">
+							<input type="hidden" value="<%= article.getSubject()%>" name="subject">
 	                    <div class="col-sm-13 col-sm-offset-13">
 	                        <div class="form-group">
 	                        	<span id="span_Info">작성자 ID : </span><span id="span_Info2"><%= article.getId()%></span>
@@ -134,8 +104,8 @@ function checkValue(){
 	                            <textarea name="content" id="content" required="required" class="form-control" rows="8"></textarea>
 	                        </div>                        
 	                        <div class="form-group">
-	                            <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">건의하기</button>
-	                            <button type="button" name="btn1" class="btn btn-primary btn-lg" id="btn_MySuggestion" onclick="location.href='Suggestion_List.su'">내 건의사항</button>
+	                            <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">답변완료</button>
+	                            <button type="button" name="btn1" class="btn btn-primary btn-lg" id="btn_MySuggestion" onclick="location.href='adminSuggestion_List.su?showStyle=<%=showStyle%>'">목록</button>
 	                            <button type="reset" name="btn1" class="btn btn-primary btn-lg" id="btn_Goback">취소</button>
 	                        </div>
 	                    </div>

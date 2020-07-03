@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import common.action.Action;
 import common.vo.ActionForward;
 import member.svc.MemberLoginProService;
+import member.svc.MemberMypageFormService;
+import member.vo.MemberBean;
 
 
 public class MemberLoginProAction implements Action {
@@ -26,6 +28,11 @@ public class MemberLoginProAction implements Action {
 	        String pass = request.getParameter("pass");
 	        
 	        System.out.println(id+pass);
+	        
+	        //---------메인페이지를 위한 세션 작업
+	        MemberMypageFormService info=new MemberMypageFormService();
+	        MemberBean mb=info.getMemberInfo(id);
+	        
 	        
 	        
 	        // MemberLoginProService 클래스 인스턴스 생성 
@@ -46,7 +53,8 @@ public class MemberLoginProAction implements Action {
 					// 세션 객체를 사용하여 로그인에 성공한 아이디를 저장
 					// => request 객체로부터 HttpSession 객체 가져와서 setAttribute() 호출하여 저장
 					HttpSession session = request.getSession();
-					session.setAttribute("id", id);					
+					session.setAttribute("id", id);
+					session.setAttribute("session", mb.getType());
 					out.println("1");
 				}else if(isMember == -1) {					
 					// 비밀번호 틀림

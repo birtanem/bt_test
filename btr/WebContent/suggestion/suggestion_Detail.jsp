@@ -51,6 +51,22 @@ String id = (String)request.getAttribute("id");
     color: green;
 }
 
+#span_Info3 {
+	display: inline-block;
+    color: black;
+    font-family: none;
+    font-weight: bold;
+    color: blue;
+}
+
+#span_Info4 {
+	display: inline-block;
+    color: black;
+    font-family: none;
+    font-weight: bold;
+    color: red;
+}
+
 #btn_Goback {
 	margin-left: 10px;
 }
@@ -87,15 +103,21 @@ String id = (String)request.getAttribute("id");
 	                        <div class="form-group">
 	                       	    <span id="span_Info">작성자 Email </span><span id="span_Info2"><%=article.getEmail()%></span>
 	                        </div>
-	                        <div class="form-group">
-	                       	    <span id="span_Info">답변 여부 </span><span id="span_Info2"><%=article.getCheck()%></span>
-	                        </div>
 	                        <%
 	                        if(article.getCheck().equals("답변완료")){
 	                        	%>
+	                        	<div class="form-group">
+	                       	    <span id="span_Info">답변 여부 </span><span id="span_Info3"><%=article.getCheck()%></span>
+	                       		 </div>
 		                        <div class="form-group">
 		                       	    <span id="span_Info">답변 날짜 </span><span id="span_Info2"><%=article.getDate_r()%></span><br><br>
 		                        </div>
+	                        	<%
+	                        } else {
+	                        	%>
+	                        	<div class="form-group">
+	                       	    <span id="span_Info">답변 여부 </span><span id="span_Info4"><%=article.getCheck()%></span>
+	                       		</div>
 	                        	<%
 	                        }
 	                        %>

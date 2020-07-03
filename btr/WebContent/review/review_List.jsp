@@ -75,7 +75,6 @@
                     
                 </div>
                 <!--/.col-md-8-->
-                <!-- 온 키업 사용하여 검색 하기 -->
                 <aside class="col-md-4">
                     <div class="widget search" style="box-shadow: 1px 1px 20px #ddd;" >
                         <form action="Review_List.re" role="form">

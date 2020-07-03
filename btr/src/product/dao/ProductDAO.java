@@ -86,7 +86,7 @@ public class ProductDAO {
 		try {
 	
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
-					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name"
+					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name,p.p_theme"
 					+ " from product p join region r on p.region_region_code = r.region_code order by p_num limit ?,?";
 
 			pstmt = con.prepareStatement(sql);
@@ -104,6 +104,7 @@ public class ProductDAO {
 				productBean.setP_category(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
+				productBean.setP_theme(rs.getString(10));
 				productList.add(productBean);
 
 			}
@@ -125,8 +126,8 @@ public class ProductDAO {
 		try {
 	
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
-					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name"
-					+ " from product p join region r on p.region_region_code = r.region_code order by p_num limit ?,?";
+					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name,p.p_theme"
+					+ " from product p join region r on p.region_region_code = r.region_code";
 
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -141,6 +142,7 @@ public class ProductDAO {
 				productBean.setP_category(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
+				productBean.setP_theme(rs.getString(10));
 				productList.add(productBean);
 			}
 		} catch (SQLException e) {

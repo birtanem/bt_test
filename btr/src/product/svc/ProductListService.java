@@ -32,5 +32,17 @@ public class ProductListService {
 		
 		return ListCount;
 	}
+	public ArrayList<ProductBean> getProductList() {
+		ArrayList<ProductBean> productList=null;
+		Connection con=getConnection();
+		ProductDAO productDAO=ProductDAO.getInstance();
+		productDAO.setConnection(con);
+		productList=productDAO.getList();
+		
+		System.out.println(productList);
+		close(con);
+		
+		return productList;
+	}
 	
 }

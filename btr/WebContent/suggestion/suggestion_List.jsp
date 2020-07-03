@@ -49,11 +49,13 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 /* 테이블 td조정 */
 #td0 {
 	width: 56px;
+	min-width: 56px;
 }
 
 #td_title {
-	color: blue;
-	width: 440px;
+	color: black;
+    width: 440px;
+    font-weight: bold;
 }
 
 #td1 {
@@ -61,18 +63,22 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 }
 
 #td2 {
-	width: 85px;
-	color: red;
-	text-align: end;
-}
-
-#td3 {
-	width: 128px;
+	width: 320px;
+    text-align: end;
+    padding-right: 20px;
+    min-width: 140px;
 }
 
 #td4 {
 	width: 88px;
+	color: blue;
+	min-width: 60px;
+}
+
+#td5 {
+	width: 88px;
 	color: red;
+	min-width: 60px;
 }
 
 #spanCount1{
@@ -129,9 +135,18 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
 	                            	<tr>
 	                            		<td id="td0">제목 : </td>
 	                            		<td id="td_title"><%=articleList.get(i).getSubject() %></td>
-	                            		<td id="td2">작성일 </td>
-	                            		<td id="td3"> <%=articleList.get(i).getDate() %></td>
-	                            		<td id="td4"><%=articleList.get(i).getCheck() %></td>
+	                            		<td id="td2">작성일 <%=articleList.get(i).getDate() %> </td>
+	                            		<%
+	                            		if(articleList.get(i).getCheck().equals("답변완료")){
+	                            			%>
+	                            			<td id="td4"><%=articleList.get(i).getCheck() %></td>
+	                            			<%
+	                            		} else {
+	                            			%>
+	                            			<td id="td5"><%=articleList.get(i).getCheck() %></td>
+	                            			<%
+	                            		}
+	                            		%>
 	                            	</tr>
                             	</table>
                             </a>
@@ -147,35 +162,6 @@ ArrayList<SuggestionBean> articleList=(ArrayList<SuggestionBean>)request.getAttr
         </div>
     </section>    
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     <footer id="footer" class="midnight-blue">
         <div class="container">
             <div class="row">

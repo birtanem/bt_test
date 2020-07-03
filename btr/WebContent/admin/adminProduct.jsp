@@ -85,7 +85,10 @@ $(document).ready(function(){
 	});
 });
 </script>
-
+<style type="text/css">
+.pt_list{
+}
+</style>
 </head>
 
 <body>

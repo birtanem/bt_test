@@ -52,66 +52,6 @@
 	                $('#comments').css("display","none");
 	            }
 	            
-	            $.ajax({
-	            	
-	            	type : 'get',
-	            	dataType : 'json',
-	            	url : 'GetCommentList.re?r_num=${article.r_num }',
-	            	success : function(rdata){
-	            	$('.comments').html("");
-	            		$.each(rdata, function(index,item){
-	            			
-							if(!id ){
-									$('.comments').append(
-	
-									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-			                          +'</div>'
-			                          +'</div>'
-			                          
-								);
-								}
-							else if (id != null && id != item.rc_id) {
-								$('.comments').append(
-									'<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" style="margin-right: 15px;" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
-			                          +'</div>'
-			                          +'</div>'
-		                       	);
-								}
-							else if (id != null && id == item.rc_id) {
-								
-								$('.comments').append(							
-										
-			                          '<div class="single-comment" >'
-			                          +'<div class="comment-content" style="margin-left: 10px; margin-right: 10px;">'
-			                          +'<h5 style="float: right;">'+item.rc_date+'</h5>'
-			                          +'<h5>작성자&nbsp; : &nbsp;'+item.rc_id+'</h5>'
-			                          +'<p>'+item.rc_content+'</p> </div>'
-					                  +'<div class="comment-count">'
-					                  +'<a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>'
-					                  +'<a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 수정 </a>'
-			                          +'<a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>'
-			                          +'</div>'
-			                          +'</div>'
-								);
-								}	
-	            			
-	            		});
-	            		
-	            	}
-	            	
-	            });
-	            
 	        });
 	      
 		$('#commentWrite').click(function(){
@@ -281,6 +221,19 @@
                     
                             <div class="comments">
                      <!--          댓글 영역                   -->
+                    			 <c:forEach var="arrayList" items="${articleList }">
+                     				<div class="single-comment" >
+			                        <div class="comment-content" style="margin-left: 10px; margin-right: 10px;">
+			                        <h5 style="float: right;">${arrayList.rc_date }</h5>
+			                        <h5>작성자&nbsp; : &nbsp;${arrayList.rc_id }</h5>
+			                        <p>${arrayList.rc_content }</p> </div>
+					                <div class="comment-count">
+					                <a id ="reply" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>
+					                <a id ="update" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 수정 </a>
+			                        <a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>
+			                        </div>
+			                        </div>
+                    			 </c:forEach>
                             </div>
                         </div>
                     </div>

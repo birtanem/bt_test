@@ -6,7 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageInfo" value="${pageinfo }"  /> 
 <%
-out.println(request.getParameter("type"));
 String type = request.getParameter("type");
 
 %>
@@ -393,7 +392,7 @@ $(document).ready(function(){
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>회원 목록(수정중임)</h1>
+        <h1>회원 목록 및 관리</h1>
         
     </div>
     
