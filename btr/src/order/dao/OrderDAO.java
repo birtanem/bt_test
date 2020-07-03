@@ -80,7 +80,7 @@ private static OrderDAO instance;
 		ResultSet rs = null;
 		int insertCount = 0;
 		String num = "";
-		String orderNum = "";
+		String orderNum = null;
 		
 		try {
 			String sql = "SELECT LPAD(MAX(num),4,0) num FROM order_seq";
@@ -118,6 +118,7 @@ private static OrderDAO instance;
 			close(rs);
 			close(pstmt);
 		}
+
 		return orderNum;
 		
 	}
@@ -411,6 +412,32 @@ private static OrderDAO instance;
 			close(pstmt);
 		}		
 		return deleteCount;
+		
+	}
+	
+	public int getProductAmount(int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int amount = 0;
+	
+		try {
+			String sql = "SELECT p_amount FROM product WHERE p_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				amount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			
+		}		
+		return amount;
 		
 	}
 	

@@ -262,6 +262,9 @@ $(document).ready(function(){
 								<c:when test="${p.p_amount le 0}">
 									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="0" />원
 								</c:when>
+								<c:when test="${cartList[status.index].c_p_amount gt p.p_amount}">
+									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${p.p_amount * p.p_price}" pattern="###,###,###" />" />원
+								</c:when>
 								<c:otherwise>
 									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원	
 								</c:otherwise>
@@ -294,7 +297,15 @@ $(document).ready(function(){
 						<th colspan="3" style="text-align: right; padding-right: 20px;">
 						총 결제예상금액 <c:set var="totalmoney" value="0" /> 
 						<c:forEach var="p" items="${productList }" varStatus="status">
-						<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
+						<c:choose>
+							<c:when test="${cartList[status.index].c_p_amount gt p.p_amount}">
+								<c:set var="money" value="${p.p_amount * p.p_price}" />	
+							</c:when>
+							<c:otherwise>
+								<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
+							</c:otherwise>
+						</c:choose>
+						
 						<c:set var="totalmoney" value="${totalmoney + money }" />
 						</c:forEach> 
 						<span id="span" style="color: red; font-size: 16pt;"> 

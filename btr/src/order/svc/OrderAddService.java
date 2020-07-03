@@ -31,7 +31,8 @@ public class OrderAddService {
 		boolean updateSuccess = false;
 		boolean deleteSuccess = false;
 		boolean savePointSuccess = false;
-				
+		int amount = 0;
+		
 		Connection con = getConnection();
 		
 		OrderDAO orderDAO = OrderDAO.getInstance();
@@ -70,17 +71,21 @@ public class OrderAddService {
 				for(int i=0;i<jsonArray.size();i++) {
 					JSONObject obj = (JSONObject)jsonArray.get(i);
 					int updateCount2 = orderDAO.updateProduntAmount(Integer.parseInt((String)obj.get("num")), Integer.parseInt((String)obj.get("amount")));
-					if(updateCount2 > 0) {
+					if(updateCount2 > 0) {						
+						amount = orderDAO.getProductAmount(Integer.parseInt((String)obj.get("num")));		
 						updateSuccess = true;
 					}else {
 						updateSuccess = false;
 						break;
 					}					
-				}				
-				if(!updateSuccess) { // product 저장 실패!
-					orderNum = "상품수량에서 문제가 발생하였습니다!";
-					rollback(con);
-				}else { // product 저장 성공!
+				}
+			if(amount < 0) {
+				orderNum = "품절된 상품이 포함되었습니다!";
+				rollback(con);
+			}else if(!updateSuccess) {
+				orderNum = "상품수량에서 문제가 발생하였습니다!";
+				rollback(con);
+			}else { // product 저장 성공!
 					
 					// cart 삭제
 					for(int i=0;i<jsonArray.size();i++) {

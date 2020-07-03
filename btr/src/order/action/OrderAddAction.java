@@ -57,7 +57,7 @@ public class OrderAddAction implements Action {
 
 		String orderNum = orderAddService.insertOrderList(ob, jsonArray);
 		
-		if(orderNum.contains("문제")) {
+		if(orderNum.contains("문제") || orderNum.contains("품절")) {
 			
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();

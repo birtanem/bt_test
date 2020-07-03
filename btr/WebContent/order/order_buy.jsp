@@ -163,19 +163,34 @@ IMP.request_pay({
 				var inPoint = ${sessionScope.info.point };
 				var total=${sessionScope.total};
 				var p_total=total-inPoint;
-				document.getElementById("inPoint").value=comma(inPoint);
-				$('#desc_point').html(comma(inPoint));
-				$('#total_tn').html(comma(p_total));
+				
+				if(total >= inPoint) {
+			
+					document.getElementById("inPoint").value=comma(inPoint);
+					$('#desc_point').html(comma(inPoint));
+					$('#total_tn').html(comma(p_total));
+				}else {
+					
+					document.getElementById("inPoint").value=comma(total);
+					$('#desc_point').html(comma(total));
+					$('#total_tn').html(comma(total));
+				}
+
 			});
 			$('#inPoint').on('change',function(){
+				var point = ${sessionScope.info.point };
 				var inPoint=$('#inPoint').val();
 				var total=${sessionScope.total};
 				var p_total=total-inPoint;
 				document.getElementById("inPoint").value=comma(inPoint);
-				if(p_total<0){
-					$('.msg').html("사용한 포인트가 결제 금액을 초과했습니다.").css('color','red');
+
+				if(point < inPoint) {
+					$('.msg').html(" 사용 가능한 포인트를 초과했습니다.").css('color','red');
 					document.getElementById("inPoint").value="";
-				$('#desc_point').html(comma("0"));
+				}else if(p_total<0) {
+					$('.msg').html(" 사용한 포인트가 결제 금액을 초과했습니다.").css('color','red');
+					document.getElementById("inPoint").value="";
+					$('#desc_point').html(comma("0"));
 					$('#total_tn').html(comma(total));
 				}else{
 					$('.msg').html("");
@@ -323,7 +338,7 @@ function emailCheck() {
 				<h2>포인트사용</h2>
 				<table class="ot_point">
 					<tr>
-						<th>withTrip 포인트</th>
+						<th>withTrip 포인트 : <span class="price point"><fmt:formatNumber value="${sessionScope.info.point }" pattern="###,###,###" /></span></th>
 						<td><input type="text" value="" class="o_input" id="inPoint">
 							<input type="button" value="전액사용" class="btn btn_point"><span
 							class="msg"></span></td>
