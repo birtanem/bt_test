@@ -107,8 +107,15 @@ function validCheck() {
                             <div class="post-meta">
                                 <p>주 소 : ${article.pl_address }</p>
                                 <p><i class="fa fa-clock-o"></i> ${article.pl_date }</p>
-                                <p><i class="fa fa-comment"></i> ${article.pl_readcount }</p>
-                                <p><i class="fa fa-heart"></i> ${article.pl_likecount }</p>
+                                <p>조회수 : ${article.pl_readcount }</p>
+                                <c:choose>
+                                    <c:when test="${article.pl_likecount == 0 }">
+                                        <p><i class="fa fa-heart"></i>0</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p><i class="fa fa-heart"></i> ${article.pl_likeAvg }</p>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             ${article.pl_content }
                             

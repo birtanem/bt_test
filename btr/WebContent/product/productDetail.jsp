@@ -71,6 +71,7 @@ $(document).ready(function(){
 		 			 	 
 			if($("#amountcheck").html() == "품절") {
 				alert("품절된 상품입니다.")
+				return false;
 				
 			}
 			

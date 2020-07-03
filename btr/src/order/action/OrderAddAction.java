@@ -84,6 +84,16 @@ public class OrderAddAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		}
+		// 장바구니 삭제
+		boolean deleteSuccess = orderAddService.deleteCart(jsonObj, (String)session.getAttribute("id"));
+		if(!deleteSuccess) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('장바구니 삭제 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 		
 		//  사용포인트 차감, 구매금액 1퍼 적립
 		

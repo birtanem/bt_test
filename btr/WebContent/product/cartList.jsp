@@ -22,20 +22,9 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
-// function addAmount(num, idx){
-// 	var amount=document.getElementById("amount"+idx).value();
-// 	var count=Number(document.getElementById("amount"+idx).value())+num;
-// 	if(count<1){
-// 		count=1;
-// 		alert("최소 수량 1개입니다");
-// 		return false;
-// 	}
-// 	amount=count;
-// 	location.href="ProductCartAdd.ca?p_num="+${cartList[status.index].c_num }+"&p_amount="+amount;
-// }
 
-
- function checkAll(obj) {
+// 모든 체크박스 선택
+function checkAll(obj) {
 	 
 	 var chkObj = document.getElementsByName("rowCheck");
 	 var rowCnt = chkObj.length - 1;
@@ -54,8 +43,8 @@
 	      }
 	  }
 } 
- 
- function deleteCart() {
+// 장바구니 삭제
+function deleteCart() {
 
 		var message = "";
 		var messageChk = document.getElementsByName("rowCheck");
@@ -73,25 +62,39 @@
 		}	
 		if(!indexMessage) {
 			alert("삭제할 상품을 선택하세요.");
-			return
+			return false;
 		}
 		
-	$.ajax("ProductCartRemove.ca", {
-		type:"POST",
-		data: {"message": message},
-		success: function() {
-			location.reload();
+		c= confirm("선택한 상품을 삭제하시겠습니까?")
+		
+		if(c) {
+			
+			$.ajax("ProductCartRemove.ca", {
+				type:"POST",
+				data: {"message": message},
+				success: function() {
+					alert("선택한 상품이 삭제되었습니다");	
+					location.reload();
+				}
+			});
+		}else {
+			return false;
 		}
-	});
+		
+
  }
 
 $(document).ready(function(){
-	$('#deleteButton').click(function(){ // 취소 버튼 눌렀을때
-		if($("input:checkbox[id='rowCheck']").is(":checked")==true){ // 체크박스가 체크되어있으면
-			alert("선택한 상품이 삭제되었습니다");	
-			location.reload(); // 새로고침
-		}
-	});
+	
+	// 페이지 열때 모든 체크박스 체크
+	$("input[type=checkbox]").prop("checked", true);
+	// 선택체크박스 선택 시 올체크박스 해제
+	 $("#rowCheck").change(function(){
+	      if(!$("#rowCheck").is(":checked")){
+	      		$("#allCheck").prop("checked", false);
+	      }
+	 });
+
 	
 	 $("#orderBtn").click(function() {
 		 	
@@ -111,10 +114,12 @@ $(document).ready(function(){
 		        	var data = new Object() ;
 		        	total += Number(commasWithNumber(priceChk[i].value));
 		        	data.num =  messageChk[i].value;
+		        	
 		        	if(amountChk[i].value == "품절") {
 		        		alert("품절된 상품은 주문할 수 없습니다!")
 		        		return false;
 		        	}
+		        	
 				    data.amount = amountChk[i].value;
 				    data.price = commasWithNumber(priceChk[i].value);
 				    testList.push(data) ;
@@ -144,23 +149,9 @@ $(document).ready(function(){
 
 });
 
-$('.fun-btn').on('click', function(event) {
-	  $(this).toggleClass('start-fun');
-	  var $page = $('.page');
-	  $page.toggleClass('color-bg-start')
-	    .toggleClass('bg-animate-color');
-
-	  $(this).hasClass('start-fun') ?
-	    $(this).text('stop the fun') :
-	    $(this).text('start the fun');
-
-	});
-	
-
+// 수량 변경
  function minuscount(num, a) {
 	 
-	 	
-
 		var amount = commasWithNumber(document.getElementById("amount"+num).value);
 		var price = commasWithNumber(document.getElementById("price"+num).value);
 		var count = Number(amount) + a;
@@ -184,8 +175,6 @@ $('.fun-btn').on('click', function(event) {
 		total = Number(commasWithNumber(document.getElementById("total").value)) + a*price	;
 		
 		document.getElementById("total").value = numberWithCommas(total);
-
-
 		
 		}
 	
@@ -244,71 +233,55 @@ $('.fun-btn').on('click', function(event) {
 					</tr>
 					<c:forEach var="p" items="${productList }" varStatus="status">
 						<tr>
-							<td><input type="checkbox" name="rowCheck" id="rowCheck"
-								value="${cartList[status.index].c_p_num }" /></td>
+							<td><input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" /></td>
 							<td>${p.p_category }</td>
-							<td style="border-right: none;"><img
-								src="product/productUpload/${p.p_image }" width="200"
-								height="100"></td>
+							<td style="border-right: none;"><img src="product/productUpload/${p.p_image }" width="200" height="100"></td>
 							<td style="text-align: left;">${p.p_name }</td>
-							<td class="price"><fmt:formatNumber value="${p.p_price }"
-									pattern="###,###,###" />원</td>
-							<td><input type="button" value="-"
-								onclick="minuscount(${status.count },-1)"> <input
-								type="hidden" value="${p.p_amount }"
-								id="hamount${status.count }"> <c:choose>
-									<c:when
-										test="${cartList[status.index].c_p_amount <= p.p_amount }">
-										<input
-											style="border: 1px solid #ddd; width: 50px; text-align: left;"
-											type="text" id="amount${status.count }" name="amount"
-											value="${cartList[status.index].c_p_amount }" title="구매수량"
-											onfocus="this.blur()">
-									</c:when>
-									<c:when test="${p.p_amount eq 0}">
-											<input
-											style="border: 1px solid #ddd; color:red; width: 50px; text-align: left;"
-											type="text" id="amount${status.count }" name="amount"
-											value="품절" title="구매수량"
-											onfocus="this.blur()">
-									</c:when>
-									<c:otherwise>
-										<input
-											style="border: 1px solid #ddd; width: 50px; text-align: left;"
-											type="text" id="amount${status.count }" name="amount"
-											value="${p.p_amount }" title="구매수량" onfocus="this.blur()">
-									</c:otherwise>
-								</c:choose> <input type="button" value="+"
-								onclick="minuscount(${status.count },1)"> <input
-								type="hidden" id="price${status.count }" value="${p.p_price}">
-							<p id="amountcheck${status.count }"></p></td>
-							<td><div style="text-align: center; color: #F77; padding-right: 50px;">
+							<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>
+							<td> 
+							<input type="hidden" value="${p.p_amount }" id="hamount${status.count }"> 
 							<c:choose>
-							<c:when test="">
-								<input
-										style="width: 130px; color: #F77; text-align: right; outline: 0;"
-										type="text" id="td${status.count }" name="price"
-										value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원
-							
-							</c:when>
-							<c:otherwise>
-							<input
-										style="width: 130px; color: #F77; text-align: right; outline: 0;"
-										type="text" id="td${status.count }" name="price"
-										value="<fmt:formatNumber value="${p.p_amount * p.p_price}" pattern="###,###,###" />">원
-							
-							</c:otherwise>
+								<c:when test="${cartList[status.index].c_p_amount <= p.p_amount }">
+									<input type="button" value="-" onclick="minuscount(${status.count },-1)">
+									<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" value="${cartList[status.index].c_p_amount }" title="구매수량" onfocus="this.blur()">
+									<input type="button" value="+" onclick="minuscount(${status.count },1)">
+								</c:when>
+								<c:when test="${p.p_amount le 0}">
+									<input style="color: red; width: 50px; outline: 0;" type="text" id="amount${status.count }" name="amount" value="품절" title="구매수량" onfocus="this.blur()">
+								</c:when>
+								<c:otherwise>
+									<input type="button" value="-" onclick="minuscount(${status.count },-1)">
+									<input style="border: 1px solid #ddd; width: 50px; text-align: left;" type="text" id="amount${status.count }" name="amount" value="${p.p_amount }" title="구매수량" onfocus="this.blur()">
+									<input type="button" value="+" onclick="minuscount(${status.count },1)">
+								</c:otherwise>
+							</c:choose>  
+							<input type="hidden" id="price${status.count }" value="${p.p_price}">
+							<p id="amountcheck${status.count }"></p></td>
+							<td class="price">
+							<c:choose>
+								<c:when test="${p.p_amount le 0}">
+									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="0" />원
+								</c:when>
+								<c:otherwise>
+									<input style="width: 130px; color: #F77; text-align: right; outline: 0;" type="text" id="td${status.count }" name="price" value="<fmt:formatNumber value="${cartList[status.index].c_p_amount * p.p_price}" pattern="###,###,###" />">원	
+								</c:otherwise>
 							</c:choose>
-								</div></td>
+							</td>
 						</tr>
 					</c:forEach>
 
 				</table>
+		            
 				<div>
 					<input type="button" class="fun-btn btn btn-primary btn-lg"
 						style="text-align: center" value="선택상품 삭제" id="deleteButton"
 						onclick="return deleteCart()">
 				</div>
+				
+				
+
+			            
+			            
 			</div>
 
 
@@ -318,20 +291,18 @@ $('.fun-btn').on('click', function(event) {
 
 
 					<tr style="height: 100px; font-size: 18pt;">
-						<th colspan="3" style="text-align: right; padding-right: 20px;">총
-							결제예상금액 <c:set var="totalmoney" value="0" /> <c:forEach var="p"
-								items="${productList }" varStatus="status">
-								<c:set var="money"
-									value="${cartList[status.index].c_p_amount * p.p_price}" />
-								<c:set var="totalmoney" value="${totalmoney + money }" />
-							</c:forEach> <span id="span" style="color: red; font-size: 16pt;"> <input
-								type="text"
-								value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />"
-								id="total" onfocus="this.blur()"
-								style="font-size: 16pt; width: 130px; color: red; text-align: right; background-color: #f4f4f4;">원
+						<th colspan="3" style="text-align: right; padding-right: 20px;">
+						총 결제예상금액 <c:set var="totalmoney" value="0" /> 
+						<c:forEach var="p" items="${productList }" varStatus="status">
+						<c:set var="money" value="${cartList[status.index].c_p_amount * p.p_price}" />
+						<c:set var="totalmoney" value="${totalmoney + money }" />
+						</c:forEach> 
+						<span id="span" style="color: red; font-size: 16pt;"> 
+						<input type="text" value="<fmt:formatNumber value="${totalmoney}" pattern="###,###,###" />" id="total" onfocus="this.blur()" style="font-size: 16pt; width: 130px; color: red; text-align: right; background-color: #f4f4f4;">원
 						</span>
 						</th>
 					</tr>
+					
 				</table>
 			</div>
 
@@ -347,52 +318,9 @@ $('.fun-btn').on('click', function(event) {
 
 			</div>
 
-			<!--/.row   페이징 처리-->
-			<!--             <div class="row"> -->
-			<!--                 <div class="col-md-12 text-center"> -->
-			<!--                     <ul class="pagination pagination-lg"> -->
+	
 
-			<%--                     	<c:choose> --%>
-
-			<%--                     		<c:when test="${pageInfo.page <= 1 }"> --%>
-			<!--                     			<li class="li1"><a><i class="fa fa-long-arrow-left"></i></a></li> -->
-			<%--                     		</c:when> --%>
-			<%--                     		<c:otherwise> --%>
-			<%--                     			<li class="li2"><a href='orderList.or?page=${pageInfo.page - 1 }' onclick="return fun1(e)"><i class="fa fa-long-arrow-left"></i></a></li> --%>
-			<%--                     		</c:otherwise> --%>
-			<%--                     	</c:choose> --%>
-
-			<%--                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">                   		 --%>
-			<%--                     		<c:choose>      							 --%>
-			<%--                    				<c:when test="${a == pageInfo.page }"> --%>
-
-			<%--                     				<li class="active li3"><a>${a }</a></li> --%>
-
-			<%--                     			</c:when> --%>
-			<%--                				<c:otherwise> --%>
-
-			<%-- 									<li class="li4"><a href='orderList.or?page=${a }' onclick="return fun1(e)">${a }</a></li> --%>
-
-			<%--                     			</c:otherwise> --%>
-
-			<%--                     		</c:choose> --%>
-
-			<%--                     	</c:forEach> --%>
-
-			<%--                     		<c:choose> --%>
-
-			<%--                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }"> --%>
-			<!--                     				<li class="li5"><a><i class="fa fa-long-arrow-right"></i></a></li> -->
-			<%--                     			</c:when> --%>
-			<%--                     			<c:otherwise> --%>
-			<%--                     				<li class="li6"><a href='orderList.or?page=${pageInfo.page + 1 }' onclick="return fun1()"><i class="fa fa-long-arrow-right"></i></a></li> --%>
-			<%--                     			</c:otherwise> --%>
-			<%--                     		</c:choose> --%>
-			<!--                     </ul> -->
-			<!--                     /.pagination -->
-			<!--                 </div> -->
-			<!--             </div> -->
-			<!--/.row   페이징 처리-->
+		
 
 		</div>
 

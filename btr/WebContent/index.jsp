@@ -139,7 +139,8 @@ $(document).ready(function(){
 
 #rank-list dd {
 	position: relative;
-	margin: 0;
+	margin-left: 100px;
+	
 }
 
 #rank-list ol {
@@ -149,11 +150,12 @@ $(document).ready(function(){
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+	
 }
 
 #rank-list li {
-	width: 150px;
-	text-align: right;
+	width: 200px;
+	text-align: left;
 	height: 20px;
 	line-height: 20px;
 }
@@ -302,8 +304,9 @@ margin-top: 150px;}
 <!--/head-->
 
 <body class="homepage">
-	<jsp:include page="/inc/top.jsp" />
-	<%-- ${fn:length("texts")} --%>
+
+<jsp:include page="/inc/top.jsp" />
+
 	<section id="main-map" class="no-margin">
 		<div id="mainImg" class="mainImg">
 			<div class="mainText">
@@ -314,25 +317,27 @@ margin-top: 150px;}
 
 					<div id="realcontent">
 						<dl id="rank-list">
-							<dt>인기 여행지</dt>
-							<dd>
-								<ol>
-									<c:forEach var="list" items="${list }" begin="0" end="4"
-										varStatus="stat">
-										<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}"> <c:choose>
-													<c:when test="${fn:length(list.pl_name) lt 5} ">
-													123123123
-												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,5) }...	
+
+						<dt>인기 여행지</dt>
+						<dd>
+							<ol>
+								<c:forEach var="list" items="${list }" begin="0" end="4" varStatus="stat">
+									<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}">
+									
+										<c:choose>
+											<c:when test="${fn:length(list.pl_name) gt '10'}">
+												<b>${stat.count }</b>&nbsp; ${fn:substring(list.pl_name,0,10) }&nbsp;...	
 											</c:when>
-													<c:otherwise>
+											<c:otherwise>
 														<b>${stat.count }</b>&nbsp; ${list.pl_name }											
 											</c:otherwise>
 												</c:choose>
 
 										</a></li>
-									</c:forEach>
-								</ol>
-							</dd>
+								</c:forEach>
+							</ol>
+						</dd>
+
 						</dl>
 					</div>
 				</div>

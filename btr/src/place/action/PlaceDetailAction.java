@@ -27,7 +27,6 @@ public class PlaceDetailAction implements Action {
 		// => 파라미터 : 게시물 번호(board_num), 리턴타입 : BoardBean(article)
 		PlaceDetailService placeDetailService = new PlaceDetailService();
 		PlaceBean article = placeDetailService.getArticle(pl_num);
-		
 		//PlaceComment_List 가져오는 코드
 		int page = 1; // 현재 페이지 번호를 저장할 변수
 		int limit = 4; // 한 페이지 당 출력할 게시물 수 지정

@@ -69,9 +69,6 @@
 		style="background-image: url(images/page-title.png)">
 		<h1>Place</h1>
 	</div>
-<<<<<<< HEAD
-	<section id="writeForm">
-=======
 	<!-- <section id="writeForm"">
 >>>>>>> refs/remotes/origin/master
  	<div class="blog container">
@@ -114,9 +111,7 @@
 
  <section id="contact-page">
         <div class="container">
-            <div class="large-title text-center">        
-                <h2>Place 소개 글 등록</h2>
-            </div> 
+        <br>
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
                 <!-- <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php"> -->

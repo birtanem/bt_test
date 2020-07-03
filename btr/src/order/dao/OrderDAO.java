@@ -44,10 +44,10 @@ private static OrderDAO instance;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductBean pb = null;
-		System.out.println(obj.get("num"));
+		System.out.println("dao num : "+obj.get("num"));
 		
 		try {
-			String sql = "select * from cart c join product p on c.c_p_num = p.p_num where p.p_num = ?";
+			String sql = "SELECT * FROM product WHERE p_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt((String)obj.get("num")));
 			rs = pstmt.executeQuery();
@@ -88,6 +88,7 @@ private static OrderDAO instance;
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				System.out.println(rs.getString(1));
 				num = rs.getString(1);
 			}
 			
@@ -386,6 +387,27 @@ private static OrderDAO instance;
 			close(pstmt);
 		}		
 		return updateCount;
+		
+	}
+	
+	public int deleteCart(int num, String id) {
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+	
+		try {
+			String sql = "DELETE FROM cart WHERE c_p_num = ? AND c_member_id = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, id);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return deleteCount;
 		
 	}
 	

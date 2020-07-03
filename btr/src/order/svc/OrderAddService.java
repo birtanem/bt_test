@@ -27,7 +27,6 @@ public class OrderAddService {
 		commit(con);
 	
 		close(con);
-		System.out.println("머킷");
 		return date;
 	}
 	public boolean insertOrderDetailList(JSONArray jsonObj, String oderNum) {
@@ -129,6 +128,32 @@ public class OrderAddService {
 			JSONObject obj = (JSONObject)jsonObj.get(i);
 			int updateCount = orderDAO.updateProduntAmount(Integer.parseInt((String)obj.get("num")), Integer.parseInt((String)obj.get("amount")));
 			if(updateCount > 0) {
+				updateSuccess = true;
+			}else {
+				rollback(con);
+				updateSuccess = false;
+				break;
+			}
+		}	
+		commit(con);
+		
+		close(con);	
+		return updateSuccess;
+	}
+	public boolean deleteCart(JSONArray jsonObj, String id) {
+		
+		boolean updateSuccess = false;
+		
+		Connection con = getConnection();
+		
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		
+		orderDAO.setConnection(con);
+		
+		for(int i=0;i<jsonObj.size();i++) {
+			JSONObject obj = (JSONObject)jsonObj.get(i);
+			int deleteCount = orderDAO.deleteCart(Integer.parseInt((String)obj.get("num")), id);
+			if(deleteCount > 0) {
 				updateSuccess = true;
 			}else {
 				rollback(con);

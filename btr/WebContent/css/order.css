@@ -2,8 +2,7 @@
 
 
  /* ************************************************************ font ************************************************************ */
-ul, ol {list-style:none;}
-table {border-spacing:0; border:0;}
+
 img, input, select, textarea, button {border:0; vertical-align:top; color:#666;}
 hr {display:none;}
 /* a {color:#666; text-decoration:none;} */
@@ -23,9 +22,6 @@ label, input.button, input.submit , input.image, button {cursor:pointer;}
 
 h2{
 	margin-bottom: 20px;
-}
-li{
-	list-style: disc;
 }
 
 .ot_info, .ot_list, .ot_pay, .ot_point{
@@ -80,7 +76,6 @@ td{
 	border: 2px solid #666;
 }
 .total_pmBox>li{
-	list-style: none;
 	margin: 20px;
 }
 .total_t{
@@ -119,5 +114,9 @@ td{
 .list-font {
 	font-size: 12pt;
 	font-weight: 600;
+}
+li {
+	list-style: none;
+	
 }
 
