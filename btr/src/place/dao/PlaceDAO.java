@@ -137,11 +137,13 @@ public class PlaceDAO {
 			// 전체 게시물을 저장할 ArrayList 객체 생성 => 제네릭 타입 BoardBean 타입 지정
 			ArrayList<PlaceBean> articleList = new ArrayList<PlaceBean>();
 			
+			String likeAvg = "(select round(avg(pc_rank),1) from place_comment where place_pl_num = pl_num)";
+			
 			try {
 				// 게시물 갯수 조회할 SQL 구문 작성
 				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
 				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
-				String sql = "SELECT * FROM place ORDER BY pl_num desc LIMIT ?,?";
+				String sql = "SELECT * ,"+likeAvg+"as likeAvg FROM place ORDER BY pl_num desc LIMIT ?,?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
@@ -163,6 +165,7 @@ public class PlaceDAO {
 					article.setPl_likecount(rs.getInt("pl_likecount"));
 					article.setPl_date(rs.getDate("pl_date"));
 					article.setPl_theme(rs.getString("pl_theme"));
+					article.setPl_likeAvg(rs.getDouble("likeAvg"));
 					
 					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
 					articleList.add(article);
@@ -186,9 +189,11 @@ public class PlaceDAO {
 			
 			PlaceBean article = null;
 			
+			String likeAvg = "(select round(avg(pc_rank),1) from place_comment where place_pl_num="+pl_num+")";
+			
 			// 게시물 번호(board_num)에 해당하는 게시물 상세 내용 조회 후 BoardBean 객체에 저장
 			try {
-				String sql = "SELECT * FROM place WHERE pl_num=?";
+				String sql = "SELECT * ,"+likeAvg+"as likeAvg  FROM place WHERE pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				rs = pstmt.executeQuery();
@@ -206,6 +211,7 @@ public class PlaceDAO {
 					article.setPl_likecount(rs.getInt("pl_likecount"));
 					article.setPl_date(rs.getDate("pl_date"));
 					article.setPl_theme(rs.getString("pl_theme"));
+					article.setPl_likeAvg(rs.getDouble("likeAvg"));
 //					System.out.println(rs.getString("board_content"));
 				}
 				
@@ -246,12 +252,12 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "DELETE FROM place_comment WHERE pl_num=?";
+				String sql = "DELETE FROM place_comment WHERE place_pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
 				
-				sql = "DELETE FROM place WHERE pl_num=?";
+				sql = "DELETE FROM place WHERE place_pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
@@ -327,7 +333,7 @@ public class PlaceDAO {
 			
 			try {
 				// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
-				String sql = "SELECT COUNT(pc_num) FROM place_comment WHERE pl_num = ?"; // COUNT() 함수 사용
+				String sql = "SELECT COUNT(pc_num) FROM place_comment WHERE place_pl_num = ?"; // COUNT() 함수 사용
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
@@ -361,7 +367,7 @@ public class PlaceDAO {
 				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
 				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
 				
-				String sql = "SELECT * FROM place_comment WHERE pl_num=? ORDER BY pc_date desc LIMIT ?,? ";
+				String sql = "SELECT * FROM place_comment WHERE place_pl_num=? ORDER BY pc_date desc LIMIT ?,? ";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
@@ -379,7 +385,7 @@ public class PlaceDAO {
 					article.setPc_date(rs.getDate("pc_date"));
 					article.setMember_id(rs.getString("member_id"));
 					article.setPc_rank(rs.getInt("pc_rank"));
-					article.setPl_num(rs.getInt("pl_num"));
+					article.setPl_num(rs.getInt("place_pl_num"));
 										
 					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
 					articleList.add(article);
@@ -558,5 +564,6 @@ public class PlaceDAO {
 			
 			return articleList;
 		}
+
 	
 }
