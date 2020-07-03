@@ -14,7 +14,14 @@ public class PlaceBean {
 	private int pl_likecount;
 	private Date pl_date;
 	private String pl_theme;
+	private double pl_likeAvg;
 	
+	public double getPl_likeAvg() {
+		return pl_likeAvg;
+	}
+	public void setPl_likeAvg(double pl_likeAvg) {
+		this.pl_likeAvg = pl_likeAvg;
+	}
 	public int getPl_num() {
 		return pl_num;
 	}

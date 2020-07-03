@@ -3,7 +3,7 @@
 <div class="widget search">
                         <form role="form" action="PlaceSearch.pl">
                             <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here" name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                            <button type="submit" style="margin: 25px 35px 0 0;"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <!--/.search-->
