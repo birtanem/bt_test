@@ -46,17 +46,12 @@
 <script type="text/javascript">
 function paytest(){
 	requestPay();
-	
-}
-function yeah(){
-	location.href = "orderResult.or";
 }
 </script>
 
 <script type="text/javascript">
 //결제API
 function requestPay(){
-
 var IMP = window.IMP; // 생략가능
 IMP.init('imp05249928'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
@@ -64,7 +59,7 @@ IMP.request_pay({
     pg : 'html5_inicis',
     pay_method : 'card',
     merchant_uid : 'merchant_' + new Date().getTime(),
-    name : '주문명:결제테스트',
+    name : document.getElementsByName("o_name"),
     amount : 100,
     buyer_email : 'iamport@siot.do',
     buyer_name : name,
@@ -78,78 +73,69 @@ IMP.request_pay({
         msg += '상점 거래ID : ' + rsp.merchant_uid;
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
-		yeah();
    		
 	} else {
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
-        
     }
     alert(msg);
-   
 });
-
 }
-
 </script>
-
 <script type="text/javascript">
-	$(document).ready(function() {
-
-		$("#orderBtn").click(function() {
-			if($("#emailcheck").html() != "인증 완료") {
-				alert("이메일 인증이 필요합니다.");
-				return false;
-			}
-			if($('input[name="payMethod"]:checked').val() == null) {
-				alert("결제수단을 선택해주세요!");
-				return false;
-			}
-			
-		 	var total = $("#total").val();
-			var point = commasWithNumber($("#desc_point").html());
-			var pay = $('input[name="payMethod"]:checked').val();
-			var num = document.getElementsByName("num");
-			var img = document.getElementsByName("img");
-			var name = document.getElementsByName("name");
-			var amount = document.getElementsByName("amount");
-			var price = document.getElementsByName("price");
-			var testList = new Array();
-			
-
-			for (var i = 0; i < name.length; i++) {
-				// 객체 생성
-				var data = new Object();
-				// 리스트에 생성된 객체 삽입
-				data.num = num[i].value;
-				data.img = img[i].value;
-				data.name = name[i].value;
-				data.amount = amount[i].value;
-				data.price = price[i].value;
-				testList.push(data);
-			}
-			// String 형태로 변환
-			var jsonData = JSON.stringify(testList);
+function preCheck(){	
+// 		if($("#emailcheck").html() != "인증 완료") {
+// 			alert("이메일 인증이 필요합니다.");
+// 			return false;
+// 		}
+		if($('input[name="payMethod"]:checked').val() == null) {
+			alert("결제수단을 선택해주세요!");
+			return false;
+		}
+		paytest();
+}
+</script>
+<script type="text/javascript">
+function payData(){		
+	 	var total = $("#total").val();
+		var point = commasWithNumber($("#desc_point").html());
+		var pay = $('input[name="payMethod"]:checked').val();
+		var num = document.getElementsByName("num");
+		var img = document.getElementsByName("img");
+		var name = document.getElementsByName("name");
+		var amount = document.getElementsByName("amount");
+		var price = document.getElementsByName("price");
+		var testList = new Array();
 		
-			$.ajax("orderAdd.or", {
-				type : "POST",
-				data : {
-					"jsonData" : jsonData,
-					"total" : total,
-					"point" : point,
-					"pay" : pay
-				},
-				success : function(rdata) {
-					if(rdata != "") {
-						alert(rdata)
-						return false;
-					}else {
-						location.href = "orderResult.or"
-					}
-				}
-			});		
-		});
-		
+		for (var i = 0; i < name.length; i++) {
+			// 객체 생성
+			var data = new Object();
+			// 리스트에 생성된 객체 삽입
+			data.num = num[i].value;
+			data.img = img[i].value;
+			data.name = name[i].value;
+			data.amount = amount[i].value;
+			data.price = price[i].value;
+			testList.push(data);
+		}
+		// String 형태로 변환
+		var jsonData = JSON.stringify(testList);
+	
+		$.ajax("orderAdd.or", {
+			type : "POST",
+			data : {
+				"jsonData" : jsonData,
+				"total" : total,
+				"point" : point,
+				"pay" : pay
+			},
+			success : function(rdata) {
+				location.href = "orderResult.or"
+			}
+		});		
+	}
+</script>
+<script type="text/javascript">
 		// , 빼기
 		 function commasWithNumber(x) {
 			    return x.toString().replace(/\,/g,"");
@@ -270,7 +256,7 @@ function emailCheck() {
 		</div>
 		<div class="container">
 			<div class="o_info">
-			<input type="button" value="testPay" id="payTest" class="payTest" onclick="paytest()">
+			<input type="button" value="testPay" id="payTest" class="payTest" onclick="preCheck()">
 				<h2>주문자정보</h2>
 				<table class="ot_info">
 					<tr>

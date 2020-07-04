@@ -1,26 +1,14 @@
 package product.action;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import com.sun.javafx.collections.MappingChange.Map;
-
 import common.action.Action;
 import common.vo.ActionForward;
-import member.svc.MemberMypageFormService;
-import member.vo.MemberBean;
-import place.vo.PlaceBean;
 import product.svc.ProductListService;
 import product.vo.ProductBean;
-import review.svc.ReviewListService;
 import review.vo.ReviewPageInfo;
 
 public class ProductListAction implements Action {
