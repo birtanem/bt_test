@@ -1,18 +1,13 @@
 package order.svc;
 
-import common.db.JdbcUtil.*;
-
-import static common.db.JdbcUtil.*;
+import static common.db.JdbcUtil.close;
+import static common.db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 
 import order.dao.OrderDAO;
-import order.vo.OrderBean;
-import product.vo.ProductBean;
-import review.dao.ReviewDAO;
 
 public class OrderListService {
 

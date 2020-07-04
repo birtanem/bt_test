@@ -53,32 +53,37 @@ function paytest(){
 //결제API
 function requestPay(){
 var IMP = window.IMP; // 생략가능
+var buyer_name=document.getElementById("o_name").value;
+var name = document.getElementsByName("name").value;
+var buyer_tel=document.getElementById("o_phone").value;
+var buyer_email=document.getElementById("email").value;
+var amount=document.getElementById("total_p").value;
+alert(total_p);
 IMP.init('imp05249928'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
 IMP.request_pay({
     pg : 'html5_inicis',
     pay_method : 'card',
     merchant_uid : 'merchant_' + new Date().getTime(),
-    name : document.getElementsByName("o_name"),
-    amount : 100,
+    name : name,
+    amount : 100, //임의의 가격 100원
     buyer_email : 'iamport@siot.do',
-    buyer_name : name,
-    buyer_tel : '010-1234-5678',
-//     buyer_addr : '서울특별시 강남구 삼성동',
-//     buyer_postcode : '123-456'
+    buyer_name : buyer_name,
+    buyer_tel : buyer_tel,
 }, function(rsp) {
     if ( rsp.success ) {
-        var msg = '결제가 완료되었습니다.';
-        msg += '고유ID : ' + rsp.imp_uid;
-        msg += '상점 거래ID : ' + rsp.merchant_uid;
-        msg += '결제 금액 : ' + rsp.paid_amount;
-        msg += '카드 승인번호 : ' + rsp.apply_num;
+//         var msg = '결제가 완료되었습니다.';
+//         msg += '고유ID : ' + rsp.imp_uid;
+//         msg += '상점 거래ID : ' + rsp.merchant_uid;
+//         msg += '결제 금액 : ' + rsp.paid_amount;
+//         msg += '카드 승인번호 : ' + rsp.apply_num;
+        payData();
    		
 	} else {
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
-    }
     alert(msg);
+    }
 });
 }
 </script>
@@ -96,7 +101,8 @@ function preCheck(){
 }
 </script>
 <script type="text/javascript">
-function payData(){		
+function payData(){	
+	$(document).ready(function(){
 	 	var total = $("#total").val();
 		var point = commasWithNumber($("#desc_point").html());
 		var pay = $('input[name="payMethod"]:checked').val();
@@ -132,7 +138,8 @@ function payData(){
 			success : function(rdata) {
 				location.href = "orderResult.or"
 			}
-		});		
+		});
+	});
 	}
 </script>
 <script type="text/javascript">
@@ -224,10 +231,8 @@ function payData(){
 				$("#emailcheck").css("color","blue");
 			}
 			
-		})
+		});
 		
-		
-	});
 </script>
 <script type="text/javascript">
 function emailCheck() {
@@ -256,17 +261,16 @@ function emailCheck() {
 		</div>
 		<div class="container">
 			<div class="o_info">
-			<input type="button" value="testPay" id="payTest" class="payTest" onclick="preCheck()">
 				<h2>주문자정보</h2>
 				<table class="ot_info">
 					<tr>
 						<th>주문자명</th>
-						<td><input type="text" name="o_name"
+						<td><input type="text" name="o_name" id="o_name"
 							value="${sessionScope.info.name}" class="o_input"></td>
 					</tr>
 					<tr>
 						<th>휴대폰</th>
-						<td><input type="text" name="o_phone"
+						<td><input type="text" name="o_phone" id="o_phone"
 							value="${sessionScope.info.phone} " class="o_input"></td>
 					</tr>
 					<tr>
@@ -517,10 +521,11 @@ function emailCheck() {
 					<div class="both"></div>
 					<li class="total"><span class="total_t">최종 결제금액</span><span
 						class="total_cnt"> <span class="total_tn" id="total_tn"><fmt:formatNumber
-									value="${sessionScope.total}" pattern="###,###,###" />원</span></span></li>
+									value="${sessionScope.total}" pattern="###,###,###" />원</span></span>
+									<input type="hidden" id="total_p" value="${sessionScope.total}"></li>
 					<div class="both"></div>
 					<li><input type="button" class="btn tpm" id="orderBtn"
-						value="결제하기"></li>
+						value="결제하기" onclick="preCheck()"></li>
 				</ul>
 			</div>
 		</div>
