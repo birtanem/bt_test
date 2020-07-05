@@ -220,7 +220,7 @@ if(alertOn.equals("pass")){                           //alertOn 세션 true 일 
                 </div>
                 
                 <div class="col-sm-6 col-md-4">
-				<a href="./">
+				<a href="./MemberEventList.me">
                     <div class="media mypage-wrap fadeInDown">
                         <div class="pull-left">
                             <img id="img" src="images/services/mypageIcon4.jpeg">

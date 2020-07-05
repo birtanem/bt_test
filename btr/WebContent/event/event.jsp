@@ -108,6 +108,16 @@ $(document).ready(function() {
 		})
 
     });
+	
+	// 버튼 hover img 효과
+	$('#btn').mouseover(function() {
+		
+		$('#img').css('-webkit-animation','wobble-hor-bottom 0.8s infinite alternate').css('animation','wobble-hor-bottom 0.8s infinite alternate')
+	});
+	$('#btn').mouseout(function() {
+		
+		$('#img').css('-webkit-animation','').css('animation','');
+	});
 });
 </script>
 <script type="text/javascript">
@@ -132,7 +142,7 @@ $(document).ready(function() {
 		callback	: function(days, hours, minutes, seconds){
 		
 		}
-});
+	});
 });
 
 function adminPop() {

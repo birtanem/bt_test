@@ -8,9 +8,9 @@ public class EventWinBean {
 	private int event_round;
 	private String member_id;
 	private Date ew_date;
-	private int ew_30000;
-	private int ew_50000;
-	private int ew_100000;
+	private int ew_cp_3;
+	private int ew_cp_5;
+	private int ew_cp_10;
 	
 	public int getEw_num() {
 		return ew_num;
@@ -37,24 +37,25 @@ public class EventWinBean {
 	public void setEw_date(Date ew_date) {
 		this.ew_date = ew_date;
 	}
-	public int getEw_30000() {
-		return ew_30000;
+	public int getEw_cp_3() {
+		return ew_cp_3;
 	}
-	public void setEw_30000(int ew_30000) {
-		this.ew_30000 = ew_30000;
+	public void setEw_cp_3(int ew_cp_3) {
+		this.ew_cp_3 = ew_cp_3;
 	}
-	public int getEw_50000() {
-		return ew_50000;
+	public int getEw_cp_5() {
+		return ew_cp_5;
 	}
-	public void setEw_50000(int ew_50000) {
-		this.ew_50000 = ew_50000;
+	public void setEw_cp_5(int ew_cp_5) {
+		this.ew_cp_5 = ew_cp_5;
 	}
-	public int getEw_100000() {
-		return ew_100000;
+	public int getEw_cp_10() {
+		return ew_cp_10;
 	}
-	public void setEw_100000(int ew_100000) {
-		this.ew_100000 = ew_100000;
+	public void setEw_cp_10(int ew_cp_10) {
+		this.ew_cp_10 = ew_cp_10;
 	}
+
 
 	
 	

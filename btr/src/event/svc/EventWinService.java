@@ -41,7 +41,7 @@ public class EventWinService {
 		return isInsertSuccess;
 	}
 	
-	public boolean addWinList(String member_id) {
+	public boolean addWinList(int point, String member_id) {
 		System.out.println("EventWinService - addWinList");
 		Connection con = getConnection();
 		
@@ -51,7 +51,7 @@ public class EventWinService {
 		
 		eventDAO.setConnection(con);
 		
-		int insertCount = eventDAO.insertWinArticle(member_id);
+		int insertCount = eventDAO.insertWinArticle(point, member_id);
 		
 		if(insertCount > 0) {
 			

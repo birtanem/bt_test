@@ -530,9 +530,11 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			ArrayList<PlaceBean> articleList = new ArrayList<PlaceBean>();
+			
+			String likeAvg = "(select round(avg(pc_rank),1) from place_comment where place_pl_num = pl_num)";
 			try {
 				// 인기여행지(like순) 추출하기 위해서 ORDER BY 추가
-				String sql = "SELECT * FROM place ORDER BY pl_likecount DESC";
+				String sql = "SELECT *,"+likeAvg+" as likeAvg FROM place ORDER BY likeAvg DESC";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -550,6 +552,7 @@ public class PlaceDAO {
 					article.setPl_likecount(rs.getInt("pl_likecount"));
 					article.setPl_date(rs.getDate("pl_date"));
 					article.setPl_theme(rs.getString("pl_theme"));
+					article.setPl_likeAvg(rs.getDouble("likeAvg"));
 					
 					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
 					articleList.add(article);}

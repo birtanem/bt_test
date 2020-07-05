@@ -91,7 +91,7 @@
 						            <li><a href="adminLog.ad">통계</a></li>
 						            <li><a href="PlaceWriteForm.pl?">Place 글 등록</a></li>
 						            <li><a href="#">여행지 관리</a></li>
-						            <li><a href="adminEvent.ad">이벤트 관리</a></li>
+						            <li><a href="adminEvent.ad">이벤트 내역</a></li>
 						        </ol>
 						    </li>
 						</c:if>

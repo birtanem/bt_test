@@ -23,7 +23,7 @@ public class EventWinAction implements Action {
 			int point = Integer.parseInt(request.getParameter("point"));
 			System.out.println(point);
 			boolean isInsertSuccess =  eventWinService.addWinCoupon(point, id);
-			boolean isInsertSuccess2 = eventWinService.addWinList(id); 
+			boolean isInsertSuccess2 = eventWinService.addWinList(point, id); 
 			
 			if(!isInsertSuccess || isInsertSuccess2) {
 				
