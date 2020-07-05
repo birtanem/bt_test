@@ -229,10 +229,10 @@
 			                        <p>${arrayList.rc_content }</p> </div>
 					                <div class="comment-count">
 					                <c:if test="${sessionScope.id != null }">
-					                <a id ="reply" style="margin-right: 15px;" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'">답글</a>
+					                <a id ="reply" style="margin-right: 15px;" href="Comment_ReplyForm.re?r_num=${article.r_num}&rc_num=${arrayList.rc_num }">답글</a>
 					                <c:if test="${arrayList.rc_id == sessionScope.id}">
-					                <a id ="update" style="margin-right: 15px;" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 수정 </a>
-			                        <a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num='+item.rc_num+'"> 삭제 </a>
+					                <a id ="update" style="margin-right: 15px;" href="Comment_UpdateForm.re?r_num=${article.r_num}&rc_num=${arrayList.rc_num }"> 수정 </a>
+			                        <a id ="delete" style="margin-right: 15px;" href="Comment_Delete.re?r_num=${article.r_num}&rc_num=${arrayList.rc_num }"> 삭제 </a>
 			                        </c:if>
 			                        </c:if>
 			                        </div>
