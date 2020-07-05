@@ -11,7 +11,7 @@ import product.svc.ProductListService;
 import product.vo.ProductBean;
 import review.vo.ReviewPageInfo;
 
-public class adminProductAction implements Action {
+public class AdminProductAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

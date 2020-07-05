@@ -6,10 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import admin.svc.AdminEventWinListService;
 import common.action.Action;
 import common.vo.ActionForward;
-import event.svc.EventWinService;
-import event.svc.adminEventWinListService;
 import event.vo.EventWinBean;
 import member.svc.MemberReplyListService;
 import member.vo.MemberPageInfo;
@@ -45,7 +44,7 @@ public class MemberEventListAction implements Action {
 		request.setAttribute("pageinfo", pageinfo);
 // ------------------------------------------------------------------------------------------------------------
 		
-		adminEventWinListService adminEventWinListService = new adminEventWinListService();
+		AdminEventWinListService adminEventWinListService = new AdminEventWinListService();
 		
 		ArrayList<EventWinBean> eventWinList =  adminEventWinListService.getWinArticleList();
 

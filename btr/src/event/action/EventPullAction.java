@@ -54,6 +54,7 @@ public class EventPullAction implements Action {
 				if(setPullSuccess == 30001) { // 30000 당첨
 					// 쿠폰 추가
 					eventPullService.addWinCoupon(3, id);
+					// 당첨 리스트 추가
 					eventPullService.addWinList(3 ,id);
 					// 쿠폰 수 가져오기
 					int coupon = eventPullService.getCoupon(id, 3);
@@ -85,14 +86,7 @@ public class EventPullAction implements Action {
 				}else if(setPullSuccess == 1) { // 꽝
 					obj.put("check", "1");
 					out.print(obj);							
-				}
-				
-				if(setPullSuccess > 1) {
-					// 당첨 시 당첨내역추가, 쿠폰추가
-					
-
-				}
-				
+				}			
 				
 			}
 

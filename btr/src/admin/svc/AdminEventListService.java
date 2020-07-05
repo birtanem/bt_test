@@ -1,7 +1,6 @@
-package event.svc;
+package admin.svc;
 
-import static common.db.JdbcUtil.close;
-import static common.db.JdbcUtil.getConnection;
+import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import event.dao.EventDAO;
 import event.vo.EventBean;
 
 
-public class adminEventListService {
+public class AdminEventListService {
 
 	public ArrayList<EventBean> getArticleList() {
 		

@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.svc.AdminEventListService;
 import common.action.Action;
 import common.vo.ActionForward;
-import event.svc.adminEventListService;
 import event.vo.EventBean;
 
-public class adminEventListAction implements Action {
+public class AdminEventListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("adminEventListAction");
 		ActionForward forward = null;
-		adminEventListService adminEventListService = new adminEventListService();
+		AdminEventListService adminEventListService = new AdminEventListService();
 		
 		ArrayList<EventBean> eventList =  adminEventListService.getArticleList();
 

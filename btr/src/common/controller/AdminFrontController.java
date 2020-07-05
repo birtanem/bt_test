@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.action.AdminLogAction;
-import admin.action.adminEventListAction;
-import admin.action.adminEventWinListAction;
-import admin.action.adminProductAction;
+import admin.action.AdminEventListAction;
+import admin.action.AdminEventWinListAction;
+import admin.action.AdminProductAction;
 import common.action.Action;
 import common.vo.ActionForward;
 
@@ -31,7 +31,7 @@ public class AdminFrontController extends HttpServlet {
 			forward.setPath("/admin/adminPage.jsp");
 		}else if(command.equals("/adminProduct.ad")) {
 			try {
-				action=new adminProductAction();
+				action=new AdminProductAction();
 				
 				forward=action.execute(request, response);
 			} catch (Exception e) {
@@ -40,11 +40,11 @@ public class AdminFrontController extends HttpServlet {
 			
 		}else if(command.equals("/adminEvent.ad")) {
 			try {
-				action=new adminEventWinListAction();
+				action=new AdminEventWinListAction();
 				
 				forward = action.execute(request, response);
 				
-				action=new adminEventListAction();
+				action=new AdminEventListAction();
 				
 				forward = action.execute(request, response);
 			} catch (Exception e) {
