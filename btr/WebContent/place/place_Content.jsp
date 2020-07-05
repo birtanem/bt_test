@@ -110,10 +110,10 @@ function validCheck() {
                                 <p>조회수 : ${article.pl_readcount }</p>
                                 <c:choose>
                                     <c:when test="${article.pl_likecount == 0 }">
-                                        <p><i class="fa fa-heart"></i>0</p>
+                                        <p><i class="fa fa-heart"></i>&nbsp; 0</p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p><i class="fa fa-heart"></i> ${article.pl_likeAvg }</p>
+                                        <p><i class="fa fa-heart"></i>&nbsp; ${article.pl_likeAvg }</p>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -176,49 +176,6 @@ function validCheck() {
                                
                                </c:forEach>
                                                      
-						<!--/.row   페이징 처리-->
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="pagination pagination-lg">
-                    
-                    	<c:choose>
-                    	
-                    		<c:when test="${pageInfo.page <= 1 }">
-                    			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
-                    		</c:otherwise>
-                    	</c:choose>
-                    
-                    	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                    	<c:choose>
-                   			<c:when test="${a == pageInfo.page }">
-                    				<li class="active"><a>${a }</a></li>
-                    			</c:when>
-                    			<c:otherwise>
-									<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${a }">${a }</a></li>
-                    			</c:otherwise>
-                    		</c:choose>
-                    	
-                    	</c:forEach>
-                    		
-                    		<c:choose>
-                    		
-                    			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
-                    				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
-                    			</c:when>
-                    			<c:otherwise>
-                    				<li><a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=<%=plPage%>&cpage=${pageInfo.page + 1 }"><i class="fa fa-long-arrow-right"></i></a></li>
-                    			</c:otherwise>
-                    		</c:choose>
-                    </ul>
-                    <!--/.pagination-->
-                </div>
-            </div>
-            <!--/.row   페이징 처리-->
-    
-                                
                             </div>
                         </div>
                     </div>
