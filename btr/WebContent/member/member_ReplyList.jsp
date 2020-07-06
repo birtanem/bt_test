@@ -83,7 +83,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>나의 작성글</h1>
+        <h1>나의 작성 댓글</h1>
     </div>
     
     <section id="blog">
