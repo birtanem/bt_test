@@ -309,6 +309,16 @@ public class PlaceDAO {
 				pstmt.setInt(5, pcb.getPl_num()); 
 				insertCount = pstmt.executeUpdate();
 				
+				if (insertCount > 0 ) {
+					sql = "update member set point = point+50 where id = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, pcb.getMember_id());
+					
+					pstmt.executeUpdate();
+				}
+				
 			} catch (SQLException e) {
 //							e.printStackTrace();
 				System.out.println("PlaceDAO - insertComment() 실패! : " + e.getMessage());
