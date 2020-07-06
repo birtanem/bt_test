@@ -245,7 +245,7 @@ function joinCheck() {
 	<input type="hidden" value="<%=memberInfo.getId()%>" id="nowId" name="nowId">
 	 	
     <label for="nowPass"><b>현재 비밀번호</b></label>
-    <input type="password" placeholder="아이디를 입력하세요" name="nowPass" id="nowPass">
+    <input type="password" placeholder="현재 비밀번호를 입력하세요" name="nowPass" id="nowPass">
     <span id="nowPass"></span>
     
     <label for="pass"><b>비밀번호</b></label>

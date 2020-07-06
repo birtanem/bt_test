@@ -45,8 +45,8 @@ String showNo = "미완료";
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 <style type="text/css">
-.th {
-	
+#blog {
+	min-height: 537px;
 }
 </style>
 </head>
@@ -58,11 +58,12 @@ String showNo = "미완료";
         <h1>건의사항 리스트(관리자페이지)</h1>
     </div>
 
-
-    <section id="partner">
-        <div class="container">
-            <div class="center fadeInDown">
-					<article style="width: 700px; position: relative; float: right; margin-right: 255px;">
+    <section id="blog">
+        <div class="blog container">
+            <div class="row">
+                <div class="col-md-8">
+                                	<div class="blog-item">
+                        <div class="blog-content">
 								<div style="width: 610px; text-align: end; font-size: 18px; color: black;">
 								<label>전체글 </label>
 								<label style="width: 25px; "><%=count1 %></label><br>
@@ -117,38 +118,25 @@ String showNo = "미완료";
 								}
 								%>
 							</table>
-					</article>
+							</div>
+							</div>
+					</div>
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </section><!--/#contact-page-->
+    <!--/#bottom-->
 
-            </div>
-        </div>
-        <!--/.container-->
-    </section>
+    <!--/#blog-->
 
-    <footer id="footer" class="midnight-blue">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
-                </div>
-                <div class="col-sm-6">
-                    <ul class="pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!--/#bottom-->
+<jsp:include page="/inc/bottom.jsp"/>
     <!--/#footer-->
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
+    
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.prettyPhoto.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/jquery.isotope.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
-
 </html>

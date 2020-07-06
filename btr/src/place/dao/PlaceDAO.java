@@ -252,12 +252,7 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "DELETE FROM place_comment WHERE place_pl_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, pl_num);
-				deleteCount = pstmt.executeUpdate();
-				
-				sql = "DELETE FROM place WHERE place_pl_num=?";
+				String sql = "DELETE FROM place WHERE pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
@@ -308,6 +303,16 @@ public class PlaceDAO {
 				pstmt.setInt(4,pcb.getPc_rank()); //pc_rank
 				pstmt.setInt(5, pcb.getPl_num()); 
 				insertCount = pstmt.executeUpdate();
+				
+				if (insertCount > 0 ) {
+					sql = "update member set point = point+50 where id = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, pcb.getMember_id());
+					
+					pstmt.executeUpdate();
+				}
 				
 			} catch (SQLException e) {
 //							e.printStackTrace();

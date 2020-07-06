@@ -72,6 +72,10 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 <style type="text/css">
 
+#img1 {
+	height: 520px;
+}
+
 #withtrip_img{
 	width: 60%;
 	margin-bottom: 16px;
@@ -92,15 +96,20 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
             <div class="row">
                 <div class="col-md-7">
                     <div class="about-img">
-                        <img src="images/info_1.jpg" alt="">
+                        <img src="images/img11.png" alt="" id="img1">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="about-content">
                         <h2><img src="images/logo.png" id="withtrip_img"> 소개</h2>
                         <p> 
-                        	WithTrip은 축척된 데이터를 기반으로 사용자에게 부산의 여행명소, 맞춤 여행지, 상품 등을 추천해주는 커뮤니티 웹 페이지 입니다.
-                        	블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라 블라블라 블라
+							 획기적인 부산 여행 플랫폼인 WITHTRIP은  축척된 데이터를 기반으로 
+							사용자에게 부산의 여행명소, 맞춤 여행지, 상품 등을 추천하며
+							매년 부산을 방문하는 2600만 명의 여행자를 도와 모든 여행이 최적의 여행이 되도록 합니다.<br><br>
+							수많은 부산 여행자들은 WITHTRIP 사이트를 이용하여 다양한 명소와 맛집, 체험공간에 대한 리뷰와 의견을 검색합니다. <br><br>
+							여행을 계획하든 여행 중이든 여행자들은 WITHTRIP의 도움을 받아 언제든 정보를 받아 볼 수 있고 저렴한 가격에 티켓을 구매할수 있습니다. 
+							인기 투어와 관광명소를 예약하고, 훌륭한 음식점을 추천받으세요. 
+							최고의 부산 여행 동반자 WITHTRIP은 언제나 함께 합니다.
                         </p>
                     </div>
                 </div>
@@ -169,7 +178,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
         <div class="container">
             <div class="center fadeInDown">
                 <h2>제작자</h2>
-                <p class="lead">블라블라 블라블라블라블라 블라블라 블라블라블라블라  라블라블라블라 블라블라 블라블라블라블라라블라블라블라 블라블라 블 <br> 라블라블라블라 블라블라 블라블라블라블라라블라블라블라 블라블라 블</p>
+<!--                 <p class="lead">블라블라 블라블라블라블라 블라블라 블라블라블라블라  라블라블라블라 블라블라 블라블라블라블라라블라블라블라 블라블라 블 <br> 라블라블라블라 블라블라 블라블라블라블라라블라블라블라 블라블라 블</p> -->
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-6 single-team">
@@ -192,7 +201,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team1.png" alt="">
+                            <img src="images/team_UDJ.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>엄대정</h4>
@@ -209,7 +218,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team6.png" alt="">
+                            <img src="images/team_bhn.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>배하나</h4>
@@ -277,7 +286,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team1.png" alt="">
+                            <img src="images/team_KGI.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>김기일</h4>
@@ -295,33 +304,17 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
         </div>
     </section>
 
+    <!--/#blog-->
 
-    <footer id="footer" class="midnight-blue">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
-                </div>
-                <div class="col-sm-6">
-                    <ul class="pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!--/#bottom-->
+<jsp:include page="/inc/bottom.jsp"/>
     <!--/#footer-->
-
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
+    
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.prettyPhoto.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/jquery.isotope.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
-
 </html>
