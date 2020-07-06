@@ -252,12 +252,7 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "DELETE FROM place_comment WHERE place_pl_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, pl_num);
-				deleteCount = pstmt.executeUpdate();
-				
-				sql = "DELETE FROM place WHERE place_pl_num=?";
+				String sql = "DELETE FROM place WHERE pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
