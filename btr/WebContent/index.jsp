@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -268,9 +269,10 @@ a:hover {
 	display: inline-block;
 }
 
-.rc_img {
-	height: 270px;
-}
+/* .rc_img { */
+/* 	height: 270px; */
+/* 	width: 320px; */
+/* } */
 .rcbox{
 margin-top: 150px;}
 </style>
@@ -376,7 +378,7 @@ margin-top: 150px;}
 						<c:forEach var="list" items="${list }" varStatus="stat">
 							<!-- 							<div id="here" class="row isotope-item here"></div> -->
 							<a href="PlaceDetail.pl?pl_num=${list.pl_num }"><img
-								src="placeUpload/${list.pl_image }" alt="rc_pList"
+								src="placeUpload/${list.pl_image }" alt="rc_pList" width="360px" height="270px"
 								class="rc_img"></a>
 						</c:forEach>
 					</div>
@@ -394,7 +396,7 @@ margin-top: 150px;}
 							<c:if test="${list.pl_theme eq sessionScope.session }">
 								<!-- 							<div id="here" class="row isotope-item here"></div> -->
 								<a href="PlaceDetail.pl?pl_num=${list.pl_num }"><img
-									src="placeUpload/${list.pl_image }" alt="${list.pl_theme }"
+									src="placeUpload/${list.pl_image }" alt="${list.pl_theme }" width="360px" height="270px"
 									class="rc_img"></a>
 							</c:if>
 						</c:forEach>
@@ -435,9 +437,15 @@ margin-top: 150px;}
 						</div>
 						<div class="testimonial-slider owl-carousel">
 							<c:forEach var="pdList" items="${pdList }" varStatus="stat">
+							<div>
 								<a href="productDetail.pr?p_num=${pdList.p_num }"><img
 									src="product/productUpload/${pdList.p_image }" alt="rc_pList"
-									class="rc_img"></a>
+									height="200px" width="320px"></a>
+								   <h5>${pdList.p_name }</h5>
+	                            <span class="desg">${pdList.p_theme }</span><br>
+	                               <span style="color: #F76;"><fmt:formatNumber value="${pdList.p_price }"
+									pattern="###,###,###" /> 원</span>
+	                            </div>
 							</c:forEach>
 						</div>
 					</c:when>
@@ -450,9 +458,15 @@ margin-top: 150px;}
 						<div class="testimonial-slider owl-carousel">
 							<c:forEach var="pdList" items="${pdList }" varStatus="stat">
 								<c:if test="${pdList.p_theme eq sessionScope.session }">
+								<div>
 									<a href="productDetail.pr?p_num=${pdList.p_num }"><img
 										src="product/productUpload/${pdList.p_image }"
-										alt="${pdList.p_theme }" class="rc_img"></a>
+										alt="${pdList.p_theme }" height="270px" width="320px"></a>
+										   <h5>${pdList.p_name }</h5>
+	                            <span class="desg">${pdList.p_theme }</span><br>
+	                               <span style="color: #F76;"><fmt:formatNumber value="${pdList.p_price }"
+									pattern="###,###,###" /> 원</span>
+	                            </div>
 								</c:if>
 							</c:forEach>
 						</div>

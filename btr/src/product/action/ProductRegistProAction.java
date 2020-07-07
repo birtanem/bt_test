@@ -49,7 +49,6 @@ public class ProductRegistProAction implements Action {
 		productBean.setP_content(multi.getParameter("p_content"));
 		productBean.setP_image(multi.getParameter("p_image"));
 		productBean.setP_price(Integer.parseInt(multi.getParameter("p_price")));
-		productBean.setP_category(multi.getParameter("p_category"));
 		productBean.setRegion_region_code(Integer.parseInt(multi.getParameter("region_region_code")));
 		productBean.setP_amount(Integer.parseInt(multi.getParameter("p_amount")));
 		productBean.setP_theme(multi.getParameter("p_theme"));

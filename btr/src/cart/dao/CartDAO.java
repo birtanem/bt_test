@@ -139,7 +139,7 @@ public class CartDAO {
 				pb.setP_image(rs.getString("p_image"));
 				pb.setP_price(rs.getInt("p_price"));
 				pb.setP_amount(rs.getInt("p_amount"));
-				pb.setP_category(rs.getString("p_category"));
+				pb.setP_theme(rs.getString("p_theme"));
 				cartList.add(cb);
 				productList.add(pb);
 			}

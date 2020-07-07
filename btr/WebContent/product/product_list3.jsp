@@ -68,11 +68,10 @@
 		</div>
 		<!-- 			data-filter 수정해야함 ~ test용 -->
 		<ul class="portfolio-filter text-center">
-			<li><a class="btn btn-default active" href="#" data-filter="*">All
-					Works</a></li>
-			<li><a class="btn btn-default" href="#" data-filter=".아쿠아리움">아쿠아리움</a></li>
-			<li><a class="btn btn-default" href="#" data-filter=".전시">전시</a></li>
-			<li><a class="btn btn-default" href="#" data-filter=".요트">요트</a></li>
+			<li><a class="btn btn-default active" href="#" data-filter="*">전체보기</a></li>
+			<li><a class="btn btn-default" href="#" data-filter=".관광">관광</a></li>
+			<li><a class="btn btn-default" href="#" data-filter=".맛집">맛집</a></li>
+			<li><a class="btn btn-default" href="#" data-filter=".역사">역사</a></li>
 			<li><a class="btn btn-default" href="#" data-filter=".체험">체험</a></li>
 			<li></li>
 		</ul>
@@ -95,7 +94,7 @@
 	            <c:choose>
 					<c:when test="${pageInfo.listCount>0}">
 					<c:forEach var="list" items="${productList }" varStatus="vs">
-	                <div onclick="location.href='productDetail.pr?p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
+	                <div onclick="location.href='productDetail.pr?p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_theme }  col-xs-12 col-sm-4 col-md-3 single-work">
 	                <input type="hidden" value="${list.p_num }" name="p_num">
 	                    <div class="inner">
 	                        <div class="team-img">
@@ -103,7 +102,7 @@
 	                        </div>
 	                        <div class="team-content">
 	                            <h4>${list.p_name }</h4>
-	                            <span class="desg">${list.p_category }</span>
+	                            <span class="desg">${list.p_theme }</span>
 	                            <div class="team-social">
 	                               <span style="color: #F76;"><fmt:formatNumber value="${list.p_price }"
 									pattern="###,###,###" /> 원</span>
