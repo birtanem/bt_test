@@ -97,13 +97,14 @@ function preCheck(){
 			alert("결제수단을 선택해주세요!");
 			return false;
 		}
-		paytest();
+// 		paytest();
+		payData();
 }
 </script>
 <script type="text/javascript">
 function payData(){	
 	$(document).ready(function(){
-	 	var total = $("#total").val();
+	 	var total = $("#total_tn").html();
 		var point = commasWithNumber($("#desc_point").html());
 		var pay = $('input[name="payMethod"]:checked').val();
 		var num = document.getElementsByName("num");
@@ -152,44 +153,56 @@ function payData(){
 			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 		}	
 		$(document).ready(function(){
+			// comma 사용하니까 포인트 입력된 상태에서 다시 수정하려니까 최종결제금액에 NaN 떠서 #inPoint 콤마 일단 지움
 			$('.btn_point').click(function(){
+				
+				$('.msg').html("");
+				
 				var inPoint = ${sessionScope.info.point };
 				var total=${sessionScope.total};
 				var p_total=total-inPoint;
 				
 				if(total >= inPoint) {
 			
-					document.getElementById("inPoint").value=comma(inPoint);
+					document.getElementById("inPoint").value=inPoint;
 					$('#desc_point').html(comma(inPoint));
-					$('#total_tn').html(comma(p_total));
+// 					$('#total_tn').html(comma(p_total));
+					$('#total_tn').html(comma(total - commasWithNumber($('#desc_point').html())));
 				}else {
 					
-					document.getElementById("inPoint").value=comma(total);
+					document.getElementById("inPoint").value=total;
 					$('#desc_point').html(comma(total));
-					$('#total_tn').html(comma(total));
+// 					$('#total_tn').html(comma(total));
+					$('#total_tn').html(comma(total - commasWithNumber($('#desc_point').html())));
 				}
 
 			});
+			// comma 사용하니까 포인트 입력된 상태에서 다시 수정하려니까 최종결제금액에 NaN 떠서 #inPoint 콤마 일단 지움
 			$('#inPoint').on('change',function(){
+			
 				var point = ${sessionScope.info.point };
 				var inPoint=$('#inPoint').val();
 				var total=${sessionScope.total};
 				var p_total=total-inPoint;
-				document.getElementById("inPoint").value=comma(inPoint);
+				document.getElementById("inPoint").value=inPoint;
 
 				if(point < inPoint) {
 					$('.msg').html(" 사용 가능한 포인트를 초과했습니다.").css('color','red');
 					document.getElementById("inPoint").value="";
+					$('#total_tn').html(comma(total));
 				}else if(p_total<0) {
 					$('.msg').html(" 사용한 포인트가 결제 금액을 초과했습니다.").css('color','red');
 					document.getElementById("inPoint").value="";
-					$('#desc_point').html(comma("0"));
+					$('#desc_point').html(0);
 					$('#total_tn').html(comma(total));
 				}else{
 					$('.msg').html("");
 					$('#desc_point').html(comma(inPoint));
-					$('#total_tn').html(comma(p_total));
+					$('#total_tn').html(comma(total - commasWithNumber($('#desc_point').html())));
+					
 				}
+				
+			
 			});
 		});
 		
@@ -521,7 +534,7 @@ function emailCheck() {
 					<div class="both"></div>
 					<li class="total"><span class="total_t">최종 결제금액</span><span
 						class="total_cnt"> <span class="total_tn" id="total_tn"><fmt:formatNumber
-									value="${sessionScope.total}" pattern="###,###,###" />원</span></span>
+									value="${sessionScope.total}" pattern="###,###,###" /></span>원</span>
 									<input type="hidden" id="total_p" value="${sessionScope.total}"></li>
 					<div class="both"></div>
 					<li><input type="button" class="btn tpm" id="orderBtn"
