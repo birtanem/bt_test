@@ -11,6 +11,10 @@ import place.svc.PlaceDetailService;
 import place.vo.PCpageInfo;
 import place.vo.PlaceBean;
 import place.vo.PlaceCommentBean;
+import product.svc.ProductListService;
+import product.vo.ProductBean;
+import review.svc.ReviewContentService;
+import review.vo.ReviewBean;
 
 public class PlaceDetailAction implements Action {
 
@@ -48,6 +52,25 @@ public class PlaceDetailAction implements Action {
 			endPage = maxPage;
 		}
 		PCpageInfo pageInfo = new PCpageInfo(page, maxPage, startPage, endPage, listCount);
+		
+		
+		// ---------- 추천 상품 리스트 ------------------
+		
+		
+		ProductListService productListService = new ProductListService();
+		
+		ArrayList<ProductBean> productList = productListService.getProductList();
+		
+		request.setAttribute("productList", productList);
+		
+		
+		// ---------- 추천 리뷰 리스트 ------------------
+				
+		ReviewContentService reviewContentService = new ReviewContentService();		
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();		
+		request.setAttribute("reviewList", arrayList);
+	
+		// ----------------------------------------------
 		
 		request.setAttribute("cpageInfo", pageInfo);
 		request.setAttribute("commentList", commentList);

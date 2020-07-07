@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     <c:set var="article" value="${article }" />
     <c:set var="nowPage" value="${page }" />
     <c:set var="pageinfo" value="${pageinfo }" />
@@ -265,42 +266,83 @@
                         </div>
                     </div>
 					<!--카테고리-->
-					<div class="widget popular_post" style="box-shadow: 1px 1px 20px #ddd;">
-                        <h3>추 천 리 뷰</h3>
-                        <ul>
-                            <li>
-                       			<c:forEach var="List" items="${arrayList }">
-	                                <a href="Review_Content.re?r_num=${List.r_num }">
-	                                    <p>${List.r_subject }</p>
-	                                </a>
-                 				</c:forEach>
-                            </li>
+					                   <div class="widget popular_post" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>인 기 여 행 지</h3>
+                          <ul style=" text-align: center;">
+                        <c:forEach var="list" items="${placeList }" begin="1" end="3">
+                             <li style="margin-bottom: 10px">               
+                               	  <a href="PlaceDetail.pl?pl_num=${list.pl_num }" title="${list.pl_name }">
+	                                  <span>	 
+	                                   <img src="placeUpload/${list.pl_image }"  width="200" height="130" style="margin-bottom: 10px"><br>                               
+	                                  <c:choose>
+											<c:when test="${fn:length(list.pl_name) gt '20'}">
+												&nbsp; ${fn:substring(list.pl_name,0,20) }&nbsp;...	
+											</c:when>
+											<c:otherwise>
+												&nbsp; ${list.pl_name };										
+											</c:otherwise>
+									</c:choose>
+									</span>											                                 
+	                              </a>                         
+                            </li>                  
+                        </c:forEach>
+         
+                        </ul>
+                    </div>
+                    <!--/.archieve-->
+                    
+                   <div class="widget blog_gallery" style="box-shadow: 1px 1px 20px #ddd;">
+                        <h3>추 천 상 품</h3>
+                        <ul class="sidebar-gallery clearfix">
+                        <c:choose>
+                        	<c:when test="${empty sessionScope.id }">
+                        	
+                        	 <c:forEach var="list" items="${productList }" begin="1" end="4">                       	                                 		
+                        		<li>
+                            		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
+                            			    <c:choose>
+											<c:when test="${fn:length(list.p_name) gt 11}">
+												&nbsp; ${fn:substring(list.p_name,0,10) }...	
+											</c:when>
+											<c:otherwise>
+												&nbsp; ${list.p_name };										
+											</c:otherwise>
+										</c:choose>
+                            		
+                            		</a>                            
+                           	 	</li>                   	                  	
+                      		  </c:forEach>
+                        	</c:when>
+                        	
+                        	<c:otherwise>
+                        	
+                        	 <c:forEach var="list" items="${productList }" begin="1" end="4">
+                        	
+                        	<c:if test="${list.p_theme eq sessionScope.session }">                       		
+                        		<li>
+                            		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}"  width="50" height="100" />
+                            			<c:choose>
+											<c:when test="${fn:length(list.p_name) gt 11}">
+												&nbsp; ${fn:substring(list.p_name,0,10) }...	
+											</c:when>
+											<c:otherwise>
+												&nbsp; ${list.p_name }								
+											</c:otherwise>
+										</c:choose>
+                            		</a>                            
+                           	 	</li>                   	
+                        	</c:if>
+                        	
+                        </c:forEach>
+                        	
+                        	</c:otherwise>
+                        </c:choose>
+      
+                            
+
                         </ul>
                     </div>
                     
-                    <div class="widget blog_gallery" style="box-shadow: 1px 1px 20px #ddd;">
-                        <h3>인 기 상 품</h3>
-                        <ul class="sidebar-gallery clearfix">
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-1.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-2.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-3.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-4.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-5.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-6.png" alt="" /></a>
-                            </li>
-                        </ul>
-                    </div>
                     
                 </aside>
                     
