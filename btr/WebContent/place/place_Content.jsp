@@ -169,7 +169,12 @@ function validCheck() {
                                     </div>
                                     <div class="comment-count">
                                         <a href="#"><i class="fa fa"></i> ${commentList.pc_date }</a>
+
                                         <a href="#"><span style="color:red; font-size: 14pt;">&nbsp;★</span> ${commentList.pc_rank }</a>
+
+                                        
+                                        <a id ="delete" href="PC_DeletePro.pl?pl_num=${article.pl_num }&pc_num=${commentList.pc_num }&page=<%=plPage%>"> 삭제 </a>
+
                                     </div>
                                 </div>
                                

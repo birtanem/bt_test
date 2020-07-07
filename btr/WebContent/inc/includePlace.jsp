@@ -115,6 +115,7 @@
 
                         </ul>
                     </div>
+
                     <!--/.blog_gallery-->
                     
                      <script type="text/javascript">

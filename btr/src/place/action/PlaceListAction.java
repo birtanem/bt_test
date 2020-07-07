@@ -51,6 +51,19 @@ public class PlaceListAction implements Action{
 		// => 리턴타입 : ArrayList<BoardBean> => 게시물 1개 저장할 BoardBean 제네릭 타입으로 지정
 		ArrayList<PlaceBean> articleList = placeListService.getArticleList(page, limit);
 		
+		
+		//--------------------------------------------------------------------
+		// 추천 리뷰 리스트 
+		
+		ReviewContentService reviewContentService = new ReviewContentService();
+		
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();
+		
+		request.setAttribute("reviewList",arrayList);
+		
+		//--------------------------------------------------------------------
+		
+		
 //		for(BoardBean article : articleList) {
 //			System.out.println(article.getBoard_subject());
 //		}
@@ -65,14 +78,7 @@ public class PlaceListAction implements Action{
 		
 		request.setAttribute("productList", productList);
 		
-		
-		// ---------- 추천 리뷰 리스트 ------------------
-				
-		ReviewContentService reviewContentService = new ReviewContentService();		
-		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();		
-		request.setAttribute("reviewList", arrayList);
-	
-		// ----------------------------------------------
+
 		
 		// 페이징 처리를 위해 페이지 수 계산
 		// 1. 최대 페이지 번호 계산 : 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95 더함

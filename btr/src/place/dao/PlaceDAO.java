@@ -573,5 +573,30 @@ public class PlaceDAO {
 			return articleList;
 		}
 
+		public int pc_delete(int pc_num) {
+			
+			PreparedStatement pstmt = null;
+			
+			int deleteCount = 0;
+			
+			try {
+				
+				String sql = "delete from place_comment where pc_num = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, pc_num);
+				
+				deleteCount = pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - pc_delete() : " + e.getMessage());
+			}finally {
+				close(pstmt);
+			}
+			
+			return deleteCount;
+		}
 	
 }
