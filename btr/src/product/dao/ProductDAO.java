@@ -150,6 +150,51 @@ public class ProductDAO {
 		}
 		return productList;
 	}
+	
+	// 추천상품리스트 4개 뽑아감
+	public ArrayList<ProductBean> getList(String theme) {
+		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		
+		try {
+			
+			if(theme == "0") { // 비로그인
+				
+				sql = "SELECT * FROM product ORDER BY rand() LIMIT 4";
+				pstmt = con.prepareStatement(sql);
+				
+			}else { // 로그인
+				
+				sql = "SELECT * FROM product WHERE p_theme = ? ORDER BY rand() LIMIT 4";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, theme);
+			}
+						
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductBean productBean = new ProductBean();
+				productBean.setP_num(rs.getInt(1));
+				productBean.setP_name(rs.getString(2));
+				productBean.setP_content(rs.getString(3));
+				productBean.setP_image(rs.getString(4));
+				productBean.setP_price(rs.getInt(5));
+				productBean.setP_amount(rs.getInt(6));
+				productBean.setP_theme(rs.getString(7));
+				productBean.setRegion_region_code(rs.getInt(8));
+				productBean.setP_theme(rs.getString(9));
+				productList.add(productBean);
+			}
+		} catch (SQLException e) {
+			System.out.println("ProductDAO getList실패" + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return productList;
+	}
 
 	public int selectListCount() {
 		int listCount = 0;

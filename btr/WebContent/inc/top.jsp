@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-xs-12">
                         <div class="top-number">
-                            <p><i class="fa fa-phone-square"></i> +0123 456 70 90</p>
+                            <p><i class="fa fa-phone-square"></i> +051 123 4567</p>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">
@@ -21,12 +21,12 @@
                                 <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
                                 <li><a href="#"><i class="fa fa-skype"></i></a></li>
                             </ul>
-                            <div class="search">
-                                <form role="form">
-                                    <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                                    <i class="fa fa-search"></i>
-                                </form>
-                            </div>
+<!--                             <div class="search"> -->
+<!--                                 <form role="form"> -->
+<!--                                     <input type="text" class="search-form" autocomplete="off" placeholder="Search"> -->
+<!--                                     <i class="fa fa-search"></i> -->
+<!--                                 </form> -->
+<!--                             </div> -->
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">

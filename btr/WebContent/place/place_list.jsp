@@ -36,6 +36,10 @@
     
     <script src="js/jquery-3.5.0.js"></script>
     
+    
+   
+
+
 </head>
 <body>
     
@@ -60,13 +64,13 @@
                             <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }" class="blog_cat">테마(주제) : ${article.pl_theme}</a>
                             <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }">
                             <h2> 장소명 : ${article.pl_name} </h2>
-                            <h3>&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount } &nbsp;&nbsp;좋아요&nbsp;
+                            <h3>&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount } &nbsp;&nbsp;<span style="color: red; font-size: 18pt;">★</span>
                                <c:choose>
-                                    <c:when test="${article.pl_likecount == 0 }">
+                                     <c:when test="${article.pl_likecount == 0 }">
                                        0
                                     </c:when>
                                     <c:otherwise>
-                                        ${article.pl_likeAvg }
+                                       ${article.pl_likeAvg }
                                     </c:otherwise>
                                 </c:choose>
                            </h3></a>
@@ -83,46 +87,7 @@
                 <aside class="col-md-4">
                     
                 <jsp:include page="/inc/includePlace.jsp" />                        
-				
-                   <div class="widget popular_post">
-                        <h3>추 천 리 뷰</h3>
-                        <ul>
-                            <li>
-                       			<c:forEach var="List" items="${arrayList }">
-	                                <a href="Review_Content.re?r_num=${List.r_num }">
-	                                    <p>${List.r_num }번글 &nbsp; ${List.r_subject }</p>
-	                                </a>
-                 				</c:forEach>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/.archieve-->
-                    
-
-                    <div class="widget blog_gallery">
-                        <h3>인 기 상 품</h3>
-                        <ul class="sidebar-gallery clearfix">
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-1.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-2.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-3.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-4.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-5.png" alt="" /></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="images/sidebar-g-6.png" alt="" /></a>
-                            </li>
-                        </ul>
-                    </div>	
-                
+       
                 </aside>
             </div>
             

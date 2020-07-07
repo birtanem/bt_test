@@ -110,10 +110,10 @@ function validCheck() {
                                 <p>조회수 : ${article.pl_readcount }</p>
                                 <c:choose>
                                     <c:when test="${article.pl_likecount == 0 }">
-                                        <p><i class="fa fa-heart"></i>&nbsp; 0</p>
+                                        <p><span style="color: red; font-size: 16pt;">★</span>&nbsp; 0</p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p><i class="fa fa-heart"></i>&nbsp; ${article.pl_likeAvg }</p>
+                                        <p><span style="color: red; font-size: 16pt;">★</span>&nbsp; ${article.pl_likeAvg }</p>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -142,12 +142,12 @@ function validCheck() {
                                         	
                                             <input type="hidden" name="id" value="${id }">
                     						<input type="hidden" name="page" value="<%=plPage%>">
-                    						하트 추천 : 
-                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p5" value="5"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
-                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p4" value="4"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
-                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p3" value="3"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i>
-                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p2" value="2"><i class="fa fa-heart" style="color:red;"></i><i class="fa fa-heart" style="color:red;"></i> 
-                    						&nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p1" value="1"><i class="fa fa-heart" style="color:red;"></i>
+                    						별점 : 
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p5" value="5"><span style="color:red; font-size: 16pt;">&nbsp;★★★★★</span>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p4" value="4"><span style="color:red; font-size: 16pt;">&nbsp;★★★★</span>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p3" value="3"><span style="color:red; font-size: 16pt;">&nbsp;★★★</span>
+                                            &nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p2" value="2"><span style="color:red; font-size: 16pt;">&nbsp;★★</span> 
+                    						&nbsp;&nbsp;&nbsp;<input type="radio" name="pc_rank" id="p1" value="1"><span style="color:red; font-size: 16pt;">&nbsp;★</span>
                                            
                                             <textarea id="pc_content" name="pc_content"></textarea>
                                             <input type="submit" value="Comment">
@@ -169,8 +169,12 @@ function validCheck() {
                                     </div>
                                     <div class="comment-count">
                                         <a href="#"><i class="fa fa"></i> ${commentList.pc_date }</a>
-                                        <a href="#"><i class="fa fa-heart"></i> ${commentList.pc_rank }</a>
+
+                                        <a href="#"><span style="color:red; font-size: 14pt;">&nbsp;★</span> ${commentList.pc_rank }</a>
+
+                                        
                                         <a id ="delete" href="PC_DeletePro.pl?pl_num=${article.pl_num }&pc_num=${commentList.pc_num }&page=<%=plPage%>"> 삭제 </a>
+
                                     </div>
                                 </div>
                                
