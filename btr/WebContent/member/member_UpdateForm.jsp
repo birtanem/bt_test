@@ -239,8 +239,10 @@ function joinCheck() {
     <h3>현재 관심사 : <%=memberInfo.getType()%></h3> 
     <select name="type" id="type">
    	   <option value="<%=memberInfo.getType()%>">변경안함</option>
-	   <option value="여행">여행</option>
 	   <option value="맛집">맛집</option>
+	   <option value="체험/전시">체험/전시</option>
+	   <option value="관광">관광</option>
+	   <option value="역사">역사</option>
     </select>
 	<span id="typeChk"></span>
 

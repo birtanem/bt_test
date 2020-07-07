@@ -356,13 +356,10 @@ function joinCheck() {
     <label for="type"><b>관심사</b></label>
     <select name="type" id="type">
    	   <option value="관심사">관심사</option>
-	   <option value="관광">관광</option>
 	   <option value="맛집">맛집</option>
+	   <option value="체험/전시">체험/전시</option>
+	   <option value="관광">관광</option>
 	   <option value="역사">역사</option>
-	   <option value="야경">야경</option>
-	   <option value="자연">자연</option>
-	   <option value="공연/전시">공연/전시</option>
-	   <option value="체험">체험</option>
     </select>
 	<span id="typeChk"></span>
 
