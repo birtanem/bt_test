@@ -29,6 +29,7 @@ public class AdminFrontController extends HttpServlet {
 		if(command.equals("/adminPage.ad")) {
 			forward=new ActionForward();
 			forward.setPath("/admin/adminPage.jsp");
+			
 		}else if(command.equals("/adminProduct.ad")) {
 			try {
 				action=new AdminProductAction();

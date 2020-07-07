@@ -8,7 +8,6 @@ public class ProductBean {
 	private String p_image;
 	private int p_price;
 	private int p_amount;
-	private String p_category;
 	private int region_region_code;
 	private String region_name;
 	private String p_theme;
@@ -31,12 +30,6 @@ public class ProductBean {
 	}
 	public void setRegion_region_code(int region_region_code) {
 		this.region_region_code = region_region_code;
-	}
-	public String getP_category() {
-		return p_category;
-	}
-	public void setP_category(String p_category) {
-		this.p_category = p_category;
 	}
 	public int getP_num() {
 		return p_num;

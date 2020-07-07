@@ -51,7 +51,7 @@ public class ProductDAO {
 			}
 
 			// 게시글 등록
-			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, productBean.getP_name());
@@ -59,9 +59,8 @@ public class ProductDAO {
 			pstmt.setString(4, productBean.getP_image());
 			pstmt.setInt(5, productBean.getP_price());
 			pstmt.setInt(6, productBean.getP_amount());
-			pstmt.setString(7, productBean.getP_category());
-			pstmt.setInt(8, productBean.getRegion_region_code());
-			pstmt.setString(9, productBean.getP_theme());
+			pstmt.setInt(7, productBean.getRegion_region_code());
+			pstmt.setString(8, productBean.getP_theme());
 
 			insertCount = pstmt.executeUpdate();
 
@@ -86,7 +85,7 @@ public class ProductDAO {
 		try {
 	
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
-					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name,p.p_theme"
+					+ "p.p_amount, p.p_theme, p.region_region_code,r.region_name"
 					+ " from product p join region r on p.region_region_code = r.region_code order by p_num limit ?,?";
 
 			pstmt = con.prepareStatement(sql);
@@ -101,10 +100,9 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBean.setP_category(rs.getString(7));
+				productBean.setP_theme(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
-				productBean.setP_theme(rs.getString(10));
 				productList.add(productBean);
 
 			}
@@ -126,7 +124,7 @@ public class ProductDAO {
 		try {
 	
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
-					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name,p.p_theme"
+					+ "p.p_amount, p.p_theme, p.region_region_code,r.region_name"
 					+ " from product p join region r on p.region_region_code = r.region_code";
 
 			pstmt = con.prepareStatement(sql);
@@ -139,10 +137,9 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBean.setP_category(rs.getString(7));
+				productBean.setP_theme(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
-				productBean.setP_theme(rs.getString(10));
 				productList.add(productBean);
 			}
 		} catch (SQLException e) {
@@ -185,7 +182,7 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBean.setP_category(rs.getString(7));
+				productBean.setP_theme(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setP_theme(rs.getString(9));
 				productList.add(productBean);
@@ -229,7 +226,7 @@ public class ProductDAO {
 		
 		try {
 			String sql = "select p.p_num, p.p_name, p.p_content,p.p_image, p.p_price,"
-					+ "p.p_amount, p.p_category, p.region_region_code,r.region_name, p.p_theme"
+					+ "p.p_amount, p.p_theme, p.region_region_code,r.region_name"
 					+ " from product p join region r on p.region_region_code = r.region_code where p.p_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, p_num);
@@ -242,10 +239,9 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBean.setP_category(rs.getString(7));
+				productBean.setP_theme(rs.getString(7));
 				productBean.setRegion_region_code(rs.getInt(8));
 				productBean.setRegion_name(rs.getString(9));
-				productBean.setP_theme(rs.getString(10));
 			}
 		} catch (SQLException e) {
 			System.out.println("ProductDAO-getProductDetail에러: 	"+e.getMessage());
@@ -262,7 +258,7 @@ public class ProductDAO {
 		int updateCount=0;
 		try {
 			String sql="update product set p_name=?, p_content=?, p_image=?, p_price=?,p_amount=?,"
-					+ "p_category=?, region_region_code=? where p_num=?";
+					+ "p_theme=?, region_region_code=? where p_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, pb.getP_name());
 			pstmt.setString(2, pb.getP_content());
@@ -270,7 +266,7 @@ public class ProductDAO {
 			System.out.println("daoprice:"+pb.getP_price());
 			pstmt.setInt(4, pb.getP_price());
 			pstmt.setInt(5, pb.getP_amount());
-			pstmt.setString(6, pb.getP_category());
+			pstmt.setString(6, pb.getP_theme());
 			pstmt.setInt(7, pb.getRegion_region_code());
 			pstmt.setInt(8, pb.getP_num());
 			updateCount=pstmt.executeUpdate();

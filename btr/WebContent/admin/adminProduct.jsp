@@ -52,8 +52,8 @@ function changeRegionCode(p_num, regionCode,idx){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;
 	alert("내용 변경됨");
 }
-function changeCategory(p_num, category){
-	location.href="productUpdatePro.pr?p_num="+p_num+"&p_category="+category;
+function changeTheme(p_num, theme){
+	location.href="productUpdatePro.pr?p_num="+p_num+"&p_theme="+theme;
 	alert("내용 변경됨");
 }
 function popImg(p_num){
@@ -114,7 +114,7 @@ $(document).ready(function(){
 					<tr>
 						<th>번호</th>
 						<th>지역코드</th>
-						<th>카테고리</th>
+						<th>관심사</th>
 						<th>상품명</th>
 						<th>이미지</th>
 						<th>내용</th>
@@ -130,12 +130,12 @@ $(document).ready(function(){
 								onchange="changeRegionCode('${list.p_num }',this.value,${vs.count });">
 									<option selected value="${list.region_region_code }">${list.region_name }</option>
 							</select></td>
-							<td><select name="category"
-								onchange="changeCategory('${list.p_num }',this.value);">
-									<option selected value=${list.p_category }>${list.p_category }</option>
-									<option value="아쿠아리움">아쿠아리움</option>
-									<option value="전시">전시</option>
-									<option value="요트">요트</option>
+							<td><select name="theme"
+								onchange="changeTheme('${list.p_num }',this.value);">
+									<option selected value=${list.p_theme }>${list.p_theme }</option>
+									<option value="관광">관광</option>
+									<option value="맛집">맛집</option>
+									<option value="역사">역사</option>
 									<option value="체험">체험</option>
 							</select></td>
 							<form action="productUpdatePro.pr" method="post" name="fr">
@@ -155,6 +155,7 @@ $(document).ready(function(){
 							</form>
 							<td><input type="button" value="삭제" class="btn" onclick="del(${list.p_num})"></td>
 						</tr>
+						
 						<!-- Modal content -->
 						<div id="myModal${vs.count }" class="modal">
 							<div class="modal-content">
@@ -178,14 +179,11 @@ $(document).ready(function(){
 					</c:forEach>
 				</table>
 				
-				
 				                       <!--/.row   페이징 처리-->
             <div class="row">
                 <div class="col-md-12 text-center">
                     <ul class="pagination pagination-lg">
-                    
                     	<c:choose>
-                    	
                     		<c:when test="${pageInfo.page <= 1 }">
                     			<li><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:when>
@@ -193,11 +191,8 @@ $(document).ready(function(){
                     			<li><a href="adminProduct.ad?page=${pageInfo.page - 1 }"><i class="fa fa-long-arrow-left"></i></a></li>
                     		</c:otherwise>
                     	</c:choose>
-                    
                     	<c:forEach var="a" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                    		
                     		<c:choose>
-                    		
                     			<c:when test="${a == pageInfo.page }">
                     				<li class="active"><a>${a }</a></li>
                     			</c:when>
@@ -205,11 +200,8 @@ $(document).ready(function(){
 									<li><a href="adminProduct.ad?page=${a }">${a }</a></li>
                     			</c:otherwise>
                     		</c:choose>
-                    	
                     	</c:forEach>
-                    		
                     		<c:choose>
-                    		
                     			<c:when test="${pageInfo.page >= pageInfo.maxPage }">
                     				<li><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
                     			</c:when>
@@ -222,7 +214,6 @@ $(document).ready(function(){
                 </div>
             </div>
             <!--/.row   페이징 처리-->
-            
             
 			</c:when>
 			<c:otherwise>

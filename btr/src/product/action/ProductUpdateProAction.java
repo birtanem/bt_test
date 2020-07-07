@@ -34,10 +34,10 @@ public class ProductUpdateProAction implements Action {
 		} else {
 			productBean.setRegion_region_code(Integer.parseInt(request.getParameter("region_region_code")));
 		}
-		if (request.getParameter("p_category") == null) {
-			productBean.setP_category(productBean.getP_category());
+		if (request.getParameter("p_theme") == null) {
+			productBean.setP_theme(productBean.getP_theme());
 		} else {
-			productBean.setP_category(request.getParameter("p_category"));
+			productBean.setP_theme(request.getParameter("p_theme"));
 		}
 		if (request.getParameter("name") == null) {
 			productBean.setP_name(productBean.getP_name());
