@@ -177,14 +177,14 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
     <section id="team-area">
         <div class="container">
             <div class="center fadeInDown">
-                <h2>제작자</h2>
+                <h2>개발자</h2>
 <!--                 <p class="lead">블라블라 블라블라블라블라 블라블라 블라블라블라블라  라블라블라블라 블라블라 블라블라블라블라라블라블라블라 블라블라 블 <br> 라블라블라블라 블라블라 블라블라블라블라라블라블라블라 블라블라 블</p> -->
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team1.png" alt="">
+                            <img src="images/team_4.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>김진영</h4>
@@ -201,7 +201,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team_UDJ.png" alt="">
+                            <img src="images/team_6.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>엄대정</h4>
@@ -218,7 +218,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team_bhn.png" alt="">
+                            <img src="images/team_7.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>배하나</h4>
@@ -235,7 +235,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team1.png" alt="">
+                            <img src="images/team_5.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>류종호</h4>
@@ -252,7 +252,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team1.png" alt="">
+                            <img src="images/team_3.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>김민건</h4>
@@ -269,7 +269,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team6.png" alt="">
+                            <img src="images/team_1.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>김나은</h4>
@@ -286,7 +286,7 @@ if(count4 >= goal4) { percent44 = 100;} else { percent44 = (float)count4/goal4*1
                 <div class="col-md-4 col-sm-6 single-team">
                     <div class="inner">
                         <div class="team-img">
-                            <img src="images/team_KGI.png" alt="">
+                            <img src="images/team_2.png" alt="">
                         </div>
                         <div class="team-content">
                             <h4>김기일</h4>
