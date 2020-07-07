@@ -18,6 +18,8 @@ import member.vo.MemberBean;
 import place.vo.PlaceBean;
 import place.svc.PlaceListService;
 import place.vo.PlacePageInfo;
+import review.svc.ReviewContentService;
+import review.vo.ReviewBean;
 
 public class PlaceListAction implements Action{
 
@@ -46,6 +48,19 @@ public class PlaceListAction implements Action{
 		// => 파라미터 : 현재페이지번호(page), 한 번에 가져올 게시물 최대 갯수(limit)
 		// => 리턴타입 : ArrayList<BoardBean> => 게시물 1개 저장할 BoardBean 제네릭 타입으로 지정
 		ArrayList<PlaceBean> articleList = placeListService.getArticleList(page, limit);
+		
+		
+		//--------------------------------------------------------------------
+		// 추천 리뷰 리스트 
+		
+		ReviewContentService reviewContentService = new ReviewContentService();
+		
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();
+		
+		request.setAttribute("arrayList",arrayList);
+		
+		//--------------------------------------------------------------------
+		
 		
 //		for(BoardBean article : articleList) {
 //			System.out.println(article.getBoard_subject());
