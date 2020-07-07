@@ -52,6 +52,13 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 	<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav1").addClass("active"); 
+   });
+   </script>
+   
+	<script type="text/javascript">
         /* summernote에서 이미지 업로드시 실행할 함수 */
 	 	function sendFile(file, editor) {
             // 파일 전송을 위한 폼생성

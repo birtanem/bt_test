@@ -38,7 +38,12 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	
+<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav1").addClass("active"); 
+   });
+   </script>
 	<script type="text/javascript">
         /* summernote에서 이미지 업로드시 실행할 함수 */
 	 	function sendFile(file, editor) {

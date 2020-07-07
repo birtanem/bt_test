@@ -37,7 +37,12 @@
     <script src="js/jquery-3.5.0.js"></script>
     
     
-   
+   <script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav3").addClass("active"); 
+   });
+   </script>
 
 
 </head>

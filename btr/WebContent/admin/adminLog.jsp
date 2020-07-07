@@ -30,6 +30,13 @@
 
 <script src="js/jquery-3.5.0.js"></script>
 
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav1").addClass("active"); 
+	   });
+   </script>
+
 <!-- Styles -->
 <style>
 #chartdiv {
@@ -70,7 +77,7 @@ $(document).ready(function() {
 		  "litres": ($("#htype3").val()/$("#totalCount").val()*100)
 		},{
 		   "취향": "역사",
-		  "litres": ($("#htype5").val()/$("#totalCount").val()*100)
+		  "litres": ($("#htype4").val()/$("#totalCount").val()*100)
 		}];
 
 		// Add and configure Series

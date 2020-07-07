@@ -48,7 +48,12 @@ function paytest(){
 	requestPay();
 }
 </script>
-
+	<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav5").addClass("active"); 
+   });
+   </script>
 <script type="text/javascript">
 //결제API
 function requestPay(){

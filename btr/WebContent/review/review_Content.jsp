@@ -33,6 +33,12 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     
     <script src="js/jquery-3.5.0.js"></script>
+    <script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav4").addClass("active"); 
+   });
+   </script>
 	<script type="text/javascript">
 
 	$(document).ready(function(){

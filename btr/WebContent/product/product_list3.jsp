@@ -39,11 +39,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style type="text/css">
-
-
-
-</style>
+	<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav5").addClass("active"); 
+   });
+   </script>
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 

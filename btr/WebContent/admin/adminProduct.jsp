@@ -39,6 +39,14 @@
 }
 </style>
 <script src="js/jquery-3.5.0.js"></script>
+
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav1").addClass("active"); 
+	   });
+   </script>
+   
 <script type="text/javascript">
 function changeRegionCode(p_num, regionCode,idx){
 	location.href="productUpdatePro.pr?p_num="+p_num+"&region_region_code="+regionCode;

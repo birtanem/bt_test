@@ -222,6 +222,14 @@ a:hover {
 .rcbox{
 margin-top: 150px;}
 </style>
+
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav2").addClass("active"); 
+	   });
+   </script>
+   
 <script type="text/javascript">
 	$(function() {
 		var count = $('#rank-list li').length;

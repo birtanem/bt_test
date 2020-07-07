@@ -31,6 +31,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
         
+    <script src="js/jquery-3.5.0.js"></script>
+        
+     <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+	
+		  $(".nav6").addClass("active"); 
+	   });
+   </script>
+   
 <style type="text/css">
 /* #table1 { */
 /* 	color: black; */
