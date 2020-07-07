@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.action.Action;
 import common.vo.ActionForward;
@@ -56,12 +57,30 @@ public class PlaceDetailAction implements Action {
 		
 		// ---------- 추천 상품 리스트 ------------------
 		
+		// 비로그인 시 "0" 전달 -> 랜덤 4개
+		
+		// 로그인 시 theme(session) 전달 -> 테마에서 랜덤 4개 
 		
 		ProductListService productListService = new ProductListService();
 		
-		ArrayList<ProductBean> productList = productListService.getProductList();
+		HttpSession session = request.getSession();
 		
+		ArrayList<ProductBean> productList = null;
+		
+		if((String)session.getAttribute("session") == null) {
+			
+			productList = productListService.getProductList("0");
+			System.out.println("0");
+			
+		}else {
+			
+			productList = productListService.getProductList((String)session.getAttribute("session"));
+			System.out.println("theme");
+		}
+			
 		request.setAttribute("productList", productList);
+		
+		// -------------------------------------------------
 		
 		
 		// ---------- 추천 리뷰 리스트 ------------------

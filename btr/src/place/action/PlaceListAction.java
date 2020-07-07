@@ -71,14 +71,30 @@ public class PlaceListAction implements Action{
 		
 		// ---------- 추천 상품 리스트 ------------------
 		
+		// 비로그인 시 "0" 전달 -> 랜덤 4개
+		
+		// 로그인 시 theme(session) 전달 -> 테마에서 랜덤 4개 
 		
 		ProductListService productListService = new ProductListService();
 		
-		ArrayList<ProductBean> productList = productListService.getProductList();
+		HttpSession session = request.getSession();
 		
+		ArrayList<ProductBean> productList = null;
+		
+		if((String)session.getAttribute("session") == null) {
+			
+			productList = productListService.getProductList("0");
+			System.out.println("0");
+			
+		}else {
+			
+			productList = productListService.getProductList((String)session.getAttribute("session"));
+			System.out.println("theme");
+		}
+			
 		request.setAttribute("productList", productList);
 		
-
+		// -------------------------------------------------
 		
 		// 페이징 처리를 위해 페이지 수 계산
 		// 1. 최대 페이지 번호 계산 : 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95 더함

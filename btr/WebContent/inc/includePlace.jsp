@@ -67,10 +67,7 @@
                     <div class="widget blog_gallery">
                         <h3>추 천 상 품</h3>
                         <ul class="sidebar-gallery clearfix">
-                        <c:choose>
-                        	<c:when test="${empty sessionScope.id }">
-                        	
-                        	 <c:forEach var="list" items="${productList }" begin="1" end="4">                       	                                 		
+     						 <c:forEach var="list" items="${productList }" varStatus="stat">                    	                                 		
                         		<li>
                             		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
                             			 <c:choose>
@@ -83,36 +80,7 @@
 										</c:choose>
                             		</a>                            
                            	 	</li>                   	                  	
-                      		  </c:forEach>
-                        	</c:when>
-                        	
-                        	<c:otherwise>
-                        	
-                        	 <c:forEach var="list" items="${productList }"  begin="1" end="4">
-                        	
-                        	<c:if test="${list.p_theme eq sessionScope.session }">                       		
-                        		<li>
-                            		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
-                            		    <c:choose>
-											<c:when test="${fn:length(list.p_name) gt 11}">
-												&nbsp; ${fn:substring(list.p_name,0,10) }...	
-											</c:when>
-											<c:otherwise>
-												&nbsp; ${list.p_name }									
-											</c:otherwise>
-										</c:choose>
-                            		
-                            		</a>                            
-                           	 	</li>                   	
-                        	</c:if>
-                        	
-                        </c:forEach>
-                        	
-                        	</c:otherwise>
-                        </c:choose>
-      
-                            
-
+                      		  </c:forEach>                         
                         </ul>
                     </div>
 

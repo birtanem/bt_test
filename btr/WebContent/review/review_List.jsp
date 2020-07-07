@@ -122,7 +122,7 @@
                    <div class="widget popular_post" style="box-shadow: 1px 1px 20px #ddd;">
                         <h3>인 기 여 행 지</h3>
                         <ul style=" text-align: center;">
-                        <c:forEach var="list" items="${placeList }" begin="1" end="3">
+                        <c:forEach var="list" items="${placeList }" begin="0" end="2">
                              <li style="margin-bottom: 10px">               
                                	  <a href="PlaceDetail.pl?pl_num=${list.pl_num }" title="${list.pl_name }">
 	                                  <span>	 
@@ -144,36 +144,13 @@
                     </div>
                     <!--/.archieve-->
                     
-                   <div class="widget blog_gallery" style="box-shadow: 1px 1px 20px #ddd;">
+                    <div class="widget blog_gallery">
                         <h3>추 천 상 품</h3>
                         <ul class="sidebar-gallery clearfix">
-                        <c:choose>
-                        	<c:when test="${empty sessionScope.id }">
-                        	
-                        	 <c:forEach var="list" items="${productList }" begin="1" end="4">                       	                                 		
+     						 <c:forEach var="list" items="${productList }" varStatus="stat">                    	                                 		
                         		<li>
                             		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
-                            		    <c:choose>
-											<c:when test="${fn:length(list.p_name) gt 11}">
-												&nbsp; ${fn:substring(list.p_name,0,10) }...	
-											</c:when>
-											<c:otherwise>
-												&nbsp; ${list.p_name };										
-											</c:otherwise>
-										</c:choose>
-                            		</a>                            
-                           	 	</li>                   	                  	
-                      		  </c:forEach>
-                        	</c:when>
-                        	
-                        	<c:otherwise>
-                        	
-                        	 <c:forEach var="list" items="${productList }" begin="1" end="4">
-                        	
-                        	<c:if test="${list.p_theme eq sessionScope.session }">                       		
-                        		<li>
-                            		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
-                            		    <c:choose>
+                            			 <c:choose>
 											<c:when test="${fn:length(list.p_name) gt 11}">
 												&nbsp; ${fn:substring(list.p_name,0,10) }...	
 											</c:when>
@@ -182,16 +159,8 @@
 											</c:otherwise>
 										</c:choose>
                             		</a>                            
-                           	 	</li>                   	
-                        	</c:if>
-                        	
-                        </c:forEach>
-                        	
-                        	</c:otherwise>
-                        </c:choose>
-      
-                            
-
+                           	 	</li>                   	                  	
+                      		  </c:forEach>                         
                         </ul>
                     </div>
                     
