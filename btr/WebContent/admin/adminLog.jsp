@@ -66,16 +66,16 @@ $(document).ready(function() {
 
 		// Add data
 		chart.data = [ {
-		  "취향": "체험/전시",
+		  "취향": "관광",
 		  "litres": ($("#htype1").val()/$("#totalCount").val()*100)		 
 		}, {
-		  "취향": "관광",
+		  "취향": "맛집",
 		  "litres": ($("#htype2").val()/$("#totalCount").val()*100)
 		}, {
-		  "취향": "맛집",
+		  "취향": "역사",
 		  "litres": ($("#htype3").val()/$("#totalCount").val()*100)
 		},{
-		   "취향": "역사",
+		   "취향": "체험",
 		  "litres": ($("#htype4").val()/$("#totalCount").val()*100)
 		}];
 

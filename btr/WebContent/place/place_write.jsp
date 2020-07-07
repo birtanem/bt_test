@@ -47,6 +47,7 @@
 	<script type="text/javascript">
         /* summernote에서 이미지 업로드시 실행할 함수 */
 	 	function sendFile(file, editor) {
+
             // 파일 전송을 위한 폼생성
 	 		data = new FormData();
 	 	    data.append("uploadFile", file);
@@ -157,7 +158,13 @@
                         <div class="col-sm-5">
                         <div class="form-group">
                             <label>주제 : </label>
-                            <input type="text" name="pl_theme" class="form-control" required="required"/>
+                            <select name="pl_theme" class="form-control" required="required">
+				            	  <option value="관심사">관심사</option>
+								   <option value="맛집">맛집</option>
+								   <option value="체험">체험</option>
+								   <option value="관광">관광</option>
+								   <option value="역사">역사</option>
+		                 	</select>
                         </div>
                         <div class="form-group">
                             <label>주소 : *</label>
@@ -204,6 +211,8 @@
 						}
 					}
 				});
+                
+                
 			});
 		</script>
 </body>

@@ -53,7 +53,7 @@ public class PlaceDAO {
 			// DB 작업에 필요한 변수 선언(Connection 객체는 이미 외부로부터 전달받음)
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			
+			System.out.println(pb.getPl_theme());
 			try {
 				
 				int num = 1; // 새 게시물 번호를 저장할 변수(초기값으로 초기번호 1번 설정)

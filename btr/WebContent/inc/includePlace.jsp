@@ -29,7 +29,7 @@
                                     <li><a href="PlaceSearch.pl?search=관광">관광 <span class="pull-right"></span></a></li>
                                     <li><a href="PlaceSearch.pl?search=맛집">맛집 <span class="pull-right"></span></a></li>
                                     <li><a href="PlaceSearch.pl?search=역사">역사  <span class="pull-right"></span></a></li>
-                                    <li><a href="PlaceSearch.pl?search=체험/전시">체험/전시 <span class="pull-right"></span></a></li>
+                                    <li><a href="PlaceSearch.pl?search=체험">체험 <span class="pull-right"></span></a></li>
                                 </ul>
                             </div>
                         </div>
