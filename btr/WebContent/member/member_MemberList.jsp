@@ -401,7 +401,7 @@ $(document).ready(function(){
             <div class="row">
 <!--                 	<div id=divN> -->
 <!--                     </div> -->
-                <div class="col-md-8">
+                <div class="col-sm-10">
                 	<div class="blog-item">
                         <div class="blog-content">
 	                    	<div>
