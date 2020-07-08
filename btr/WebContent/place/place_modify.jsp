@@ -86,12 +86,12 @@
 	<!--/header-->
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
-		<h1>Place</h1>
+		<h1>여행지</h1>
 	</div>
 	<section id="contact-page">
         <div class="container">
             <div class="large-title text-center">        
-                <h2>Place 소개 글 수정</h2>
+                <h2>여행지 소개 글 수정</h2>
             </div> 
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>

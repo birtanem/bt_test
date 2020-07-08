@@ -48,7 +48,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Place - 검색  </h1>
+        <h1>여행지</h1>
         
         
     </div>
@@ -143,5 +143,55 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.isotope.min.js"></script>
     <script src="js/main.js"></script>
+    
+                         <script type="text/javascript">
+	$(document).ready(function() {
+
+// 			var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric&cnt=8';
+// 			$.getJSON(apiURL,function(rdata) {
+				
+// 				$.each(rdata.list,function(index,item) {
+					
+// 					var today = new Date(item.dt_txt);
+// 					var icon = item.weather[0].icon;
+// 					var hour = today.getHours();
+					
+// 						$('.time').append("<div style='float:left; width: 65px; height: 100px; text-align: center; color: black;'>"
+// 										+ hour
+// 										+ '시'
+// 										+ '<br>'
+// 										+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
+// 										+ item.main.temp.toFixed(0)
+// 										+ "˚C"
+// 										+ "</div>");
+// 								});
+
+// 							});
+
+						var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric';
+						var week = new Array('일', '월', '화', '수', '목', '금', '토');
+
+						$.getJSON(apiURL,function(rdata) {
+							$.each(rdata.list,function(index,item) {
+
+								if (index % 8 == 2) {
+
+								var icon = item.weather[0].icon;
+								var date = new Date(item.dt_txt).getDay();
+								var label = week[date];
+
+								$('.day').append("<div style='float:left; width: 60px; height: 100px; text-align: center; color: black;'>"
+												+ label
+												+ "<br>"
+												+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
+												+ '<br>'
+												+ item.main.temp.toFixed(0)
+												+ "˚C"
+												+ "</div>");
+										}
+									});
+								});
+							});
+</script>
 </body>
 </html>

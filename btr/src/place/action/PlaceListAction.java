@@ -74,7 +74,7 @@ public class PlaceListAction implements Action{
 		// 비로그인 시 "0" 전달 -> 랜덤 4개
 		
 		// 로그인 시 theme(session) 전달 -> 테마에서 랜덤 4개 
-		
+		System.out.println(1);
 		ProductListService productListService = new ProductListService();
 		
 		HttpSession session = request.getSession();
@@ -82,16 +82,17 @@ public class PlaceListAction implements Action{
 		ArrayList<ProductBean> productList = null;
 		
 		if((String)session.getAttribute("session") == null) {
-			
+			System.out.println(2);	
 			productList = productListService.getProductList("0");
 			System.out.println("0");
 			
 		}else {
-			
+			System.out.println(3);
 			productList = productListService.getProductList((String)session.getAttribute("session"));
 			System.out.println("theme");
 		}
-			
+		
+		System.out.println("pr: "+productList);
 		request.setAttribute("productList", productList);
 		
 		// -------------------------------------------------

@@ -97,9 +97,9 @@
 						        </ol>
 						    </li>
 						</c:if>
-                        <li class="nav2"><a href="index.html">Home</a></li>
-                        <li class="nav3"><a href="PlaceList.pl?check=2">Place</a></li>
-                        <li class="nav4"><a href="Review_List.re">Review</a></li>
+                        <li class="nav2"><a href="index.html">메인</a></li>
+                        <li class="nav3"><a href="PlaceList.pl?check=2">여행지</a></li>
+                        <li class="nav4"><a href="Review_List.re">후기게시판</a></li>
                         <li class="nav5"><a href="productList.pr">여행상품</a></li>
                         <li class="nav6"><a href="Suggestion_Menu.su">고객센터</a></li>
                         <li class="nav7"><a href="event.ev">이벤트</a></li>

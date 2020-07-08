@@ -488,15 +488,19 @@ public class PlaceDAO {
 				// 게시물 갯수 조회할 SQL 구문 작성
 				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
 				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
-				String sql = "SELECT * FROM place WHERE pl_name like ? or pl_content like ? or pl_address like ? or pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
+//				String sql = "SELECT * FROM place WHERE pl_name like ? or pl_content like ? or pl_address like ? or pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
+				String sql = "SELECT * FROM place WHERE pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
 				
 				pstmt = con.prepareStatement(sql);
+//				pstmt.setString(1, search);
+//				pstmt.setString(2, search);
+//				pstmt.setString(3, search);
+//				pstmt.setString(4, search);
+//				pstmt.setInt(5, startRow);
+//				pstmt.setInt(6, limit);
 				pstmt.setString(1, search);
-				pstmt.setString(2, search);
-				pstmt.setString(3, search);
-				pstmt.setString(4, search);
-				pstmt.setInt(5, startRow);
-				pstmt.setInt(6, limit);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
 				rs = pstmt.executeQuery();
 				
 				// 조회된 레코드 만큼 반복

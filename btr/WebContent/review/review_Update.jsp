@@ -78,7 +78,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Review</h1>
+        <h1>후기수정</h1>
     </div>
     
     <section id="blog">

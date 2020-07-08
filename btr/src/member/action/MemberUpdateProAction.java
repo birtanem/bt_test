@@ -50,6 +50,7 @@ public class MemberUpdateProAction implements Action {
 						}else { 
 							HttpSession session = request.getSession();
 							session.setAttribute("alertOn", "true");
+							session.setAttribute("session", request.getParameter("type") );
 							forward = new ActionForward();
 							forward.setRedirect(true);
 							forward.setPath("./MemberMypage.me");

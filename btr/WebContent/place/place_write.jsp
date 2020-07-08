@@ -73,7 +73,7 @@
 	<!--/header-->
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
-		<h1>Place</h1>
+		<h1>여행지</h1>
 	</div>
 	<!-- <section id="writeForm"">
 >>>>>>> refs/remotes/origin/master

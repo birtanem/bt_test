@@ -83,7 +83,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Review</h1>
+        <h1>댓글수정</h1>
     </div>
     
 	<section id="blog">
