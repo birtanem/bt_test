@@ -148,7 +148,8 @@ $(document).ready(function(){
 			$.ajax("orderFront.or", {
 				type:"POST",
 				data: {"jsonData": jsonData,
-					"total":total},
+					"total":total,
+					"cart": 0},
 				success: function() {
 					location.href="orderForm.or"
 				}
@@ -238,7 +239,9 @@ $(document).ready(function(){
 					</tr>
 					<c:forEach var="p" items="${productList }" varStatus="status">
 						<tr>
-							<td><input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" /></td>
+							<td>
+							<input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" />
+							</td>
 							<td>${p.p_theme }</td>
 							<td style="border-right: none;"><img src="product/productUpload/${p.p_image }" width="200" height="100"></td>
 							<td style="text-align: left;">${p.p_name }</td>

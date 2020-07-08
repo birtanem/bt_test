@@ -204,7 +204,7 @@ function adminPop() {
 			</c:if>
 		</div>
 		
-		<p class="description">* 매일 하루 <b>한번</b> 씩 최대 <b>5번</b> 뽑기 가능하며, 1회당 <b>100포인트</b>가 차감됩니다.</p>
+		<p class="description">* <b>1회</b>당 <b>100포인트</b>가 차감됩니다.</p>
 		<div style="border: 1px solid; width: 800px; height: 920px;margin: auto; background-image: url('images/event8.png'); background-size: contain;">
 		<div id="countdown" style="margin-top: 50px;"></div>
 		<ul class="ul">

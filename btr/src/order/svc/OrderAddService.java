@@ -4,8 +4,13 @@ import static common.db.JdbcUtil.*;
 
 import java.sql.Connection;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+import com.sun.org.apache.regexp.internal.recompile;
 
 import order.dao.OrderDAO;
 import order.vo.OrderBean;
@@ -87,16 +92,19 @@ public class OrderAddService {
 				rollback(con);
 			}else { // product 저장 성공!
 					
+				
 					// cart 삭제
 					for(int i=0;i<jsonArray.size();i++) {
 						JSONObject obj = (JSONObject)jsonArray.get(i);
-						int deleteCount = orderDAO.deleteCart(Integer.parseInt((String)obj.get("num")), ob.getMember_id());
-						if(deleteCount > 0) {
-							deleteSuccess = true;
-						}else {					
-							deleteSuccess = false;
-							break;
-						}
+												
+							int deleteCount = orderDAO.deleteCart(Integer.parseInt((String)obj.get("num")), ob.getMember_id());
+							if(deleteCount > 0) {
+								deleteSuccess = true;
+							}else {					
+								deleteSuccess = true;
+//								break;
+							}
+
 					}
 					
 					if(!deleteSuccess) { // cart 삭제 실패!
@@ -130,7 +138,7 @@ public class OrderAddService {
 				}
 			}
 		}
-		
+		System.out.println("orderNum : "+orderNum);
 		close(con);
 		return orderNum;
 	}

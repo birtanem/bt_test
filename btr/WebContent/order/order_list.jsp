@@ -60,7 +60,7 @@ form {float: left;}
 	
 		<div class="container" style="margin-top: -50px;">
 			<div class="o_info o_input" style="font-size: 12pt; padding-right: 0;">
-				<h2>구매기간 <input type="button" value="1개월" onclick='listSearch(1)'><input type="button" value="3개월" onclick="listSearch(3)"><input type="button" value="6개월" onclick="listSearch(6)"></h2><br>
+				<h2>구매기간 <input type="button" value="전체" onclick="location.href='orderList.or'"><input type="button" value="1개월" onclick='listSearch(1)'><input type="button" value="3개월" onclick="listSearch(3)"><input type="button" value="6개월" onclick="listSearch(6)"></h2><br>
 
 				<form name="mainForm" id="mainForm" method="post">
 				    <select name="dateYear" id="selYear1" class="loginInput" onChange="setDay()"></select>년&nbsp;
@@ -293,10 +293,10 @@ form {float: left;}
 					$("table").append("<tr><td><a href='orderDetail.or?num="+item.orderNum+"'>"+item.orderNum+"<br>상세보기</a></td><td style='border-right: none;'><img src='product/productUpload/"+item.image+"' width='200' height='100'></td><td style='text-align: left;'>"+item.name+"</td><td class='price'>"+comma(item.price)+"원</td><td>"+item.date+"</td></tr>");
 					
 					// 조회 버튼 전체조회로 변경
-					$("#btn").css({
-						"background-color":"green"
-					})
-					$("#btn").attr("value", "전체조회")
+// 					$("#btn").css({
+// 						"background-color":"green"
+// 					})
+// 					$("#btn").attr("value", "전체조회")
 
 				});
 				

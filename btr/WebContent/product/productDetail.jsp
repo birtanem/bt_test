@@ -82,8 +82,7 @@ $(document).ready(function(){
 				return false;
 				
 			}
-			alert($("#amount").val())
-			alert($("#price").val()*$("#amount").val())
+
 		 	var num = $("#num").val();
 		 	var amount = $("#amount").val();
 		 	var price = $("#price").val()*$("#amount").val();

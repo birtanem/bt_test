@@ -23,6 +23,7 @@ public class OrderFrontAction implements Action {
 		ActionForward forward=null;
 		System.out.println("OrderFrontAction");
 
+
 				
 		// 상품번호(num), 수량(amount), 합계(price) 를 JSON 형태로 가져와서 파싱
 		JSONParser parser = new JSONParser();
@@ -67,6 +68,7 @@ public class OrderFrontAction implements Action {
 		session.setAttribute("arrayList", arrayList);
 		session.setAttribute("info", mb);
 		session.setAttribute("total", request.getParameter("total"));
+		
 
 		return forward;
 	}

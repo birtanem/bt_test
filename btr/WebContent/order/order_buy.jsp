@@ -94,16 +94,16 @@ IMP.request_pay({
 </script>
 <script type="text/javascript">
 function preCheck(){	
-		if($("#emailcheck").html() != "인증 완료") {
-			alert("이메일 인증이 필요합니다.");
-			return false;
-		}
+// 		if($("#emailcheck").html() != "인증 완료") {
+// 			alert("이메일 인증이 필요합니다.");
+// 			return false;
+// 		}
 		if($('input[name="payMethod"]:checked').val() == null) {
 			alert("결제수단을 선택해주세요!");
 			return false;
 		}
-// 		paytest();
-		payData();
+		paytest();
+// 		payData();
 }
 </script>
 <script type="text/javascript">
@@ -142,7 +142,7 @@ function payData(){
 				"pay" : pay
 			},
 			success : function(rdata) {
-				if(rdata != null ) {
+				if(rdata != "" ) {
 					alert(rdata)
 					return false;
 				}else {

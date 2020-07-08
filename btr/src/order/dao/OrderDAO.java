@@ -222,7 +222,7 @@ private static OrderDAO instance;
 						+ "ON o.o_num = od.order_num "
 						+ "WHERE member_id = ? AND "
 						+ "o_date BETWEEN date(?) AND date(?)+1 "
-						+ "GROUP BY od.order_num "
+						+ "GROUP BY od.order_num ORDER BY od.order_num DESC "
 						+ "limit ?,?";
 		
 			pstmt = con.prepareStatement(sql);
