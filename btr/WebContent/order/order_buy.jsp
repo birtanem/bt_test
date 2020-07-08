@@ -63,7 +63,7 @@ var name = document.getElementsByName("name").value;
 var buyer_tel=document.getElementById("o_phone").value;
 var buyer_email=document.getElementById("email").value;
 var amount=document.getElementById("total_p").value;
-alert(total_p);
+
 IMP.init('imp05249928'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
 IMP.request_pay({
@@ -94,10 +94,10 @@ IMP.request_pay({
 </script>
 <script type="text/javascript">
 function preCheck(){	
-// 		if($("#emailcheck").html() != "인증 완료") {
-// 			alert("이메일 인증이 필요합니다.");
-// 			return false;
-// 		}
+		if($("#emailcheck").html() != "인증 완료") {
+			alert("이메일 인증이 필요합니다.");
+			return false;
+		}
 		if($('input[name="payMethod"]:checked').val() == null) {
 			alert("결제수단을 선택해주세요!");
 			return false;
