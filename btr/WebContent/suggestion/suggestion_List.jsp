@@ -157,6 +157,10 @@
 	color: blue;
 }
 
+#blog {
+	min-height: 537px;
+}
+
 
 </style>
 </head>
