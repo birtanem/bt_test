@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.action.Action;
 import common.vo.ActionForward;
@@ -11,6 +12,10 @@ import place.svc.PlaceListService;
 import place.svc.PlaceSearchService;
 import place.vo.PlaceBean;
 import place.vo.PlacePageInfo;
+import product.svc.ProductListService;
+import product.vo.ProductBean;
+import review.svc.ReviewContentService;
+import review.vo.ReviewBean;
 
 public class PlaceSearchAction implements Action {
 
@@ -60,6 +65,48 @@ public class PlaceSearchAction implements Action {
 		
 		// 페이징 정보를 저장할 PageInfo 객체 생성 및 데이터 저장
 		PlacePageInfo pageInfo = new PlacePageInfo(page, maxPage, startPage, endPage, listCount);
+		
+		
+		//--------------------------------------------------------------------
+		// 추천 리뷰 리스트 
+		
+		ReviewContentService reviewContentService = new ReviewContentService();
+		
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();
+		
+		request.setAttribute("reviewList",arrayList);
+		
+		//--------------------------------------------------------------------
+		
+		
+		// ---------- 추천 상품 리스트 ------------------
+		
+		// 비로그인 시 "0" 전달 -> 랜덤 4개
+		
+		// 로그인 시 theme(session) 전달 -> 테마에서 랜덤 4개 
+		
+		ProductListService productListService = new ProductListService();
+		
+		HttpSession session = request.getSession();
+		
+		ArrayList<ProductBean> productList = null;
+		
+		if((String)session.getAttribute("session") == null) {
+			
+			productList = productListService.getProductList("0");
+			System.out.println("0");
+			
+		}else {
+			
+			productList = productListService.getProductList((String)session.getAttribute("session"));
+			System.out.println("theme");
+		}
+			
+		request.setAttribute("productList", productList);
+		
+		// -------------------------------------------------
+		
+		
 		
 		// request 객체에 PageInfo 객체와 ArrayList 객체 저장
 		request.setAttribute("pageInfo", pageInfo);

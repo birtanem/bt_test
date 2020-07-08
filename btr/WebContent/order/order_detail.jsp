@@ -46,12 +46,10 @@
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png);">
-		<h1>Order</h1>
+		<h1>주문 상세</h1>
 	</div>
 	<section id="portfolio">
-		<div class="center" style="padding: 0; margin: 0;">
-			<h2>상세정보</h2>
-		</div>
+
 		<div class="container" style=" margin-top: -50px;">
 			<div class="o_info o_input" style="font-size: 12pt;">
 				<h2><span>구매일시: <fmt:parseDate var="dateString" value="${obj.date}" pattern="yyyy-MM-dd HH:mm:ss" /><fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd HH:mm:ss" /></span></h2>

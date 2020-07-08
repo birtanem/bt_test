@@ -182,9 +182,8 @@ public class ProductDAO {
 				productBean.setP_image(rs.getString(4));
 				productBean.setP_price(rs.getInt(5));
 				productBean.setP_amount(rs.getInt(6));
-				productBean.setP_theme(rs.getString(7));
-				productBean.setRegion_region_code(rs.getInt(8));
-				productBean.setP_theme(rs.getString(9));
+				productBean.setRegion_region_code(rs.getInt(7));
+				productBean.setP_theme(rs.getString(8));
 				productList.add(productBean);
 			}
 		} catch (SQLException e) {

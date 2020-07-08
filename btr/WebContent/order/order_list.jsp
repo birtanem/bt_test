@@ -54,12 +54,10 @@ form {float: left;}
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png);">
-		<h1>Order</h1>
+		<h1>결제내역</h1>
 	</div>
 	<section id="portfolio">
-		<div class="center" style="padding: 0; margin: 0;">
-			<h2>결제내역</h2>
-		</div>
+	
 		<div class="container" style="margin-top: -50px;">
 			<div class="o_info o_input" style="font-size: 12pt; padding-right: 0;">
 				<h2>구매기간 <input type="button" value="1개월" onclick='listSearch(1)'><input type="button" value="3개월" onclick="listSearch(3)"><input type="button" value="6개월" onclick="listSearch(6)"></h2><br>

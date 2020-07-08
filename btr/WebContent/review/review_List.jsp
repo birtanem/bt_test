@@ -48,7 +48,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/page-title.png)">
-        <h1>Review</h1>
+        <h1>후기게시판</h1>
     </div>
     
     <section id="blog">
@@ -138,7 +138,7 @@
 												&nbsp; ${fn:substring(list.pl_name,0,20) }&nbsp;...	
 											</c:when>
 											<c:otherwise>
-												&nbsp; ${list.pl_name };										
+												&nbsp; ${list.pl_name }										
 											</c:otherwise>
 									</c:choose>
 									</span>											                                 

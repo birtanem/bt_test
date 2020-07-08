@@ -49,7 +49,7 @@
 												&nbsp; ${fn:substring(list.r_subject,0,10) }&nbsp;...	
 											</c:when>
 											<c:otherwise>
-												&nbsp; ${list.r_subject };										
+												&nbsp; ${list.r_subject }									
 											</c:otherwise>
 									</c:choose>
 									</span>										
@@ -67,7 +67,9 @@
                     <div class="widget blog_gallery">
                         <h3>추 천 상 품</h3>
                         <ul class="sidebar-gallery clearfix">
-     						 <c:forEach var="list" items="${productList }" varStatus="stat">                    	                                 		
+                       
+     						 <c:forEach var="list" items="${productList }" varStatus="stat"> 
+     					                  	                                 		
                         		<li>
                             		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
                             			 <c:choose>

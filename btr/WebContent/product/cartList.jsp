@@ -223,9 +223,6 @@ $(document).ready(function(){
 		<h1>장바구니</h1>
 	</div>
 	<section id="portfolio">
-		<div class="center" style="padding: 0; margin: 0;">
-			<h2>장바구니</h2>
-		</div>
 		<div class="container" style="margin-top: -50px;">
 
 			<div class="o_list" style="clear: both;">
@@ -242,7 +239,7 @@ $(document).ready(function(){
 					<c:forEach var="p" items="${productList }" varStatus="status">
 						<tr>
 							<td><input type="checkbox" name="rowCheck" id="rowCheck" value="${cartList[status.index].c_p_num }" /></td>
-							<td>${p.p_category }</td>
+							<td>${p.p_theme }</td>
 							<td style="border-right: none;"><img src="product/productUpload/${p.p_image }" width="200" height="100"></td>
 							<td style="text-align: left;">${p.p_name }</td>
 							<td class="price"><fmt:formatNumber value="${p.p_price }" pattern="###,###,###" />원</td>

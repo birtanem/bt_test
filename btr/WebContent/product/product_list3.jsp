@@ -58,15 +58,12 @@
 
 	<div class="page-title"
 		style="background-image: url(images/top/Busan2.jpg); background-size: cover; background-position: center;">
-		<h1>Product</h1>
+		<h1>여행상품</h1>
 	</div>
 
 	<section id="portfolio" style="background-color: #FAFAFA">
 
-		<div class="center">
-			<h2>Product List</h2>
-			<p class="lead">상품 리스트</p>
-		</div>
+
 		<!-- 			data-filter 수정해야함 ~ test용 -->
 		<ul class="portfolio-filter text-center">
 			<li><a class="btn btn-default active" href="#" data-filter="*">전체보기</a></li>

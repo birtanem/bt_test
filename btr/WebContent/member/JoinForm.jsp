@@ -357,7 +357,7 @@ function joinCheck() {
     <select name="type" id="type">
    	   <option value="관심사">관심사</option>
 	   <option value="맛집">맛집</option>
-	   <option value="체험/전시">체험/전시</option>
+	   <option value="체험">체험</option>
 	   <option value="관광">관광</option>
 	   <option value="역사">역사</option>
     </select>

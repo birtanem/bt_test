@@ -51,7 +51,7 @@
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/top/Busan1.jpg); background-size: cover; background-position: center;">
-        <h1>Place</h1>
+        <h1>여행지</h1>
         
     </div>
     

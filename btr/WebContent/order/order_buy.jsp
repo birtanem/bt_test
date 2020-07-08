@@ -270,11 +270,10 @@ function emailCheck() {
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png);">
-		<h1>Order</h1>
+		<h1>주문/결제</h1>
 	</div>
 	<section id="portfolio">
 		<div class="center">
-			<h2>주문/결제</h2>
 			<p class="lead">주문목록</p>
 		</div>
 		<div class="container">

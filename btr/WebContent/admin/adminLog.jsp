@@ -229,7 +229,7 @@ $(document).ready(function() {
             <div class="row">
                 <div class="col-sm-12 fadeInDown">
                     <div class="skill">
-                        <h2>with♥Trip 데이터</h2>
+                        <h2>with♥Trip 통계</h2>
                         <p></p>
                     </div>
                 </div>
