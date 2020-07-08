@@ -27,6 +27,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
+        <script src="js/jquery-3.5.0.js"></script>
+    
+        <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav6").addClass("active"); 
+	   });
+   </script>
+   
 <style type="text/css">
 #label1 {
 	width: 126px;
@@ -40,6 +50,13 @@
 	width: 126px; 
 	margin-left: 250px;
 }
+
+#section {
+	min-height: 559px;
+	width: 1400px; 
+	height: 531px; 
+	margin: auto;
+}
 </style>
 </head>
 <body>
@@ -49,7 +66,7 @@
         <h1>고객센터</h1>
     </div>
 
-    <section style="width: 1400px; height: 531px; margin: auto;">
+    <section id="section">
 		<div id="icon" style="width: 900px; margin: auto;">
 	
 				<label id="label1">
@@ -89,31 +106,17 @@
     </section>
 
 
-    <footer id="footer" class="midnight-blue">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
-                </div>
-                <div class="col-sm-6">
-                    <ul class="pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!--/#blog-->
+
+    <!--/#bottom-->
+<jsp:include page="/inc/bottom.jsp"/>
     <!--/#footer-->
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
+    
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.prettyPhoto.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/jquery.isotope.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
-
 </html>

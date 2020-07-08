@@ -266,6 +266,9 @@ public class EventDAO {
 				article.setMember_id(rs.getString("member_id"));
 				article.setEvent_round(rs.getInt("event_round"));
 				article.setEw_date(rs.getDate("ew_date"));
+				article.setEw_cp_3(rs.getInt("ew_cp_3"));
+				article.setEw_cp_5(rs.getInt("ew_cp_5"));
+				article.setEw_cp_10(rs.getInt("ew_cp_10"));
 				articleList.add(article);
 			}
 		} catch (SQLException e) {
@@ -414,14 +417,15 @@ public class EventDAO {
 		return insertCount;
 	}
 
-	public int insertWinArticle(String member_id) {
+	public int insertWinArticle(int point, String member_id) {
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
 		
 		try {
-			String sql = "INSERT INTO event_win VALUES(null, ?, (SELECT MAX(e_round) FROM event), now())";
+			String sql = "INSERT INTO event_win(ew_num, member_id, event_round, ew_date, ew_cp_?) VALUES(null, ?, (SELECT MAX(e_round) FROM event), now(), 1)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, member_id);
 			insertCount = pstmt.executeUpdate();
 
 			
@@ -443,8 +447,7 @@ public class EventDAO {
 		JSONArray jArr = new JSONArray();
 		
 		try {
-			String sql = "SELECT e.*, m.cp_3, m.cp_5, m.cp_10 FROM event_win e JOIN member m "
-					+ "ON e.member_id = m.id WHERE event_round = ?";
+			String sql = "SELECT * FROM event_win WHERE event_round = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, sel);
 			rs = pstmt.executeQuery();
@@ -455,9 +458,9 @@ public class EventDAO {
 				obj.put("member_id", rs.getString("member_id"));
 				obj.put("event_round", rs.getString("event_round"));
 				obj.put("ew_date", rs.getString("ew_date"));
-				obj.put("cp_3", rs.getString("cp_3"));
-				obj.put("cp_5", rs.getString("cp_5"));
-				obj.put("cp_10", rs.getString("cp_10"));
+				obj.put("ew_cp_3", rs.getString("ew_cp_3"));
+				obj.put("ew_cp_5", rs.getString("ew_cp_5"));
+				obj.put("ew_cp_10", rs.getString("ew_cp_10"));
 				jArr.add(obj);
 			}
 		} catch (SQLException e) {
@@ -472,7 +475,7 @@ public class EventDAO {
 
 	}
 
-	public JSONObject getChageArticle(int sel) {
+	public JSONObject getChangeArticle(int sel) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

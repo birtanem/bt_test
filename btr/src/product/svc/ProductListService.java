@@ -45,4 +45,18 @@ public class ProductListService {
 		return productList;
 	}
 	
+	// 추천상품리스트 4개 
+	public ArrayList<ProductBean> getProductList(String theme) {
+		ArrayList<ProductBean> productList=null;
+		Connection con=getConnection();
+		ProductDAO productDAO=ProductDAO.getInstance();
+		productDAO.setConnection(con);
+		productList=productDAO.getList(theme);
+		
+		System.out.println(productList);
+		close(con);
+		
+		return productList;
+	}
+	
 }

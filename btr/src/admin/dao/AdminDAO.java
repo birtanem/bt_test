@@ -112,7 +112,7 @@ public class AdminDAO {
 		ResultSet rs = null;
 		JSONArray jsonArray = new JSONArray();
 		
-		String sql = "SELECT l.l_date as date, truncate((l2.l_revenue - l.l_revenue)/l.l_revenue*100,0) as revrate, l2.l_revenue as revenue, truncate((l2.l_joincount - l.l_joincount)/l.l_joincount*100,0) as jrate, l2.l_joincount as joincount, truncate((l2.l_readcount - l.l_readcount)/l.l_readcount*100,0) as readrate, l2.l_readcount as readcount FROM log l JOIN log l2 ON l.l_num = l2.l_num-1 ORDER BY date DESC limit 7";
+		String sql = "SELECT l2.l_date as date, truncate((l2.l_revenue - l.l_revenue)/l.l_revenue*100,0) as revrate, l2.l_revenue as revenue, truncate((l2.l_joincount - l.l_joincount)/l.l_joincount*100,0) as jrate, l2.l_joincount as joincount, truncate((l2.l_readcount - l.l_readcount)/l.l_readcount*100,0) as readrate, l2.l_readcount as readcount FROM log l JOIN log l2 ON l.l_num = l2.l_num-1 ORDER BY date DESC limit 7";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -149,7 +149,7 @@ public class AdminDAO {
 	public int[] getTypeCount() {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int[] typeArr = new int[2];
+		int[] typeArr = new int[7];
 		int i=0;
 			
 		try {

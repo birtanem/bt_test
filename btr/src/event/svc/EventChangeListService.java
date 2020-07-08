@@ -37,7 +37,7 @@ public class EventChangeListService {
 		
 		eventDAO.setConnection(con);
 		
-		JSONObject event = eventDAO.getChageArticle(sel);
+		JSONObject event = eventDAO.getChangeArticle(sel);
 		
 		
 		close(con);

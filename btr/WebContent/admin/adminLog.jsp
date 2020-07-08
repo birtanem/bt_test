@@ -27,8 +27,14 @@
 
 
 
-
 <script src="js/jquery-3.5.0.js"></script>
+
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav1").addClass("active"); 
+	   });
+   </script>
 
 <!-- Styles -->
 <style>
@@ -60,11 +66,17 @@ $(document).ready(function() {
 
 		// Add data
 		chart.data = [ {
-		  "취향": "여행",
-		  "litres": Math.round($("#htype").val()/$("#htype3").val()*100)		 
+		  "취향": "관광",
+		  "litres": ($("#htype1").val()/$("#totalCount").val()*100)		 
 		}, {
 		  "취향": "맛집",
-		  "litres": Math.round($("#htype2").val()/$("#htype3").val()*100)
+		  "litres": ($("#htype2").val()/$("#totalCount").val()*100)
+		}, {
+		  "취향": "역사",
+		  "litres": ($("#htype3").val()/$("#totalCount").val()*100)
+		},{
+		   "취향": "체험",
+		  "litres": ($("#htype4").val()/$("#totalCount").val()*100)
 		}];
 
 		// Add and configure Series
@@ -217,7 +229,7 @@ $(document).ready(function() {
             <div class="row">
                 <div class="col-sm-12 fadeInDown">
                     <div class="skill">
-                        <h2>with♥Trip 데이터</h2>
+                        <h2>with♥Trip 통계</h2>
                         <p></p>
                     </div>
                 </div>
@@ -246,15 +258,20 @@ $(document).ready(function() {
 		</table>
 		
 			<!-- 취향 비율 -->
-			<input type="hidden" id="htype" value="${type[0] }">
-			<input type="hidden" id="htype2" value="${type[1] }">
-			<input type="hidden" id="htype3" value="${type[0] + type[1] }">
+			<c:forEach var="type" items="${type }" varStatus="status">
+				<input type="hidden" id="htype${status.count }" value="${type }">
+				<c:set var= "totalCount" value="${totalCount + type}"/>
+			</c:forEach>
+			
+			<input type="hidden" id="totalCount" value="<c:out value="${totalCount }"/>">
 			<!-- /취향 비율 -->
+			
 			<!--  가입자 추이 -->
 			<c:forEach var="hList" items="${list }" varStatus="status">
 			<input type="hidden" id="hdate${status.count}" value="<fmt:parseDate var="dateString" value="${hList.date}" pattern="yyyy-MM-dd" /><fmt:formatDate value="${dateString }" pattern="MM.dd" />">			
 			<input type="hidden" id="hmember${status.count}" value="${hList.joincount}">			
 			</c:forEach>
+			
 			
 			<!--  /가입자 추이 -->
 			

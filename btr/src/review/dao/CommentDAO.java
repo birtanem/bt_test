@@ -72,6 +72,17 @@ public class CommentDAO {
 			
 			insertCount = pstmt.executeUpdate();
 			
+			if (insertCount > 0) {
+				
+				sql = "update member set point = point+50 where id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, article.getRc_id());
+				
+				pstmt.executeUpdate();
+			}
+			
 			sql = "set foreign_key_checks=1";
 			
 			pstmt = con.prepareStatement(sql);
@@ -216,6 +227,16 @@ public class CommentDAO {
 			pstmt.setInt(7, re_lev);
 			
 			replyCount = pstmt.executeUpdate();
+			
+			if (replyCount > 0) {
+				sql = "update member set point = point+50 where id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, article.getRc_id());
+				
+				pstmt.executeUpdate();
+			}
 			
 		} catch (SQLException e) {
 			System.out.println("CommentDAO - ReplyArticl() 실패! : " + e.getMessage());

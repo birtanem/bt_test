@@ -45,7 +45,7 @@
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
-		<h1>ProductDetail</h1>
+		<h1>여행상품</h1>
 	</div>
 	<!-- 본문 -->
 
@@ -60,7 +60,7 @@
 	<div id="product_detail">
 	<div>
 	
-		<p>#${productDetail.p_category}&nbsp; #${productDetail.region_name }</p>
+		<p>#${productDetail.p_theme}&nbsp; #${productDetail.region_name }</p>
 		<p>${productDetail.p_name }</p>
 		<p>${productDetail.p_price }</p>
 		<br>

@@ -24,7 +24,12 @@
 <link href="css/order.css" rel="stylesheet">
 
 <script src="js/jquery-3.5.0.js"></script>
-
+	<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav5").addClass("active"); 
+   });
+   </script>
 <style type="text/css">
 .fa2 {
 font-size: 12pt; margin: 10px; font-weight: 550; color: #FFFFF;

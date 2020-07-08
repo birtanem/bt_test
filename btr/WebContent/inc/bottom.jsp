@@ -10,10 +10,9 @@
         			   
                     <ul class="pull-right">
                     
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="PlaceList.pl">Place</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="Review_List.re">Review</a></li>
+                        <li class="active"><a href="index.html">메인</a></li>
+                        <li><a href="PlaceList.pl">여행지</a></li> 
+                        <li><a href="Review_List.re">후기게시판</a></li>
                         <li><a href="productList.pr">여행상품</a></li>
                         <li><a href="Suggestion_Menu.su">고객센터</a></li>
                         <li><a href="event.ev">이벤트</a></li>

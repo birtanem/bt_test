@@ -18,6 +18,10 @@ import member.vo.MemberBean;
 import place.vo.PlaceBean;
 import place.svc.PlaceListService;
 import place.vo.PlacePageInfo;
+import product.svc.ProductListService;
+import product.vo.ProductBean;
+import review.svc.ReviewContentService;
+import review.vo.ReviewBean;
 
 public class PlaceListAction implements Action{
 
@@ -47,9 +51,51 @@ public class PlaceListAction implements Action{
 		// => 리턴타입 : ArrayList<BoardBean> => 게시물 1개 저장할 BoardBean 제네릭 타입으로 지정
 		ArrayList<PlaceBean> articleList = placeListService.getArticleList(page, limit);
 		
+		
+		//--------------------------------------------------------------------
+		// 추천 리뷰 리스트 
+		
+		ReviewContentService reviewContentService = new ReviewContentService();
+		
+		ArrayList<ReviewBean> arrayList = reviewContentService.getArrayList();
+		
+		request.setAttribute("reviewList",arrayList);
+		
+		//--------------------------------------------------------------------
+		
+		
 //		for(BoardBean article : articleList) {
 //			System.out.println(article.getBoard_subject());
 //		}
+		
+		
+		// ---------- 추천 상품 리스트 ------------------
+		
+		// 비로그인 시 "0" 전달 -> 랜덤 4개
+		
+		// 로그인 시 theme(session) 전달 -> 테마에서 랜덤 4개 
+		System.out.println(1);
+		ProductListService productListService = new ProductListService();
+		
+		HttpSession session = request.getSession();
+		
+		ArrayList<ProductBean> productList = null;
+		
+		if((String)session.getAttribute("session") == null) {
+			System.out.println(2);	
+			productList = productListService.getProductList("0");
+			System.out.println("0");
+			
+		}else {
+			System.out.println(3);
+			productList = productListService.getProductList((String)session.getAttribute("session"));
+			System.out.println("theme");
+		}
+		
+		System.out.println("pr: "+productList);
+		request.setAttribute("productList", productList);
+		
+		// -------------------------------------------------
 		
 		// 페이징 처리를 위해 페이지 수 계산
 		// 1. 최대 페이지 번호 계산 : 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95 더함

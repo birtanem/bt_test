@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,60 +51,8 @@
 
 
 <script src="js/jquery-3.5.0.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-// 	location.href="index.jsp#main-map";
-});
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
 
-			var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric&cnt=8';
-			$.getJSON(apiURL,function(rdata) {
-				
-				$.each(rdata.list,function(index,item) {
-					
-					var today = new Date(item.dt_txt);
-					var icon = item.weather[0].icon;
-					var hour = today.getHours();
-					
-						$('.time').append("<div style='float:left; width: 65px; height: 100px; text-align: center; color: black;'>"
-										+ hour
-										+ '시'
-										+ '<br>'
-										+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
-										+ item.main.temp.toFixed(0)
-										+ "˚C"
-										+ "</div>");
-								});
 
-							});
-
-						var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?q=Busan,KR&appid=69dfa3d384134e76fbafdfc2dcf8765e&units=metric';
-						var week = new Array('일', '월', '화', '수', '목', '금', '토');
-
-						$.getJSON(apiURL,function(rdata) {
-							$.each(rdata.list,function(index,item) {
-
-								if (index % 8 == 2) {
-
-								var icon = item.weather[0].icon;
-								var date = new Date(item.dt_txt).getDay();
-								var label = week[date];
-
-								$('.day').append("<div style='float:left; width: 104px; height: 100px; text-align: center; color: black;'>"
-												+ label
-												+ "<br>"
-												+ '<img src="icon/'+icon+'.png" width = "50" height = "50" />'
-												+ '<br>'
-												+ item.main.temp.toFixed(0)
-												+ "˚C"
-												+ "</div>");
-										}
-									});
-								});
-							});
-</script>
 
 
 
@@ -268,12 +217,21 @@ a:hover {
 	display: inline-block;
 }
 
-.rc_img {
-	height: 270px;
-}
+/* .rc_img { */
+/* 	height: 270px; */
+/* 	width: 320px; */
+/* } */
 .rcbox{
 margin-top: 150px;}
 </style>
+
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav2").addClass("active"); 
+	   });
+   </script>
+   
 <script type="text/javascript">
 	$(function() {
 		var count = $('#rank-list li').length;
@@ -321,7 +279,7 @@ margin-top: 150px;}
 						<dt>인기 여행지</dt>
 						<dd>
 							<ol>
-								<c:forEach var="list" items="${list }" begin="0" end="4" varStatus="stat">
+								<c:forEach var="list" items="${list }" begin="0" end="10" varStatus="stat">
 									<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}">
 									
 										<c:choose>
@@ -349,18 +307,6 @@ margin-top: 150px;}
 
 	</section>
 
-
-	<section id="maincontent">
-		<div class="weather"
-			style="margin: 0 auto; width: 600px; height: 300px; text-align: left; transform: scale(0.9);">
-			<h2 style="margin-left: 20px; color: black;">오늘</h2>
-			<div class="time"></div>
-			<h2 style="margin-left: 20px; color: black; margin-top: 120px;">주간</h2>
-			<div class="day"></div>
-		</div>
-
-	</section>
-
 	<section id="testimonial">
 		<!-- 추천 장소-->
 		<!-- 		<div class="place"> -->
@@ -376,7 +322,7 @@ margin-top: 150px;}
 						<c:forEach var="list" items="${list }" varStatus="stat">
 							<!-- 							<div id="here" class="row isotope-item here"></div> -->
 							<a href="PlaceDetail.pl?pl_num=${list.pl_num }"><img
-								src="placeUpload/${list.pl_image }" alt="rc_pList"
+								src="placeUpload/${list.pl_image }" alt="rc_pList" width="360px" height="270px"
 								class="rc_img"></a>
 						</c:forEach>
 					</div>
@@ -394,7 +340,7 @@ margin-top: 150px;}
 							<c:if test="${list.pl_theme eq sessionScope.session }">
 								<!-- 							<div id="here" class="row isotope-item here"></div> -->
 								<a href="PlaceDetail.pl?pl_num=${list.pl_num }"><img
-									src="placeUpload/${list.pl_image }" alt="${list.pl_theme }"
+									src="placeUpload/${list.pl_image }" alt="${list.pl_theme }" width="360px" height="270px"
 									class="rc_img"></a>
 							</c:if>
 						</c:forEach>
@@ -435,9 +381,15 @@ margin-top: 150px;}
 						</div>
 						<div class="testimonial-slider owl-carousel">
 							<c:forEach var="pdList" items="${pdList }" varStatus="stat">
+							<div>
 								<a href="productDetail.pr?p_num=${pdList.p_num }"><img
 									src="product/productUpload/${pdList.p_image }" alt="rc_pList"
-									class="rc_img"></a>
+									height="200px" width="320px"></a>
+								   <h5>${pdList.p_name }</h5>
+	                            <span class="desg">${pdList.p_theme }</span><br>
+	                               <span style="color: #F76;"><fmt:formatNumber value="${pdList.p_price }"
+									pattern="###,###,###" /> 원</span>
+	                            </div>
 							</c:forEach>
 						</div>
 					</c:when>
@@ -450,9 +402,15 @@ margin-top: 150px;}
 						<div class="testimonial-slider owl-carousel">
 							<c:forEach var="pdList" items="${pdList }" varStatus="stat">
 								<c:if test="${pdList.p_theme eq sessionScope.session }">
+								<div>
 									<a href="productDetail.pr?p_num=${pdList.p_num }"><img
 										src="product/productUpload/${pdList.p_image }"
-										alt="${pdList.p_theme }" class="rc_img"></a>
+										alt="${pdList.p_theme }" height="270px" width="320px"></a>
+										   <h5>${pdList.p_name }</h5>
+	                            <span class="desg">${pdList.p_theme }</span><br>
+	                               <span style="color: #F76;"><fmt:formatNumber value="${pdList.p_price }"
+									pattern="###,###,###" /> 원</span>
+	                            </div>
 								</c:if>
 							</c:forEach>
 						</div>
@@ -464,10 +422,6 @@ margin-top: 150px;}
 
 	<section id="partner">
 		<div class="container">
-			<div class="center">
-				<h2>다른 사이트 넣기123</h2>
-				<p class="lead"></p>
-			</div>
 
 			<div class="partners">
 				<ul>

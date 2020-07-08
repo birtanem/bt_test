@@ -37,6 +37,14 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.0.js"></script>
+
+	<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav5").addClass("active"); 
+   });
+   </script>
+   
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#minus').click(function(){
@@ -74,10 +82,11 @@ $(document).ready(function(){
 				return false;
 				
 			}
-			
+			alert($("#amount").val())
+			alert($("#price").val()*$("#amount").val())
 		 	var num = $("#num").val();
-		 	var amount = $("#amount2").val();
-		 	var price = $("#price").val();
+		 	var amount = $("#amount").val();
+		 	var price = $("#price").val()*$("#amount").val();
 		    var testList = new Array() ;
 		         
 		        // 객체 생성
@@ -88,7 +97,7 @@ $(document).ready(function(){
 		        	data.num =  num
 				    data.amount = amount
 				    data.price = price
-				    testList.push(data) ;
+				    testList.push(data)
 				    
 //		     // String 형태로 변환
 		    var jsonData = JSON.stringify(testList) ;
@@ -117,7 +126,6 @@ function goCart(){
 			return false;
 		}
 		
-		
 	}
 	var id='admin'; 
 	var amount=Number(document.getElementById("amount").value);
@@ -145,7 +153,7 @@ function goCart(){
 	<jsp:include page="/inc/top.jsp" />
 	<div class="page-title"
 		style="background-image: url(images/page-title.png)">
-		<h1>ProductDetail</h1>
+		<h1>여행상품</h1>
 	</div>
 	<!-- 본문 -->
 
@@ -158,8 +166,7 @@ function goCart(){
 		<div id="product_detail" style="margin-bottom: 200px;">
 			<div>
 				<input type="hidden" id="num" value="${productDetail.p_num}">
-				<strong class="pd kw">#${productDetail.p_category}&nbsp;
-					#${productDetail.region_name }&nbsp;#${productDetail.p_theme }</strong>
+				<strong class="pd kw">#${productDetail.region_name }&nbsp;#${productDetail.p_theme }</strong>
 				<p class="pd pn" style="font-size: 20pt; font-weight: 600; margin-top: 20px;">${productDetail.p_name }</p>
 				<c:choose>
 				<c:when test="${productDetail.p_amount>0 }">
@@ -192,11 +199,7 @@ function goCart(){
 	</div>
 
 	</section>
-	
-	
-	   
-                    
-                    
+	              
 	<!--/#bottom-->
 	<footer id="footer" class="midnight-blue">
 		<div class="container">

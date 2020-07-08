@@ -54,6 +54,8 @@ public class EventPullAction implements Action {
 				if(setPullSuccess == 30001) { // 30000 당첨
 					// 쿠폰 추가
 					eventPullService.addWinCoupon(3, id);
+					// 당첨 리스트 추가
+					eventPullService.addWinList(3 ,id);
 					// 쿠폰 수 가져오기
 					int coupon = eventPullService.getCoupon(id, 3);
 					System.out.println(coupon);
@@ -66,6 +68,7 @@ public class EventPullAction implements Action {
 					
 				}else if(setPullSuccess == 50001){ // 50000 당첨
 					eventPullService.addWinCoupon(5, id);
+					eventPullService.addWinList(5 ,id);
 					int coupon = eventPullService.getCoupon(id, 5);
 					System.out.println(coupon);
 					obj.put("coupon", coupon);
@@ -74,8 +77,8 @@ public class EventPullAction implements Action {
 					
 				}else if(setPullSuccess == 100001){ // 100000 당첨
 					eventPullService.addWinCoupon(10, id);
+					eventPullService.addWinList(10 ,id);
 					int coupon = eventPullService.getCoupon(id, 10);
-					System.out.println(coupon);
 					obj.put("coupon", coupon);
 					obj.put("check", "100000");
 					out.print(obj);
@@ -83,14 +86,7 @@ public class EventPullAction implements Action {
 				}else if(setPullSuccess == 1) { // 꽝
 					obj.put("check", "1");
 					out.print(obj);							
-				}
-				
-				if(setPullSuccess > 1) {
-					// 당첨 시 당첨내역추가, 쿠폰추가
-					eventPullService.addWinList(id);
-
-				}
-				
+				}			
 				
 			}
 

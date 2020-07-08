@@ -36,13 +36,22 @@
     
     <script src="js/jquery-3.5.0.js"></script>
     
+    
+   <script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav3").addClass("active"); 
+   });
+   </script>
+
+
 </head>
 <body>
     
 <jsp:include page="/inc/top.jsp" />
 
     <div class="page-title" style="background-image: url(images/top/Busan1.jpg); background-size: cover; background-position: center;">
-        <h1>Place</h1>
+        <h1>여행지</h1>
         
     </div>
     
@@ -60,13 +69,13 @@
                             <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }" class="blog_cat">테마(주제) : ${article.pl_theme}</a>
                             <a href="PlaceDetail.pl?pl_num=${article.pl_num }&page=${pageInfo.page }">
                             <h2> 장소명 : ${article.pl_name} </h2>
-                            <h3>&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount } &nbsp;&nbsp;좋아요&nbsp;
+                            <h3>&nbsp;&nbsp;작성일&nbsp;&nbsp;${article.pl_date }&nbsp;&nbsp;조회수&nbsp;${article.pl_readcount } &nbsp;&nbsp;<span style="color: red; font-size: 18pt;">★</span>
                                <c:choose>
-                                    <c:when test="${article.pl_likecount == 0 }">
+                                     <c:when test="${article.pl_likecount == 0 }">
                                        0
                                     </c:when>
                                     <c:otherwise>
-                                        ${article.pl_likeAvg }
+                                       ${article.pl_likeAvg }
                                     </c:otherwise>
                                 </c:choose>
                            </h3></a>
@@ -83,8 +92,7 @@
                 <aside class="col-md-4">
                     
                 <jsp:include page="/inc/includePlace.jsp" />                        
-					
-                    
+       
                 </aside>
             </div>
             

@@ -19,7 +19,7 @@ public class OrderAuthenticationAction implements Action {
 		ActionForward forward = null;
 
 		
-		String host = "http://localhost:8080/withTrip/";
+		String host = "http://192.168.1.10:8080/withTrip/";
 
 		String receiver = request.getParameter("email");
 		

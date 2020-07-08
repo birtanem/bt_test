@@ -24,6 +24,8 @@
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/review.css" rel="stylesheet">
+    
+    <link href="css/order.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="../images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -92,7 +94,7 @@
 
         <div class="blog container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-sm-10">
                                 
                 	<div class="blog-item">
                         <div class="blog-content">
@@ -103,42 +105,55 @@
 	                    	</div>        		   
                         </div>
                     </div>
-                    
-                <c:forEach var="article" items="${articleList }" >
-					<div class="blog-item">
-                        <div class="blog-content">
-                            <a href="Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }">
-                            	<table border="3" id="table1">
-	                            	<tr>
-	                            		<td id="td0">제목 : </td>
-	                            		<td id="td_title">${article.r_subject }</td>
-	                            		<td id="td1">좋아요</td>
-	                            		<td id="td2">${article.r_likecount }</td>
-	                            		<td id="td3">조회수 </td>
-	                            		<td id="td4">${article.r_readcount }</td>
-	                            	</tr>
-	                            	<tr>
-	                            		<td>지역 : </td>
-	                            		<td>${article.r_name}</td>
-	                            		<td colspan="2">작성날짜</td>
-	                            		<td colspan="2">${article.r_date }</td>
-	                            	</tr>
-                            	</table>
-                            </a>
-                        </div>
-                    </div>
-                		</c:forEach>
-				
-                    
-                </div>
-                <!--/.col-md-8-->
 
-                <aside class="col-md-4">
-                    
-                <jsp:include page="/inc/includePlace.jsp" />                        
-					
-                    
-                </aside>
+<%--                 <c:forEach var="article" items="${articleList }" > --%>
+<!-- 					<div class="blog-item"> -->
+<!--                         <div class="blog-content"> -->
+<%--                             <a href="Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }"> --%>
+<!--                             	<table border="3" id="table1"> -->
+<!-- 	                            	<tr> -->
+<!-- 	                            		<td id="td0">제목 : </td> -->
+<%-- 	                            		<td id="td_title">${article.r_subject }</td> --%>
+<!-- 	                            		<td id="td1">좋아요</td> -->
+<%-- 	                            		<td id="td2">${article.r_likecount }</td> --%>
+<!-- 	                            		<td id="td3">조회수 </td> -->
+<%-- 	                            		<td id="td4">${article.r_readcount }</td> --%>
+<!-- 	                            	</tr> -->
+<!-- 	                            	<tr> -->
+<!-- 	                            		<td>지역 : </td> -->
+<%-- 	                            		<td>${article.r_name}</td> --%>
+<!-- 	                            		<td colspan="2">작성날짜</td> -->
+<%-- 	                            		<td colspan="2">${article.r_date }</td> --%>
+<!-- 	                            	</tr> -->
+<!--                             	</table> -->
+<!--                             </a> -->
+<!--                 </div> -->
+<!--                 </div> -->
+<%--                 		</c:forEach> --%>
+                <div class="blog-item">
+				<div class="o_list" style="clear: both;">
+					<table class="ot_list">
+						<tr>
+							<th>지역</th>
+							<th>제목</th>
+							<th style="padding-right: 20px;">좋아요</th>
+							<th style="padding-right: 20px;">조회수</th>
+							<th style="padding-right: 20px;">작성날짜</th>
+						</tr>
+						<c:forEach var="article" items="${articleList }" >
+								<tr>
+									<td>${article.r_name}</td>
+									<td><a href="Review_Content.re?&r_num=${article.r_num }&page=${pageInfo.page }">${article.r_subject }</a></td>
+									<td style="padding-right: 20px;">${article.r_likecount }</td>
+									<td style="padding-right: 20px;">${article.r_readcount }</td>
+									<td style="padding-right: 20px;">${article.r_date }</td>
+								</tr>
+						</c:forEach>
+
+					</table>          
+				</div>
+				</div>
+                </div>
             </div>
            
             <!--/.row   페이징 처리-->

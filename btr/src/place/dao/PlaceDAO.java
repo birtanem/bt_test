@@ -53,7 +53,7 @@ public class PlaceDAO {
 			// DB 작업에 필요한 변수 선언(Connection 객체는 이미 외부로부터 전달받음)
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			
+			System.out.println(pb.getPl_theme());
 			try {
 				
 				int num = 1; // 새 게시물 번호를 저장할 변수(초기값으로 초기번호 1번 설정)
@@ -252,12 +252,7 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "DELETE FROM place_comment WHERE place_pl_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, pl_num);
-				deleteCount = pstmt.executeUpdate();
-				
-				sql = "DELETE FROM place WHERE place_pl_num=?";
+				String sql = "DELETE FROM place WHERE pl_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, pl_num);
 				deleteCount = pstmt.executeUpdate();
@@ -308,6 +303,16 @@ public class PlaceDAO {
 				pstmt.setInt(4,pcb.getPc_rank()); //pc_rank
 				pstmt.setInt(5, pcb.getPl_num()); 
 				insertCount = pstmt.executeUpdate();
+				
+				if (insertCount > 0 ) {
+					sql = "update member set point = point+50 where id = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, pcb.getMember_id());
+					
+					pstmt.executeUpdate();
+				}
 				
 			} catch (SQLException e) {
 //							e.printStackTrace();
@@ -483,15 +488,19 @@ public class PlaceDAO {
 				// 게시물 갯수 조회할 SQL 구문 작성
 				// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
 				// => limit : 시작 행 번호부터 지정된 게시물 갯수만큼 제한
-				String sql = "SELECT * FROM place WHERE pl_name like ? or pl_content like ? or pl_address like ? or pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
+//				String sql = "SELECT * FROM place WHERE pl_name like ? or pl_content like ? or pl_address like ? or pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
+				String sql = "SELECT * FROM place WHERE pl_theme like ? ORDER BY pl_num desc LIMIT ?,?";
 				
 				pstmt = con.prepareStatement(sql);
+//				pstmt.setString(1, search);
+//				pstmt.setString(2, search);
+//				pstmt.setString(3, search);
+//				pstmt.setString(4, search);
+//				pstmt.setInt(5, startRow);
+//				pstmt.setInt(6, limit);
 				pstmt.setString(1, search);
-				pstmt.setString(2, search);
-				pstmt.setString(3, search);
-				pstmt.setString(4, search);
-				pstmt.setInt(5, startRow);
-				pstmt.setInt(6, limit);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
 				rs = pstmt.executeQuery();
 				
 				// 조회된 레코드 만큼 반복
@@ -530,9 +539,11 @@ public class PlaceDAO {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			ArrayList<PlaceBean> articleList = new ArrayList<PlaceBean>();
+			
+			String likeAvg = "(select round(avg(pc_rank),1) from place_comment where place_pl_num = pl_num)";
 			try {
 				// 인기여행지(like순) 추출하기 위해서 ORDER BY 추가
-				String sql = "SELECT * FROM place ORDER BY pl_likecount DESC";
+				String sql = "SELECT *,"+likeAvg+" as likeAvg FROM place ORDER BY likeAvg DESC";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -550,6 +561,7 @@ public class PlaceDAO {
 					article.setPl_likecount(rs.getInt("pl_likecount"));
 					article.setPl_date(rs.getDate("pl_date"));
 					article.setPl_theme(rs.getString("pl_theme"));
+					article.setPl_likeAvg(rs.getDouble("likeAvg"));
 					
 					// 전체 레코드 저장하는 ArrayList 객체에 1개 레코드를 저장한 BoardBean 객체 전달
 					articleList.add(article);}
@@ -565,5 +577,30 @@ public class PlaceDAO {
 			return articleList;
 		}
 
+		public int pc_delete(int pc_num) {
+			
+			PreparedStatement pstmt = null;
+			
+			int deleteCount = 0;
+			
+			try {
+				
+				String sql = "delete from place_comment where pc_num = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, pc_num);
+				
+				deleteCount = pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				System.out.println("PlaceDAO - pc_delete() : " + e.getMessage());
+			}finally {
+				close(pstmt);
+			}
+			
+			return deleteCount;
+		}
 	
 }

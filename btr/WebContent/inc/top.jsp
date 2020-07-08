@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-xs-12">
                         <div class="top-number">
-                            <p><i class="fa fa-phone-square"></i> +0123 456 70 90</p>
+                            <p><i class="fa fa-phone-square"></i> +051 123 4567</p>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">
@@ -21,12 +21,12 @@
                                 <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
                                 <li><a href="#"><i class="fa fa-skype"></i></a></li>
                             </ul>
-                            <div class="search">
-                                <form role="form">
-                                    <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                                    <i class="fa fa-search"></i>
-                                </form>
-                            </div>
+<!--                             <div class="search"> -->
+<!--                                 <form role="form"> -->
+<!--                                     <input type="text" class="search-form" autocomplete="off" placeholder="Search"> -->
+<!--                                     <i class="fa fa-search"></i> -->
+<!--                                 </form> -->
+<!--                             </div> -->
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">
@@ -81,26 +81,28 @@
                     <!-- 관리자 'admin' 일 경우 관리자 메뉴 노출 -->
                     
 						<c:if test="${sessionScope.id == 'admin'}">	 	
-						<li class="dropdown">
+						<li class="dropdown nav1">
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자 메뉴 <i class="fa fa-angle-down"></i></a>
 						        <ol class="dropdown-menu">
-						            <li><a href="adminPage.ad">관리자 페이지</a></li>
+<!-- 						            <li><a href="adminPage.ad">관리자 페이지</a></li> -->
 						            <li><a href="MemberList.me">회원 관리</a></li>
-						            <li><a href="adminSuggestion_List.su">문의관리</a></li>
+						            <li><a href="PlaceWriteForm.pl?">여행지 등록</a></li>
+						            
 						            <li><a href="adminProduct.ad">상품 관리</a></li>
+						            <li><a href="adminSuggestion_List.su">문의 관리</a></li>
+						            
+		
+						            <li><a href="adminEvent.ad">이벤트 내역</a></li>
 						            <li><a href="adminLog.ad">통계</a></li>
-						            <li><a href="PlaceWriteForm.pl?">Place 글 등록</a></li>
-						            <li><a href="#">여행지 관리</a></li>
-						            <li><a href="adminEvent.ad">이벤트 관리</a></li>
 						        </ol>
 						    </li>
 						</c:if>
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="PlaceList.pl?check=2">Place</a></li>
-                        <li><a href="Review_List.re">Review</a></li>
-                        <li><a href="productList.pr">여행상품</a></li>
-                        <li><a href="Suggestion_Menu.su">고객센터</a></li>
-                        <li><a href="event.ev">이벤트</a></li>
+                        <li class="nav2"><a href="index.html">메인</a></li>
+                        <li class="nav3"><a href="PlaceList.pl?check=2">여행지</a></li>
+                        <li class="nav4"><a href="Review_List.re">후기게시판</a></li>
+                        <li class="nav5"><a href="productList.pr">여행상품</a></li>
+                        <li class="nav6"><a href="Suggestion_Menu.su">고객센터</a></li>
+                        <li class="nav7"><a href="event.ev">이벤트</a></li>
                     </ul>
                 </div>
             </div>

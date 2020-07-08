@@ -39,11 +39,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style type="text/css">
-
-
-
-</style>
+	<script type="text/javascript">
+   	// 메뉴 액티브
+   $(document).ready(function() {
+	  $(".nav5").addClass("active"); 
+   });
+   </script>
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
@@ -57,22 +58,18 @@
 
 	<div class="page-title"
 		style="background-image: url(images/top/Busan2.jpg); background-size: cover; background-position: center;">
-		<h1>Product</h1>
+		<h1>여행상품</h1>
 	</div>
 
 	<section id="portfolio" style="background-color: #FAFAFA">
 
-		<div class="center">
-			<h2>Product List</h2>
-			<p class="lead">상품 리스트</p>
-		</div>
+
 		<!-- 			data-filter 수정해야함 ~ test용 -->
 		<ul class="portfolio-filter text-center">
-			<li><a class="btn btn-default active" href="#" data-filter="*">All
-					Works</a></li>
-			<li><a class="btn btn-default" href="#" data-filter=".아쿠아리움">아쿠아리움</a></li>
-			<li><a class="btn btn-default" href="#" data-filter=".전시">전시</a></li>
-			<li><a class="btn btn-default" href="#" data-filter=".요트">요트</a></li>
+			<li><a class="btn btn-default active" href="#" data-filter="*">전체보기</a></li>
+			<li><a class="btn btn-default" href="#" data-filter=".관광">관광</a></li>
+			<li><a class="btn btn-default" href="#" data-filter=".맛집">맛집</a></li>
+			<li><a class="btn btn-default" href="#" data-filter=".역사">역사</a></li>
 			<li><a class="btn btn-default" href="#" data-filter=".체험">체험</a></li>
 			<li></li>
 		</ul>
@@ -95,7 +92,7 @@
 	            <c:choose>
 					<c:when test="${pageInfo.listCount>0}">
 					<c:forEach var="list" items="${productList }" varStatus="vs">
-	                <div onclick="location.href='productDetail.pr?p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_category } col-xs-12 col-sm-4 col-md-3 single-work">
+	                <div onclick="location.href='productDetail.pr?p_num=${list.p_num }'" class="col-md-4 col-sm-6 single-team portfolio-item ${list.p_theme }  col-xs-12 col-sm-4 col-md-3 single-work">
 	                <input type="hidden" value="${list.p_num }" name="p_num">
 	                    <div class="inner">
 	                        <div class="team-img">
@@ -103,7 +100,7 @@
 	                        </div>
 	                        <div class="team-content">
 	                            <h4>${list.p_name }</h4>
-	                            <span class="desg">${list.p_category }</span>
+	                            <span class="desg">${list.p_theme }</span>
 	                            <div class="team-social">
 	                               <span style="color: #F76;"><fmt:formatNumber value="${list.p_price }"
 									pattern="###,###,###" /> 원</span>
@@ -164,27 +161,9 @@
         </div>
     </section>
 
-
+	
 	</section>
-	<footer id="footer" class="midnight-blue">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					&copy; 2013 <a target="_blank" href="http://shapebootstrap.net/"
-						title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>.
-					All Rights Reserved.
-				</div>
-				<div class="col-sm-6">
-					<ul class="pull-right">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Faq</a></li>
-						<li><a href="#">Contact Us</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<jsp:include page="/inc/bottom.jsp" />
 	<!--/#footer-->
 	<script src="js/product_modal.js"></script>
 	<script src="js/jquery.js"></script>

@@ -1,14 +1,8 @@
 package admin.svc;
 
-import static common.db.JdbcUtil.close;
-import static common.db.JdbcUtil.getConnection;
-
+import static common.db.JdbcUtil.*;
 import java.sql.Connection;
-import java.util.ArrayList;
-
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import admin.dao.AdminDAO;
 
 

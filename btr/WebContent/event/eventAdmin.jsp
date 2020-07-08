@@ -53,6 +53,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav1").addClass("active"); 
+	   });
+   </script>
+   
 <style>
 table {
   font-family: arial, sans-serif;
@@ -135,7 +142,7 @@ function eventWinList(sel) {
 		    	$("#table1").append("<tr><td>"+rdata[1].e_round+"</td><td>"+rdata[1].e_sdate+"</td><td>"+rdata[1].e_edate+"</td></tr>");
 		    	
 		    	$.each(rdata[0], function(index, item) {
-		    		$("#table2").append("<tr><td>"+item.member_id+"</td><td>"+item.ew_date+"</td><td>"+item.cp_3+"</td><td>"+item.cp_5+"</td><td>"+item.cp_10+"</td></tr>");
+		    		$("#table2").append("<tr><td>"+item.member_id+"</td><td>"+item.ew_date+"</td><td>"+item.ew_cp_3+"</td><td>"+item.ew_cp_5+"</td><td>"+item.ew_cp_10+"</td></tr>");
 		    	});
 		    }  
 		});
@@ -179,7 +186,7 @@ $(document).ready(function() {
 
     <section id="contact-page" style="height: 1000px;">
 
-<h1>이벤트시작, 종료 및 당첨내역??</h1>
+<h1>이벤트 내역</h1>
 <!-- <input type="text" id="selboxDirect" name="selboxDirect"/> -->
 
 <div class="sel-container" style="width:200px;">
@@ -187,7 +194,7 @@ $(document).ready(function() {
 <select id="sel">
 <option value="선택">선택</option>
 
-<c:forEach var="wList" items="${eventWinList}" varStatus="status" step="3">
+<c:forEach var="wList" items="${eventList}" varStatus="status">
 <option>${status.count}</option>
 </c:forEach>
 </select>

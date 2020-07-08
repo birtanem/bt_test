@@ -100,6 +100,7 @@ public class OrderAddService {
 					}
 					
 					if(!deleteSuccess) { // cart 삭제 실패!
+						
 						orderNum = "장바구니에서 문제가 발생하였습니다!";
 						rollback(con);
 					}else { // cart 삭제 성공!

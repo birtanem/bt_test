@@ -34,6 +34,9 @@ public class OrderAddAction implements Action {
 		ActionForward forward = null;
 		// insert 성공 여부 판별 변수선언
 		
+	 
+		
+		
 		JSONParser parser = new JSONParser();
 		JSONArray jsonArray = (JSONArray)parser.parse(request.getParameter("jsonData"));
 		
@@ -58,16 +61,15 @@ public class OrderAddAction implements Action {
 		String orderNum = orderAddService.insertOrderList(ob, jsonArray);
 		
 		if(orderNum.contains("문제") || orderNum.contains("품절")) {
-			
+			System.out.println("여기냐설마");
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print(orderNum);
 			
 		}else {
-						
+						System.out.println("넘와와라");
 			session.setAttribute("orderNum", orderNum);
 			session.setAttribute("ob", ob);
-			
 		}
 		
 

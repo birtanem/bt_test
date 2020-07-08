@@ -47,11 +47,30 @@ e_edate default 값 설정
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script type="text/javascript">
+   		// 메뉴 액티브
+	   $(document).ready(function() {
+		  $(".nav7").addClass("active"); 
+	   });
+   </script>
+   
 <script type="text/javascript">
 
 $(document).ready(function() {
 
+	$('#btn').keydown(function() {
+		
+		if( $('#enter').val() != "admin") {
+			
+			if (event.keyCode == 13) {
+			    event.preventDefault();
+			  };
+		}
+		  
+	});
+	
 	$('#btn').click(function() {
+		
 		
 		$.ajax({
 			
@@ -101,13 +120,23 @@ $(document).ready(function() {
 					$(".p1").html("<img src='images/box.png' id='img'><br>");
 					$("#btn").css('opacity','1').css('pointer-events','auto');
 					
-				}, 4000);
+				}, 3000);
 				
 
 			}
 		})
 
     });
+	
+	// 버튼 hover img 효과
+// 	$('#btn').mouseover(function() {
+		
+// 		$('#img').css('-webkit-animation','wobble-hor-bottom 0.8s infinite alternate').css('animation','wobble-hor-bottom 0.8s infinite alternate')
+// 	});
+// 	$('#btn').mouseout(function() {
+		
+// 		$('#img').css('-webkit-animation','').css('animation','');
+// 	});
 });
 </script>
 <script type="text/javascript">
@@ -132,7 +161,7 @@ $(document).ready(function() {
 		callback	: function(days, hours, minutes, seconds){
 		
 		}
-});
+	});
 });
 
 function adminPop() {
@@ -144,6 +173,7 @@ function adminPop() {
 </head>
 
 <body>
+<input type="hidden" id="enter" value="${sessionScope.id }">
 <jsp:include page="../inc/top.jsp"></jsp:include>
 
     <div class="page-title" style="background-image: url(images/top/Busan5.jpg); background-size: cover; background-position: center;">
