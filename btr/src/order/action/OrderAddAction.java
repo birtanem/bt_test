@@ -34,6 +34,9 @@ public class OrderAddAction implements Action {
 		ActionForward forward = null;
 		// insert 성공 여부 판별 변수선언
 		
+	 
+		
+		
 		JSONParser parser = new JSONParser();
 		JSONArray jsonArray = (JSONArray)parser.parse(request.getParameter("jsonData"));
 		
@@ -67,7 +70,6 @@ public class OrderAddAction implements Action {
 						
 			session.setAttribute("orderNum", orderNum);
 			session.setAttribute("ob", ob);
-			
 		}
 		
 

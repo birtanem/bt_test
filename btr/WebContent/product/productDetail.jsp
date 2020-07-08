@@ -125,7 +125,6 @@ function goCart(){
 			return false;
 		}
 		
-		
 	}
 	var id='admin'; 
 	var amount=Number(document.getElementById("amount").value);
@@ -199,11 +198,7 @@ function goCart(){
 	</div>
 
 	</section>
-	
-	
-	   
-                    
-                    
+	              
 	<!--/#bottom-->
 	<footer id="footer" class="midnight-blue">
 		<div class="container">
