@@ -58,7 +58,19 @@ e_edate default 값 설정
 
 $(document).ready(function() {
 
+	$('#btn').keydown(function() {
+		
+		if( $('#enter').val() != "admin") {
+			
+			if (event.keyCode == 13) {
+			    event.preventDefault();
+			  };
+		}
+		  
+	});
+	
 	$('#btn').click(function() {
+		
 		
 		$.ajax({
 			
@@ -108,7 +120,7 @@ $(document).ready(function() {
 					$(".p1").html("<img src='images/box.png' id='img'><br>");
 					$("#btn").css('opacity','1').css('pointer-events','auto');
 					
-				}, 4000);
+				}, 3000);
 				
 
 			}
@@ -117,14 +129,14 @@ $(document).ready(function() {
     });
 	
 	// 버튼 hover img 효과
-	$('#btn').mouseover(function() {
+// 	$('#btn').mouseover(function() {
 		
-		$('#img').css('-webkit-animation','wobble-hor-bottom 0.8s infinite alternate').css('animation','wobble-hor-bottom 0.8s infinite alternate')
-	});
-	$('#btn').mouseout(function() {
+// 		$('#img').css('-webkit-animation','wobble-hor-bottom 0.8s infinite alternate').css('animation','wobble-hor-bottom 0.8s infinite alternate')
+// 	});
+// 	$('#btn').mouseout(function() {
 		
-		$('#img').css('-webkit-animation','').css('animation','');
-	});
+// 		$('#img').css('-webkit-animation','').css('animation','');
+// 	});
 });
 </script>
 <script type="text/javascript">
@@ -161,6 +173,7 @@ function adminPop() {
 </head>
 
 <body>
+<input type="hidden" id="enter" value="${sessionScope.id }">
 <jsp:include page="../inc/top.jsp"></jsp:include>
 
     <div class="page-title" style="background-image: url(images/top/Busan5.jpg); background-size: cover; background-position: center;">

@@ -59,7 +59,7 @@ private static OrderDAO instance;
 				pb.setP_name(rs.getString("p_name"));
 				pb.setP_content(rs.getString("p_content"));
 				pb.setP_image(rs.getString("p_image"));
-				pb.setP_price(Integer.parseInt((String)obj.get("price")));
+				pb.setP_price(Integer.parseInt(String.valueOf(obj.get("price"))));
 				pb.setP_amount(Integer.parseInt((String)obj.get("amount")));
 				pb.setP_theme(rs.getString("p_theme"));
 				

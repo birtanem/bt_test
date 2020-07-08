@@ -50,9 +50,9 @@ function paytest(){
 </script>
 	<script type="text/javascript">
    	// 메뉴 액티브
-   $(document).ready(function() {
-	  $(".nav5").addClass("active"); 
-   });
+//    $(document).ready(function() {
+// 	  $(".nav5").addClass("active"); 
+//    });
    </script>
 <script type="text/javascript">
 //결제API
@@ -109,7 +109,7 @@ function preCheck(){
 <script type="text/javascript">
 function payData(){	
 	$(document).ready(function(){
-	 	var total = $("#total_tn").html();
+	 	var total = commasWithNumber($("#total_tn").html());
 		var point = commasWithNumber($("#desc_point").html());
 		var pay = $('input[name="payMethod"]:checked').val();
 		var num = document.getElementsByName("num");
@@ -142,7 +142,13 @@ function payData(){
 				"pay" : pay
 			},
 			success : function(rdata) {
-				location.href = "orderResult.or"
+				if(rdata != null ) {
+					alert(rdata)
+					return false;
+				}else {
+					location.href = "orderResult.or"	
+				}
+				
 			}
 		});
 	});

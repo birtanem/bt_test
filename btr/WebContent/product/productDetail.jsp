@@ -82,10 +82,11 @@ $(document).ready(function(){
 				return false;
 				
 			}
-			
+			alert($("#amount").val())
+			alert($("#price").val()*$("#amount").val())
 		 	var num = $("#num").val();
-		 	var amount = $("#amount2").val();
-		 	var price = $("#price").val();
+		 	var amount = $("#amount").val();
+		 	var price = $("#price").val()*$("#amount").val();
 		    var testList = new Array() ;
 		         
 		        // 객체 생성
@@ -96,7 +97,7 @@ $(document).ready(function(){
 		        	data.num =  num
 				    data.amount = amount
 				    data.price = price
-				    testList.push(data) ;
+				    testList.push(data)
 				    
 //		     // String 형태로 변환
 		    var jsonData = JSON.stringify(testList) ;

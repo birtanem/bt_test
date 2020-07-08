@@ -279,7 +279,7 @@ margin-top: 150px;}
 						<dt>인기 여행지</dt>
 						<dd>
 							<ol>
-								<c:forEach var="list" items="${list }" begin="0" end="4" varStatus="stat">
+								<c:forEach var="list" items="${list }" begin="0" end="10" varStatus="stat">
 									<li><a href="PlaceDetail.pl?pl_num=${list.pl_num}">
 									
 										<c:choose>

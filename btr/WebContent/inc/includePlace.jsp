@@ -73,8 +73,8 @@
                         		<li>
                             		<a href="productDetail.pr?p_num=${list.p_num }"><img src="product/productUpload/${list.p_image }" title="${list.p_name}" width="50" height="100"/>
                             			 <c:choose>
-											<c:when test="${fn:length(list.p_name) gt 11}">
-												&nbsp; ${fn:substring(list.p_name,0,10) }...	
+											<c:when test="${fn:length(list.p_name) gt 9}">
+												&nbsp; ${fn:substring(list.p_name,0,9) }...	
 											</c:when>
 											<c:otherwise>
 												&nbsp; ${list.p_name }									
