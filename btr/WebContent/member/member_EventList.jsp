@@ -91,7 +91,7 @@
     <section id="blog">
         <div class="blog container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-sm-10">
                 
                 	<div class="blog-item">
                         <div class="blog-content">
@@ -130,14 +130,6 @@
 				</div>
 				</div>
                 </div>
-                <!--/.col-md-8-->
-
-                <aside class="col-md-4">
-                    
-                <jsp:include page="/inc/includePlace.jsp" />                        
-					
-                    
-                </aside>
             </div>
            
             <!--/.row   페이징 처리-->

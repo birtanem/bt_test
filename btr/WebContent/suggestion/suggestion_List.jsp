@@ -171,7 +171,7 @@
     <section id="blog">
         <div class="blog container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-sm-10">
                 
                 	<div class="blog-item">
                         <div class="blog-content">
